@@ -2893,6 +2893,7 @@
     }
 
     .daily-report-overview h3,
+    .daily-report-detail-section h3,
     .daily-report-missed h3 {
       margin: 0;
       color: var(--preview-ink);
@@ -3165,6 +3166,81 @@
 
     .daily-report-rollup-item[data-complete="true"] strong {
       color: var(--success);
+    }
+
+    .daily-report-detail-section {
+      display: grid;
+      gap: 11px;
+      width: min(100%, 620px);
+      margin: 12px auto 0;
+      padding: 12px;
+      border: 1px solid var(--preview-line);
+      border-radius: 10px;
+      background: var(--paper);
+    }
+
+    .daily-report-detail-list {
+      display: grid;
+      gap: 7px;
+    }
+
+    .daily-report-detail-item {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 4px 10px;
+      min-width: 0;
+      padding: 9px;
+      border: 1px solid color-mix(in srgb, var(--matcha-700) 22%, var(--line));
+      border-radius: 8px;
+      background: color-mix(in srgb, var(--matcha-700) 4%, var(--paper));
+      color: var(--preview-ink);
+    }
+
+    .daily-report-detail-item > strong {
+      min-width: 0;
+      font-size: 0.74rem;
+      font-weight: 850;
+      line-height: 1.35;
+      overflow-wrap: anywhere;
+    }
+
+    .daily-report-detail-status {
+      align-self: start;
+      padding: 3px 6px;
+      border-radius: 999px;
+      background: color-mix(in srgb, var(--success) 12%, var(--paper));
+      color: var(--success);
+      font-size: 0.62rem;
+      font-weight: 850;
+      line-height: 1.2;
+      white-space: nowrap;
+    }
+
+    .daily-report-detail-item[data-complete="false"] .daily-report-detail-status {
+      background: color-mix(in srgb, var(--danger) 10%, var(--paper));
+      color: var(--danger);
+    }
+
+    .daily-report-detail-meta,
+    .daily-report-detail-comment,
+    .daily-report-detail-empty {
+      grid-column: 1 / -1;
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.7rem;
+      line-height: 1.4;
+      overflow-wrap: anywhere;
+    }
+
+    .daily-report-detail-comment {
+      color: var(--preview-ink);
+    }
+
+    .daily-report-detail-empty {
+      padding: 9px;
+      border: 1px dashed var(--line);
+      border-radius: 8px;
+      text-align: center;
     }
 
     .daily-report-missed {
@@ -12910,6 +12986,38 @@
         return lines;
       }
 
+      function activeDynamicReportEntries(container) {
+        return collectDynamic(container).filter(dynamicEntryIsActive);
+      }
+
+      function completedErrorProofingReportEntries() {
+        var proof = errorProofSelect.value;
+        return activeFixedCheckboxes().filter(function (checkbox) {
+          var group = checkbox.getAttribute("data-group") || "";
+          return group.indexOf("NGM Error Proofing") === 0 && fixedTaskIsEarned(checkbox);
+        }).map(function (checkbox) {
+          var machine = checkbox.getAttribute("data-error-line") || checkbox.getAttribute("data-label") || "Machine not entered";
+          var cellInput = form.querySelector('[data-daily-cell-id="' + machine + '"][data-error-proof="' + proof + '"]');
+          return {
+            machine: machine,
+            cellId: cellInput && cellInput.value.trim() ? cellInput.value.trim() : "Not entered",
+            completedBy: contributorLabel(taskTechnician(checkbox.getAttribute("data-daily-fixed"))),
+            points: displayPoints(checkbox.getAttribute("data-points"))
+          };
+        });
+      }
+
+      function completedErrorProofingSummaryLines() {
+        var entries = completedErrorProofingReportEntries();
+        if (!entries.length) return ["- No completed error-proofing machines"];
+        return entries.map(function (entry) {
+          return "✅ " + entry.machine +
+            " | Cell ID: " + entry.cellId +
+            " | Completed by: " + entry.completedBy +
+            " | " + entry.points + " pts";
+        });
+      }
+
       function allocationRateSummaryLines(result) {
         var lines = ["Allocation Completion Rates"];
         ["1", "2", "3"].forEach(function (allocation) {
@@ -13175,6 +13283,93 @@
         preview.appendChild(section);
       }
 
+      function createReportDetailItem(titleText, statusText, complete, metaText, commentText) {
+        var item = document.createElement("article");
+        item.className = "daily-report-detail-item";
+        item.setAttribute("data-complete", complete ? "true" : "false");
+
+        var title = document.createElement("strong");
+        title.textContent = titleText;
+        var status = document.createElement("span");
+        status.className = "daily-report-detail-status";
+        status.textContent = statusText;
+        var meta = document.createElement("p");
+        meta.className = "daily-report-detail-meta";
+        meta.textContent = metaText;
+        item.appendChild(title);
+        item.appendChild(status);
+        item.appendChild(meta);
+
+        if (commentText) {
+          var comment = document.createElement("p");
+          comment.className = "daily-report-detail-comment";
+          comment.textContent = "Comment: " + commentText;
+          item.appendChild(comment);
+        }
+        return item;
+      }
+
+      function appendReportDetailSection(titleText, entries, emptyText, itemBuilder) {
+        var section = document.createElement("section");
+        section.className = "daily-report-detail-section";
+        var heading = document.createElement("h3");
+        heading.textContent = titleText;
+        section.appendChild(heading);
+
+        var list = document.createElement("div");
+        list.className = "daily-report-detail-list";
+        if (!entries.length) {
+          var empty = document.createElement("p");
+          empty.className = "daily-report-detail-empty";
+          empty.textContent = emptyText;
+          list.appendChild(empty);
+        } else {
+          entries.forEach(function (entry) {
+            list.appendChild(itemBuilder(entry));
+          });
+        }
+        section.appendChild(list);
+        preview.appendChild(section);
+      }
+
+      function appendDynamicReportSection(titleText, container, emptyText) {
+        appendReportDetailSection(titleText, activeDynamicReportEntries(container), emptyText, function (entry) {
+          var details = [entry.process, entry.machine, entry.vision].filter(Boolean).join(" · ") || "Details not entered";
+          var credited = entry.complete && Boolean(entry.completedBy);
+          var status = credited ? "Completed" : (entry.complete ? "Needs technician" : "Incomplete");
+          var meta = credited
+            ? "Completed by: " + contributorLabel(entry.completedBy) + " · " + DAILY_DYNAMIC_ENTRY_POINTS + " pts"
+            : (entry.complete
+              ? "Completed By not selected · " + DAILY_DYNAMIC_ENTRY_POINTS + " pts pending"
+              : "Not completed · " + DAILY_DYNAMIC_ENTRY_POINTS + " pts available");
+          return createReportDetailItem(details, status, credited, meta, entry.comment);
+        });
+      }
+
+      function appendErrorProofingReportSection() {
+        var proof = errorProofSelect.value || "A/B";
+        appendReportDetailSection(
+          "Completed NGM Error Proofing " + proof + " Machines",
+          completedErrorProofingReportEntries(),
+          "No error-proofing machines completed.",
+          function (entry) {
+            return createReportDetailItem(
+              entry.machine,
+              "Completed",
+              true,
+              "Cell ID: " + entry.cellId + " · Completed by: " + entry.completedBy + " · " + entry.points + " pts",
+              ""
+            );
+          }
+        );
+      }
+
+      function appendReportDetails() {
+        appendDynamicReportSection("PM Entries", pmEntries, "No PM entries recorded.");
+        appendDynamicReportSection("Escalation Entries", escalationEntries, "No escalation entries recorded.");
+        appendErrorProofingReportSection();
+      }
+
       function appendMissedWork(result) {
         var section = document.createElement("section");
         section.className = "daily-report-missed" + (result.missed.length ? "" : " daily-report-missed-complete");
@@ -13300,6 +13495,7 @@
       function renderDailyShiftPreview(result) {
         preview.innerHTML = "";
         appendReportOverview(result);
+        appendReportDetails();
       }
 
       function buildShiftReport(result) {
@@ -13341,6 +13537,12 @@
           "PM's - Total: " + pmTotal.count + " " + (pmTotal.count === 1 ? "entry" : "entries") + " · " + displayPoints(pmTotal.points) + " pts",
           "Escalations - Total: " + escalationTotal.count + " " + (escalationTotal.count === 1 ? "entry" : "entries") + " · " + displayPoints(escalationTotal.points) + " pts"
         );
+        lines.push("", "PM Entries");
+        Array.prototype.push.apply(lines, dynamicSummaryLines(pmEntries));
+        lines.push("", "Escalation Entries");
+        Array.prototype.push.apply(lines, dynamicSummaryLines(escalationEntries));
+        lines.push("", "Completed NGM Error Proofing " + (errorProofSelect.value || "A/B") + " Machines");
+        Array.prototype.push.apply(lines, completedErrorProofingSummaryLines());
         return lines.join("\n");
       }
 
