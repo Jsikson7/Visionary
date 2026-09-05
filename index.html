@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="description" content="A mobile-friendly collection of vision production guides, troubleshooting history, and copy-ready reporting tools.">
-  <meta name="visionary-app-version" content="3.0.17">
+  <meta name="visionary-app-version" content="3.0.14">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
@@ -66,7 +66,7 @@
           name: "Visionary Tool",
           short_name: "Visionary",
           description: "Mobile production guides, troubleshooting, and copy-ready reporting tools.",
-          start_url: scopeUrl.href + "?v=317",
+          start_url: scopeUrl.href + "?v=314",
           scope: scopeUrl.href,
           display: "standalone",
           orientation: "portrait-primary",
@@ -2757,38 +2757,6 @@
       grid-column: 1 / -1;
     }
 
-    .daily-super-completed-by-control,
-    .daily-super-completed-by-list {
-      display: grid;
-      gap: 7px;
-    }
-
-    .daily-super-completed-by-row {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) auto;
-      align-items: center;
-      gap: 7px;
-    }
-
-    .daily-super-completed-by-row .button,
-    .daily-super-completed-by-add {
-      width: auto;
-      min-height: 40px;
-      padding: 7px 10px;
-      font-size: 0.68rem;
-    }
-
-    .daily-super-completed-by-add {
-      justify-self: start;
-    }
-
-    .daily-super-completed-by-hint {
-      margin: 0;
-      color: var(--muted);
-      font-size: 0.64rem;
-      line-height: 1.35;
-    }
-
     .daily-add-entry {
       width: calc(100% - 24px);
       min-height: 46px;
@@ -3723,7 +3691,7 @@
 
     .daily-report-email-link {
       display: inline-block;
-      margin: 6px 8px 0 0;
+      margin-left: 6px;
       color: inherit;
       font-weight: 850;
       text-decoration: underline;
@@ -6106,7 +6074,7 @@
             <span class="form-tile-arrow" aria-hidden="true">›</span>
           </button>
         </div>
-        <p class="last-updated">Version 3.0.17 · Last updated: <time datetime="2026-09-05">September 5, 2026</time></p>
+        <p class="last-updated">Version 3.0.14 · Last updated: <time datetime="2026-09-05">September 5, 2026</time></p>
         <div class="version-history-link-wrap">
           <button id="open-version-history" class="version-history-link" type="button">View version history</button>
         </div>
@@ -6216,7 +6184,7 @@
             <div class="daily-cloud-copy">
               <strong id="daily-cloud-title">Shared shift synchronization</strong>
               <span id="daily-cloud-status" role="status" aria-live="polite">Sign in with Google to share Daily Tasks across phones.</span>
-              <small>Safe Sync v6.1 · App 3.0.17</small>
+              <small>Safe Sync v5 · App 3.0.14</small>
             </div>
           </div>
           <div class="daily-cloud-actions">
@@ -6325,7 +6293,7 @@
                 <article class="daily-contribution-card"><span id="daily-contribution-a2-name">Allocation 2</span><strong id="daily-contribution-a2-percent">0%</strong><small><span id="daily-contribution-a2-points">0</span> pts</small></article>
                 <article class="daily-contribution-card"><span id="daily-contribution-a3-name">Allocation 3</span><strong id="daily-contribution-a3-percent">0%</strong><small><span id="daily-contribution-a3-points">0</span> pts</small></article>
               </div>
-              <p class="daily-task-score-note">Check a task, then choose Completed By. Most work credits one selected person; Super Escalations can credit multiple technicians and divide the 150 points evenly. Allocation completion rates still follow the assigned A1, A2, and A3 work.</p>
+              <p class="daily-task-score-note">Check a task, then choose Completed By. Black Frame, Cell Tracking, PKG, shared tasks, PMs, escalations, and super escalations credit points to the selected person while allocation completion rates still follow the assigned A1, A2, and A3 work.</p>
             </section>
 
             <section id="daily-task-quick-summary" class="daily-task-quick-summary" aria-label="Current shift progress">
@@ -6582,9 +6550,7 @@
               <button id="daily-report-copy" class="button button-secondary" type="button">Copy report text</button>
             </div>
             <p id="daily-generated-report-status" class="status" role="status" aria-live="polite"></p>
-            <p class="daily-report-share-hint">Email report opens the share window with the wide PNG attached—choose your email app. If attachments are unavailable, use the Save PNG and Open email draft links shown below.</p>
-            <p id="daily-report-webmail" class="daily-report-share-hint" hidden>No mail window? Your device may not have a default email app. Open a draft in <a id="daily-report-webmail-gmail" href="#" target="_blank" rel="noopener">Gmail</a> or <a id="daily-report-webmail-outlook" href="#" target="_blank" rel="noopener">Outlook</a>, then attach the saved PNG.</p>
-            <p id="daily-report-diag" class="daily-report-share-hint" hidden style="font-family:monospace;font-size:11px;white-space:pre-wrap;word-break:break-all;"></p>
+            <p class="daily-report-share-hint">Email report opens the share window with the wide PNG attached—choose your email app. If attachments are unavailable, the PNG downloads and an email draft opens.</p>
           </div>
           <div id="daily-generated-report" class="preview daily-shift-preview daily-shift-preview-rich daily-generated-report" aria-label="Generated shift report"></div>
         </section>
@@ -6891,42 +6857,6 @@
       <section class="panel" aria-label="Release history">
         <div class="version-history-list">
           <article class="version-card version-card-current">
-            <div class="version-card-heading">
-              <h2>Version 3.0.17</h2>
-              <time datetime="2026-09-05">September 5, 2026</time>
-            </div>
-            <p class="version-summary-intro">Version 3.0.17 fixes the false bulk-clear warning and reliably reloads the selected shared shift.</p>
-            <ul class="version-summary-list">
-              <li><strong>Confirmed server reload</strong>If the safety guard activates, the app immediately retrieves and restores the newest confirmed shift from Firestore.</li>
-              <li><strong>Legacy-key preservation</strong>Older task keys that the current form cannot display are retained instead of being mistaken for user deletions.</li>
-              <li><strong>Accurate safety comparison</strong>Real edits are compared with the form state the user actually received, while true bulk clears remain blocked.</li>
-            </ul>
-          </article>
-          <article class="version-card">
-            <div class="version-card-heading">
-              <h2>Version 3.0.16</h2>
-              <time datetime="2026-09-05">September 5, 2026</time>
-            </div>
-            <p class="version-summary-intro">Version 3.0.16 restores Escalation synchronization for shifts created by older app versions.</p>
-            <ul class="version-summary-list">
-              <li><strong>Legacy entry migration</strong>Older PM and Escalation arrays are converted to the current map format during the next real form edit.</li>
-              <li><strong>Concurrent-work protection</strong>The migration rereads the latest cloud shift and applies only the pending local changes before saving.</li>
-              <li><strong>Safe Sync v6.1</strong>The matching rules allow a valid one-time legacy upgrade while preserving authentication, creator metadata, and write auditing.</li>
-            </ul>
-          </article>
-          <article class="version-card">
-            <div class="version-card-heading">
-              <h2>Version 3.0.15</h2>
-              <time datetime="2026-09-05">September 5, 2026</time>
-            </div>
-            <p class="version-summary-intro">Version 3.0.15 adds shared Super Escalation credit and removes the visible administrator email.</p>
-            <ul class="version-summary-list">
-              <li><strong>Multiple technicians</strong>Super Escalations can credit additional Completed By technicians from the active shift roster.</li>
-              <li><strong>Equal point splitting</strong>The 150 points are divided evenly between every selected technician while the shift total remains 150 points.</li>
-              <li><strong>Role-based administration</strong>Safe Sync v6 uses a protected administrator role record instead of a hard-coded email address in the app or rules.</li>
-            </ul>
-          </article>
-          <article class="version-card">
             <div class="version-card-heading">
               <h2>Version 3.0.14</h2>
               <time datetime="2026-09-05">September 5, 2026</time>
@@ -7971,9 +7901,6 @@
         "Completed By": "완료자",
         "Choose technician": "기술자 선택",
         "Choose completed by": "완료자 선택",
-        "+ Add another technician": "+ 기술자 추가",
-        "The 150 points are divided evenly between everyone selected.": "150점은 선택한 모든 기술자에게 동일하게 나뉩니다.",
-        "Choose each technician only once.": "각 기술자는 한 번만 선택하세요.",
         "Technician name": "기술자 이름",
         "Lead": "리더",
         "Lead name": "리더 이름",
@@ -8038,12 +7965,7 @@
         "Daily task summary copied.": "일일 작업 요약을 복사했습니다.",
         "Guides": "가이드",
         "Open Work Instructions and Troubleshooting.": "작업 지침과 문제 해결을 엽니다.",
-        "Version 3.0.17 · Last updated:": "버전 3.0.17 · 마지막 업데이트:",
-        "Version 3.0.17": "버전 3.0.17",
-        "Version 3.0.16 · Last updated:": "버전 3.0.16 · 마지막 업데이트:",
-        "Version 3.0.16": "버전 3.0.16",
-        "Version 3.0.15 · Last updated:": "버전 3.0.15 · 마지막 업데이트:",
-        "Version 3.0.15": "버전 3.0.15",
+        "Version 3.0.14 · Last updated:": "버전 3.0.14 · 마지막 업데이트:",
         "Version 3.0.14": "버전 3.0.14",
         "Version 3.0.13": "버전 3.0.13",
         "Version 3.0.12 · Last updated:": "버전 3.0.12 · 마지막 업데이트:",
@@ -8281,7 +8203,7 @@
         "Report results": "보고서 결과",
         "Shifts in range": "범위 내 근무",
         "Download desktop image": "데스크톱 이미지 다운로드",
-        "Email report opens the share window with the wide PNG attached—choose your email app. If attachments are unavailable, use the Save PNG and Open email draft links shown below.": "보고서 이메일은 넓은 PNG가 첨부된 공유 창을 엽니다. 이메일 앱을 선택하세요. 첨부 공유를 사용할 수 없으면 아래에 표시된 PNG 저장 및 이메일 초안 열기 링크를 사용하세요.",
+        "Email report opens the share window with the wide PNG attached—choose your email app. If attachments are unavailable, the PNG downloads and an email draft opens.": "보고서 이메일은 넓은 PNG가 첨부된 공유 창을 엽니다. 이메일 앱을 선택하세요. 첨부 공유를 사용할 수 없으면 PNG를 다운로드한 뒤 이메일 초안을 엽니다.",
         "Connected. Choose a date and shift.": "연결되었습니다. 날짜와 근무조를 선택하세요.",
         "Administrator connected. Choose a date and shift.": "관리자로 연결되었습니다. 날짜와 근무조를 선택하세요.",
         "Checking access…": "접근 권한 확인 중…",
@@ -12373,7 +12295,7 @@
       var DAILY_SHIFT_DRAFT_KEY = "visionary-daily-shift-checklist-v2";
       var LOCAL_TASK_CONFIG_KEY = "visionary-local-task-config-v1";
       var DAILY_ACCORDION_STATE_KEY = "visionary-daily-task-accordion-v1";
-      var DAILY_SHIFT_DRAFT_VERSION = 10;
+      var DAILY_SHIFT_DRAFT_VERSION = 9;
       var DAILY_SHIFT_DRAFT_TTL_MS = 16 * 60 * 60 * 1000;
       var DAILY_DYNAMIC_ENTRY_POINTS = 50;
       var DAILY_SUPER_ESCALATION_POINTS = 150;
@@ -12646,15 +12568,10 @@
       var reportPrintButton = document.getElementById("daily-report-print");
       var reportEmailButton = document.getElementById("daily-report-email");
       var reportDownloadDesktopButton = document.getElementById("daily-report-download-desktop");
-      var reportWebmailHint = document.getElementById("daily-report-webmail");
-      var reportWebmailGmail = document.getElementById("daily-report-webmail-gmail");
-      var reportWebmailOutlook = document.getElementById("daily-report-webmail-outlook");
-      var reportDiag = document.getElementById("daily-report-diag");
       var reportCopyButton = document.getElementById("daily-report-copy");
       var reportReturnFocus = generateButton;
       var preparedReportImageFiles = { desktop: null };
       var preparedReportImagePromises = { desktop: null };
-      var reportEmailFallbackObjectUrl = "";
       var reportImageBuildId = 0;
       var contributionGrid = form.querySelector(".daily-contribution-grid");
       var overallScoreOutputs = {
@@ -13301,7 +13218,7 @@
 
       function refreshContributorSelects() {
         Array.prototype.forEach.call(
-          form.querySelectorAll('[data-daily-task-technician], [data-daily-completed-by-select]'),
+          form.querySelectorAll('[data-daily-task-technician], [data-daily-dynamic-field="completedBy"]'),
           function (select) {
             appendTechnicianOptions(
               select,
@@ -13310,9 +13227,6 @@
             );
           }
         );
-        Array.prototype.forEach.call(form.querySelectorAll('.daily-dynamic-entry[data-daily-dynamic-type="super-escalation"]'), function (entry) {
-          if (typeof entry._dailyRefreshCompletedBy === "function") entry._dailyRefreshCompletedBy();
-        });
       }
 
       function createOtSupportEntry(source) {
@@ -13349,140 +13263,12 @@
         return entry;
       }
 
-      function completedBySelect(id, primary) {
+      function completedBySelect(id) {
         var select = document.createElement("select");
         select.id = id;
-        select.setAttribute("data-daily-completed-by-select", "true");
-        if (primary !== false) select.setAttribute("data-daily-dynamic-field", "completedBy");
+        select.setAttribute("data-daily-dynamic-field", "completedBy");
         appendTechnicianOptions(select, "Choose completed by");
         return select;
-      }
-
-      function completedByKeysFromData(source) {
-        var data = source || {};
-        var values = Array.isArray(data.completedByList) && data.completedByList.length
-          ? data.completedByList
-          : [data.completedBy];
-        var seen = {};
-        return values.map(function (value) {
-          return String(value || "").trim();
-        }).filter(function (value) {
-          if (!value || seen[value]) return false;
-          seen[value] = true;
-          return true;
-        });
-      }
-
-      function completedByKeysForEntry(entry) {
-        var seen = {};
-        return Array.prototype.map.call(
-          entry.querySelectorAll("[data-daily-completed-by-select]"),
-          function (select) { return select.value.trim(); }
-        ).filter(function (value) {
-          if (!value || seen[value]) return false;
-          seen[value] = true;
-          return true;
-        });
-      }
-
-      function completedBySelectionsHaveDuplicates(entry) {
-        var values = Array.prototype.map.call(
-          entry.querySelectorAll("[data-daily-completed-by-select]"),
-          function (select) { return select.value.trim(); }
-        ).filter(Boolean);
-        return values.length !== completedByKeysForEntry(entry).length;
-      }
-
-      function completedByLabels(entryData) {
-        return completedByKeysFromData(entryData).map(contributorLabel).join(", ");
-      }
-
-      function dynamicPointCreditText(type, entryData) {
-        var points = dynamicEntryPoints(type);
-        var technicians = completedByKeysFromData(entryData);
-        if (type === "super-escalation" && technicians.length > 1) {
-          return displayPoints(points) + " pts total · " + displayPoints(points / technicians.length) + " pts each";
-        }
-        return displayPoints(points) + " pts";
-      }
-
-      function createSuperCompletedByField(entry, prefix, source) {
-        var field = document.createElement("div");
-        field.className = "field daily-dynamic-completed-by";
-        var label = document.createElement("label");
-        label.setAttribute("for", prefix + "-completed-by");
-        label.textContent = "Completed By";
-        var control = document.createElement("div");
-        control.className = "daily-super-completed-by-control";
-        var list = document.createElement("div");
-        list.className = "daily-super-completed-by-list";
-        list.setAttribute("data-daily-super-completed-by-list", "true");
-        var addButton = document.createElement("button");
-        addButton.type = "button";
-        addButton.className = "button button-secondary daily-super-completed-by-add";
-        addButton.textContent = "+ Add another technician";
-        var hint = document.createElement("p");
-        hint.className = "daily-super-completed-by-hint";
-        hint.textContent = "The 150 points are divided evenly between everyone selected.";
-        var nextRowId = 1;
-
-        function updateAddButton() {
-          var rowCount = list.querySelectorAll(".daily-super-completed-by-row").length;
-          addButton.disabled = rowCount >= dailyContributorOptions().length;
-        }
-
-        function appendRow(value, isPrimary) {
-          var row = document.createElement("div");
-          row.className = "daily-super-completed-by-row";
-          var selectId = isPrimary ? prefix + "-completed-by" : prefix + "-completed-by-" + nextRowId++;
-          var select = completedBySelect(selectId, isPrimary);
-          select.setAttribute("aria-label", isPrimary ? "Completed By technician 1" : "Additional Completed By technician");
-          select.value = contributorOption(value) ? value : "";
-          row.appendChild(select);
-          if (!isPrimary) {
-            var removeButton = document.createElement("button");
-            removeButton.type = "button";
-            removeButton.className = "button button-secondary";
-            removeButton.textContent = "Remove";
-            removeButton.setAttribute("aria-label", "Remove additional Completed By technician");
-            removeButton.addEventListener("click", function () {
-              row.remove();
-              updateAddButton();
-              updateDailyShift();
-            });
-            row.appendChild(removeButton);
-          }
-          list.appendChild(row);
-          updateAddButton();
-          return select;
-        }
-
-        function setValues(values) {
-          list.innerHTML = "";
-          nextRowId = 1;
-          var completedByValues = completedByKeysFromData({ completedByList: values });
-          if (!completedByValues.length) completedByValues = [""];
-          completedByValues.forEach(function (value, index) {
-            appendRow(value, index === 0);
-          });
-          updateAddButton();
-        }
-
-        addButton.addEventListener("click", function () {
-          if (addButton.disabled) return;
-          var select = appendRow("", false);
-          select.focus();
-        });
-
-        entry._dailySetCompletedBy = setValues;
-        entry._dailyRefreshCompletedBy = updateAddButton;
-        control.appendChild(list);
-        control.appendChild(addButton);
-        control.appendChild(hint);
-        field.appendChild(label);
-        field.appendChild(control);
-        setValues(completedByKeysFromData(source));
-        return field;
       }
 
       function taskTechnicianSelect(id, fixedKey) {
@@ -13613,8 +13399,6 @@
           var control = entry.querySelector('[data-daily-dynamic-field="' + name + '"]');
           return control ? control.value.trim() : "";
         }
-        var type = entry.getAttribute("data-daily-dynamic-type") || "escalation";
-        var completedByKeys = completedByKeysForEntry(entry);
         var complete = entry.querySelector('[data-daily-dynamic-field="complete"]');
         var current = {
           id: entry.getAttribute("data-daily-dynamic-id") || "",
@@ -13623,10 +13407,9 @@
           process: value("process"),
           machine: value("machine"),
           vision: value("vision"),
-          completedBy: completedByKeys[0] || "",
+          completedBy: value("completedBy"),
           comment: value("comment")
         };
-        if (type === "super-escalation") current.completedByList = completedByKeys;
         if (!forceCurrent && entry.getAttribute("data-editing") === "true" && entry._dailyEditBackup) {
           return Object.assign({}, entry._dailyEditBackup);
         }
@@ -13634,7 +13417,7 @@
       }
 
       function dynamicEntryHasData(entryData) {
-        return entryData.complete || Boolean(entryData.process || entryData.machine || entryData.vision || completedByKeysFromData(entryData).length || entryData.comment);
+        return entryData.complete || Boolean(entryData.process || entryData.machine || entryData.vision || entryData.completedBy || entryData.comment);
       }
 
       function dynamicEntryIsActive(entryData) {
@@ -13654,11 +13437,11 @@
         var data = readDynamicEntry(entry);
         var type = entry.getAttribute("data-daily-dynamic-type") || "escalation";
         var title = [data.process, data.machine, data.vision].filter(Boolean).join(" · ") || "Entry details not completed";
-        var completedBy = data.complete ? (completedByLabels(data) || "Technician needed") : "Not completed";
+        var completedBy = data.complete ? contributorLabel(data.completedBy) : "Not completed";
         var summaryTitle = entry.querySelector("[data-daily-summary-title]");
         summaryTitle.textContent = title;
         summaryTitle.title = title;
-        entry.querySelector("[data-daily-summary-meta]").textContent = completedBy + " · " + dynamicPointCreditText(type, data);
+        entry.querySelector("[data-daily-summary-meta]").textContent = completedBy + " · " + dynamicEntryPoints(type) + " pts";
         var comment = entry.querySelector("[data-daily-summary-comment]");
         comment.textContent = data.comment;
         comment.title = data.comment;
@@ -13671,7 +13454,6 @@
 
       function applyDynamicEntryData(entry, data) {
         var source = data || {};
-        var type = entry.getAttribute("data-daily-dynamic-type") || "escalation";
         var complete = entry.querySelector('[data-daily-dynamic-field="complete"]');
         var process = entry.querySelector('[data-daily-dynamic-field="process"]');
         var completedBy = entry.querySelector('[data-daily-dynamic-field="completedBy"]');
@@ -13679,12 +13461,8 @@
         complete.checked = Boolean(source.complete);
         process.value = source.process || "";
         updateDynamicEntryChoices(entry, source.machine || "", source.vision || "");
-        if (type === "super-escalation" && typeof entry._dailySetCompletedBy === "function") {
-          entry._dailySetCompletedBy(completedByKeysFromData(source));
-        } else {
-          appendTechnicianOptions(completedBy, "Choose completed by");
-          completedBy.value = contributorOption(source.completedBy) ? source.completedBy : "";
-        }
+        appendTechnicianOptions(completedBy, "Choose completed by");
+        completedBy.value = contributorOption(source.completedBy) ? source.completedBy : "";
         comment.value = source.comment || "";
         setDynamicEntryMode(entry, Boolean(source.saved), false);
         updateDynamicEntrySummary(entry);
@@ -13784,14 +13562,8 @@
         process.value = data.process || "";
         var machine = filteredSelect(prefix + "-machine", "machine", "Choose machine");
         var vision = filteredSelect(prefix + "-vision", "vision", "Choose vision");
-        var completedByField;
-        if (type === "super-escalation") {
-          completedByField = createSuperCompletedByField(entry, prefix, data);
-        } else {
-          var completedBy = completedBySelect(prefix + "-completed-by");
-          completedBy.value = data.completedBy || "";
-          completedByField = makeField("Completed By", completedBy, "daily-dynamic-completed-by");
-        }
+        var completedBy = completedBySelect(prefix + "-completed-by");
+        completedBy.value = data.completedBy || "";
         var comment = document.createElement("textarea");
         comment.id = prefix + "-comment";
         comment.placeholder = "Comment";
@@ -13801,7 +13573,7 @@
         fields.appendChild(makeField("Machine", machine));
         fields.appendChild(makeField("Vision", vision));
         fields.appendChild(makeField("Comment", comment, "daily-dynamic-comment"));
-        fields.appendChild(completedByField);
+        fields.appendChild(makeField("Completed By", completedBy, "daily-dynamic-completed-by"));
         editor.appendChild(fields);
 
         var entryStatus = document.createElement("p");
@@ -13848,10 +13620,6 @@
           var current = readDynamicEntry(entry, true);
           if (!current.process || !current.machine || !current.vision) {
             entryStatus.textContent = "Choose a Process, Machine, and Vision before saving.";
-            return;
-          }
-          if (type === "super-escalation" && completedBySelectionsHaveDuplicates(entry)) {
-            entryStatus.textContent = "Choose each technician only once.";
             return;
           }
           if (current.complete && !current.completedBy) {
@@ -14006,18 +13774,14 @@
           var points = dynamicEntryPoints(group.type);
           collectDynamic(group.container).forEach(function (entry) {
             if (!dynamicEntryIsActive(entry)) return;
-            var completedByKeys = completedByKeysFromData(entry);
             result.available += points;
             result.completionAvailable += points;
             result.total += 1;
-            if (entry.complete && completedByKeys.length) {
+            if (entry.complete && entry.completedBy) {
               result.earned += points;
               result.completionEarned += points;
               result.completed += 1;
-              var pointsPerTechnician = points / completedByKeys.length;
-              completedByKeys.forEach(function (completedBy) {
-                awardContributor(completedBy, pointsPerTechnician);
-              });
+              awardContributor(entry.completedBy, points);
             } else {
               result.missed.push({
                 label: dynamicEntryReportLabel(group.type, entry),
@@ -14134,16 +13898,16 @@
 
       function dynamicSummaryLines(container) {
         var lines = [];
-        var type = dynamicEntryTypeForContainer(container);
+        var points = dynamicEntryPoints(dynamicEntryTypeForContainer(container));
         collectDynamic(container).forEach(function (entry) {
           if (!dynamicEntryIsActive(entry)) return;
           var details = [entry.process, entry.machine, entry.vision].filter(Boolean).join(", ");
           if (!details) details = "Details not entered";
           if (entry.comment) details += " - " + entry.comment;
           details += entry.complete
-            ? " | Completed by: " + (completedByLabels(entry) || "Not selected")
+            ? " | Completed by: " + contributorLabel(entry.completedBy)
             : " | Status: Not completed";
-          details += " | " + dynamicPointCreditText(type, entry);
+          details += " | " + points + " pts";
           lines.push((entry.complete && entry.completedBy ? "✅ " : (entry.complete ? "⚠️ " : "🟥 ")) + details);
         });
         if (!lines.length) lines.push("- No entries");
@@ -14224,13 +13988,13 @@
 
       function contributorCompletionBreakdown(contributorKey) {
         var pmCount = collectDynamic(pmEntries).filter(function (entry) {
-          return dynamicEntryIsActive(entry) && entry.complete && completedByKeysFromData(entry).indexOf(contributorKey) !== -1;
+          return dynamicEntryIsActive(entry) && entry.complete && entry.completedBy === contributorKey;
         }).length;
         var escalationCount = collectDynamic(escalationEntries).filter(function (entry) {
-          return dynamicEntryIsActive(entry) && entry.complete && completedByKeysFromData(entry).indexOf(contributorKey) !== -1;
+          return dynamicEntryIsActive(entry) && entry.complete && entry.completedBy === contributorKey;
         }).length;
         var superEscalationCount = collectDynamic(superEscalationEntries).filter(function (entry) {
-          return dynamicEntryIsActive(entry) && entry.complete && completedByKeysFromData(entry).indexOf(contributorKey) !== -1;
+          return dynamicEntryIsActive(entry) && entry.complete && entry.completedBy === contributorKey;
         }).length;
         var errorProofingCount = activeFixedCheckboxes().filter(function (checkbox) {
           var group = checkbox.getAttribute("data-group") || "";
@@ -14507,15 +14271,13 @@
       }
 
       function appendDynamicReportSection(titleText, container, emptyText) {
-        var type = dynamicEntryTypeForContainer(container);
-        var points = dynamicEntryPoints(type);
+        var points = dynamicEntryPoints(dynamicEntryTypeForContainer(container));
         appendReportDetailSection(titleText, activeDynamicReportEntries(container), emptyText, function (entry) {
           var details = [entry.process, entry.machine, entry.vision].filter(Boolean).join(" · ") || "Details not entered";
-          var completedByKeys = completedByKeysFromData(entry);
-          var credited = entry.complete && completedByKeys.length > 0;
+          var credited = entry.complete && Boolean(entry.completedBy);
           var status = credited ? "Completed" : (entry.complete ? "Needs technician" : "Incomplete");
           var meta = credited
-            ? "Completed by: " + completedByLabels(entry) + " · " + dynamicPointCreditText(type, entry)
+            ? "Completed by: " + contributorLabel(entry.completedBy) + " · " + points + " pts"
             : (entry.complete
               ? "Completed By not selected · " + points + " pts pending"
               : "Not completed · " + points + " pts available");
@@ -15197,33 +14959,19 @@
         return { svg: svg, width: width, height: totalHeight };
       }
 
-      function safeCanvasScale(width, height) {
-        // Stay below conservative mobile Safari and Chrome canvas limits.
-        // This must be allowed below 1 for unusually tall reports.
-        var MAX_SIDE = 4096;
-        var MAX_AREA = 12000000;
-        return Math.min(
-          2,
-          MAX_SIDE / Math.max(1, width),
-          MAX_SIDE / Math.max(1, height),
-          Math.sqrt(MAX_AREA / Math.max(1, width * height))
-        );
-      }
-
       function svgLayoutToPngFile(layout, filename) {
         return new Promise(function (resolve, reject) {
           try {
-            var scale = safeCanvasScale(layout.width, layout.height);
+            var scale = 2;
             var svgBlob = new Blob([layout.svg], { type: "image/svg+xml;charset=utf-8" });
             var url = URL.createObjectURL(svgBlob);
             var img = new Image();
             img.onload = function () {
               try {
                 var canvas = document.createElement("canvas");
-                canvas.width = Math.max(1, Math.floor(layout.width * scale));
-                canvas.height = Math.max(1, Math.floor(layout.height * scale));
+                canvas.width = layout.width * scale;
+                canvas.height = layout.height * scale;
                 var ctx = canvas.getContext("2d");
-                if (!ctx) throw new Error("canvas-context-unavailable");
                 ctx.scale(scale, scale);
                 ctx.drawImage(img, 0, 0, layout.width, layout.height);
                 URL.revokeObjectURL(url);
@@ -15260,34 +15008,26 @@
       function setPreparedReportImageState(variant, file, preparing) {
         preparedReportImageFiles[variant] = file || null;
         if (variant === "desktop" && reportDownloadDesktopButton) {
-          // Keep Email Report tappable so mobile users always receive feedback.
-          // Native file sharing starts only after the PNG is ready.
           reportEmailButton.disabled = false;
           reportEmailButton.textContent = preparing
             ? reportText("Preparing email…", "이메일 준비 중…")
             : reportText("Email report", "보고서 이메일 보내기");
-          reportEmailButton.setAttribute("aria-busy", preparing ? "true" : "false");
+          if (preparing) reportEmailButton.setAttribute("aria-busy", "true");
+          else reportEmailButton.removeAttribute("aria-busy");
           reportDownloadDesktopButton.disabled = !file;
         }
       }
 
-      function clearEmailReportFallback() {
-        if (reportEmailFallbackObjectUrl) {
-          URL.revokeObjectURL(reportEmailFallbackObjectUrl);
-          reportEmailFallbackObjectUrl = "";
-        }
-        if (reportWebmailHint) reportWebmailHint.hidden = true;
-        if (!generatedReportStatus) return;
-        Array.prototype.forEach.call(
-          generatedReportStatus.querySelectorAll("[data-email-report-fallback]"),
-          function (node) { node.remove(); }
-        );
-      }
-
       function prepareShiftReportImages(result) {
         var buildId = ++reportImageBuildId;
-        clearEmailReportFallback();
         setPreparedReportImageState("desktop", null, true);
+        setReportStatus(
+          generatedReportStatus,
+          reportText(
+            "Preparing the email report image…",
+            "이메일 보고서 이미지를 준비하는 중입니다…"
+          )
+        );
 
         var imagePromise = buildShiftReportImageFile(result, "desktop");
         preparedReportImagePromises.desktop = imagePromise;
@@ -15295,6 +15035,13 @@
           if (buildId !== reportImageBuildId) return;
           preparedReportImagePromises.desktop = null;
           setPreparedReportImageState("desktop", file, false);
+          setReportStatus(
+            generatedReportStatus,
+            reportText(
+              "Report image ready. Choose Email report to continue.",
+              "보고서 이미지가 준비되었습니다. 계속하려면 보고서 이메일 보내기를 선택하세요."
+            )
+          );
         }).catch(function () {
           if (buildId !== reportImageBuildId) return;
           preparedReportImagePromises.desktop = null;
@@ -15312,7 +15059,6 @@
       function clearPreparedReportImages() {
         reportImageBuildId += 1;
         preparedReportImagePromises.desktop = null;
-        clearEmailReportFallback();
         setPreparedReportImageState("desktop", null, false);
       }
 
@@ -15497,7 +15243,7 @@
         if (!dailyShiftStorage) return null;
         try {
           var state = JSON.parse(dailyShiftStorage.getItem(DAILY_SHIFT_DRAFT_KEY) || "null");
-          if (!state || [2, 3, 4, 5, 6, 7, 8, 9, DAILY_SHIFT_DRAFT_VERSION].indexOf(state.version) === -1 || !isFinite(state.savedAt)) return null;
+          if (!state || [2, 3, 4, 5, 6, 7, 8, DAILY_SHIFT_DRAFT_VERSION].indexOf(state.version) === -1 || !isFinite(state.savedAt)) return null;
           if (Date.now() - state.savedAt >= DAILY_SHIFT_DRAFT_TTL_MS) {
             dailyShiftStorage.removeItem(DAILY_SHIFT_DRAFT_KEY);
             return null;
@@ -15736,104 +15482,81 @@
         reportModal.hidden = true;
         document.body.classList.remove("daily-report-open");
         generatedReportStatus.textContent = "";
-        if (reportWebmailHint) reportWebmailHint.hidden = true;
         clearPreparedReportImages();
         if (reportReturnFocus) reportReturnFocus.focus();
       }
 
-      function buildEmailReportDraftHref(title, file) {
+      function openEmailReportDraft(title, file) {
+        downloadReportImageFile(file);
         var shiftName = isNightShift() ? "night" : "day";
         var message = "Please see the " + shiftName + " shift report for " + shortDate(dateInput.value) + ".\n\n" +
-          "Save the report image as " + (file.name || "Shift-Report-desktop.png") +
+          "The report image was downloaded as " + (file.name || "Shift-Report-desktop.png") +
           ". Attach it to this email before sending.";
-        return "mailto:?subject=" + encodeURIComponent(title) + "&body=" + encodeURIComponent(message);
+        var emailUrl = "mailto:?subject=" + encodeURIComponent(title) + "&body=" + encodeURIComponent(message);
+        var retryLink = document.createElement("a");
+        retryLink.className = "daily-report-email-link";
+        retryLink.href = emailUrl;
+        retryLink.textContent = reportText("Open email draft", "이메일 초안 열기");
+        generatedReportStatus.appendChild(document.createTextNode(" "));
+        generatedReportStatus.appendChild(retryLink);
+        window.location.href = emailUrl;
       }
 
-      function openEmailReportDraft(title, file) {
-        // Mobile browsers can block two automatic actions from one tap. Show
-        // real links so each action receives its own user gesture.
-        clearEmailReportFallback();
-        setReportStatus(
-          generatedReportStatus,
-          reportText(
-            "Your browser could not attach the PNG automatically. Use these two links:",
-            "브라우저에서 PNG를 자동으로 첨부하지 못했습니다. 다음 두 링크를 사용하세요."
-          )
-        );
-
-        reportEmailFallbackObjectUrl = URL.createObjectURL(file);
-        var saveLink = document.createElement("a");
-        saveLink.href = reportEmailFallbackObjectUrl;
-        saveLink.download = file.name || "Shift-Report-desktop.png";
-        saveLink.className = "daily-report-email-link";
-        saveLink.textContent = reportText("1. Save PNG", "1. PNG 저장");
-        saveLink.setAttribute("data-email-report-fallback", "");
-
-        var emailLink = document.createElement("a");
-        emailLink.href = buildEmailReportDraftHref(title, file);
-        emailLink.className = "daily-report-email-link";
-        emailLink.textContent = reportText("2. Open email draft", "2. 이메일 초안 열기");
-        emailLink.setAttribute("data-email-report-fallback", "");
-
-        var lineBreak = document.createElement("br");
-        lineBreak.setAttribute("data-email-report-fallback", "");
-        generatedReportStatus.appendChild(lineBreak);
-        generatedReportStatus.appendChild(saveLink);
-        generatedReportStatus.appendChild(emailLink);
-        showWebmailFallback(title, file);
-      }
-
-      function showWebmailFallback(title, file) {
-        if (!reportWebmailHint) return;
-        var shiftName = isNightShift() ? "night" : "day";
-        var body = "Please see the " + shiftName + " shift report for " + shortDate(dateInput.value) + ".\n\n" +
-          "Save the report image as " + (file.name || "Shift-Report-desktop.png") +
-          ". Attach it to this email before sending.";
-        if (reportWebmailGmail) {
-          reportWebmailGmail.href = "https://mail.google.com/mail/?view=cm&fs=1&su=" +
-            encodeURIComponent(title) + "&body=" + encodeURIComponent(body);
-        }
-        if (reportWebmailOutlook) {
-          reportWebmailOutlook.href = "https://outlook.office.com/mail/deeplink/compose?subject=" +
-            encodeURIComponent(title) + "&body=" + encodeURIComponent(body);
-        }
-        reportWebmailHint.hidden = false;
-      }
-
-      function reportDiagLog(line) {
-        if (!reportDiag) return;
-        reportDiag.hidden = false;
-        reportDiag.textContent += line + "\n";
-      }
-
-      function reportDiagReset() {
-        if (!reportDiag) return;
-        reportDiag.textContent = "";
-        reportDiag.hidden = true;
-      }
-
-      function emailShiftReport() {
-        reportDiagReset();
+      async function emailShiftReport() {
         updateDailyShift({ skipSave: true });
+        var text = previewText;
         var title = "Shift Report - " + shortDate(dateInput.value);
         var file = preparedReportImageFiles.desktop;
 
         if (!file) {
-          if (!preparedReportImagePromises.desktop) {
-            prepareShiftReportImages(updateDailyShift({ skipSave: true }));
+          var imagePromise = preparedReportImagePromises.desktop;
+          if (!imagePromise) {
+            setReportStatus(
+              generatedReportStatus,
+              reportText(
+                "The report image is unavailable. Close and reopen the report, then try again.",
+                "보고서 이미지를 사용할 수 없습니다. 보고서를 닫았다가 다시 연 후 다시 시도하세요."
+              )
+            );
+            return;
           }
+          reportEmailButton.disabled = true;
+          reportEmailButton.textContent = reportText("Finishing email…", "이메일 마무리 중…");
           setReportStatus(
             generatedReportStatus,
             reportText(
-              "The report image is still preparing. When the button says Email report, tap it again.",
-              "보고서 이미지를 준비하는 중입니다. 버튼에 보고서 이메일 보내기가 표시되면 다시 누르세요."
+              "Finishing the report image. The email action will continue automatically…",
+              "보고서 이미지를 마무리하는 중입니다. 이메일 작업이 자동으로 계속됩니다…"
             )
           );
-          return;
+          try {
+            file = await imagePromise;
+          } catch (error) {
+            setReportStatus(
+              generatedReportStatus,
+              reportText(
+                "The report image could not be created. Close and reopen the report, then try again.",
+                "보고서 이미지를 만들 수 없습니다. 보고서를 닫았다가 다시 연 후 다시 시도하세요."
+              )
+            );
+            return;
+          } finally {
+            reportEmailButton.disabled = false;
+            reportEmailButton.textContent = reportText("Email report", "보고서 이메일 보내기");
+            reportEmailButton.removeAttribute("aria-busy");
+          }
+          if (reportModal.hidden) return;
         }
 
         function useEmailDraftFallback() {
           try {
+            setReportStatus(
+              generatedReportStatus,
+              reportText(
+                "The PNG was downloaded and an email draft is opening. Attach the PNG before sending. If it does not open, use the link below.",
+                "PNG를 다운로드했으며 이메일 초안을 여는 중입니다. 보내기 전에 PNG를 첨부하세요. 열리지 않으면 아래 링크를 사용하세요."
+              )
+            );
             openEmailReportDraft(title, file);
           } catch (error) {
             setReportStatus(
@@ -15846,11 +15569,11 @@
           }
         }
 
-        var canShareFile = typeof navigator.share === "function";
+        var canShareFile = false;
         try {
-          if (canShareFile && typeof navigator.canShare === "function") {
-            canShareFile = navigator.canShare({ files: [file] });
-          }
+          canShareFile = typeof navigator.share === "function" &&
+            typeof navigator.canShare === "function" &&
+            navigator.canShare({ files: [file] });
         } catch (error) {
           canShareFile = false;
         }
@@ -15867,8 +15590,7 @@
             "보고서 이미지를 보내려면 이메일 앱을 선택하세요."
           )
         );
-        var shareText = (isNightShift() ? "Night" : "Day") + " shift report for " + shortDate(dateInput.value) + ".";
-        startNativeShare({ files: [file], title: title, text: shareText }, function (error) {
+        startNativeShare({ files: [file], title: title, text: text }, function (error) {
           if (error && error.name === "AbortError") {
             setReportStatus(
               generatedReportStatus,
@@ -16500,7 +16222,6 @@
       doc,
       FieldPath,
       getDoc,
-      getDocFromServer,
       getDocs,
       initializeFirestore,
       onSnapshot,
@@ -16524,6 +16245,7 @@
       appId: "1:308933695735:web:0eee1a6466c5fc42091bf2"
     };
 
+    const OWNER_EMAIL = "jsikson@gmail.com";
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
     const db = initializeFirestore(app, {
@@ -16531,8 +16253,8 @@
     });
     const provider = new GoogleAuthProvider();
     provider.setCustomParameters({ prompt: "select_account" });
-    const SYNC_PROTOCOL_VERSION = 6;
-    const HOSTED_APP_URL = "https://jsikson7.github.io/Visionary/?v=317";
+    const SYNC_PROTOCOL_VERSION = 5;
+    const HOSTED_APP_URL = "https://jsikson7.github.io/Visionary/?v=314";
     const isDirectFilePage = !["http:", "https:"].includes(window.location.protocol);
 
     const cloudPanel = document.getElementById("daily-cloud-panel");
@@ -16545,7 +16267,6 @@
 
     let currentUser = null;
     let accessAllowed = false;
-    let currentAccessRole = "";
     let currentShiftKey = "";
     let currentShiftRef = null;
     let lastCloudState = null;
@@ -16557,15 +16278,14 @@
     let creatingShift = false;
     let shiftReady = false;
     let currentShiftExists = false;
-    let currentShiftNeedsMigration = false;
     const pendingShiftStates = new Map();
     const shiftOpenBaselines = new Map();
 
     function rememberPendingState(state) {
       const key = shiftKeyFor(state);
       if (!key) return;
-      if (!pendingStateFor(key) && !shiftOpenBaselines.has(key) && shiftReady && key === currentShiftKey && lastCloudState) {
-        shiftOpenBaselines.set(key, JSON.parse(JSON.stringify(normalizeState(currentState() || lastCloudState))));
+      if (!pendingStateFor(key) && shiftReady && key === currentShiftKey && lastCloudState) {
+        shiftOpenBaselines.set(key, JSON.parse(JSON.stringify(lastCloudState)));
       }
       pendingShiftStates.set(key, JSON.parse(JSON.stringify(state)));
     }
@@ -16578,7 +16298,7 @@
       const pending = pendingStateFor(key);
       if (pending && sameValue(normalizeState(pending), normalizedState)) {
         pendingShiftStates.delete(key);
-        shiftOpenBaselines.set(key, JSON.parse(JSON.stringify(normalizedState)));
+        shiftOpenBaselines.delete(key);
       }
     }
 
@@ -16591,8 +16311,8 @@
       return String(value || "").trim().toLowerCase();
     }
 
-    function isAdministrator() {
-      return currentAccessRole === "admin";
+    function isOwner(user) {
+      return normalizedEmail(user && user.email) === OWNER_EMAIL;
     }
 
     function bridge() {
@@ -16618,7 +16338,7 @@
     }
 
     function cleanEntry(entry, index) {
-      const cleaned = {
+      return {
         id: String(entry && entry.id || ""),
         saved: true,
         complete: Boolean(entry && entry.complete),
@@ -16629,11 +16349,6 @@
         comment: String(entry && entry.comment || ""),
         sortIndex: Number(index) || 0
       };
-      if (Array.isArray(entry && entry.completedByList)) {
-        cleaned.completedByList = Array.from(new Set(entry.completedByList.map((value) => String(value || "").trim()).filter(Boolean)));
-        cleaned.completedBy = cleaned.completedByList[0] || cleaned.completedBy;
-      }
-      return cleaned;
     }
 
     function entryMap(entries) {
@@ -16647,7 +16362,7 @@
     function normalizeState(state) {
       const source = state || {};
       return {
-        version: Number(source.version) || 10,
+        version: Number(source.version) || 9,
         date: String(source.date || ""),
         shift: String(source.shift || ""),
         roster: {
@@ -16683,7 +16398,7 @@
     function stateFromCloud(data) {
       const normalized = normalizeState(data || {});
       return {
-        version: 10,
+        version: 9,
         savedAt: Date.now(),
         date: normalized.date,
         shift: normalized.shift,
@@ -16698,52 +16413,6 @@
         superEscalations: entriesFromMap(normalized.superEscalations),
         handoffNote: normalized.handoffNote
       };
-    }
-
-    const SHIFT_DOCUMENT_KEYS = [
-      "version", "date", "shift", "roster", "otSupport", "errorProof",
-      "fixed", "technicians", "cellIds", "pms", "escalations",
-      "superEscalations", "handoffNote", "schemaVersion",
-      "syncProtocolVersion", "clientWriteId", "createdAt", "createdByUid",
-      "createdByEmail", "updatedAt", "updatedByUid", "updatedByEmail",
-      "taskAudit"
-    ];
-
-    const SHIFT_REQUIRED_KEYS = [
-      "version", "date", "shift", "roster", "otSupport", "errorProof",
-      "fixed", "technicians", "cellIds", "pms", "escalations",
-      "schemaVersion", "syncProtocolVersion", "clientWriteId", "createdAt",
-      "createdByUid", "createdByEmail", "updatedAt", "updatedByUid",
-      "updatedByEmail", "taskAudit"
-    ];
-
-    function isCloudMap(value) {
-      return Boolean(value) && typeof value === "object" && !Array.isArray(value);
-    }
-
-    function isCloudTimestamp(value) {
-      return Boolean(value) && typeof value.toMillis === "function";
-    }
-
-    function cloudShiftNeedsMigration(data) {
-      if (!data || typeof data !== "object") return true;
-      const keys = Object.keys(data);
-      if (keys.some((key) => !SHIFT_DOCUMENT_KEYS.includes(key))) return true;
-      if (SHIFT_REQUIRED_KEYS.some((key) => !Object.prototype.hasOwnProperty.call(data, key))) return true;
-      if ([9, 10].indexOf(Number(data.version)) === -1) return true;
-      if (data.schemaVersion !== 1 || data.syncProtocolVersion !== SYNC_PROTOCOL_VERSION) return true;
-      if (!/^\d{4}-\d{2}-\d{2}$/.test(String(data.date || ""))) return true;
-      if (!/^(B1|B2|G1|G2)$/.test(String(data.shift || ""))) return true;
-      if (!isCloudMap(data.roster) || !Array.isArray(data.otSupport)) return true;
-      if (!isCloudMap(data.fixed) || !isCloudMap(data.technicians) || !isCloudMap(data.cellIds)) return true;
-      if (!isCloudMap(data.pms) || !isCloudMap(data.escalations)) return true;
-      if (Object.prototype.hasOwnProperty.call(data, "superEscalations") && !isCloudMap(data.superEscalations)) return true;
-      if (!isCloudMap(data.taskAudit)) return true;
-      if (!isCloudTimestamp(data.createdAt) || !isCloudTimestamp(data.updatedAt)) return true;
-      if (typeof data.createdByUid !== "string" || typeof data.createdByEmail !== "string") return true;
-      if (typeof data.updatedByUid !== "string" || typeof data.updatedByEmail !== "string") return true;
-      if (typeof data.clientWriteId !== "string" || data.clientWriteId.length < 10 || data.clientWriteId.length > 160) return true;
-      return false;
     }
 
     function stableValue(value) {
@@ -16915,7 +16584,6 @@
       creatingShift = false;
       shiftReady = false;
       currentShiftExists = false;
-      currentShiftNeedsMigration = false;
       if (stoppedKey && !pendingShiftStates.has(stoppedKey)) shiftOpenBaselines.delete(stoppedKey);
     }
 
@@ -16923,54 +16591,6 @@
       const daily = bridge();
       if (!daily || typeof daily.applyCloudState !== "function") return;
       daily.applyCloudState(remoteState);
-    }
-
-    function renderedBaselineFor(fallbackState) {
-      const renderedState = currentState();
-      const fallbackKey = shiftKeyFor(fallbackState);
-      if (renderedState && shiftKeyFor(renderedState) === fallbackKey) {
-        return normalizeState(renderedState);
-      }
-      return normalizeState(fallbackState);
-    }
-
-    async function reloadShiftAfterSafetyStop(targetRef, targetKey, fallbackState) {
-      if (currentShiftKey === targetKey) {
-        setCloudStatus("saving", "Safety protection activated. Reloading the confirmed shared shift…");
-      }
-      try {
-        const snapshot = await getDocFromServer(targetRef);
-        if (currentShiftKey !== targetKey) return;
-        if (!snapshot.exists()) {
-          const missingError = new Error("The selected shared shift was not found on the server.");
-          missingError.code = "confirmed-shift-missing";
-          throw missingError;
-        }
-
-        const remoteData = snapshot.data();
-        const remoteState = stateFromCloud(remoteData);
-        currentShiftExists = true;
-        currentShiftNeedsMigration = cloudShiftNeedsMigration(remoteData);
-        lastCloudState = normalizeState(remoteState);
-        pendingShiftStates.delete(targetKey);
-        applyRemoteState(remoteState);
-        shiftOpenBaselines.set(targetKey, JSON.parse(JSON.stringify(renderedBaselineFor(remoteState))));
-        setCloudStatus(
-          "saved",
-          "Protected and reloaded " + remoteState.date + " · " + remoteState.shift +
-            " from the shared shift. No cloud data was deleted."
-        );
-      } catch (error) {
-        if (currentShiftKey !== targetKey) return;
-        const restoredState = stateFromCloud(fallbackState);
-        pendingShiftStates.delete(targetKey);
-        applyRemoteState(restoredState);
-        shiftOpenBaselines.set(targetKey, JSON.parse(JSON.stringify(renderedBaselineFor(restoredState))));
-        setCloudStatus(
-          "error",
-          "The bulk clear was blocked and the last confirmed copy was restored, but a fresh server reload failed. " + friendlyError(error)
-        );
-      }
     }
 
     async function createShiftIfMissing(state) {
@@ -17026,7 +16646,6 @@
         confirmedServerSnapshot = true;
         if (!snapshot.exists()) {
           currentShiftExists = false;
-          currentShiftNeedsMigration = false;
           lastCloudState = null;
           shiftReady = true;
           const pendingState = pendingStateFor(nextKey);
@@ -17035,53 +16654,39 @@
             const baselineState = shiftOpenBaselines.get(nextKey) || normalizeState(state);
             const firstEditedState = mergePendingChanges(emptyShiftState, baselineState, pendingState);
             pendingShiftStates.set(nextKey, JSON.parse(JSON.stringify(firstEditedState)));
+            shiftOpenBaselines.set(nextKey, normalizeState(emptyShiftState));
             applyRemoteState(firstEditedState);
-            shiftOpenBaselines.set(nextKey, JSON.parse(JSON.stringify(renderedBaselineFor(emptyShiftState))));
             createShiftIfMissing(firstEditedState);
           } else {
+            shiftOpenBaselines.set(nextKey, normalizeState(emptyShiftState));
             applyRemoteState(emptyShiftState);
-            shiftOpenBaselines.set(nextKey, JSON.parse(JSON.stringify(renderedBaselineFor(emptyShiftState))));
             setCloudStatus("live", "No shared work exists for " + state.date + " · " + state.shift + ". It will be created after the first task or form edit.");
           }
           return;
         }
         currentShiftExists = true;
-        const remoteData = snapshot.data();
-        currentShiftNeedsMigration = cloudShiftNeedsMigration(remoteData);
-        const remoteState = stateFromCloud(remoteData);
+        const remoteState = stateFromCloud(snapshot.data());
         lastCloudState = normalizeState(remoteState);
         shiftReady = true;
         const baselineState = shiftOpenBaselines.get(nextKey) || normalizeState(state);
         const pendingState = pendingStateFor(nextKey);
         let protectedState = remoteState;
-        const localState = currentState();
-        let renderedRemoteBaseline = null;
-        if (pendingState) {
-          applyRemoteState(remoteState);
-          renderedRemoteBaseline = renderedBaselineFor(remoteState);
-          protectedState = mergePendingChanges(remoteState, baselineState, pendingState);
-          applyRemoteState(protectedState);
-        } else if (isFirstConfirmedServerSnapshot || !sameValue(normalizeState(localState), lastCloudState)) {
-          applyRemoteState(remoteState);
-          renderedRemoteBaseline = renderedBaselineFor(remoteState);
-        } else {
-          renderedRemoteBaseline = renderedBaselineFor(remoteState);
-        }
+        if (pendingState) protectedState = mergePendingChanges(protectedState, baselineState, pendingState);
         const protectedNormalized = normalizeState(protectedState);
+        const localState = currentState();
+        if (isFirstConfirmedServerSnapshot || pendingState || !sameValue(normalizeState(localState), lastCloudState)) {
+          applyRemoteState(protectedState);
+        }
         if (pendingState && !sameValue(protectedNormalized, lastCloudState)) {
           pendingShiftStates.set(nextKey, JSON.parse(JSON.stringify(protectedState)));
-          shiftOpenBaselines.set(nextKey, JSON.parse(JSON.stringify(renderedRemoteBaseline)));
+          shiftOpenBaselines.set(nextKey, JSON.parse(JSON.stringify(lastCloudState)));
           setCloudStatus("saving", "Shared shift protected. Saving the combined data…");
           scheduleCloudSave(protectedState);
           return;
         }
         pendingShiftStates.delete(nextKey);
-        shiftOpenBaselines.set(nextKey, JSON.parse(JSON.stringify(renderedRemoteBaseline)));
-        setCloudStatus(
-          "live",
-          "Live shift " + remoteState.date + " · " + remoteState.shift + "." +
-            (currentShiftNeedsMigration ? " Legacy entries will be upgraded with the next saved edit." : "")
-        );
+        shiftOpenBaselines.delete(nextKey);
+        setCloudStatus("live", "Live shift " + remoteState.date + " · " + remoteState.shift + ".");
       }, (error) => {
         shiftReady = false;
         setCloudStatus("error", friendlyError(error));
@@ -17107,98 +16712,6 @@
       });
     }
 
-    function changedTaskKeysBetween(previous, next) {
-      const changed = new Set();
-      ["fixed", "technicians"].forEach((fieldName) => {
-        const before = previous[fieldName] || {};
-        const after = next[fieldName] || {};
-        const keys = new Set(Object.keys(before).concat(Object.keys(after)));
-        keys.forEach((key) => {
-          if (!sameValue(before[key], after[key])) changed.add(key);
-        });
-      });
-      return changed;
-    }
-
-    async function saveStateWithLegacyMigration(targetRef, targetKey, previousState, pendingState) {
-      let savedState = normalizeState(pendingState);
-      let latestStateForRestore = null;
-      const editBaseline = shiftOpenBaselines.get(targetKey) || normalizeState(stateFromCloud(previousState));
-      if (currentShiftKey === targetKey) {
-        setCloudStatus("saving", "Upgrading legacy Escalation storage and saving this edit…");
-      }
-      try {
-        await runTransaction(db, async (transaction) => {
-          const snapshot = await transaction.get(targetRef);
-          if (!snapshot.exists()) {
-            transaction.set(targetRef, cloudDocument(pendingState));
-            return;
-          }
-
-          const raw = snapshot.data();
-          const latestState = stateFromCloud(raw);
-          latestStateForRestore = latestState;
-          const baselineState = stateFromCloud(editBaseline);
-          const localPendingState = stateFromCloud(pendingState);
-          const mergedState = mergePendingChanges(latestState, baselineState, localPendingState);
-          const normalized = normalizeState(mergedState);
-          normalized.version = 10;
-          normalized.date = String(pendingState.date || normalized.date);
-          normalized.shift = String(pendingState.shift || normalized.shift);
-
-          if (looksLikeUnsafeBulkClear(latestState, normalized)) {
-            const unsafeError = new Error("unsafe-bulk-clear");
-            unsafeError.code = "unsafe-bulk-clear";
-            throw unsafeError;
-          }
-
-          const taskAudit = isCloudMap(raw.taskAudit) ? Object.assign({}, raw.taskAudit) : {};
-          changedTaskKeysBetween(normalizeState(latestState), normalized).forEach((taskKey) => {
-            taskAudit[taskKey] = {
-              updatedByUid: currentUser.uid,
-              updatedByEmail: normalizedEmail(currentUser.email),
-              updatedByName: String(currentUser.displayName || ""),
-              updatedAt: Timestamp.now()
-            };
-          });
-
-          const hasValidCreatorMetadata = isCloudTimestamp(raw.createdAt) &&
-            typeof raw.createdByUid === "string" && typeof raw.createdByEmail === "string";
-          const replacement = Object.assign({}, normalized, {
-            schemaVersion: 1,
-            syncProtocolVersion: SYNC_PROTOCOL_VERSION,
-            clientWriteId: nextClientWriteId(),
-            createdAt: hasValidCreatorMetadata ? raw.createdAt : serverTimestamp(),
-            createdByUid: hasValidCreatorMetadata ? raw.createdByUid : currentUser.uid,
-            createdByEmail: hasValidCreatorMetadata ? raw.createdByEmail : normalizedEmail(currentUser.email),
-            updatedAt: serverTimestamp(),
-            updatedByUid: currentUser.uid,
-            updatedByEmail: normalizedEmail(currentUser.email),
-            taskAudit: taskAudit
-          });
-          transaction.set(targetRef, replacement);
-          savedState = normalized;
-        });
-
-        pendingShiftStates.delete(targetKey);
-        if (currentShiftKey === targetKey) {
-          currentShiftNeedsMigration = false;
-          lastCloudState = savedState;
-          applyRemoteState(stateFromCloud(savedState));
-          shiftOpenBaselines.set(targetKey, JSON.parse(JSON.stringify(renderedBaselineFor(savedState))));
-          setCloudStatus("saved", "Legacy Escalation storage upgraded. All changes are synchronized.");
-        }
-      } catch (error) {
-        if (String(error && error.code || "") === "unsafe-bulk-clear") {
-          await reloadShiftAfterSafetyStop(targetRef, targetKey, latestStateForRestore || previousState);
-          return;
-        }
-        if (currentShiftKey === targetKey) {
-          setCloudStatus("error", "Legacy Escalation upgrade failed; the phone backup is still active. " + friendlyError(error));
-        }
-      }
-    }
-
     async function saveStateChanges(state) {
       if (!currentUser || !accessAllowed) return;
       const targetKey = shiftKeyFor(state);
@@ -17214,31 +16727,31 @@
       const targetRef = currentShiftRef;
       const next = normalizeState(state);
       const previous = lastCloudState;
-      const editBaseline = normalizeState(shiftOpenBaselines.get(targetKey) || stateFromCloud(previous));
-      if (looksLikeUnsafeBulkClear(editBaseline, next)) {
-        await reloadShiftAfterSafetyStop(targetRef, targetKey, previous);
-        return;
-      }
-      if (currentShiftNeedsMigration) {
-        await saveStateWithLegacyMigration(targetRef, targetKey, previous, next);
+      if (looksLikeUnsafeBulkClear(previous, next)) {
+        pendingShiftStates.delete(targetKey);
+        shiftOpenBaselines.delete(targetKey);
+        applyRemoteState(stateFromCloud(previous));
+        if (currentShiftKey === targetKey) {
+          setCloudStatus("error", "Safety stop: a bulk form clear was blocked. The last confirmed shared shift has been restored.");
+        }
         return;
       }
       const changes = [];
       const changedTaskKeys = new Set();
 
-      if (next.version !== editBaseline.version) addFieldChange(changes, ["version"], next.version);
-      if (next.errorProof !== editBaseline.errorProof) addFieldChange(changes, ["errorProof"], next.errorProof);
-      if (!sameValue(next.otSupport, editBaseline.otSupport)) addFieldChange(changes, ["otSupport"], next.otSupport);
-      if (next.handoffNote !== editBaseline.handoffNote) addFieldChange(changes, ["handoffNote"], next.handoffNote);
+      if (next.version !== previous.version) addFieldChange(changes, ["version"], next.version);
+      if (next.errorProof !== previous.errorProof) addFieldChange(changes, ["errorProof"], next.errorProof);
+      if (!sameValue(next.otSupport, previous.otSupport)) addFieldChange(changes, ["otSupport"], next.otSupport);
+      if (next.handoffNote !== previous.handoffNote) addFieldChange(changes, ["handoffNote"], next.handoffNote);
       Object.keys(next.roster).forEach((role) => {
-        if (next.roster[role] !== editBaseline.roster[role]) addFieldChange(changes, ["roster", role], next.roster[role]);
+        if (next.roster[role] !== previous.roster[role]) addFieldChange(changes, ["roster", role], next.roster[role]);
       });
-      addMapChanges(changes, "fixed", editBaseline.fixed, next.fixed, changedTaskKeys);
-      addMapChanges(changes, "technicians", editBaseline.technicians, next.technicians, changedTaskKeys);
-      addMapChanges(changes, "cellIds", editBaseline.cellIds, next.cellIds);
-      addMapChanges(changes, "pms", editBaseline.pms, next.pms);
-      addMapChanges(changes, "escalations", editBaseline.escalations, next.escalations);
-      addMapChanges(changes, "superEscalations", editBaseline.superEscalations, next.superEscalations);
+      addMapChanges(changes, "fixed", previous.fixed, next.fixed, changedTaskKeys);
+      addMapChanges(changes, "technicians", previous.technicians, next.technicians, changedTaskKeys);
+      addMapChanges(changes, "cellIds", previous.cellIds, next.cellIds);
+      addMapChanges(changes, "pms", previous.pms, next.pms);
+      addMapChanges(changes, "escalations", previous.escalations, next.escalations);
+      addMapChanges(changes, "superEscalations", previous.superEscalations, next.superEscalations);
 
       if (!changes.length) {
         clearPendingStateIfSaved(targetKey, next);
@@ -17264,8 +16777,7 @@
         await updateDoc(targetRef, ...changes);
         clearPendingStateIfSaved(targetKey, next);
         if (currentShiftKey === targetKey) {
-          lastCloudState = normalizeState(mergePendingChanges(previous, editBaseline, next));
-          shiftOpenBaselines.set(targetKey, JSON.parse(JSON.stringify(next)));
+          lastCloudState = next;
           setCloudStatus("saved", "Saved to shared shift at " + new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }) + ".");
         }
       } catch (error) {
@@ -17285,8 +16797,8 @@
 
     function friendlyError(error) {
       const code = String(error && error.code || "");
-      if (code.includes("permission-denied") && isAdministrator()) return "Firebase blocked this save. Publish the Safe Sync v6.1 Firestore rules and confirm this page shows App 3.0.17.";
-      if (code.includes("permission-denied")) return "This save was blocked. Ask the administrator to publish the Safe Sync v6.1 rules and confirm this Google account is approved.";
+      if (code.includes("permission-denied") && isOwner(currentUser)) return "Firebase blocked this save. Publish the Safe Sync v5 Firestore rules and confirm this page shows App 3.0.14.";
+      if (code.includes("permission-denied")) return "This save was blocked. Ask the administrator to publish the Safe Sync v5 rules and confirm this Google account is approved.";
       if (code.includes("unavailable") || !navigator.onLine) return "You appear to be offline. Changes will remain in the phone backup until reconnected.";
       if (code.includes("unauthorized-domain")) return "This website address must be added to Firebase Authentication authorized domains.";
       if (code.includes("operation-not-allowed")) return "Google sign-in is not enabled for this Firebase project.";
@@ -17321,7 +16833,6 @@
 
     function startAdminListeners() {
       adminPanel.hidden = false;
-      if (requestsUnsubscribe || approvedUnsubscribe) return;
       requestsUnsubscribe = onSnapshot(collection(db, "accessRequests"), (snapshot) => {
         requestList.innerHTML = "";
         if (snapshot.empty) return emptyListMessage(requestList, "No pending requests.");
@@ -17333,9 +16844,8 @@
               email: normalizedEmail(data.email),
               displayName: String(data.displayName || ""),
               active: true,
-              role: "technician",
               approvedAt: serverTimestamp(),
-              approvedByUid: currentUser.uid
+              approvedBy: OWNER_EMAIL
             });
             await deleteDoc(requestSnapshot.ref);
           }));
@@ -17345,17 +16855,13 @@
       approvedUnsubscribe = onSnapshot(collection(db, "authorizedUsers"), (snapshot) => {
         approvedList.innerHTML = "";
         if (snapshot.empty) return emptyListMessage(approvedList, "No approved technicians yet.");
-        let technicianCount = 0;
         snapshot.forEach((userSnapshot) => {
           const data = userSnapshot.data();
-          if (data.role === "admin") return;
-          technicianCount += 1;
           approvedList.appendChild(accessItem(data, "Remove", async () => {
             if (!window.confirm("Remove access for " + (data.email || "this technician") + "?")) return;
             await deleteDoc(userSnapshot.ref);
           }));
         });
-        if (!technicianCount) emptyListMessage(approvedList, "No approved technicians yet.");
       }, (error) => emptyListMessage(approvedList, friendlyError(error)));
     }
 
@@ -17381,24 +16887,15 @@
       }
     }
 
-    function watchAccountAccess(user) {
+    function watchTechnicianAccess(user) {
       const accessRef = doc(db, "authorizedUsers", user.uid);
       accessUnsubscribe = onSnapshot(accessRef, (snapshot) => {
-        const accessData = snapshot.exists() ? snapshot.data() : null;
-        accessAllowed = Boolean(accessData && accessData.active === true);
-        currentAccessRole = accessAllowed && accessData.role === "admin" ? "admin" : (accessAllowed ? "technician" : "");
+        accessAllowed = snapshot.exists() && snapshot.data().active === true;
         if (accessAllowed) {
-          if (isAdministrator()) {
-            setCloudStatus("live", "Administrator connected. Choose a date and shift.");
-            startAdminListeners();
-          } else {
-            stopAdminListeners();
-            setCloudStatus("live", "Connected. Choose a date and shift.");
-          }
+          setCloudStatus("live", "Connected. Choose a date and shift.");
           subscribeToShift(currentState());
         } else {
           stopShiftListener();
-          stopAdminListeners();
           requestAccess(user);
         }
       }, (error) => setCloudStatus("error", friendlyError(error)));
@@ -17414,7 +16911,6 @@
       pendingShiftStates.clear();
       shiftOpenBaselines.clear();
       accessAllowed = false;
-      currentAccessRole = "";
     }
 
     signInButton.addEventListener("click", async () => {
@@ -18371,8 +17867,15 @@
         setCloudStatus("offline", "Sign in with Google to share Daily Tasks across phones.");
         return;
       }
-      setCloudStatus("saving", "Checking access…");
-      watchAccountAccess(user);
+      if (isOwner(user)) {
+        accessAllowed = true;
+        setCloudStatus("live", "Administrator connected. Choose a date and shift.");
+        startAdminListeners();
+        subscribeToShift(currentState());
+      } else {
+        setCloudStatus("saving", "Checking access…");
+        watchTechnicianAccess(user);
+      }
     });
   </script>
 </body>
