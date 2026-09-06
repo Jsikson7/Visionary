@@ -1,7 +1,7 @@
 rules_version = '2';
 
 // Visionary Safe Sync v6.1 — role-based access and one-time legacy
-// PM/Escalation storage migration for app version 3.0.16.
+// shift migration for app version 3.0.19.
 
 service cloud.firestore {
   match /databases/{database}/documents {
@@ -244,9 +244,8 @@ service cloud.firestore {
             'taskAudit'
           ])
           // A stored document from an older app may contain array-based entry
-          // fields, missing metadata, or obsolete keys. The request must still
-          // be a fully valid v6 document, so this branch only permits its
-          // one-time conversion to the current protected shape.
+          // fields, missing metadata, or obsolete keys. App 3.0.19 sends one
+          // complete valid document to perform this migration safely.
           || !validShiftDocument(resource.data, shiftId));
 
       allow delete: if isAdmin();
