@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="description" content="A mobile-friendly collection of vision production guides, troubleshooting history, and copy-ready reporting tools.">
-  <meta name="visionary-app-version" content="3.0.21">
+  <meta name="visionary-app-version" content="3.0.22">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
@@ -66,7 +66,7 @@
           name: "Visionary Tool",
           short_name: "Visionary",
           description: "Mobile production guides, troubleshooting, and copy-ready reporting tools.",
-          start_url: scopeUrl.href + "?v=321",
+          start_url: scopeUrl.href + "?v=322",
           scope: scopeUrl.href,
           display: "standalone",
           orientation: "portrait-primary",
@@ -655,12 +655,13 @@
     }
 
     .hero {
+      position: relative;
       display: flex;
       flex-direction: column;
       align-items: flex-start;
       gap: 14px;
       margin-bottom: 10px;
-      padding: calc(20px + env(safe-area-inset-top)) 16px 20px;
+      padding: calc(60px + env(safe-area-inset-top)) 16px 20px;
       background: linear-gradient(135deg, var(--matcha-950), var(--hero-end));
       color: #fff;
     }
@@ -686,9 +687,13 @@
       font-size: 0.94rem;
     }
 
-    #home-quote {
-      font-size: 0.705rem;
-      line-height: 1.4;
+    .home-quote {
+      max-width: 720px;
+      margin: 14px 0 0;
+      color: var(--hero-accent);
+      font-size: 0.82rem;
+      font-style: italic;
+      line-height: 1.5;
     }
 
     .theme-control {
@@ -1161,38 +1166,23 @@
       }
     }
 
-    .home-actions {
+    .header-actions {
+      position: absolute;
+      top: calc(10px + env(safe-area-inset-top));
+      right: 12px;
       display: flex;
-      width: 136px;
       flex-direction: row;
       align-items: center;
-      gap: 5px;
+      justify-content: flex-end;
+      gap: 8px;
     }
 
-    #forms-menu-view > .hero {
-      position: relative;
-      min-height: calc(128px + env(safe-area-inset-top));
-      padding-right: 156px;
+    .header-actions .theme-control {
+      width: min(48vw, 170px);
+      flex: 0 1 170px;
     }
 
-    #forms-menu-view > .hero > div:first-child {
-      min-width: 0;
-    }
-
-    #forms-menu-view .home-actions {
-      position: absolute;
-      top: calc(14px + env(safe-area-inset-top));
-      right: 14px;
-      z-index: 2;
-      width: 136px;
-    }
-
-    .home-actions .theme-control {
-      width: 78px;
-      flex: 0 0 78px;
-    }
-
-    .home-actions .theme-control label {
+    .header-actions .theme-control label {
       position: absolute;
       width: 1px;
       height: 1px;
@@ -1204,23 +1194,35 @@
       white-space: nowrap;
     }
 
-    .home-actions .theme-control select {
+    .header-actions .theme-control select {
       width: 100%;
-      min-height: 28px;
-      height: 28px;
-      padding: 2px 18px 2px 5px;
-      border-radius: 7px;
-      font-size: 0.625rem;
+      min-height: 34px;
+      height: 34px;
+      padding: 3px 26px 3px 8px;
+      border-radius: 8px;
+      font-size: 0.72rem;
     }
 
-    .home-actions .button {
-      width: 53px;
-      min-height: 28px;
-      height: 28px;
-      flex: 0 0 53px;
-      padding: 2px 4px;
-      border-radius: 7px;
-      font-size: 0.594rem;
+    .header-actions .button {
+      width: auto;
+      min-width: 64px;
+      min-height: 34px;
+      height: 34px;
+      flex: 0 0 auto;
+      padding: 3px 9px;
+      border-radius: 8px;
+      font-size: 0.68rem;
+    }
+
+    @media (max-width: 340px) {
+      .header-actions {
+        left: 12px;
+      }
+
+      .header-actions .theme-control {
+        width: auto;
+        flex: 1 1 auto;
+      }
     }
 
     .language-bar {
@@ -5390,18 +5392,13 @@
         justify-content: space-between;
         gap: 24px;
         margin-bottom: 20px;
-        padding: 26px 28px;
+        padding: calc(66px + env(safe-area-inset-top)) 28px 26px;
         border-radius: var(--radius);
         box-shadow: var(--shadow);
       }
 
-      #forms-menu-view > .hero {
-        min-height: 124px;
-        padding-right: 174px;
-      }
-
-      #forms-menu-view .home-actions {
-        top: 18px;
+      .header-actions {
+        top: calc(14px + env(safe-area-inset-top));
         right: 18px;
       }
 
@@ -6004,9 +6001,10 @@
         <div>
           <p class="eyebrow">A Vision Dictionary</p>
           <h1 id="forms-menu-title">Visionary Tool</h1>
-          <p id="home-quote" class="hero-copy">&quot;The secret of getting ahead is getting started.&quot; - Mark Twain</p>
+          <p class="hero-copy">Choose a section to open the production tools.</p>
+          <p id="home-quote" class="home-quote">&quot;The secret of getting ahead is getting started.&quot; - Mark Twain</p>
         </div>
-        <div class="home-actions">
+        <div id="header-actions" class="header-actions" aria-label="Page controls">
           <div class="theme-control">
             <label for="theme-select">Choose theme</label>
             <select id="theme-select" aria-label="Choose color theme">
@@ -6097,7 +6095,7 @@
             <span class="form-tile-arrow" aria-hidden="true">›</span>
           </button>
         </div>
-        <p class="last-updated">Version 3.0.21 · Last updated: <time datetime="2026-09-06">September 6, 2026</time></p>
+        <p class="last-updated">Version 3.0.22 · Last updated: <time datetime="2026-09-06">September 6, 2026</time></p>
         <div class="version-history-link-wrap">
           <button id="open-version-history" class="version-history-link" type="button">View version history</button>
         </div>
@@ -6207,7 +6205,7 @@
             <div class="daily-cloud-copy">
               <strong id="daily-cloud-title">Shared shift synchronization</strong>
               <span id="daily-cloud-status" role="status" aria-live="polite">Sign in with Google to share Daily Tasks across phones.</span>
-              <small>Safe Sync v6.2 · App 3.0.21</small>
+              <small>Safe Sync v6.2 · App 3.0.22</small>
             </div>
           </div>
           <div class="daily-cloud-actions">
@@ -6882,6 +6880,18 @@
       <section class="panel" aria-label="Release history">
         <div class="version-history-list">
           <article class="version-card version-card-current">
+            <div class="version-card-heading">
+              <h2>Version 3.0.22</h2>
+              <time datetime="2026-09-06">September 6, 2026</time>
+            </div>
+            <p class="version-summary-intro">Version 3.0.22 places theme and session controls inside each page header and returns the rotating quote to the home screen.</p>
+            <ul class="version-summary-list">
+              <li><strong>Header controls</strong>The theme selector and logout move with the active page header and scroll out of view naturally with it.</li>
+              <li><strong>Home quote</strong>The rotating quote appears only on the homepage and changes every 30 seconds.</li>
+              <li><strong>Clear workspace</strong>The sticky utility bar has been removed so it no longer covers content while users scroll.</li>
+            </ul>
+          </article>
+          <article class="version-card">
             <div class="version-card-heading">
               <h2>Version 3.0.21</h2>
               <time datetime="2026-09-06">September 6, 2026</time>
@@ -7745,7 +7755,7 @@
       var AUTH_KEY = "visionary-auth-session-v1";
       var AUTH_TTL_MS = 12 * 60 * 60 * 1000;
       var QUOTE_KEY = "visionary-home-quote-v1";
-      var QUOTE_BUCKET_MS = 30 * 60 * 1000;
+      var QUOTE_BUCKET_MS = 30 * 1000;
       var LANGUAGE_KEY = "visionary-language-v1";
       var DAILY_TASK_DRAFT_KEY = "visionary-daily-task-draft-v1";
       var DAILY_TASK_DRAFT_VERSION = 1;
@@ -7773,6 +7783,7 @@
       var loginPassword = document.getElementById("login-password");
       var loginPasswordLabel = document.getElementById("login-password-label");
       var loginStatus = document.getElementById("login-status");
+      var headerActions = document.getElementById("header-actions");
       var logoutButton = document.getElementById("logout-button");
       var homeQuote = document.getElementById("home-quote");
       var themeSelect = document.getElementById("theme-select");
@@ -7957,6 +7968,7 @@
         "Log out": "로그아웃",
         "Language": "언어",
         "Choose a section": "섹션 선택",
+        "Choose a section to open the production tools.": "생산 도구를 열려면 섹션을 선택하세요.",
         "Open Guides or Copy/Paste to see the available tools.": "가이드 또는 복사/붙여넣기를 열어 사용 가능한 도구를 확인하세요.",
         "Open Daily Tasks, Guides, or Copy/Paste to see the available tools.": "일일 작업, 가이드 또는 복사/붙여넣기를 열어 사용 가능한 도구를 확인하세요.",
         "Copy/Paste": "복사/붙여넣기",
@@ -8053,6 +8065,8 @@
         "Daily task summary copied.": "일일 작업 요약을 복사했습니다.",
         "Guides": "가이드",
         "Open Work Instructions and Troubleshooting.": "작업 지침과 문제 해결을 엽니다.",
+        "Version 3.0.22 · Last updated:": "버전 3.0.22 · 마지막 업데이트:",
+        "Version 3.0.22": "버전 3.0.22",
         "Version 3.0.21 · Last updated:": "버전 3.0.21 · 마지막 업데이트:",
         "Version 3.0.21": "버전 3.0.21",
         "Version 3.0.20 · Last updated:": "버전 3.0.20 · 마지막 업데이트:",
@@ -8061,6 +8075,13 @@
         "Version 3.0.19": "버전 3.0.19",
         "Version 3.0.18": "버전 3.0.18",
         "September 6, 2026": "2026년 9월 6일",
+        "Version 3.0.22 places theme and session controls inside each page header and returns the rotating quote to the home screen.": "버전 3.0.22는 테마 및 세션 컨트롤을 각 페이지 헤더 안에 배치하고 회전하는 명언을 홈 화면으로 되돌립니다.",
+        "Header controls": "헤더 컨트롤",
+        "The theme selector and logout move with the active page header and scroll out of view naturally with it.": "테마 선택기와 로그아웃은 활성 페이지 헤더와 함께 이동하며 스크롤할 때 자연스럽게 화면에서 사라집니다.",
+        "Home quote": "홈 명언",
+        "The rotating quote appears only on the homepage and changes every 30 seconds.": "회전하는 명언은 홈페이지에만 표시되며 30초마다 바뀝니다.",
+        "Clear workspace": "깔끔한 작업 공간",
+        "The sticky utility bar has been removed so it no longer covers content while users scroll.": "고정 유틸리티 바를 제거하여 스크롤할 때 더 이상 콘텐츠를 가리지 않습니다.",
         "Version 3.0.21 adds a single-sheet master Excel history for trend analysis.": "버전 3.0.21은 추세 분석을 위한 단일 시트 마스터 Excel 기록을 추가합니다.",
         "One row per shift": "교대당 한 행",
         "Every stored date and shift exports as one structured record with roster, completion, points, activity counts, and handoff details.": "저장된 각 날짜와 교대는 명단, 완료율, 점수, 활동 건수 및 인수인계 세부 정보가 포함된 하나의 구조화된 기록으로 내보내집니다.",
@@ -10698,6 +10719,10 @@
         escalationFormView.hidden = !showEscalationForm;
         troubleshootingView.hidden = !showTroubleshooting;
         workInstructionsView.hidden = !showWorkInstructions;
+        var activeHeader = appShell.querySelector(".app-view:not([hidden]) > .hero");
+        if (headerActions && activeHeader && headerActions.parentElement !== activeHeader) {
+          activeHeader.appendChild(headerActions);
+        }
         if (showGuidesMenu) document.title = localizedPageTitle("Guides - Visionary Tool");
         else if (showCopyMenu) document.title = localizedPageTitle("Copy/Paste - Visionary Tool");
         else if (showDailyTasks) document.title = localizedPageTitle("Daily Tasks - Visionary Tool");
@@ -10714,7 +10739,6 @@
         else if (showVersionHistory) document.title = localizedPageTitle("Version History");
         else {
           document.title = "Visionary Tool";
-          updateHomeQuote();
         }
         window.scrollTo(0, 0);
       }
@@ -12336,7 +12360,7 @@
         }
         setAuthenticatedView(false);
       }
-      window.setInterval(updateHomeQuote, 60000);
+      window.setInterval(updateHomeQuote, QUOTE_BUCKET_MS);
       window.setInterval(checkAuthExpiry, 60000);
 
       var savedDraft = readSavedDraft();
@@ -16481,7 +16505,7 @@
     const provider = new GoogleAuthProvider();
     provider.setCustomParameters({ prompt: "select_account" });
     const SYNC_PROTOCOL_VERSION = 6;
-    const HOSTED_APP_URL = "https://jsikson7.github.io/Visionary/?v=321";
+    const HOSTED_APP_URL = "https://jsikson7.github.io/Visionary/?v=322";
     const isDirectFilePage = !["http:", "https:"].includes(window.location.protocol);
 
     const cloudPanel = document.getElementById("daily-cloud-panel");
@@ -17205,7 +17229,7 @@
 
     function friendlyError(error) {
       const code = String(error && error.code || "");
-      if (code.includes("permission-denied") && isAdministrator()) return "Firebase blocked this save. Publish the Safe Sync v6.2 Firestore rules and confirm this page shows App 3.0.21.";
+      if (code.includes("permission-denied") && isAdministrator()) return "Firebase blocked this save. Publish the Safe Sync v6.2 Firestore rules and confirm this page shows App 3.0.22.";
       if (code.includes("permission-denied")) return "Firebase blocked this save. Publish the Safe Sync v6.2 rules and sign in with a verified Google account.";
       if (code.includes("unavailable") || !navigator.onLine) return "You appear to be offline. Changes will remain in the phone backup until reconnected.";
       if (code.includes("unauthorized-domain")) return "This website address must be added to Firebase Authentication authorized domains.";
@@ -17942,9 +17966,9 @@
       const appProperties = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>' +
         '<Properties xmlns="http://schemas.openxmlformats.org/officeDocument/2006/extended-properties" ' +
         'xmlns:vt="http://schemas.openxmlformats.org/officeDocument/2006/docPropsVTypes">' +
-        '<Application>Visionary 3.0.21</Application><DocSecurity>0</DocSecurity><ScaleCrop>false</ScaleCrop>' +
+        '<Application>Visionary 3.0.22</Application><DocSecurity>0</DocSecurity><ScaleCrop>false</ScaleCrop>' +
         '<Company></Company><LinksUpToDate>false</LinksUpToDate><SharedDoc>false</SharedDoc><HyperlinksChanged>false</HyperlinksChanged>' +
-        '<AppVersion>3.0.21</AppVersion></Properties>';
+        '<AppVersion>3.0.22</AppVersion></Properties>';
 
       const zip = xlsxZipStoredFiles([
         { name: "[Content_Types].xml", contents: contentTypes },
