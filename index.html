@@ -5916,6 +5916,27 @@
       display: none !important;
     }
 
+    .daily-contribution-card.daily-club-member { border:2px solid #aa822b; background:color-mix(in srgb, var(--paper) 90%, #d7ad48); }
+    .daily-club-badge { font:inherit; font-size:.72rem; border:1px solid #aa822b; border-radius:16px; padding:5px 8px; min-height:36px; background:var(--paper); color:var(--ink); cursor:pointer; }
+    #daily-club-dialog { width:min(600px, calc(100% - 24px)); max-height:calc(100dvh - 32px); padding:28px; border:2px solid #aa822b; border-radius:18px; background:var(--paper); color:var(--ink); overflow:auto; text-align:center; }
+    #daily-club-dialog::backdrop { background:rgba(10,22,12,.7); }
+    #daily-club-dialog [hidden] { display:none!important; }
+    #daily-club-dialog h2 { color:var(--ink); margin:18px 0; overflow-wrap:anywhere; }
+    #daily-club-dialog p { margin:12px 0; }
+    #daily-club-dialog .daily-club-ribbon { color:var(--ink); background:color-mix(in srgb, var(--paper) 85%, #d7ad48); border:1px solid #aa822b; border-radius:18px; padding:8px 12px; }
+    #daily-club-dialog .daily-club-actions { display:flex; flex-wrap:wrap; justify-content:center; gap:8px; margin-top:20px; }
+    #daily-club-dialog canvas { width:100%; height:auto; display:block; border-radius:10px; }
+    #daily-club-dialog .daily-club-effects { position:absolute; inset:0; overflow:hidden; pointer-events:none; z-index:2; border-radius:16px; }
+    .daily-club-confetti { position:absolute; width:6px; height:10px; top:-16px; background:#d7ad48; animation:daily-club-fall 3s linear both; }
+    .daily-club-confetti:nth-child(even) { background:#7fa26a; }
+    .daily-club-confetti:nth-child(3n) { background:#bc7ad2; }
+    .daily-club-spark { position:absolute; width:4px; height:4px; border-radius:50%; color:#d7ad48; background:currentColor; box-shadow:0 0 5px currentColor; animation:daily-club-burst 1.65s ease-out both; }
+    .daily-club-spark:nth-child(3n) { color:#72b9ef; }
+    .daily-club-spark:nth-child(3n + 1) { color:#df87c9; }
+    @keyframes daily-club-fall { 0% { opacity:0; } 8%,85% { opacity:1; } 100% { transform:translate(var(--drift),var(--fall)) rotate(600deg); opacity:0; } }
+    @keyframes daily-club-burst { 0% { transform:translate(0,35px) scale(.3); opacity:0; } 12% { transform:translate(0,0); opacity:1; } 70% { opacity:.9; } 100% { transform:translate(var(--ray-x),var(--ray-y)) scale(.2); opacity:0; } }
+    @media(prefers-reduced-motion:reduce) { #daily-club-dialog .daily-club-effects { display:none; } }
+    @media(max-width:480px) { #daily-club-dialog { padding:20px 12px; } }
   </style>
 </head>
 <body>
@@ -6363,7 +6384,7 @@
                   <div id="daily-shift-a3-progress" class="daily-task-progress" role="progressbar" aria-label="Allocation 3 completion rate" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div id="daily-shift-a3-progress-fill" class="daily-task-progress-fill"></div></div>
                 </article>
               </div>
-              <p class="daily-task-score-note">Each rate uses that allocation's Black Frame, Cell Tracking Reading Rate, and PKG 2 Hour Update checks. Entered names replace the allocation labels automatically.</p>
+              <p class="daily-task-score-note">Each rate uses that allocation's Black Frame and PKG 2 Hour Update checks. Cell Tracking Reading Rate adds points only. Entered names replace the allocation labels automatically.</p>
               <h4 class="daily-contribution-heading">Share of completed work</h4>
               <div class="daily-contribution-grid" aria-label="Technician work contribution">
                 <article class="daily-contribution-card"><span id="daily-contribution-lead-name">Lead</span><strong id="daily-contribution-lead-percent">0%</strong><small><span id="daily-contribution-lead-points">0</span> pts</small></article>
@@ -15559,6 +15580,137 @@
         }
       }
 
+      var clubPrevious = Object.create(null);
+      var clubSeen = Object.create(null);
+      var clubQueue = [];
+      var clubDialog = null;
+      var clubEffectTimer = null;
+      var clubReturnFocus = null;
+      var clubCurrent = null;
+      var clubStorageKey = 'visionary-1k-celebrations-v1';
+      try { clubSeen = JSON.parse(localStorage.getItem(clubStorageKey) || '{}') || {}; } catch (error) { /* Device memory remains available. */ }
+
+      function clubIdentity(option) {
+        return JSON.stringify([dateInput.value, shiftSelect.value, option.key, option.label.trim().toLowerCase()]);
+      }
+      function clubRemember(id) {
+        clubSeen[id] = Date.now();
+        var keys = Object.keys(clubSeen).sort(function (a, b) { return clubSeen[b] - clubSeen[a]; });
+        keys.slice(300).forEach(function (key) { delete clubSeen[key]; });
+        try { localStorage.setItem(clubStorageKey, JSON.stringify(clubSeen)); } catch (error) { /* Avoid repeats in this session. */ }
+      }
+      function clubSnapshot(option, points) {
+        return { id: clubIdentity(option), name: option.label, points: displayPoints(points), date: shortDate(dateInput.value), shift: shiftSelect.options[shiftSelect.selectedIndex].text, shiftKey: dateInput.value + '|' + shiftSelect.value };
+      }
+      function updateClubMilestones(result, allowCelebration) {
+        var shiftKey = dateInput.value + '|' + shiftSelect.value;
+        clubQueue = clubQueue.filter(function (item) { return item.shiftKey === shiftKey; });
+        if (clubDialog && clubDialog.open && clubCurrent && clubCurrent.shiftKey !== shiftKey) clubDialog.close();
+        result.contributorOrder.forEach(function (option) {
+          var points = result.contributors[option.key].points;
+          var card = option.key.indexOf('OT:') === 0
+            ? Array.prototype.find.call(contributionGrid.querySelectorAll('[data-daily-contribution-dynamic]'), function (node) { return node.getAttribute('data-daily-contribution-dynamic') === option.key; })
+            : contributionOutputs[option.key].name.closest('.daily-contribution-card');
+          var qualified = points >= 1000;
+          card.classList.toggle('daily-club-member', qualified);
+          var badge = card.querySelector('.daily-club-badge');
+          if (qualified) {
+            if (!badge) { badge = document.createElement('button'); badge.type = 'button'; badge.className = 'daily-club-badge'; badge.textContent = '★ 1K Club'; card.appendChild(badge); }
+            badge.setAttribute('aria-label', 'View achievement card for ' + option.label);
+            badge.onclick = function () { openClubDialog(clubSnapshot(option, metrics().contributors[option.key].points), false); };
+          } else if (badge) badge.remove();
+          var id = clubIdentity(option), previous = clubPrevious[id];
+          clubPrevious[id] = points;
+          if (allowCelebration && qualified && previous !== undefined && previous < 1000 && !clubSeen[id]) {
+            clubRemember(id);
+            clubQueue.push(clubSnapshot(option, points));
+          }
+        });
+        if (allowCelebration) showNextClubMilestone();
+      }
+      function stopClubEffects() {
+        clearTimeout(clubEffectTimer);
+        if (clubDialog) clubDialog.querySelector('.daily-club-effects').replaceChildren();
+      }
+      function startClubEffects() {
+        stopClubEffects();
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        var effects = clubDialog.querySelector('.daily-club-effects');
+        var fall = clubDialog.getBoundingClientRect().height + 32;
+        for (var i = 0; i < 140; i++) {
+          var piece = document.createElement('i'); piece.className = 'daily-club-confetti';
+          piece.style.left = (i * 37 % 100) + '%'; piece.style.animationDelay = (i / 140 * 9) + 's';
+          piece.style.setProperty('--drift', ((i * 13 % 90) - 45) + 'px'); piece.style.setProperty('--fall', fall + 'px'); effects.appendChild(piece);
+        }
+        [[14,16],[83,22],[24,78],[78,77],[48,12],[12,51],[87,48],[32,18],[69,82],[50,12],[17,73],[85,18]].forEach(function (position, burst) {
+          for (var ray = 0; ray < 20; ray++) {
+            var spark = document.createElement('i'), angle = ray / 20 * Math.PI * 2, radius = 48 + (ray % 3) * 17;
+            spark.className = 'daily-club-spark'; spark.style.left = position[0] + '%'; spark.style.top = position[1] + '%'; spark.style.animationDelay = (burst * .85) + 's';
+            spark.style.setProperty('--ray-x', Math.cos(angle) * radius + 'px'); spark.style.setProperty('--ray-y', (Math.sin(angle) * radius + 18) + 'px'); effects.appendChild(spark);
+          }
+        });
+        clubEffectTimer = setTimeout(stopClubEffects, 12000);
+      }
+      function ensureClubDialog() {
+        if (clubDialog) return;
+        clubDialog = document.createElement('dialog'); clubDialog.id = 'daily-club-dialog'; clubDialog.setAttribute('aria-labelledby', 'daily-club-title');
+        clubDialog.innerHTML = '<div class="daily-club-effects" aria-hidden="true"></div><section data-club-celebration><div class="daily-club-ribbon">★ 1K CLUB · MILESTONE UNLOCKED</div><h2 id="daily-club-title"></h2><p data-club-points></p><p>Your hard work deserves a moment.</p><div class="daily-club-actions"><button type="button" class="button button-primary" data-club-view>Achievement card</button><button type="button" class="button button-secondary" data-club-close>Keep going</button></div></section><section data-club-share hidden><h2>Your 1K Club achievement</h2><canvas width="1200" height="720" role="img"></canvas><div class="daily-club-actions"><button type="button" class="button button-primary" data-club-copy>Copy image</button><button type="button" class="button button-secondary" data-club-download>Download PNG</button><button type="button" class="button button-secondary" data-club-close>Close</button></div><p data-club-status role="status"></p></section>';
+        document.body.appendChild(clubDialog);
+        clubDialog.querySelectorAll('[data-club-close]').forEach(function (button) { button.onclick = function () { clubDialog.close(); }; });
+        clubDialog.querySelector('[data-club-view]').onclick = showClubShare;
+        clubDialog.querySelector('[data-club-copy]').onclick = copyClubImage;
+        clubDialog.querySelector('[data-club-download]').onclick = downloadClubImage;
+        clubDialog.addEventListener('close', function () { stopClubEffects(); if (clubReturnFocus && clubReturnFocus.isConnected) clubReturnFocus.focus(); showNextClubMilestone(); });
+        window.matchMedia('(prefers-reduced-motion: reduce)').addEventListener('change', function (event) { if (event.matches) stopClubEffects(); });
+      }
+      function openClubDialog(item, celebrate) {
+        ensureClubDialog(); clubCurrent = item; clubReturnFocus = document.activeElement;
+        clubDialog.querySelector('#daily-club-title').textContent = 'You did it, ' + item.name + '!';
+        clubDialog.querySelector('[data-club-points]').textContent = item.points.toLocaleString() + ' points this shift.';
+        clubDialog.querySelector('[data-club-celebration]').hidden = !celebrate;
+        clubDialog.querySelector('[data-club-share]').hidden = celebrate;
+        if (!clubDialog.open) clubDialog.showModal();
+        if (celebrate) { clubDialog.setAttribute('aria-labelledby', 'daily-club-title'); startClubEffects(); clubDialog.querySelector('[data-club-view]').focus(); }
+        else showClubShare();
+      }
+      function showNextClubMilestone() {
+        if (clubQueue.length && (!clubDialog || !clubDialog.open)) openClubDialog(clubQueue.shift(), true);
+      }
+      function showClubShare() {
+        stopClubEffects();
+        clubDialog.querySelector('[data-club-celebration]').hidden = true;
+        clubDialog.querySelector('[data-club-share]').hidden = false;
+        clubDialog.removeAttribute('aria-labelledby'); clubDialog.setAttribute('aria-label', '1K Club achievement for ' + clubCurrent.name);
+        clubDialog.querySelector('[data-club-status]').textContent = '';
+        drawClubImage(); clubDialog.querySelector('[data-club-copy]').focus();
+      }
+      function drawClubImage() {
+        var canvas = clubDialog.querySelector('canvas'), ctx = canvas.getContext('2d'), item = clubCurrent;
+        // Fixed export palette gives the same readable card in Teams and Outlook.
+        ctx.fillStyle = '#fafbf5'; ctx.fillRect(0, 0, 1200, 720); ctx.fillStyle = '#fff7dc'; ctx.fillRect(22, 22, 1156, 676);
+        ctx.strokeStyle = '#8c650d'; ctx.lineWidth = 4; ctx.strokeRect(22, 22, 1156, 676); ctx.textAlign = 'center';
+        function line(text, size, y, color) { ctx.fillStyle = color; ctx.font = '500 ' + size + 'px Arial'; while (ctx.measureText(text).width > 1060 && size > 14) { size--; ctx.font = '500 ' + size + 'px Arial'; } ctx.fillText(text, 600, y); }
+        line('DAILY TASKS / MILESTONE ACHIEVEMENT', 34, 103, '#8c650d'); line('1K CLUB', 84, 237, '#8c650d');
+        line(item.name, 62, 349, '#293b29'); line(item.points.toLocaleString() + ' points', 52, 435, '#293b29');
+        line('Thank you for the work you put in.', 30, 529, '#293b29'); line(item.date + ' · ' + item.shift, 25, 630, '#596653');
+        canvas.setAttribute('aria-label', item.name + ', 1K Club, ' + item.points + ' points, ' + item.date + ', ' + item.shift);
+      }
+      function clubImageBlob() { return new Promise(function (resolve, reject) { clubDialog.querySelector('canvas').toBlob(function (blob) { if (blob) resolve(blob); else reject(new Error('Image unavailable')); }, 'image/png'); }); }
+      function copyClubImage() {
+        var status = clubDialog.querySelector('[data-club-status]');
+        if (!navigator.clipboard || !window.ClipboardItem) { status.textContent = 'Image copying is unavailable here. Download PNG and attach it to your message.'; return; }
+        try { navigator.clipboard.write([new ClipboardItem({ 'image/png': clubImageBlob() })]).then(function () { status.textContent = 'Image copied. Paste it into Teams or Outlook.'; }).catch(function () { status.textContent = 'Copy was blocked. Download PNG and attach it to your message.'; }); }
+        catch (error) { status.textContent = 'Copy was blocked. Download PNG and attach it to your message.'; }
+      }
+      function downloadClubImage() {
+        clubImageBlob().then(function (blob) {
+          var url = URL.createObjectURL(blob), link = document.createElement('a'); link.href = url;
+          link.download = '1K-Club-' + clubCurrent.name.replace(/[^a-z0-9_-]/gi, '-') + '-' + clubCurrent.date.replace(/[^0-9]/g, '-') + '.png';
+          document.body.appendChild(link); link.click(); link.remove(); setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
+          clubDialog.querySelector('[data-club-status]').textContent = 'PNG downloaded. Attach it to your message.';
+        }).catch(function () { clubDialog.querySelector('[data-club-status]').textContent = 'The image could not be created. Please try again.'; });
+      }
+
       function renderContributionScoreCards(result) {
         DAILY_CONTRIBUTORS.forEach(function (key) {
           var contributor = result.contributors[key];
@@ -15624,6 +15776,7 @@
           output.card.setAttribute("data-selected", myTasksFilterSelect.value === allocation ? "true" : "false");
         });
         renderContributionScoreCards(result);
+        updateClubMilestones(result, !settings.skipSave && !dailyCloudApplying && dailyShiftSavingEnabled);
         quickPercent.textContent = result.percent + "%";
         quickPoints.textContent = displayPoints(result.earned) + " / " + displayPoints(result.available) + " pts";
         quickCount.textContent = result.completed + " / " + result.total + " tasks";
