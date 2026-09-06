@@ -1,7 +1,8 @@
 rules_version = '2';
 
-// Visionary Safe Sync v6.1 — role-based access and one-time legacy
-// shift migration for app version 3.0.19.
+// Visionary Safe Sync v6.2 — automatic access for verified Google users,
+// protected administrator capabilities, and one-time legacy shift migration
+// for app version 3.0.20.
 
 service cloud.firestore {
   match /databases/{database}/documents {
@@ -15,7 +16,12 @@ service cloud.firestore {
         && request.auth.token.email is string;
     }
 
-    function isAdmin() {
+    function isDesignatedAdmin() {
+      return verifiedUser()
+        && request.auth.token.email == 'jsikson@gmail.com';
+    }
+
+    function hasActiveAdminRole() {
       return verifiedUser()
         && exists(/databases/$(database)/documents/authorizedUsers/$(request.auth.uid))
         && get(/databases/$(database)/documents/authorizedUsers/$(request.auth.uid)).data.active == true
@@ -23,17 +29,12 @@ service cloud.firestore {
         && get(/databases/$(database)/documents/authorizedUsers/$(request.auth.uid)).data.email == request.auth.token.email;
     }
 
-    function isApprovedTechnician() {
-      return verifiedUser()
-        && exists(/databases/$(database)/documents/authorizedUsers/$(request.auth.uid))
-        && get(/databases/$(database)/documents/authorizedUsers/$(request.auth.uid)).data.active == true
-        && get(/databases/$(database)/documents/authorizedUsers/$(request.auth.uid)).data.email == request.auth.token.email
-        && (!get(/databases/$(database)/documents/authorizedUsers/$(request.auth.uid)).data.keys().hasAny(['role'])
-          || get(/databases/$(database)/documents/authorizedUsers/$(request.auth.uid)).data.role == 'technician');
+    function isAdmin() {
+      return isDesignatedAdmin() || hasActiveAdminRole();
     }
 
     function canUseSharedShifts() {
-      return isAdmin() || isApprovedTechnician();
+      return verifiedUser();
     }
 
     function validAccessRequest(data, uid) {
@@ -201,6 +202,13 @@ service cloud.firestore {
         && validAuthorizedUser(request.resource.data, uid);
     }
 
+    // The document does not need to exist. A successful read tells the app
+    // that the signed-in account has administrator privileges without placing
+    // the administrator email in the public HTML.
+    match /adminProbe/{uid} {
+      allow get: if isAdmin() && request.auth.uid == uid;
+    }
+
     match /shifts/{shiftId} {
       allow get, list: if canUseSharedShifts();
 
@@ -244,7 +252,7 @@ service cloud.firestore {
             'taskAudit'
           ])
           // A stored document from an older app may contain array-based entry
-          // fields, missing metadata, or obsolete keys. App 3.0.19 sends one
+          // fields, missing metadata, or obsolete keys. App 3.0.20 sends one
           // complete valid document to perform this migration safely.
           || !validShiftDocument(resource.data, shiftId));
 
