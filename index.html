@@ -5937,6 +5937,33 @@
     @keyframes daily-club-burst { 0% { transform:translate(0,35px) scale(.3); opacity:0; } 12% { transform:translate(0,0); opacity:1; } 70% { opacity:.9; } 100% { transform:translate(var(--ray-x),var(--ray-y)) scale(.2); opacity:0; } }
     @media(prefers-reduced-motion:reduce) { #daily-club-dialog .daily-club-effects { display:none; } }
     @media(max-width:480px) { #daily-club-dialog { padding:20px 12px; } }
+
+    .daily-report-contribution-item.daily-report-club-member,
+    .daily-report-top-contributor.daily-report-club-member {
+      border-color: #aa822b;
+      background: color-mix(in srgb, var(--paper) 90%, #d7ad48);
+    }
+    .daily-report-top-contributor.daily-report-club-member {
+      grid-template-areas: "label badge" "name badge" "score badge" "club club" "breakdown breakdown";
+    }
+    .daily-report-contribution-item > .daily-report-club-badge,
+    .daily-report-top-contributor > .daily-report-club-badge {
+      display: inline-block;
+      justify-self: start;
+      width: max-content;
+      max-width: 100%;
+      margin-top: 4px;
+      padding: 3px 8px;
+      border: 1px solid #aa822b;
+      border-radius: 999px;
+      background: #fff0bd;
+      color: #70500c;
+      font-size: .68rem;
+      font-weight: 850;
+      line-height: 1.3;
+      white-space: nowrap;
+    }
+    .daily-report-top-contributor > .daily-report-club-badge { grid-area: club; }
   </style>
 </head>
 <body>
@@ -14525,6 +14552,19 @@
         };
       }
 
+      function appendReportClubBadge(card, points) {
+        if (points < 1000) return;
+        card.classList.add("daily-report-club-member");
+        var badge = document.createElement("span");
+        badge.className = "daily-report-club-badge";
+        badge.textContent = "★ 1K Club";
+        card.appendChild(badge);
+      }
+
+      function reportClubBadgeSvg(x, y) {
+        return '<g aria-label="1K Club"><rect x="' + x + '" y="' + y + '" width="88" height="20" rx="10" fill="#fff0bd" stroke="#aa822b"/><text x="' + (x + 44) + '" y="' + (y + 14) + '" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" font-weight="700" fill="#70500c">★ 1K Club</text></g>';
+      }
+
       function topContributorSummary(result) {
         var ranked = result.contributorOrder.map(function (option) {
           return {
@@ -14640,6 +14680,7 @@
         topCard.appendChild(topName);
         topCard.appendChild(topScore);
         topCard.appendChild(topBadge);
+        appendReportClubBadge(topCard, topContributor.points);
 
         var topBreakdown = document.createElement("div");
         topBreakdown.className = "daily-report-top-breakdown";
@@ -14691,6 +14732,7 @@
           value.textContent = displayPoints(contributor.points) + " pts · " + contributor.percent + "%";
           card.appendChild(label);
           card.appendChild(value);
+          appendReportClubBadge(card, contributor.points);
           contributionList.appendChild(card);
         });
         section.appendChild(contributionList);
@@ -15180,7 +15222,8 @@
         var headerBlockHeight = 70;
         var leaderAreaHeight = breakdownLeaders.length > 1 ? breakdownLeaders.length * 46 : 34;
         var topCardHeight = cardPad * 2 + headerBlockHeight + 14 + leaderAreaHeight;
-        addRect(pad, cursorY, contentWidth, topCardHeight, colors.cream, 10, colors.success);
+        addRect(pad, cursorY, contentWidth, topCardHeight, colors.cream, 10, topContributor.points >= 1000 ? "#aa822b" : colors.success);
+        if (topContributor.points >= 1000) parts.push(reportClubBadgeSvg(pad + contentWidth - 104, cursorY + 12));
         addText(pad + cardPad, cursorY + cardPad + 12, "TOP CONTRIBUTOR", { size: 10, weight: 800, fill: colors.muted });
         addText(pad + cardPad, cursorY + cardPad + 34, topContributor.label, { size: 15, weight: 800, fill: colors.ink });
         addText(pad + cardPad, cursorY + cardPad + 54, displayPoints(topContributor.points) + " pts · " + topContributor.percent + "%", { size: 12.5, weight: 700, fill: colors.accent });
@@ -15212,7 +15255,13 @@
         addSectionHeading("Work Contribution");
         result.contributorOrder.forEach(function (option) {
           var contributor = result.contributors[option.key];
-          addRow(option.label, displayPoints(contributor.points) + " pts · " + contributor.percent + "%");
+          if (contributor.points >= 1000) {
+            addRect(pad - 4, cursorY - 2, contentWidth + 8, 50, "#fff8e2", 7, "#aa822b");
+            addText(pad, cursorY + 16, option.label, { size: 12.5, weight: 700, fill: "#293b29" });
+            addText(pad + contentWidth, cursorY + 16, displayPoints(contributor.points) + " pts · " + contributor.percent + "%", { size: 12.5, weight: 800, fill: "#293b29", anchor: "end" });
+            parts.push(reportClubBadgeSvg(pad, cursorY + 23));
+            cursorY += 54;
+          } else addRow(option.label, displayPoints(contributor.points) + " pts · " + contributor.percent + "%");
         });
         cursorY += 10;
 
@@ -15355,10 +15404,12 @@
         var workX = contributorX + summaryPanelWidth + summaryGap;
         var totalsX = workX + summaryPanelWidth + summaryGap;
         var topPanelRequiredHeight = breakdownLeaders.length > 1 ? 128 + breakdownLeaders.length * 54 : 184;
-        var workPanelRequiredHeight = 64 + result.contributorOrder.length * 29;
+        var clubMemberCount = result.contributorOrder.filter(function (option) { return result.contributors[option.key].points >= 1000; }).length;
+        var workPanelRequiredHeight = 64 + result.contributorOrder.length * 29 + clubMemberCount * 28;
         var summaryPanelHeight = Math.max(184, topPanelRequiredHeight, workPanelRequiredHeight);
 
-        addRect(contributorX, bodyY, summaryPanelWidth, summaryPanelHeight, colors.cream, 12, colors.success);
+        addRect(contributorX, bodyY, summaryPanelWidth, summaryPanelHeight, colors.cream, 12, topContributor.points >= 1000 ? "#aa822b" : colors.success);
+        if (topContributor.points >= 1000) parts.push(reportClubBadgeSvg(contributorX + summaryPanelWidth - 106, bodyY + 12));
         addText(contributorX + 18, bodyY + 29, "Top Contributor", { size: 14.5, weight: 800, fill: colors.ink });
         addLine(contributorX + 18, bodyY + 37, contributorX + summaryPanelWidth - 18, bodyY + 37, colors.accent, 2);
         addText(contributorX + 18, bodyY + 66, topContributor.label, { size: 18, weight: 800, fill: colors.ink });
@@ -15390,7 +15441,13 @@
         var workY = sectionHeading(workX + 18, bodyY + 15, summaryPanelWidth - 36, "Work Contribution");
         result.contributorOrder.forEach(function (option) {
           var contributor = result.contributors[option.key];
-          workY = row(workX + 18, workY, summaryPanelWidth - 36, option.label, displayPoints(contributor.points) + " pts · " + contributor.percent + "%");
+          if (contributor.points >= 1000) {
+            addRect(workX + 12, workY - 2, summaryPanelWidth - 24, 50, "#fff8e2", 7, "#aa822b");
+            addText(workX + 18, workY + 16, option.label, { size: 12.5, weight: 700, fill: "#293b29" });
+            addText(workX + summaryPanelWidth - 18, workY + 16, displayPoints(contributor.points) + " pts · " + contributor.percent + "%", { size: 12.5, weight: 800, fill: "#293b29", anchor: "end" });
+            parts.push(reportClubBadgeSvg(workX + 18, workY + 23));
+            workY += 54;
+          } else workY = row(workX + 18, workY, summaryPanelWidth - 36, option.label, displayPoints(contributor.points) + " pts · " + contributor.percent + "%");
         });
 
         var pmTotal = dynamicReportTotal(pmEntries);
