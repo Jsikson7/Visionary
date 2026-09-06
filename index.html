@@ -5850,6 +5850,72 @@
         grid-column: span 2;
       }
     }
+
+    /* Completed cards occupy the same grid cells as unfinished tasks. */
+    .daily-fixed-card[data-compact="true"] {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      min-height: 50px;
+      align-content: center;
+      padding: 6px;
+      gap: 0;
+      border: 1px solid color-mix(in srgb, var(--success) 42%, var(--line));
+      border-radius: 9px;
+      background: color-mix(in srgb, var(--success) 7%, var(--paper));
+    }
+    .daily-allocation-check-options > .daily-fixed-card[data-compact="true"],
+    .daily-pkg-machine-options > .daily-fixed-card[data-compact="true"] { min-height: 46px; }
+    .daily-fixed-card[data-compact="true"] > :not(.daily-fixed-summary) { display: none !important; }
+    .daily-fixed-summary {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 24px;
+      align-items: center;
+      gap: 2px;
+      min-width: 0;
+      width: 100%;
+    }
+    .daily-fixed-summary .daily-dynamic-summary-title,
+    .daily-fixed-summary .daily-dynamic-summary-meta {
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      line-height: 1.2;
+    }
+    .daily-fixed-summary .daily-dynamic-summary-title { font-size: 0.7rem; }
+    .daily-fixed-summary .daily-dynamic-summary-meta { font-size: 0.62rem; }
+    .daily-fixed-menu-toggle {
+      border: 0;
+      background: transparent;
+      color: var(--ink);
+      width: 24px;
+      min-height: 32px;
+      padding: 0;
+      font-size: 1.25rem;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+    .daily-fixed-menu-toggle:focus-visible { outline: 2px solid var(--success); }
+    .daily-fixed-menu {
+      position: fixed;
+      inset: auto;
+      margin: 0;
+      width: 160px;
+      padding: 6px;
+      border: 1px solid var(--line);
+      border-radius: 9px;
+      background: var(--paper);
+      color: var(--ink);
+      box-shadow: 0 5px 18px rgba(0,0,0,.2);
+      z-index: 10000;
+    }
+    .daily-fixed-menu[hidden] { display: none !important; }
+    .daily-fixed-menu .button { display: block; width: 100%; min-height: 40px; margin: 2px 0; }
+    .daily-fixed-save[hidden] { display: none !important; }
+    .daily-checklist[data-incomplete-only="true"] [data-filter-complete="true"],
+    .daily-checklist[data-incomplete-only="true"] .daily-dynamic-entry[data-saved="true"][data-completed="true"][data-attribution-missing="false"]:not([data-editing="true"]) {
+      display: none !important;
+    }
+
   </style>
 </head>
 <body>
@@ -6305,7 +6371,7 @@
                 <article class="daily-contribution-card"><span id="daily-contribution-a2-name">Allocation 2</span><strong id="daily-contribution-a2-percent">0%</strong><small><span id="daily-contribution-a2-points">0</span> pts</small></article>
                 <article class="daily-contribution-card"><span id="daily-contribution-a3-name">Allocation 3</span><strong id="daily-contribution-a3-percent">0%</strong><small><span id="daily-contribution-a3-points">0</span> pts</small></article>
               </div>
-              <p class="daily-task-score-note">Check a task, then choose Completed By. Most work credits one selected person; Super Escalations can credit multiple technicians and divide the 150 points evenly. Allocation completion rates still follow the assigned A1, A2, and A3 work.</p>
+              <p class="daily-task-score-note">Check a task, then choose Completed By. Most work credits one selected person; Super Escalations can credit multiple technicians and divide the 150 points evenly. Allocation completion rates follow the assigned A1, A2, and A3 work. Cell Tracking Reading Rate earns points but does not affect completion percentages or count as missed work.</p>
             </section>
 
             <section id="daily-task-quick-summary" class="daily-task-quick-summary" aria-label="Current shift progress">
@@ -13004,6 +13070,25 @@
       }
 
       function updateChecklistEmptyState() {
+        // Filter individual tasks, then remove rows with no remaining work.
+        var active = activeFixedCheckboxes();
+        var allocation = myTasksFilterSelect.value;
+        function matchesAllocation(checkbox) {
+          var assigned = checkbox.getAttribute("data-allocation");
+          return !assigned || allocation === "all" || assigned === allocation;
+        }
+        Array.prototype.forEach.call(checklist.querySelectorAll("[data-daily-fixed]"), function (checkbox) {
+          var task = checkbox.closest(".daily-attributed-task") || checkbox.closest(".daily-check-item, .daily-allocation-check");
+          if (task) task.setAttribute("data-filter-complete", fixedTaskIsEarned(checkbox) && !task._dailyFixedEditing ? "true" : "false");
+        });
+        Array.prototype.forEach.call(checklist.querySelectorAll(".daily-allocation-check-row, .daily-pkg-machine-group"), function (row) {
+          var tasks = active.filter(function (checkbox) { return row.contains(checkbox) && matchesAllocation(checkbox); });
+          var remaining = tasks.some(function (checkbox) {
+            var task = checkbox.closest(".daily-attributed-task") || checkbox.closest(".daily-check-item, .daily-allocation-check");
+            return !fixedTaskIsEarned(checkbox) || (task && task._dailyFixedEditing);
+          });
+          row.setAttribute("data-filter-complete", remaining ? "false" : "true");
+        });
         var visible = dailyChecklistGroups().filter(function (group) {
           return !incompleteOnlyInput.checked || group.getAttribute("data-section-complete") !== "true";
         });
@@ -13102,6 +13187,7 @@
             ? myTasksFilterSelect.value
             : "all";
           checklist.setAttribute("data-allocation-filter", allocation);
+          updateChecklistEmptyState();
           ["1", "2", "3"].forEach(function (value) {
             allocationRateOutputs[value].card.setAttribute("data-selected", allocation === value ? "true" : "false");
           });
@@ -13604,6 +13690,100 @@
         return select ? select.value : "";
       }
 
+      function updateFixedTaskCard(checkbox, select) {
+        var card = checkbox.closest(".daily-attributed-task") || checkbox.closest(".daily-check-item");
+        if (!card) return;
+        var summary = card.querySelector(".daily-fixed-summary");
+        if (!summary) {
+          card.classList.add("daily-fixed-card");
+          summary = document.createElement("div");
+          summary.className = "daily-fixed-summary daily-dynamic-saved-summary";
+          summary.innerHTML = '<div class="daily-dynamic-summary-copy"><p class="daily-dynamic-summary-title"></p><p class="daily-dynamic-summary-meta"></p></div><button type="button" class="daily-fixed-menu-toggle" aria-expanded="false">⋮</button><div class="daily-fixed-menu" popover="auto" hidden><button type="button" class="button button-secondary" data-fixed-edit>Edit</button><button type="button" class="button button-secondary daily-dynamic-delete" data-fixed-delete>Delete</button></div>';
+          card.appendChild(summary);
+          var menu = summary.querySelector(".daily-fixed-menu");
+          var menuToggle = summary.querySelector(".daily-fixed-menu-toggle");
+          menu.id = "daily-actions-" + checkbox.getAttribute("data-daily-fixed");
+          menuToggle.setAttribute("aria-controls", menu.id);
+          function closeMenu() {
+            if (typeof menu.hidePopover === "function" && menu.matches(":popover-open")) menu.hidePopover();
+            menu.hidden = true;
+            menuToggle.setAttribute("aria-expanded", "false");
+          }
+          menuToggle.addEventListener("click", function () {
+            if (menuToggle.getAttribute("aria-expanded") === "true") { closeMenu(); return; }
+            menu.hidden = false;
+            var rect = menuToggle.getBoundingClientRect();
+            menu.style.left = Math.max(8, Math.min(rect.right - 160, window.innerWidth - 168)) + "px";
+            menu.style.top = Math.max(8, Math.min(rect.bottom + 4, window.innerHeight - 110)) + "px";
+            if (typeof menu.showPopover === "function") menu.showPopover();
+            menuToggle.setAttribute("aria-expanded", "true");
+            menu.querySelector("button").focus();
+          });
+          menu.addEventListener("toggle", function (event) {
+            menuToggle.setAttribute("aria-expanded", event.newState === "open" ? "true" : "false");
+            if (event.newState === "closed") menu.hidden = true;
+          });
+          menu.addEventListener("keydown", function (event) {
+            if (event.key === "Escape") { closeMenu(); menuToggle.focus(); }
+          });
+          menu.addEventListener("focusout", function (event) {
+            if (!menu.contains(event.relatedTarget) && event.relatedTarget !== menuToggle) closeMenu();
+          });
+          var save = document.createElement("button");
+          save.type = "button";
+          save.className = "button button-primary daily-fixed-save";
+          save.textContent = "Done editing";
+          save.hidden = true;
+          card.appendChild(save);
+          summary.querySelector("[data-fixed-edit]").addEventListener("click", function () {
+            closeMenu();
+            card._dailyFixedEditing = true;
+            updateFixedTaskCard(checkbox, select);
+            select.focus();
+          });
+          save.addEventListener("click", function () {
+            card._dailyFixedEditing = false;
+            updateDailyShift();
+            if (fixedTaskIsEarned(checkbox)) menuToggle.focus();
+            else checkbox.focus();
+          });
+          summary.querySelector("[data-fixed-delete]").addEventListener("click", function () {
+            closeMenu();
+            if (!window.confirm("Delete this completion and return the task to the checklist?")) return;
+            checkbox.checked = false;
+            select.value = "";
+            card._dailyFixedEditing = false;
+            Array.prototype.forEach.call(card.querySelectorAll("[data-daily-cell-id]"), function (input) { input.value = ""; });
+            updateDailyShift();
+            checkbox.focus();
+          });
+        }
+        if (!checkbox.checked) card._dailyFixedEditing = false;
+        var compact = fixedTaskIsEarned(checkbox) && !card._dailyFixedEditing;
+        card.setAttribute("data-compact", compact ? "true" : "false");
+        summary.hidden = !compact;
+        card.querySelector(".daily-fixed-save").hidden = !card._dailyFixedEditing;
+        var title = checkbox.getAttribute("data-label") || "Completed task";
+        var shortTitle = title;
+        if (checkbox.closest(".daily-pkg-machine-options")) {
+          var machineLabel = checkbox.closest(".daily-allocation-check").querySelector(".daily-allocation-check-copy");
+          if (machineLabel) shortTitle = machineLabel.firstChild.textContent.trim();
+        } else if (checkbox.closest(".daily-allocation-check-options") && checkbox.getAttribute("data-allocation")) {
+          shortTitle = "A" + checkbox.getAttribute("data-allocation");
+        }
+        summary.querySelector(".daily-dynamic-summary-title").textContent = shortTitle + " ✓";
+        summary.querySelector(".daily-dynamic-summary-title").title = title;
+        var cell = card.querySelector("[data-daily-cell-id]");
+        summary.querySelector(".daily-dynamic-summary-meta").textContent =
+          contributorLabel(select.value) + " · " +
+          displayPoints(checkbox.getAttribute("data-points")) + " pts" +
+          (cell && cell.value ? " · Cell ID: " + cell.value : "");
+        summary.querySelector(".daily-dynamic-summary-meta").title = summary.querySelector(".daily-dynamic-summary-meta").textContent;
+        summary.querySelector(".daily-fixed-menu-toggle").setAttribute("aria-label", "Actions for " + title + ", completed by " + contributorLabel(select.value));
+        summary.querySelector("[data-fixed-edit]").setAttribute("aria-label", "Edit " + title);
+        summary.querySelector("[data-fixed-delete]").setAttribute("aria-label", "Delete completion for " + title);
+      }
+
       function updateTaskTechnicianFields() {
         Array.prototype.forEach.call(form.querySelectorAll('[data-technician-required="true"]'), function (checkbox) {
           var fixedKey = checkbox.getAttribute("data-daily-fixed");
@@ -13614,6 +13794,7 @@
           field.hidden = !checkbox.checked;
           if (!checkbox.checked) select.value = "";
           if (task) task.setAttribute("data-attribution-missing", checkbox.checked && !select.value ? "true" : "false");
+          updateFixedTaskCard(checkbox, select);
         });
       }
 
@@ -14036,7 +14217,7 @@
           if (countsTowardTotalCompletion) result.completionAvailable += points;
           var allocation = checkbox.getAttribute("data-allocation");
           var allocationResult = result.allocations[allocation];
-          if (checkbox.getAttribute("data-allocation-score") === "true" && allocationResult) {
+          if (countsTowardTotalCompletion && checkbox.getAttribute("data-allocation-score") === "true" && allocationResult) {
             allocationResult.available += points;
             allocationResult.total += 1;
           }
@@ -14045,7 +14226,7 @@
             result.earned += points;
             result.completed += 1;
             if (countsTowardTotalCompletion) result.completionEarned += points;
-            if (allocationResult) {
+            if (countsTowardTotalCompletion && allocationResult) {
               allocationResult.earned += points;
               allocationResult.completed += 1;
             }
@@ -14053,7 +14234,7 @@
               ? taskTechnician(checkbox.getAttribute("data-daily-fixed"))
               : (allocationResult ? "Allocation " + allocation : "");
             awardContributor(completedBy, points);
-          } else {
+          } else if (countsTowardTotalCompletion) {
             result.missed.push({
               label: fixedTaskReportLabel(checkbox),
               points: points,
@@ -14110,7 +14291,9 @@
             : 0;
         });
         result.percent = displayPercent(result.completionEarned, result.completionAvailable);
-        result.missedPoints = result.available - result.earned;
+        result.missedPoints = result.missed.reduce(function (sum, item) {
+          return sum + item.points;
+        }, 0);
         result.contributorOrder.forEach(function (contributor) {
           result.contributors[contributor.key].percent = displayPercent(result.contributors[contributor.key].points, result.earned);
         });
