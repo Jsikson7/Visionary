@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="description" content="A mobile-friendly collection of vision production guides, troubleshooting history, and copy-ready reporting tools.">
-  <meta name="visionary-app-version" content="3.0.20">
+  <meta name="visionary-app-version" content="3.0.21">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
@@ -66,7 +66,7 @@
           name: "Visionary Tool",
           short_name: "Visionary",
           description: "Mobile production guides, troubleshooting, and copy-ready reporting tools.",
-          start_url: scopeUrl.href + "?v=320",
+          start_url: scopeUrl.href + "?v=321",
           scope: scopeUrl.href,
           display: "standalone",
           orientation: "portrait-primary",
@@ -6097,7 +6097,7 @@
             <span class="form-tile-arrow" aria-hidden="true">›</span>
           </button>
         </div>
-        <p class="last-updated">Version 3.0.20 · Last updated: <time datetime="2026-09-06">September 6, 2026</time></p>
+        <p class="last-updated">Version 3.0.21 · Last updated: <time datetime="2026-09-06">September 6, 2026</time></p>
         <div class="version-history-link-wrap">
           <button id="open-version-history" class="version-history-link" type="button">View version history</button>
         </div>
@@ -6207,7 +6207,7 @@
             <div class="daily-cloud-copy">
               <strong id="daily-cloud-title">Shared shift synchronization</strong>
               <span id="daily-cloud-status" role="status" aria-live="polite">Sign in with Google to share Daily Tasks across phones.</span>
-              <small>Safe Sync v6.2 · App 3.0.20</small>
+              <small>Safe Sync v6.2 · App 3.0.21</small>
             </div>
           </div>
           <div class="daily-cloud-actions">
@@ -6655,6 +6655,17 @@
           </form>
         </section>
 
+        <section class="panel" aria-labelledby="master-excel-title">
+          <div class="panel-heading">
+            <div>
+              <h2 id="master-excel-title">Master Excel history</h2>
+              <p>Download every stored date and shift as one Excel table for daily, weekly, and monthly trends.</p>
+            </div>
+            <button id="reports-export-master-xlsx" class="button button-primary" type="button">Download master Excel</button>
+          </div>
+          <p id="reports-master-xlsx-status" class="status" role="status" aria-live="polite"></p>
+        </section>
+
         <section id="reports-output" class="panel" hidden>
           <div class="panel-heading">
             <div><h2>Report results</h2><p id="reports-output-range"></p></div>
@@ -6871,6 +6882,18 @@
       <section class="panel" aria-label="Release history">
         <div class="version-history-list">
           <article class="version-card version-card-current">
+            <div class="version-card-heading">
+              <h2>Version 3.0.21</h2>
+              <time datetime="2026-09-06">September 6, 2026</time>
+            </div>
+            <p class="version-summary-intro">Version 3.0.21 adds a single-sheet master Excel history for trend analysis.</p>
+            <ul class="version-summary-list">
+              <li><strong>One row per shift</strong>Every stored date and shift exports as one structured record with roster, completion, points, activity counts, and handoff details.</li>
+              <li><strong>Trend-ready dates</strong>Date, Monday week start, and month start are real Excel dates for filtering, pivot tables, and daily, weekly, or monthly grouping.</li>
+              <li><strong>Complete cloud history</strong>The export rebuilds the workbook from every shared Firebase shift, so each download is a refreshed master file.</li>
+            </ul>
+          </article>
+          <article class="version-card">
             <div class="version-card-heading">
               <h2>Version 3.0.20</h2>
               <time datetime="2026-09-06">September 6, 2026</time>
@@ -8030,12 +8053,21 @@
         "Daily task summary copied.": "일일 작업 요약을 복사했습니다.",
         "Guides": "가이드",
         "Open Work Instructions and Troubleshooting.": "작업 지침과 문제 해결을 엽니다.",
+        "Version 3.0.21 · Last updated:": "버전 3.0.21 · 마지막 업데이트:",
+        "Version 3.0.21": "버전 3.0.21",
         "Version 3.0.20 · Last updated:": "버전 3.0.20 · 마지막 업데이트:",
         "Version 3.0.20": "버전 3.0.20",
         "Version 3.0.19 · Last updated:": "버전 3.0.19 · 마지막 업데이트:",
         "Version 3.0.19": "버전 3.0.19",
         "Version 3.0.18": "버전 3.0.18",
         "September 6, 2026": "2026년 9월 6일",
+        "Version 3.0.21 adds a single-sheet master Excel history for trend analysis.": "버전 3.0.21은 추세 분석을 위한 단일 시트 마스터 Excel 기록을 추가합니다.",
+        "One row per shift": "교대당 한 행",
+        "Every stored date and shift exports as one structured record with roster, completion, points, activity counts, and handoff details.": "저장된 각 날짜와 교대는 명단, 완료율, 점수, 활동 건수 및 인수인계 세부 정보가 포함된 하나의 구조화된 기록으로 내보내집니다.",
+        "Trend-ready dates": "추세 분석용 날짜",
+        "Date, Monday week start, and month start are real Excel dates for filtering, pivot tables, and daily, weekly, or monthly grouping.": "날짜, 월요일 기준 주 시작일 및 월 시작일은 필터링, 피벗 테이블 및 일별·주별·월별 그룹화를 위한 실제 Excel 날짜입니다.",
+        "Complete cloud history": "전체 클라우드 기록",
+        "The export rebuilds the workbook from every shared Firebase shift, so each download is a refreshed master file.": "내보내기는 모든 공유 Firebase 교대에서 통합 문서를 다시 만들므로 다운로드할 때마다 최신 마스터 파일이 생성됩니다.",
         "Version 3.0.20 removes preapproval from shared synchronization and restores automatic administrator recognition.": "버전 3.0.20은 공유 동기화의 사전 승인을 없애고 관리자 자동 인식을 복원합니다.",
         "No preapproval required": "사전 승인 불필요",
         "Every verified Google account can connect to shared shifts immediately after signing in.": "인증된 모든 Google 계정은 로그인 직후 공유 교대에 연결할 수 있습니다.",
@@ -8282,6 +8314,11 @@
         "Pull shift data across a date range from the shared cloud history, filtered by shift.": "공유된 클라우드 기록에서 날짜 범위와 근무조를 기준으로 교대 데이터를 조회합니다.",
         "Build a report": "보고서 생성",
         "Requires signing in with Google on the Daily Tasks tab.": "일일 작업 탭에서 Google 계정으로 로그인해야 합니다.",
+        "Master Excel history": "마스터 Excel 기록",
+        "Download every stored date and shift as one Excel table for daily, weekly, and monthly trends.": "저장된 모든 날짜와 교대를 일별, 주별 및 월별 추세를 위한 하나의 Excel 표로 다운로드합니다.",
+        "Download master Excel": "마스터 Excel 다운로드",
+        "Loading every shared shift…": "모든 공유 교대를 불러오는 중…",
+        "No shared shifts are available to export.": "내보낼 공유 교대가 없습니다.",
         "Start date": "시작일",
         "End date": "종료일",
         "Shifts to include": "포함할 근무조",
@@ -16444,7 +16481,7 @@
     const provider = new GoogleAuthProvider();
     provider.setCustomParameters({ prompt: "select_account" });
     const SYNC_PROTOCOL_VERSION = 6;
-    const HOSTED_APP_URL = "https://jsikson7.github.io/Visionary/?v=320";
+    const HOSTED_APP_URL = "https://jsikson7.github.io/Visionary/?v=321";
     const isDirectFilePage = !["http:", "https:"].includes(window.location.protocol);
 
     const cloudPanel = document.getElementById("daily-cloud-panel");
@@ -17168,7 +17205,7 @@
 
     function friendlyError(error) {
       const code = String(error && error.code || "");
-      if (code.includes("permission-denied") && isAdministrator()) return "Firebase blocked this save. Publish the Safe Sync v6.2 Firestore rules and confirm this page shows App 3.0.20.";
+      if (code.includes("permission-denied") && isAdministrator()) return "Firebase blocked this save. Publish the Safe Sync v6.2 Firestore rules and confirm this page shows App 3.0.21.";
       if (code.includes("permission-denied")) return "Firebase blocked this save. Publish the Safe Sync v6.2 rules and sign in with a verified Google account.";
       if (code.includes("unavailable") || !navigator.onLine) return "You appear to be offline. Changes will remain in the phone backup until reconnected.";
       if (code.includes("unauthorized-domain")) return "This website address must be added to Firebase Authentication authorized domains.";
@@ -17289,6 +17326,8 @@
     const reportsSummary = document.getElementById("reports-summary");
     const reportsShiftList = document.getElementById("reports-shift-list");
     const reportsExportCsvButton = document.getElementById("reports-export-csv");
+    const reportsMasterXlsxButton = document.getElementById("reports-export-master-xlsx");
+    const reportsMasterXlsxStatus = document.getElementById("reports-master-xlsx-status");
     let lastReportMeta = null;
     let lastReportAgg = null;
     let lastReportEntries = null;
@@ -17314,6 +17353,12 @@
       if (!reportsStatus) return;
       reportsStatus.textContent = message || "";
       reportsStatus.style.color = isError ? "#b23b3b" : "";
+    }
+
+    function setMasterXlsxStatus(message, isError) {
+      if (!reportsMasterXlsxStatus) return;
+      reportsMasterXlsxStatus.textContent = message || "";
+      reportsMasterXlsxStatus.style.color = isError ? "#b23b3b" : "";
     }
 
     function selectedReportShifts() {
@@ -17532,6 +17577,502 @@
       window.setTimeout(() => URL.revokeObjectURL(url), 1500);
     }
 
+    // BEGIN VISIONARY XLSX WRITER
+    const MASTER_SHIFT_COLUMNS = [
+      { key: "shiftKey", name: "Shift Key", style: "text", width: 18 },
+      { key: "date", name: "Date", style: "date", width: 12 },
+      { key: "day", name: "Day", style: "text", width: 11 },
+      { key: "weekStart", name: "Week Start", style: "date", width: 12 },
+      { key: "monthStart", name: "Month", style: "month", width: 12 },
+      { key: "shift", name: "Shift", style: "text", width: 8 },
+      { key: "lead", name: "Lead", style: "text", width: 18 },
+      { key: "allocation1", name: "Allocation 1", style: "text", width: 18 },
+      { key: "allocation2", name: "Allocation 2", style: "text", width: 18 },
+      { key: "allocation3", name: "Allocation 3", style: "text", width: 18 },
+      { key: "otSupport", name: "OT Support", style: "wrap", width: 24 },
+      { key: "errorProof", name: "Error Proofing", style: "text", width: 14 },
+      { key: "completion", name: "Completion %", style: "percent", width: 14 },
+      { key: "completedItems", name: "Completed Items", style: "number", width: 16 },
+      { key: "totalItems", name: "Total Items", style: "number", width: 12 },
+      { key: "missedItems", name: "Missed Items", style: "number", width: 13 },
+      { key: "pointsEarned", name: "Points Earned", style: "number", width: 15 },
+      { key: "pointsAvailable", name: "Points Available", style: "number", width: 17 },
+      { key: "missedPoints", name: "Missed Points", style: "number", width: 14 },
+      { key: "allocation1Completion", name: "Allocation 1 %", style: "percent", width: 15 },
+      { key: "allocation2Completion", name: "Allocation 2 %", style: "percent", width: 15 },
+      { key: "allocation3Completion", name: "Allocation 3 %", style: "percent", width: 15 },
+      { key: "pmCount", name: "PM Count", style: "number", width: 11 },
+      { key: "pmPoints", name: "PM Points", style: "number", width: 11 },
+      { key: "escalationCount", name: "Escalation Count", style: "number", width: 17 },
+      { key: "escalationPoints", name: "Escalation Points", style: "number", width: 18 },
+      { key: "superEscalationCount", name: "Super Escalation Count", style: "number", width: 22 },
+      { key: "superEscalationPoints", name: "Super Escalation Points", style: "number", width: 23 },
+      { key: "topContributor", name: "Top Contributor", style: "text", width: 22 },
+      { key: "topContributorPoints", name: "Top Contributor Points", style: "number", width: 22 },
+      { key: "contributorPoints", name: "Contributor Points", style: "wrap", width: 34 },
+      { key: "createdAt", name: "Created At (UTC)", style: "datetime", width: 19 },
+      { key: "createdBy", name: "Created By", style: "text", width: 26 },
+      { key: "updatedAt", name: "Updated At (UTC)", style: "datetime", width: 19 },
+      { key: "updatedBy", name: "Updated By", style: "text", width: 26 },
+      { key: "handoffNote", name: "Handoff Note", style: "wrap", width: 36 },
+      { key: "missedWork", name: "Missed Work Detail", style: "wrap", width: 48 },
+      { key: "dataVersion", name: "Data Version", style: "number", width: 13 }
+    ];
+
+    function xlsxCleanText(value) {
+      return String(value == null ? "" : value).replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F]/g, "");
+    }
+
+    function xlsxXmlEscape(value) {
+      return xlsxCleanText(value).replace(/[&<>"']/g, (character) => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&apos;"
+      }[character]));
+    }
+
+    function xlsxColumnName(index) {
+      let value = index + 1;
+      let output = "";
+      while (value > 0) {
+        value -= 1;
+        output = String.fromCharCode(65 + (value % 26)) + output;
+        value = Math.floor(value / 26);
+      }
+      return output;
+    }
+
+    function xlsxStyleId(style) {
+      return {
+        text: 0,
+        date: 2,
+        percent: 3,
+        number: 4,
+        datetime: 5,
+        wrap: 6,
+        month: 7
+      }[style] || 0;
+    }
+
+    function xlsxCellXml(reference, value, styleId) {
+      const styleAttribute = styleId ? ' s="' + styleId + '"' : "";
+      if (value == null || value === "") {
+        return '<c r="' + reference + '"' + styleAttribute + '/>';
+      }
+      if (typeof value === "number" && Number.isFinite(value)) {
+        return '<c r="' + reference + '"' + styleAttribute + '><v>' + value + '</v></c>';
+      }
+      if (typeof value === "boolean") {
+        return '<c r="' + reference + '"' + styleAttribute + ' t="b"><v>' + (value ? 1 : 0) + '</v></c>';
+      }
+      return '<c r="' + reference + '"' + styleAttribute + ' t="inlineStr"><is><t xml:space="preserve">' +
+        xlsxXmlEscape(value) + '</t></is></c>';
+    }
+
+    function xlsxDateSerial(dateValue) {
+      const parts = String(dateValue || "").split("-").map(Number);
+      if (parts.length !== 3 || !parts[0] || !parts[1] || !parts[2]) return null;
+      return (Date.UTC(parts[0], parts[1] - 1, parts[2]) - Date.UTC(1899, 11, 30)) / 86400000;
+    }
+
+    function xlsxTimestampSerial(value) {
+      let date = null;
+      if (value && typeof value.toDate === "function") date = value.toDate();
+      else if (value instanceof Date) date = value;
+      else if (value && Number.isFinite(Number(value.seconds))) date = new Date(Number(value.seconds) * 1000);
+      else if (value) date = new Date(value);
+      return date && Number.isFinite(date.getTime())
+        ? (date.getTime() - Date.UTC(1899, 11, 30)) / 86400000
+        : null;
+    }
+
+    function xlsxWeekStart(dateValue) {
+      const parts = String(dateValue || "").split("-").map(Number);
+      if (parts.length !== 3 || !parts[0] || !parts[1] || !parts[2]) return "";
+      const date = new Date(Date.UTC(parts[0], parts[1] - 1, parts[2]));
+      date.setUTCDate(date.getUTCDate() - ((date.getUTCDay() + 6) % 7));
+      return date.getUTCFullYear() + "-" +
+        String(date.getUTCMonth() + 1).padStart(2, "0") + "-" +
+        String(date.getUTCDate()).padStart(2, "0");
+    }
+
+    function xlsxDayName(dateValue) {
+      const parts = String(dateValue || "").split("-").map(Number);
+      if (parts.length !== 3 || !parts[0] || !parts[1] || !parts[2]) return "";
+      return ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"][
+        new Date(Date.UTC(parts[0], parts[1] - 1, parts[2])).getUTCDay()
+      ];
+    }
+
+    function xlsxConcat(parts) {
+      const length = parts.reduce((total, part) => total + part.length, 0);
+      const output = new Uint8Array(length);
+      let offset = 0;
+      parts.forEach((part) => {
+        output.set(part, offset);
+        offset += part.length;
+      });
+      return output;
+    }
+
+    function xlsxCrc32(bytes) {
+      if (!xlsxCrc32.table) {
+        const table = new Uint32Array(256);
+        for (let index = 0; index < 256; index += 1) {
+          let value = index;
+          for (let bit = 0; bit < 8; bit += 1) {
+            value = (value & 1) ? (0xedb88320 ^ (value >>> 1)) : (value >>> 1);
+          }
+          table[index] = value >>> 0;
+        }
+        xlsxCrc32.table = table;
+      }
+      let crc = 0xffffffff;
+      for (let index = 0; index < bytes.length; index += 1) {
+        crc = xlsxCrc32.table[(crc ^ bytes[index]) & 0xff] ^ (crc >>> 8);
+      }
+      return (crc ^ 0xffffffff) >>> 0;
+    }
+
+    function xlsxDosDateTime(date) {
+      const year = Math.max(1980, date.getFullYear());
+      return {
+        time: ((date.getHours() & 31) << 11) |
+          ((date.getMinutes() & 63) << 5) |
+          ((Math.floor(date.getSeconds() / 2)) & 31),
+        date: (((year - 1980) & 127) << 9) |
+          (((date.getMonth() + 1) & 15) << 5) |
+          (date.getDate() & 31)
+      };
+    }
+
+    function xlsxZipStoredFiles(files) {
+      const encoder = new TextEncoder();
+      const stamp = xlsxDosDateTime(new Date());
+      const entries = [];
+      const localParts = [];
+      let localOffset = 0;
+
+      files.forEach((file) => {
+        const nameBytes = encoder.encode(file.name);
+        const dataBytes = typeof file.contents === "string" ? encoder.encode(file.contents) : file.contents;
+        const crc = xlsxCrc32(dataBytes);
+        const localHeader = new Uint8Array(30 + nameBytes.length);
+        const view = new DataView(localHeader.buffer);
+        view.setUint32(0, 0x04034b50, true);
+        view.setUint16(4, 20, true);
+        view.setUint16(6, 0x0800, true);
+        view.setUint16(8, 0, true);
+        view.setUint16(10, stamp.time, true);
+        view.setUint16(12, stamp.date, true);
+        view.setUint32(14, crc, true);
+        view.setUint32(18, dataBytes.length, true);
+        view.setUint32(22, dataBytes.length, true);
+        view.setUint16(26, nameBytes.length, true);
+        view.setUint16(28, 0, true);
+        localHeader.set(nameBytes, 30);
+        localParts.push(localHeader, dataBytes);
+        entries.push({ nameBytes: nameBytes, dataBytes: dataBytes, crc: crc, offset: localOffset });
+        localOffset += localHeader.length + dataBytes.length;
+      });
+
+      const centralParts = [];
+      entries.forEach((entry) => {
+        const centralHeader = new Uint8Array(46 + entry.nameBytes.length);
+        const view = new DataView(centralHeader.buffer);
+        view.setUint32(0, 0x02014b50, true);
+        view.setUint16(4, 20, true);
+        view.setUint16(6, 20, true);
+        view.setUint16(8, 0x0800, true);
+        view.setUint16(10, 0, true);
+        view.setUint16(12, stamp.time, true);
+        view.setUint16(14, stamp.date, true);
+        view.setUint32(16, entry.crc, true);
+        view.setUint32(20, entry.dataBytes.length, true);
+        view.setUint32(24, entry.dataBytes.length, true);
+        view.setUint16(28, entry.nameBytes.length, true);
+        view.setUint16(30, 0, true);
+        view.setUint16(32, 0, true);
+        view.setUint16(34, 0, true);
+        view.setUint16(36, 0, true);
+        view.setUint32(38, 0, true);
+        view.setUint32(42, entry.offset, true);
+        centralHeader.set(entry.nameBytes, 46);
+        centralParts.push(centralHeader);
+      });
+
+      const centralSize = centralParts.reduce((total, part) => total + part.length, 0);
+      const end = new Uint8Array(22);
+      const endView = new DataView(end.buffer);
+      endView.setUint32(0, 0x06054b50, true);
+      endView.setUint16(4, 0, true);
+      endView.setUint16(6, 0, true);
+      endView.setUint16(8, entries.length, true);
+      endView.setUint16(10, entries.length, true);
+      endView.setUint32(12, centralSize, true);
+      endView.setUint32(16, localOffset, true);
+      endView.setUint16(20, 0, true);
+      return xlsxConcat(localParts.concat(centralParts, [end]));
+    }
+
+    function buildMasterShiftWorkbook(records) {
+      if (!records.length) throw new Error("No shift rows were supplied.");
+      const lastColumn = xlsxColumnName(MASTER_SHIFT_COLUMNS.length - 1);
+      const lastRow = records.length + 1;
+      const tableReference = "A1:" + lastColumn + lastRow;
+      const headerCells = MASTER_SHIFT_COLUMNS.map((column, index) =>
+        xlsxCellXml(xlsxColumnName(index) + "1", column.name, 1)
+      ).join("");
+      const dataRows = records.map((record, rowIndex) => {
+        const rowNumber = rowIndex + 2;
+        const cells = MASTER_SHIFT_COLUMNS.map((column, columnIndex) =>
+          xlsxCellXml(
+            xlsxColumnName(columnIndex) + rowNumber,
+            record[column.key],
+            xlsxStyleId(column.style)
+          )
+        ).join("");
+        return '<row r="' + rowNumber + '">' + cells + '</row>';
+      }).join("");
+      const columnsXml = MASTER_SHIFT_COLUMNS.map((column, index) =>
+        '<col min="' + (index + 1) + '" max="' + (index + 1) +
+        '" width="' + column.width + '" customWidth="1"/>'
+      ).join("");
+      const tableColumnsXml = MASTER_SHIFT_COLUMNS.map((column, index) =>
+        '<tableColumn id="' + (index + 1) + '" name="' + xlsxXmlEscape(column.name) + '"/>'
+      ).join("");
+      const generatedAt = new Date().toISOString();
+
+      const contentTypes = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>' +
+        '<Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types">' +
+        '<Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/>' +
+        '<Default Extension="xml" ContentType="application/xml"/>' +
+        '<Override PartName="/xl/workbook.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml"/>' +
+        '<Override PartName="/xl/worksheets/sheet1.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/>' +
+        '<Override PartName="/xl/tables/table1.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.table+xml"/>' +
+        '<Override PartName="/xl/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.styles+xml"/>' +
+        '<Override PartName="/docProps/core.xml" ContentType="application/vnd.openxmlformats-package.core-properties+xml"/>' +
+        '<Override PartName="/docProps/app.xml" ContentType="application/vnd.openxmlformats-officedocument.extended-properties+xml"/>' +
+        '</Types>';
+      const packageRels = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>' +
+        '<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">' +
+        '<Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="xl/workbook.xml"/>' +
+        '<Relationship Id="rId2" Type="http://schemas.openxmlformats.org/package/2006/relationships/metadata/core-properties" Target="docProps/core.xml"/>' +
+        '<Relationship Id="rId3" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/extended-properties" Target="docProps/app.xml"/>' +
+        '</Relationships>';
+      const workbook = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>' +
+        '<workbook xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" ' +
+        'xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships">' +
+        '<bookViews><workbookView/></bookViews><sheets>' +
+        '<sheet name="Shift History" sheetId="1" r:id="rId1"/>' +
+        '</sheets><calcPr calcId="191029"/></workbook>';
+      const workbookRels = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>' +
+        '<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">' +
+        '<Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/sheet1.xml"/>' +
+        '<Relationship Id="rId2" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/>' +
+        '</Relationships>';
+      const styles = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>' +
+        '<styleSheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main">' +
+        '<numFmts count="5">' +
+        '<numFmt numFmtId="164" formatCode="yyyy-mm-dd"/>' +
+        '<numFmt numFmtId="165" formatCode="yyyy-mm-dd hh:mm"/>' +
+        '<numFmt numFmtId="166" formatCode="0.0%"/>' +
+        '<numFmt numFmtId="167" formatCode="#,##0.##"/>' +
+        '<numFmt numFmtId="168" formatCode="mmm yyyy"/>' +
+        '</numFmts>' +
+        '<fonts count="2">' +
+        '<font><sz val="11"/><color theme="1"/><name val="Aptos"/><family val="2"/></font>' +
+        '<font><b/><sz val="11"/><color rgb="FFFFFFFF"/><name val="Aptos"/><family val="2"/></font>' +
+        '</fonts>' +
+        '<fills count="3">' +
+        '<fill><patternFill patternType="none"/></fill>' +
+        '<fill><patternFill patternType="gray125"/></fill>' +
+        '<fill><patternFill patternType="solid"><fgColor rgb="FF30492D"/><bgColor indexed="64"/></patternFill></fill>' +
+        '</fills>' +
+        '<borders count="2">' +
+        '<border><left/><right/><top/><bottom/><diagonal/></border>' +
+        '<border><left style="thin"><color rgb="FFD9E2D4"/></left><right style="thin"><color rgb="FFD9E2D4"/></right>' +
+        '<top style="thin"><color rgb="FFD9E2D4"/></top><bottom style="thin"><color rgb="FFD9E2D4"/></bottom><diagonal/></border>' +
+        '</borders>' +
+        '<cellStyleXfs count="1"><xf numFmtId="0" fontId="0" fillId="0" borderId="0"/></cellStyleXfs>' +
+        '<cellXfs count="8">' +
+        '<xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0"/>' +
+        '<xf numFmtId="0" fontId="1" fillId="2" borderId="1" xfId="0" applyFont="1" applyFill="1" applyBorder="1" applyAlignment="1"><alignment horizontal="center" vertical="center" wrapText="1"/></xf>' +
+        '<xf numFmtId="164" fontId="0" fillId="0" borderId="0" xfId="0" applyNumberFormat="1"/>' +
+        '<xf numFmtId="166" fontId="0" fillId="0" borderId="0" xfId="0" applyNumberFormat="1"/>' +
+        '<xf numFmtId="167" fontId="0" fillId="0" borderId="0" xfId="0" applyNumberFormat="1"/>' +
+        '<xf numFmtId="165" fontId="0" fillId="0" borderId="0" xfId="0" applyNumberFormat="1"/>' +
+        '<xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0" applyAlignment="1"><alignment vertical="top" wrapText="1"/></xf>' +
+        '<xf numFmtId="168" fontId="0" fillId="0" borderId="0" xfId="0" applyNumberFormat="1"/>' +
+        '</cellXfs>' +
+        '<cellStyles count="1"><cellStyle name="Normal" xfId="0" builtinId="0"/></cellStyles>' +
+        '<dxfs count="0"/><tableStyles count="1" defaultTableStyle="TableStyleMedium4" defaultPivotStyle="PivotStyleLight16"/>' +
+        '</styleSheet>';
+      const worksheet = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>' +
+        '<worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" ' +
+        'xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships">' +
+        '<dimension ref="' + tableReference + '"/>' +
+        '<sheetViews><sheetView workbookViewId="0" zoomScale="85"><pane ySplit="1" topLeftCell="A2" activePane="bottomLeft" state="frozen"/>' +
+        '<selection pane="bottomLeft" activeCell="A2" sqref="A2"/></sheetView></sheetViews>' +
+        '<sheetFormatPr defaultRowHeight="18"/><cols>' + columnsXml + '</cols>' +
+        '<sheetData><row r="1" ht="30" customHeight="1">' + headerCells + '</row>' + dataRows + '</sheetData>' +
+        '<autoFilter ref="' + tableReference + '"/>' +
+        '<pageMargins left="0.25" right="0.25" top="0.5" bottom="0.5" header="0.2" footer="0.2"/>' +
+        '<tableParts count="1"><tablePart r:id="rId1"/></tableParts></worksheet>';
+      const worksheetRels = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>' +
+        '<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">' +
+        '<Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/table" Target="../tables/table1.xml"/>' +
+        '</Relationships>';
+      const table = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>' +
+        '<table xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" id="1" name="ShiftHistory" displayName="ShiftHistory" ' +
+        'ref="' + tableReference + '" totalsRowShown="0"><autoFilter ref="' + tableReference + '"/>' +
+        '<tableColumns count="' + MASTER_SHIFT_COLUMNS.length + '">' + tableColumnsXml + '</tableColumns>' +
+        '<tableStyleInfo name="TableStyleMedium4" showFirstColumn="0" showLastColumn="0" showRowStripes="1" showColumnStripes="0"/>' +
+        '</table>';
+      const core = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>' +
+        '<cp:coreProperties xmlns:cp="http://schemas.openxmlformats.org/package/2006/metadata/core-properties" ' +
+        'xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" ' +
+        'xmlns:dcmitype="http://purl.org/dc/dcmitype/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">' +
+        '<dc:title>Visionary Shift History</dc:title><dc:subject>Daily, weekly, and monthly shift trends</dc:subject>' +
+        '<dc:creator>Visionary</dc:creator><cp:lastModifiedBy>Visionary</cp:lastModifiedBy>' +
+        '<dcterms:created xsi:type="dcterms:W3CDTF">' + generatedAt + '</dcterms:created>' +
+        '<dcterms:modified xsi:type="dcterms:W3CDTF">' + generatedAt + '</dcterms:modified></cp:coreProperties>';
+      const appProperties = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>' +
+        '<Properties xmlns="http://schemas.openxmlformats.org/officeDocument/2006/extended-properties" ' +
+        'xmlns:vt="http://schemas.openxmlformats.org/officeDocument/2006/docPropsVTypes">' +
+        '<Application>Visionary 3.0.21</Application><DocSecurity>0</DocSecurity><ScaleCrop>false</ScaleCrop>' +
+        '<Company></Company><LinksUpToDate>false</LinksUpToDate><SharedDoc>false</SharedDoc><HyperlinksChanged>false</HyperlinksChanged>' +
+        '<AppVersion>3.0.21</AppVersion></Properties>';
+
+      const zip = xlsxZipStoredFiles([
+        { name: "[Content_Types].xml", contents: contentTypes },
+        { name: "_rels/.rels", contents: packageRels },
+        { name: "docProps/app.xml", contents: appProperties },
+        { name: "docProps/core.xml", contents: core },
+        { name: "xl/workbook.xml", contents: workbook },
+        { name: "xl/_rels/workbook.xml.rels", contents: workbookRels },
+        { name: "xl/styles.xml", contents: styles },
+        { name: "xl/worksheets/sheet1.xml", contents: worksheet },
+        { name: "xl/worksheets/_rels/sheet1.xml.rels", contents: worksheetRels },
+        { name: "xl/tables/table1.xml", contents: table }
+      ]);
+      return new Blob([zip], {
+        type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+      });
+    }
+
+    function downloadMasterShiftWorkbook(blob, filename) {
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = filename;
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      window.setTimeout(() => URL.revokeObjectURL(url), 2500);
+    }
+    // END VISIONARY XLSX WRITER
+
+    function masterShiftRecord(data, daily) {
+      const state = stateFromCloud(data);
+      daily.applyCloudState(state);
+      const summary = daily.getReportSummary();
+      const result = summary.result;
+      const dateValue = state.date;
+      const contributorPoints = result.contributorOrder
+        .map((option) => ({
+          label: option.label,
+          points: result.contributors[option.key] ? result.contributors[option.key].points : 0
+        }))
+        .filter((contributor) => contributor.points > 0)
+        .map((contributor) => contributor.label + ": " + contributor.points + " pts")
+        .join(" | ");
+      return {
+        shiftKey: dateValue + "_" + state.shift,
+        date: xlsxDateSerial(dateValue),
+        day: xlsxDayName(dateValue),
+        weekStart: xlsxDateSerial(xlsxWeekStart(dateValue)),
+        monthStart: xlsxDateSerial(dateValue ? dateValue.slice(0, 7) + "-01" : ""),
+        shift: state.shift,
+        lead: state.roster["Lead"],
+        allocation1: state.roster["Allocation 1"],
+        allocation2: state.roster["Allocation 2"],
+        allocation3: state.roster["Allocation 3"],
+        otSupport: state.otSupport.map((entry) => entry.name).filter(Boolean).join(", "),
+        errorProof: state.errorProof,
+        completion: Number(result.percent || 0) / 100,
+        completedItems: result.completed,
+        totalItems: result.total,
+        missedItems: result.missed.length,
+        pointsEarned: result.earned,
+        pointsAvailable: result.available,
+        missedPoints: result.missedPoints,
+        allocation1Completion: Number(result.allocations["1"].percent || 0) / 100,
+        allocation2Completion: Number(result.allocations["2"].percent || 0) / 100,
+        allocation3Completion: Number(result.allocations["3"].percent || 0) / 100,
+        pmCount: summary.pmTotal.count,
+        pmPoints: summary.pmTotal.points,
+        escalationCount: summary.escalationTotal.count,
+        escalationPoints: summary.escalationTotal.points,
+        superEscalationCount: summary.superEscalationTotal.count,
+        superEscalationPoints: summary.superEscalationTotal.points,
+        topContributor: summary.topContributor.label,
+        topContributorPoints: summary.topContributor.points,
+        contributorPoints: contributorPoints,
+        createdAt: xlsxTimestampSerial(data.createdAt),
+        createdBy: String(data.createdByEmail || ""),
+        updatedAt: xlsxTimestampSerial(data.updatedAt),
+        updatedBy: String(data.updatedByEmail || ""),
+        handoffNote: state.handoffNote,
+        missedWork: result.missed.map((item) =>
+          item.label + (item.reason ? " (" + item.reason + ")" : "")
+        ).join(" | "),
+        dataVersion: Number(data.version) || state.version || 10
+      };
+    }
+
+    async function exportMasterShiftHistory() {
+      if (!currentUser || !accessAllowed) {
+        setMasterXlsxStatus("Sign in with Google on the Daily Tasks tab first.", true);
+        return;
+      }
+      const daily = bridge();
+      if (!daily || typeof daily.getReportSummary !== "function") {
+        setMasterXlsxStatus("Daily Tasks did not load. Close and reopen this page, then try again.", true);
+        return;
+      }
+
+      reportsMasterXlsxButton.disabled = true;
+      setMasterXlsxStatus("Loading every shared shift…");
+      const originalState = daily.getState();
+      try {
+        const snapshot = await getDocs(collection(db, "shifts"));
+        if (snapshot.empty) {
+          setMasterXlsxStatus("No shared shifts are available to export.", true);
+          return;
+        }
+        const documents = [];
+        snapshot.forEach((documentSnapshot) => documents.push(documentSnapshot.data()));
+        documents.sort((left, right) => {
+          const leftKey = String(left.date || "") + "_" + String(left.shift || "");
+          const rightKey = String(right.date || "") + "_" + String(right.shift || "");
+          return leftKey < rightKey ? -1 : leftKey > rightKey ? 1 : 0;
+        });
+        const records = documents.map((data) => masterShiftRecord(data, daily));
+        const workbook = buildMasterShiftWorkbook(records);
+        const filename = "Visionary-Shift-History-" + localDateValue(new Date()) + ".xlsx";
+        downloadMasterShiftWorkbook(workbook, filename);
+        setMasterXlsxStatus("Master Excel downloaded: " + records.length + " shifts in one sheet.");
+      } catch (error) {
+        setMasterXlsxStatus("Excel export failed. " + friendlyError(error), true);
+      } finally {
+        daily.applyCloudState(originalState);
+        reportsMasterXlsxButton.disabled = false;
+      }
+    }
+
     function exportReportsCsv() {
       if (!lastReportMeta || !lastReportAgg || !lastReportEntries) {
         setReportsStatus("Generate a report first.", true);
@@ -17587,6 +18128,10 @@
 
     if (reportsExportCsvButton) {
       reportsExportCsvButton.addEventListener("click", exportReportsCsv);
+    }
+
+    if (reportsMasterXlsxButton) {
+      reportsMasterXlsxButton.addEventListener("click", exportMasterShiftHistory);
     }
 
     if (reportsFilterForm) {
