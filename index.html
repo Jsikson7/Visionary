@@ -8600,6 +8600,22 @@
       };
 
       koreanUiText["Line 3"] = "3라인";
+      Object.assign(koreanUiText, {
+        "BM/PD Log": "BM/PD 기록", "Back to Daily Tasks": "일일 작업으로 돌아가기", "New BM/PD Log": "새 BM/PD 기록",
+        "Shared shift synchronization": "근무조 데이터 공유 및 동기화", "Sign in with Google to share Daily Tasks across phones.": "휴대폰 간에 일일 작업을 공유하려면 Google 계정으로 로그인하세요.",
+        "Sign in with Google": "Google 계정으로 로그인", "Sign out": "로그아웃",
+        "Your checklist, completion, and points update automatically.": "체크리스트, 완료율 및 점수가 자동으로 업데이트됩니다.",
+        "Choose shift": "근무조 선택", "Technicians": "담당 기술자", "Choose A or B": "A 또는 B 선택",
+        "Enter each person's name once. These names replace the generic allocation labels in completion menus, contribution totals, and generated shift reports.": "각 담당자의 이름을 한 번씩 입력하세요. 완료 담당자 메뉴, 기여도 합계 및 근무 보고서에 배정 구역 대신 이름이 표시됩니다.",
+        "+ Add OT Support": "+ 잔업 지원자 추가", "NGM Error Proofing": "NGM 오류 방지 검사", "NGM Error Proofing A": "NGM 오류 방지 검사 A", "NGM Error Proofing B": "NGM 오류 방지 검사 B",
+        "Select Date, Shift, and NGM Error Proofing A or B to unlock the numbered tasks.": "날짜, 근무조 및 NGM 오류 방지 검사 A 또는 B를 선택하면 번호별 작업을 시작할 수 있습니다.",
+        "pts earned ·": "점 획득 ·", "pts missed": "점 미완료", "pts ·": "점 ·", "pts": "점", "checks": "검사",
+        "Shift completion": "근무조 완료율", "Expand all": "모두 펼치기", "Collapse all": "모두 접기", "Incomplete only": "미완료만 표시", "My tasks": "내 작업", "All tasks": "모든 작업", "Quick reference": "빠른 참조", "All numbered tasks are complete.": "모든 번호별 작업이 완료되었습니다.",
+        "All allocations": "모든 배정 구역", "Cell Tracking Reading Rate": "셀 트래킹 인식률", "Cell Tracking Reading Rate Check": "셀 트래킹 인식률 검사", "Black Frame Check": "블랙 프레임 검사", "PKG 2 Hour Update": "PKG 2시간 업데이트", "No Response Check": "무응답 검사", "LNS IQ Check": "LNS 화질 검사", "LNS TOP NG Report": "LNS 주요 NG 보고", "Cell ID": "셀 ID",
+        "Choose Error Proofing A or B above to display the assigned machines.": "위에서 오류 방지 검사 A 또는 B를 선택하면 배정 장비가 표시됩니다.",
+        "Each rate uses that allocation's Black Frame and PKG 2 Hour Update checks. Cell Tracking Reading Rate adds points only. Entered names replace the allocation labels automatically.": "각 배정 구역의 완료율은 블랙 프레임 검사와 PKG 2시간 업데이트를 기준으로 계산합니다. 셀 트래킹 인식률은 점수만 추가합니다. 이름을 입력하면 배정 구역 표시가 자동으로 대체됩니다.",
+        "Check a task, then choose Completed By. Escalations and Super Escalations can credit multiple technicians and divide their points evenly. Allocation completion rates follow the assigned A1, A2, and A3 work. Cell Tracking Reading Rate earns points but does not affect completion percentages or count as missed work.": "작업을 체크한 후 완료 담당자를 선택하세요. 에스컬레이션과 슈퍼 에스컬레이션은 여러 담당자가 점수를 균등하게 나눌 수 있습니다. 배정 완료율은 A1, A2, A3의 배정 작업을 기준으로 합니다. 셀 트래킹 인식률은 점수에만 반영되며 완료율이나 미완료 작업에는 포함되지 않습니다."
+      });
       koreanUiText["Line 4"] = "4라인";
       koreanUiText["Line 5"] = "5라인";
       koreanUiText["Half Cell"] = "하프 셀";
@@ -8619,6 +8635,14 @@
         var whitespace = textValue.match(/^(\s*)([\s\S]*?)(\s*)$/);
         var core = whitespace ? whitespace[2] : textValue;
         var translated = koreanUiText[core];
+        if (typeof translated !== "string") {
+          var taskHeading = core.match(/^(\d+(?:\/\d+)?\. |)(Black Frame Check|Cell Tracking Reading Rate|PKG 2 Hour Update|No Response Check|LNS IQ Check|LNS TOP NG Report|NGM Error Proofing)(.*)$/);
+          if (taskHeading) translated = taskHeading[1] + koreanUiText[taskHeading[2]] + taskHeading[3];
+          var countLabel = core.match(/^(\d+(?:\s*\/\s*\d+)?)(?:\s+)(pts|points|tasks|checks)( each)?$/);
+          if (countLabel) translated = countLabel[1] + ' ' + ({pts:'점',points:'점',tasks:'작업',checks:'검사'})[countLabel[2]] + (countLabel[3] ? '씩' : '');
+          var checkLabel = core.match(/^Check (\d+) - (.+)$/);
+          if (checkLabel) translated = '검사 ' + checkLabel[1] + ' - ' + checkLabel[2];
+        }
         var match;
         if (typeof translated !== "string") {
           match = core.match(/^Entry (\d+)$/);
@@ -8846,8 +8870,8 @@
       function applyLanguage(languageName, skipPreviewRefresh) {
         currentLanguage = languageName === "ko" ? "ko" : "en";
         document.documentElement.lang = currentLanguage;
-        Array.prototype.forEach.call(languageButtons, function (button) {
-          button.setAttribute("aria-pressed", button.getAttribute("data-language") === currentLanguage ? "true" : "false");
+        Array.prototype.forEach.call(document.querySelectorAll('[data-language], [data-header-language]'), function (button) {
+          button.setAttribute("aria-pressed", (button.getAttribute("data-language") || button.getAttribute("data-header-language")) === currentLanguage ? "true" : "false");
         });
         if (partialLanguageNote) partialLanguageNote.hidden = !isKorean();
         savePreferredLanguage(currentLanguage);
@@ -19678,25 +19702,34 @@ function selectLog(on){workspace.hidden=on;panel.hidden=!on;tasks.setAttribute('
 tasks.onclick=()=>selectLog(false);log.onclick=()=>selectLog(true);selectLog(false);
 const style=document.createElement('style');style.textContent=`
 .bmpd-nav{display:flex;gap:10px;flex-wrap:wrap;margin:16px 0}
-.bmpd-nav [aria-selected=true]{outline:2px solid #6b8259}
+.bmpd-nav [aria-selected=true]{border-color:var(--matcha-600);background:var(--matcha-100);color:var(--matcha-900);box-shadow:inset 0 -3px var(--matcha-600)}
 #daily-task-workspace[hidden],#bmpd-log-panel[hidden]{display:none!important}
-#bmpd-log-panel{max-width:450px;margin:20px auto;background:white;color:#333;border:1px solid #e0e0e0;border-radius:4px;font-family:'Malgun Gothic',sans-serif}
+#bmpd-log-panel{width:100%;max-width:700px;min-width:0;margin:20px auto;background:var(--cream);color:var(--ink);border:1px solid var(--line);border-radius:var(--radius);font-family:inherit;box-shadow:var(--shadow)}
 #bmpd-log-panel *{box-sizing:border-box}
-#bmpd-log-panel .bm-header{background:#444;color:white;text-align:center;padding:25px 15px}
-#bmpd-log-panel h2{font-size:20px;line-height:1.4;margin:0 0 10px;color:white}
-#bmpd-log-panel .bm-header p{font-size:13px;color:#ccc}
-#bmpd-log-panel .bm-title{background:#333;color:white;text-align:center;padding:12px;font-size:14px;font-weight:bold}
+#bmpd-log-panel .bm-header{background:linear-gradient(135deg,var(--matcha-950),var(--hero-end));color:var(--hero-copy);text-align:center;padding:25px 16px;border-radius:var(--radius) var(--radius) 0 0}
+#bmpd-log-panel h2{font-size:20px;line-height:1.4;margin:0 0 10px;color:var(--hero-copy)}
+#bmpd-log-panel h2 span{font-size:14px;font-weight:normal;color:var(--hero-copy)}
+#bmpd-log-panel .bm-header p{font-size:13px;color:var(--hero-copy)}
+#bmpd-log-panel .bm-title{background:var(--paper);color:var(--matcha-900);border-bottom:1px solid var(--line);text-align:center;padding:14px 16px;font-size:14px;font-weight:bold}
 #bmpd-log-panel form{padding:20px}#bmpd-log-panel .bm-field{margin-bottom:18px}
-#bmpd-log-panel label{display:block;font-size:14px;font-weight:bold;margin-bottom:6px;color:#111}
-#bmpd-log-panel input,#bmpd-log-panel select,#bmpd-log-panel textarea{width:100%;min-width:0;padding:10px;font-size:16px;border:1px solid #ddd;border-radius:4px;background:#fafafa;color:#333}
+#bmpd-log-panel label{display:block;margin-bottom:7px;color:var(--label)}
+#bmpd-log-panel input,#bmpd-log-panel select,#bmpd-log-panel textarea{min-width:0;font-family:inherit}
+#bmpd-log-panel textarea::placeholder{color:var(--placeholder)}
 #bmpd-log-panel textarea{min-height:80px;resize:vertical}
-#bmpd-log-panel .bm-time{display:flex;gap:5px}#bmpd-log-panel .bm-time button{flex-shrink:0;padding:0 10px;background:#6c757d;color:white;border:0;border-radius:4px}
-#bmpd-log-panel .bm-submit{width:100%;background:#007bff;color:white;border:0;padding:14px;font-size:15px;font-weight:bold;border-radius:4px;cursor:pointer}
-#bmpd-log-panel button:disabled{background:#ccc;cursor:not-allowed}
-#bmpd-log-panel .bm-footer{text-align:right;color:#777;font-size:12px;margin-top:15px}
-#bmpd-log-panel .bm-status{white-space:pre-wrap;overflow-wrap:anywhere;font-size:14px;margin-top:12px}
+#bmpd-log-panel .bm-time{display:flex;gap:8px}#bmpd-log-panel .bm-time button{flex-shrink:0;padding:8px 10px}
+#bmpd-log-panel .bm-submit{width:100%;cursor:pointer}
+#bmpd-log-panel button{font-family:inherit}
+#bmpd-log-panel button:disabled{opacity:.55;cursor:not-allowed}
+#bmpd-log-panel .bm-footer{text-align:right;color:var(--muted);font-size:12px;margin-top:15px}
+#bmpd-log-panel .bm-status{white-space:pre-wrap;overflow-wrap:anywhere;font-size:14px;margin-top:12px;color:var(--muted)}
+#bmpd-log-panel .bm-report{padding:12px;background:var(--preview-bg);border:1px solid var(--preview-line);border-radius:9px;margin-bottom:14px;color:var(--preview-ink)}
+#bmpd-log-panel .bm-report summary{cursor:pointer;padding:8px 0}
+@media(max-width:380px){#bmpd-log-panel form{padding:14px}#bmpd-log-panel .bm-time{flex-wrap:wrap}}
 `;document.head.append(style);
 panel.innerHTML='<div class="bm-header"><h2>ESMI 법인 Vision<br>BMPD 분석<br><span style="font-size:14px;font-weight:normal;color:#ddd">(ESMI Vision Downtime Analysis)</span></h2><p>지속 가능한 데이터 분석 시스템 (Sustainable Data Analysis System)</p></div><div class="bm-title">부동 분석 리포트 생성 (Generate Downtime Analysis Report)</div><form><div class="bm-fields"></div><button type="submit" class="bm-submit">저장 및 리포트 복사 (Save &amp; Copy Report)</button><p class="bm-status" role="status"></p><details class="bm-report" hidden><summary>리포트 (Report — select to copy manually)</summary><textarea readonly aria-label="Generated report"></textarea></details><div class="bm-footer">Made by JBYang</div></form>';
+panel.querySelector('.bm-header h2 span').removeAttribute('style');
+panel.querySelector('.bm-footer').remove();
+panel.querySelector('.bm-submit').classList.add('button','button-primary');
 const units=[];
 [5,4,5,6,8].forEach((count,i)=>{for(let j=1;j<=count;j++)units.push('#'+(i+1)+'-'+j);});
 const pkg=['#1-1','#1-2','#2-1','#2-2','#3-1','#3-2','#4-1','#4-2','#5-1','#5-2','#5-3'];
@@ -19728,6 +19761,7 @@ const caption=document.createElement('label');caption.htmlFor='bmpd-'+key;captio
 const input=document.createElement(Array.isArray(choices)?'select':choices==='textarea'?'textarea':'input');input.id=caption.htmlFor;input.name=key;if(input.tagName==='INPUT')input.type='text';if(placeholder)input.placeholder=placeholder;
 input.required=!['startTime','endTime'].includes(key);if(Array.isArray(choices))options(input,choices);controls[key]=input;group.append(caption);
 if(['startTime','endTime'].includes(key)){const row=document.createElement('div');row.className='bm-time';const now=document.createElement('button');now.type='button';now.textContent='현재시간';now.onclick=()=>{input.value=formattedTime();};input.value=formattedTime();row.append(input,now);group.append(row);}else group.append(input);
+group.querySelectorAll('button').forEach(button=>button.classList.add('button','button-secondary'));
 panel.querySelector('.bm-fields').append(group);});
 function filterDropdowns(){const process=controls.process.value;options(controls.hogi,process?HOGI_MASTER[process]:Object.values(HOGI_MASTER).flat());options(controls.visionType,process?VISION_MASTER[process]:Object.values(VISION_MASTER).flat());}
 controls.process.onchange=filterDropdowns;filterDropdowns();
@@ -19746,6 +19780,8 @@ function report(data){return `[부동 분석 공유 (Downtime Analysis Report)]
 7. 조치 (Action) : ${data.action}`;}
 let bmpdId='bmpd-'+crypto.randomUUID(),bmpdShift='';
 const newLog=document.createElement('button');newLog.type='button';newLog.textContent='New BM/PD Log';newLog.className='button button-secondary';form.append(newLog);
+const backToTasks=document.createElement('button');backToTasks.type='button';backToTasks.className='button button-secondary';backToTasks.textContent='Back to Daily Tasks';backToTasks.style.cssText='display:block;width:100%;margin-top:14px';
+backToTasks.onclick=()=>{selectLog(false);view.querySelector('.hero').scrollIntoView({block:'start',behavior:'smooth'});tasks.focus({preventScroll:true});};form.append(backToTasks);
 newLog.onclick=()=>{if(btn.disabled)return;if(!window.confirm('Start a new BM/PD log? The existing escalation card will remain in section 11.'))return;bmpdId='bmpd-'+crypto.randomUUID();bmpdShift='';form.reset();filterDropdowns();controls.startTime.value=formattedTime();controls.endTime.value=formattedTime();panel.querySelector('.bm-report').hidden=true;status.textContent='New log ready.';};
 form.addEventListener('submit',async event=>{
 event.preventDefault();if(btn.disabled)return;
@@ -19762,6 +19798,20 @@ status.textContent=(copied?'Report copied. ':'Copy the report below. ')+'Submiss
 }catch{status.textContent=(copied?'Report copied. ':'Copy the report below. ')+'Submission could not be confirmed. Your entries remain here. Check the log before retrying to avoid duplicates.';}
 finally{clearTimeout(timeout);btn.disabled=false;btn.textContent='저장 및 리포트 복사 (Save & Copy Report)';}
 });
+})();
+</script>
+<script id="tab-header-language-controls">
+(()=>{
+  const attach=header=>{
+    if(header.querySelector('[data-header-language]'))return;
+    const bar=document.createElement('div');bar.className='language-bar';bar.setAttribute('role','group');bar.setAttribute('aria-label','Language');bar.style.cssText='flex-wrap:wrap;border-radius:9px;max-width:100%';
+    const label=document.createElement('span');label.className='language-label';label.textContent='Language';bar.append(label);
+    const toggle=document.createElement('div');toggle.className='language-toggle';
+    [['en','🇺🇸 English'],['ko','🇰🇷 한국어']].forEach(([lang,text])=>{const button=document.createElement('button');button.type='button';button.className='language-option';button.dataset.headerLanguage=lang;button.textContent=text;button.setAttribute('aria-pressed',String(document.documentElement.lang===lang));button.onclick=()=>document.getElementById('language-'+lang).click();toggle.append(button);});
+    bar.append(toggle);header.append(bar);
+  };
+  document.querySelectorAll('.app-view > .hero, #bmpd-log-panel .bm-header').forEach(attach);
+  const style=document.createElement('style');style.textContent='.app-view > .hero{flex-wrap:wrap}.app-view > .hero > .language-bar{flex:1 0 100%}.language-bar .language-toggle{flex-wrap:wrap}#bmpd-log-panel .bm-header > .language-bar{margin-top:16px}';document.head.append(style);
 })();
 </script>
 </body>
