@@ -8601,6 +8601,7 @@
 
       koreanUiText["Line 3"] = "3라인";
       Object.assign(koreanUiText, {
+        "Equipment details": "장비 정보", "Time and technician": "시간 및 담당자", "Findings and action": "현상 및 조치", "ESMI Vision Downtime Analysis": "ESMI 비전 비가동 분석",
         "BM/PD Log": "BM/PD 기록", "Back to Daily Tasks": "일일 작업으로 돌아가기", "New BM/PD Log": "새 BM/PD 기록",
         "Shared shift synchronization": "근무조 데이터 공유 및 동기화", "Sign in with Google to share Daily Tasks across phones.": "휴대폰 간에 일일 작업을 공유하려면 Google 계정으로 로그인하세요.",
         "Sign in with Google": "Google 계정으로 로그인", "Sign out": "로그아웃",
@@ -19706,16 +19707,25 @@ const style=document.createElement('style');style.textContent=`
 #daily-task-workspace[hidden],#bmpd-log-panel[hidden]{display:none!important}
 #bmpd-log-panel{width:100%;max-width:700px;min-width:0;margin:20px auto;background:var(--cream);color:var(--ink);border:1px solid var(--line);border-radius:var(--radius);font-family:inherit;box-shadow:var(--shadow)}
 #bmpd-log-panel *{box-sizing:border-box}
-#bmpd-log-panel .bm-header{background:linear-gradient(135deg,var(--matcha-950),var(--hero-end));color:var(--hero-copy);text-align:center;padding:25px 16px;border-radius:var(--radius) var(--radius) 0 0}
-#bmpd-log-panel h2{font-size:20px;line-height:1.4;margin:0 0 10px;color:var(--hero-copy)}
+#bmpd-log-panel .bm-header{background:var(--paper);color:var(--ink);text-align:left;padding:22px 24px;border-radius:var(--radius) var(--radius) 0 0;border-bottom:1px solid var(--line)}
+#bmpd-log-panel h2{font-size:22px;line-height:1.35;margin:0 0 6px;color:var(--matcha-900)}
 #bmpd-log-panel h2 span{font-size:14px;font-weight:normal;color:var(--hero-copy)}
-#bmpd-log-panel .bm-header p{font-size:13px;color:var(--hero-copy)}
+#bmpd-log-panel .bm-header p{font-size:14px;color:var(--muted);margin:0;line-height:1.5}
 #bmpd-log-panel .bm-title{background:var(--paper);color:var(--matcha-900);border-bottom:1px solid var(--line);text-align:center;padding:14px 16px;font-size:14px;font-weight:bold}
-#bmpd-log-panel form{padding:20px}#bmpd-log-panel .bm-field{margin-bottom:18px}
+#bmpd-log-panel form{padding:24px}#bmpd-log-panel .bm-field{margin:0;min-width:0}
+#bmpd-log-panel .bm-fields{display:grid;gap:24px;margin-bottom:24px}
+#bmpd-log-panel .bm-section{padding:0 0 24px;margin:0;min-width:0;border:0;border-bottom:1px solid var(--line)}
+#bmpd-log-panel .bm-section:last-child{padding-bottom:0;border-bottom:0}
+#bmpd-log-panel .bm-section legend{font-size:15px;font-weight:700;color:var(--matcha-900);margin-bottom:16px;padding:0}
+#bmpd-log-panel .bm-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px 16px}
+#bmpd-log-panel .bm-wide{grid-column:1/-1}
+#bmpd-log-panel label{line-height:1.5}
+#bmpd-log-panel .bm-status:empty{display:none}
+#bmpd-log-panel .bm-status{line-height:1.6}
 #bmpd-log-panel label{display:block;margin-bottom:7px;color:var(--label)}
 #bmpd-log-panel input,#bmpd-log-panel select,#bmpd-log-panel textarea{min-width:0;font-family:inherit}
 #bmpd-log-panel textarea::placeholder{color:var(--placeholder)}
-#bmpd-log-panel textarea{min-height:80px;resize:vertical}
+#bmpd-log-panel textarea{min-height:104px;resize:vertical;line-height:1.6;padding:12px}
 #bmpd-log-panel .bm-time{display:flex;gap:8px}#bmpd-log-panel .bm-time button{flex-shrink:0;padding:8px 10px}
 #bmpd-log-panel .bm-submit{width:100%;cursor:pointer}
 #bmpd-log-panel button{font-family:inherit}
@@ -19724,10 +19734,13 @@ const style=document.createElement('style');style.textContent=`
 #bmpd-log-panel .bm-status{white-space:pre-wrap;overflow-wrap:anywhere;font-size:14px;margin-top:12px;color:var(--muted)}
 #bmpd-log-panel .bm-report{padding:12px;background:var(--preview-bg);border:1px solid var(--preview-line);border-radius:9px;margin-bottom:14px;color:var(--preview-ink)}
 #bmpd-log-panel .bm-report summary{cursor:pointer;padding:8px 0}
+@media(max-width:540px){#bmpd-log-panel form{padding:18px}#bmpd-log-panel .bm-header{padding:18px}#bmpd-log-panel .bm-grid{grid-template-columns:minmax(0,1fr);gap:16px}}
 @media(max-width:380px){#bmpd-log-panel form{padding:14px}#bmpd-log-panel .bm-time{flex-wrap:wrap}}
 `;document.head.append(style);
 panel.innerHTML='<div class="bm-header"><h2>ESMI 법인 Vision<br>BMPD 분석<br><span style="font-size:14px;font-weight:normal;color:#ddd">(ESMI Vision Downtime Analysis)</span></h2><p>지속 가능한 데이터 분석 시스템 (Sustainable Data Analysis System)</p></div><div class="bm-title">부동 분석 리포트 생성 (Generate Downtime Analysis Report)</div><form><div class="bm-fields"></div><button type="submit" class="bm-submit">저장 및 리포트 복사 (Save &amp; Copy Report)</button><p class="bm-status" role="status"></p><details class="bm-report" hidden><summary>리포트 (Report — select to copy manually)</summary><textarea readonly aria-label="Generated report"></textarea></details><div class="bm-footer">Made by JBYang</div></form>';
-panel.querySelector('.bm-header h2 span').removeAttribute('style');
+panel.querySelector('.bm-header h2').textContent='BM/PD Log';
+panel.querySelector('.bm-header p').textContent='ESMI Vision Downtime Analysis';
+panel.querySelector('.bm-title').remove();
 panel.querySelector('.bm-footer').remove();
 panel.querySelector('.bm-submit').classList.add('button','button-primary');
 const units=[];
@@ -19753,6 +19766,8 @@ const definitions=[
 ['cause','6. 원인 (Cause) : *','textarea','원인 입력 (Enter Cause)'],
 ['action','7. 조치 (Action) : *','textarea','조치 내용 입력 (Enter Action)']];
 const controls={},form=panel.querySelector('form'),status=panel.querySelector('.bm-status'),btn=panel.querySelector('.bm-submit');
+const bmSections={};
+[['equipment','Equipment details'],['timing','Time and technician'],['findings','Findings and action']].forEach(([key,title])=>{const section=document.createElement('fieldset');section.className='bm-section';const legend=document.createElement('legend');legend.textContent=title;const grid=document.createElement('div');grid.className='bm-grid';section.append(legend,grid);panel.querySelector('.bm-fields').append(section);bmSections[key]=grid;});
 function options(input,values){input.replaceChildren(new Option('-',''));values.forEach(v=>input.add(new Option(v,v)));}
 function formattedTime(){const now=new Date(),pad=n=>String(n).padStart(2,'0');return now.getFullYear()+'.'+pad(now.getMonth()+1)+'.'+pad(now.getDate())+'. '+(now.getHours()>=12?'PM':'AM')+' '+pad(now.getHours()%12||12)+':'+pad(now.getMinutes());}
 definitions.forEach(([key,label,choices,placeholder])=>{
@@ -19762,7 +19777,9 @@ const input=document.createElement(Array.isArray(choices)?'select':choices==='te
 input.required=!['startTime','endTime'].includes(key);if(Array.isArray(choices))options(input,choices);controls[key]=input;group.append(caption);
 if(['startTime','endTime'].includes(key)){const row=document.createElement('div');row.className='bm-time';const now=document.createElement('button');now.type='button';now.textContent='현재시간';now.onclick=()=>{input.value=formattedTime();};input.value=formattedTime();row.append(input,now);group.append(row);}else group.append(input);
 group.querySelectorAll('button').forEach(button=>button.classList.add('button','button-secondary'));
-panel.querySelector('.bm-fields').append(group);});
+const sectionKey=['startTime','endTime','worker'].includes(key)?'timing':['phenomenon','cause','action'].includes(key)?'findings':'equipment';
+if(sectionKey==='findings'||key==='worker'||key==='startTime'||key==='endTime')group.classList.add('bm-wide');
+bmSections[sectionKey].append(group);});
 function filterDropdowns(){const process=controls.process.value;options(controls.hogi,process?HOGI_MASTER[process]:Object.values(HOGI_MASTER).flat());options(controls.visionType,process?VISION_MASTER[process]:Object.values(VISION_MASTER).flat());}
 controls.process.onchange=filterDropdowns;filterDropdowns();
 function report(data){return `[부동 분석 공유 (Downtime Analysis Report)]
@@ -19779,10 +19796,8 @@ function report(data){return `[부동 분석 공유 (Downtime Analysis Report)]
 6. 원인 (Cause) : ${data.cause}
 7. 조치 (Action) : ${data.action}`;}
 let bmpdId='bmpd-'+crypto.randomUUID(),bmpdShift='';
-const newLog=document.createElement('button');newLog.type='button';newLog.textContent='New BM/PD Log';newLog.className='button button-secondary';form.append(newLog);
 const backToTasks=document.createElement('button');backToTasks.type='button';backToTasks.className='button button-secondary';backToTasks.textContent='Back to Daily Tasks';backToTasks.style.cssText='display:block;width:100%;margin-top:14px';
 backToTasks.onclick=()=>{selectLog(false);view.querySelector('.hero').scrollIntoView({block:'start',behavior:'smooth'});tasks.focus({preventScroll:true});};form.append(backToTasks);
-newLog.onclick=()=>{if(btn.disabled)return;if(!window.confirm('Start a new BM/PD log? The existing escalation card will remain in section 11.'))return;bmpdId='bmpd-'+crypto.randomUUID();bmpdShift='';form.reset();filterDropdowns();controls.startTime.value=formattedTime();controls.endTime.value=formattedTime();panel.querySelector('.bm-report').hidden=true;status.textContent='New log ready.';};
 form.addEventListener('submit',async event=>{
 event.preventDefault();if(btn.disabled)return;
 const data={};for(const [key] of definitions){data[key]=['worker','phenomenon','cause','action'].includes(key)?controls[key].value.trim():controls[key].value;if(controls[key].required&&!data[key]){controls[key].focus();status.textContent='필수 항목을 입력해주세요. (Complete all required fields.)';return;}}
@@ -19810,9 +19825,41 @@ finally{clearTimeout(timeout);btn.disabled=false;btn.textContent='저장 및 리
     [['en','🇺🇸 English'],['ko','🇰🇷 한국어']].forEach(([lang,text])=>{const button=document.createElement('button');button.type='button';button.className='language-option';button.dataset.headerLanguage=lang;button.textContent=text;button.setAttribute('aria-pressed',String(document.documentElement.lang===lang));button.onclick=()=>document.getElementById('language-'+lang).click();toggle.append(button);});
     bar.append(toggle);header.append(bar);
   };
-  document.querySelectorAll('.app-view > .hero, #bmpd-log-panel .bm-header').forEach(attach);
+  document.querySelectorAll('.app-view > .hero').forEach(attach);
   const style=document.createElement('style');style.textContent='.app-view > .hero{flex-wrap:wrap}.app-view > .hero > .language-bar{flex:1 0 100%}.language-bar .language-toggle{flex-wrap:wrap}#bmpd-log-panel .bm-header > .language-bar{margin-top:16px}';document.head.append(style);
 })();
 </script>
+<style id="daily-header-polish">
+#daily-tasks-view > .hero {
+  display:grid;grid-template-columns:auto minmax(0,1fr);grid-template-areas:"back tools" "title title" "language language";
+  align-items:center;gap:16px 12px;padding:calc(14px + env(safe-area-inset-top)) 18px 18px;margin:0;
+  background:linear-gradient(120deg,var(--matcha-950),var(--hero-end));isolation:isolate;
+}
+#daily-tasks-view > .hero::before,#daily-tasks-view > .hero::after{display:none}
+#daily-tasks-view > .hero > div:first-child{grid-area:title;min-width:0}
+#daily-tasks-view > .hero .eyebrow{display:none}
+#daily-tasks-view > .hero h1{font-size:1.65rem;line-height:1.2;letter-spacing:-.025em}
+#daily-tasks-view > .hero .hero-copy{margin-top:6px;font-size:.84rem;line-height:1.5;max-width:560px}
+#daily-tasks-view #daily-tasks-back{grid-area:back;position:static;margin:0;min-height:44px;padding:8px 12px;font-size:.8rem;border-radius:9px;align-self:center}
+#daily-tasks-view #header-actions{grid-area:tools;position:static;inset:auto;display:flex;justify-content:flex-end;align-items:center;gap:8px;width:100%;margin:0;min-width:0;transform:none}
+#daily-tasks-view #header-actions .theme-control{width:auto;min-width:0;flex:0 1 180px}
+#daily-tasks-view #header-actions select{height:44px;min-height:44px;font-size:.8rem;padding:7px 26px 7px 10px}
+#daily-tasks-view #header-actions .button{height:44px;min-height:44px;min-width:0;font-size:.78rem;padding:8px 10px}
+#daily-tasks-view > .hero > .language-bar{grid-area:language;justify-content:flex-start;gap:12px;padding:12px 0 0;margin:0;border:0;border-top:1px solid color-mix(in srgb,var(--hero-copy) 25%,transparent);background:transparent;width:100%;border-radius:0!important}
+#daily-tasks-view > .hero .language-label{color:var(--hero-copy);font-size:.76rem}
+#daily-tasks-view > .hero .language-toggle{box-shadow:none;border-radius:9px;overflow:hidden}
+#daily-tasks-view > .hero .language-option{min-height:44px;padding:8px 12px;font-size:.78rem}
+#daily-tasks-view #daily-cloud-panel{margin:0;padding:14px 18px;border-top:0;box-shadow:none;border-radius:0}
+#daily-tasks-view .daily-cloud-row{gap:12px;align-items:center}
+#daily-tasks-view .daily-cloud-copy strong{font-size:.88rem}
+#daily-tasks-view .daily-cloud-copy span{font-size:.8rem;line-height:1.45}
+#daily-tasks-view .daily-cloud-copy small{font-size:.68rem;margin-top:4px;color:var(--muted)}
+#daily-tasks-view .daily-cloud-actions .button{min-height:44px;font-size:.8rem;padding:8px 14px}
+#daily-tasks-view > .bmpd-nav{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px;margin:12px 18px;padding:4px;background:var(--paper);border:1px solid var(--line);border-radius:12px}
+#daily-tasks-view > .bmpd-nav .button{min-width:0;min-height:44px;padding:8px;font-size:.86rem;border:1px solid transparent;background:transparent;box-shadow:none;border-radius:8px;color:var(--muted)}
+#daily-tasks-view > .bmpd-nav [aria-selected=true]{border-color:var(--control-line);background:var(--cream);color:var(--matcha-900);box-shadow:0 1px 3px var(--focus-ring)}
+@media(min-width:760px){#daily-tasks-view > .hero{grid-template-columns:auto minmax(0,1fr) auto;grid-template-areas:"back title tools" "language language language";gap:14px 20px;padding:18px 24px}#daily-tasks-view #header-actions{width:auto}#daily-tasks-view #header-actions .theme-control{min-width:160px}#daily-tasks-view > .hero > .language-bar{justify-content:flex-end;padding-top:10px}}
+@media(max-width:359px){#daily-tasks-view > .hero{padding-left:12px;padding-right:12px;gap:14px 8px}#daily-tasks-view #header-actions{gap:6px}#daily-tasks-view #header-actions .theme-control{flex:1 1 auto}#daily-tasks-view #header-actions select{font-size:.75rem}#daily-tasks-view > .bmpd-nav{margin-left:12px;margin-right:12px}}
+</style>
 </body>
 </html>
