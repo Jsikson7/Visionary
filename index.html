@@ -15034,10 +15034,6 @@
       function appendReportOverview(result) {
         var section = document.createElement("section");
         section.className = "daily-report-overview";
-        var heading = document.createElement("h3");
-        heading.textContent = "Shift Point Summary";
-        section.appendChild(heading);
-
         var context = document.createElement("div");
         context.className = "daily-report-context";
         [
@@ -15456,7 +15452,6 @@
         var escalationTotal = dynamicReportTotal(escalationEntries);
         var superEscalationTotal = dynamicReportTotal(superEscalationEntries);
         var lines = [
-          "Shift Point Summary",
           "Date: " + shortDate(dateInput.value),
           "Shift: " + (shiftSelect.value || "Not selected"),
           "",
