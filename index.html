@@ -6385,11 +6385,11 @@
 
           <form id="daily-shift-form" class="daily-shift-form" autocomplete="off">
             <div class="daily-shift-details">
-              <div class="field">
+              <div class="field daily-shift-date-field">
                 <label for="daily-shift-date">Date</label>
                 <input id="daily-shift-date" type="date" required aria-required="true">
               </div>
-              <div class="field">
+              <div class="field daily-shift-select-field">
                 <label for="daily-shift-shift">Shift</label>
                 <select id="daily-shift-shift" required aria-required="true">
                   <option value="">Choose shift</option>
@@ -6411,7 +6411,7 @@
                 <div id="daily-ot-support-list" class="daily-ot-support-list"></div>
                 <button id="daily-add-ot-support" class="button button-secondary daily-add-ot-support" type="button">+ Add OT Support</button>
               </fieldset>
-              <div class="field">
+              <div class="field daily-shift-error-proof-field">
                 <label for="daily-shift-error-proof">NGM Error Proofing</label>
                 <select id="daily-shift-error-proof" required aria-required="true">
                   <option value="">Choose A or B</option>
@@ -6434,7 +6434,7 @@
                 <div id="daily-shift-overall-progress" class="daily-task-progress" role="progressbar" aria-label="Total shift completion" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div id="daily-shift-overall-progress-fill" class="daily-task-progress-fill"></div></div>
                 <p class="daily-task-score-note">Cell Tracking Reading Rate checks stay tracked and synchronized but are excluded from Total shift completion.</p>
               </article>
-              <h4 class="daily-contribution-heading">Allocation completion rates</h4>
+              <h4 class="daily-contribution-heading daily-allocation-rate-title">Allocation completion rates</h4>
               <p id="daily-honor-note"></p>
               <div class="daily-allocation-rate-grid">
                 <article id="daily-shift-a1-card" class="daily-allocation-rate-card" data-selected="false">
@@ -6453,45 +6453,59 @@
                   <div id="daily-shift-a3-progress" class="daily-task-progress" role="progressbar" aria-label="Allocation 3 completion rate" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div id="daily-shift-a3-progress-fill" class="daily-task-progress-fill"></div></div>
                 </article>
               </div>
-              <p class="daily-task-score-note">Each rate uses that allocation's Black Frame and PKG 2 Hour Update checks. Cell Tracking Reading Rate adds points only. Entered names replace the allocation labels automatically.</p>
-              <h4 class="daily-contribution-heading">Share of completed work</h4>
+              <p class="daily-task-score-note daily-allocation-rate-note">Each rate uses that allocation's Black Frame and PKG 2 Hour Update checks. Cell Tracking Reading Rate adds points only. Entered names replace the allocation labels automatically.</p>
+              <h4 class="daily-contribution-heading daily-contribution-title">Share of completed work</h4>
               <div class="daily-contribution-grid" aria-label="Technician work contribution">
                 <article class="daily-contribution-card"><span id="daily-contribution-lead-name">Lead</span><strong id="daily-contribution-lead-percent">0%</strong><small><span id="daily-contribution-lead-points">0</span> pts</small></article>
                 <article class="daily-contribution-card"><span id="daily-contribution-a1-name">Allocation 1</span><strong id="daily-contribution-a1-percent">0%</strong><small><span id="daily-contribution-a1-points">0</span> pts</small></article>
                 <article class="daily-contribution-card"><span id="daily-contribution-a2-name">Allocation 2</span><strong id="daily-contribution-a2-percent">0%</strong><small><span id="daily-contribution-a2-points">0</span> pts</small></article>
                 <article class="daily-contribution-card"><span id="daily-contribution-a3-name">Allocation 3</span><strong id="daily-contribution-a3-percent">0%</strong><small><span id="daily-contribution-a3-points">0</span> pts</small></article>
               </div>
-              <p class="daily-task-score-note">Check a task, then choose Completed By. Escalations and Super Escalations can credit multiple technicians and divide their points evenly. Allocation completion rates follow the assigned A1, A2, and A3 work. Cell Tracking Reading Rate earns points but does not affect completion percentages or count as missed work.</p>
+              <p class="daily-task-score-note daily-contribution-note">Check a task, then choose Completed By. Escalations and Super Escalations can credit multiple technicians and divide their points evenly. Allocation completion rates follow the assigned A1, A2, and A3 work. Cell Tracking Reading Rate earns points but does not affect completion percentages or count as missed work.</p>
             </section>
 
-            <section id="daily-task-quick-summary" class="daily-task-quick-summary" aria-label="Current shift progress">
-              <div><span>Shift completion</span><strong id="daily-task-quick-percent">0%</strong></div>
-              <span id="daily-task-quick-count">0 / 0 tasks</span>
-              <span id="daily-task-quick-points">0 / 0 pts</span>
-            </section>
+            <div class="daily-task-flow">
+              <aside class="daily-task-sidebar" aria-label="Shift progress and checklist tools">
+                <div class="daily-task-sidebar-heading">
+                  <p>Shift workspace</p>
+                  <h3>Progress and tools</h3>
+                  <span>Everything you need stays in reach while you work.</span>
+                </div>
 
-            <div class="daily-checklist-controls" aria-label="Numbered task display controls">
-              <button id="daily-expand-all" class="button button-secondary" type="button">Expand all</button>
-              <button id="daily-collapse-all" class="button button-secondary" type="button">Collapse all</button>
-              <label class="daily-incomplete-toggle"><input id="daily-incomplete-only" type="checkbox"> Incomplete only</label>
-              <label class="daily-my-tasks-filter-label" for="daily-my-tasks-filter">My tasks
-                <select id="daily-my-tasks-filter">
-                  <option value="all">All tasks</option>
-                  <option value="1">Allocation 1</option>
-                  <option value="2">Allocation 2</option>
-                  <option value="3">Allocation 3</option>
-                </select>
-              </label>
-              <button id="daily-quick-reference-toggle" class="button button-secondary" type="button">Quick reference</button>
-            </div>
-            <div id="daily-quick-reference-panel" class="daily-quick-reference-panel" hidden>
-              <input id="daily-quick-reference-input" type="search" placeholder="Search machine, ROI, symptom, or fix…" autocomplete="off">
-              <p id="daily-quick-reference-status" class="daily-quick-reference-status"></p>
-              <div id="daily-quick-reference-results" class="daily-quick-reference-results"></div>
-            </div>
-            <p id="daily-checklist-empty" class="daily-checklist-empty" hidden>All numbered tasks are complete.</p>
+                <section id="daily-task-quick-summary" class="daily-task-quick-summary" aria-label="Current shift progress">
+                  <div><span>Shift completion</span><strong id="daily-task-quick-percent">0%</strong></div>
+                  <span id="daily-task-quick-count">0 / 0 tasks</span>
+                  <span id="daily-task-quick-points">0 / 0 pts</span>
+                  <div class="daily-task-quick-incomplete"><span>Incomplete tasks</span><strong id="daily-task-incomplete-count">0</strong></div>
+                  <div class="daily-task-quick-missed"><span>Missed points</span><strong id="daily-task-missed-points">0</strong></div>
+                </section>
 
-            <div id="daily-shift-checklist" class="daily-checklist" data-setup-ready="false" data-incomplete-only="false" aria-disabled="true">
+                <div class="daily-checklist-controls" aria-label="Numbered task display controls">
+                  <button id="daily-expand-all" class="button button-secondary" type="button">Expand all</button>
+                  <button id="daily-collapse-all" class="button button-secondary" type="button">Collapse all</button>
+                  <label class="daily-incomplete-toggle"><input id="daily-incomplete-only" type="checkbox"> Incomplete only</label>
+                  <label class="daily-my-tasks-filter-label" for="daily-my-tasks-filter">My tasks
+                    <select id="daily-my-tasks-filter">
+                      <option value="all">All tasks</option>
+                      <option value="1">Allocation 1</option>
+                      <option value="2">Allocation 2</option>
+                      <option value="3">Allocation 3</option>
+                    </select>
+                  </label>
+                  <button id="daily-quick-reference-toggle" class="button button-secondary" type="button">Quick reference</button>
+                </div>
+                <div id="daily-quick-reference-panel" class="daily-quick-reference-panel" hidden>
+                  <input id="daily-quick-reference-input" type="search" placeholder="Search machine, ROI, symptom, or fix…" autocomplete="off">
+                  <p id="daily-quick-reference-status" class="daily-quick-reference-status"></p>
+                  <div id="daily-quick-reference-results" class="daily-quick-reference-results"></div>
+                </div>
+                <button id="daily-shift-generate-sidebar" class="button button-primary daily-task-sidebar-generate" type="button">Generate shift report</button>
+              </aside>
+
+              <div class="daily-task-main-column">
+                <p id="daily-checklist-empty" class="daily-checklist-empty" hidden>All numbered tasks are complete.</p>
+
+                <div id="daily-shift-checklist" class="daily-checklist" data-setup-ready="false" data-incomplete-only="false" aria-disabled="true">
               <section class="daily-checklist-group" data-daily-group="black-frame">
                 <div class="daily-checklist-heading">
                   <h3>1. Black Frame Check</h3>
@@ -6677,17 +6691,19 @@
                 <p class="daily-task-score-note">A short note for the next shift. This is included in the generated shift report.</p>
                 <textarea id="daily-handoff-note" class="daily-handoff-note-input" rows="4" placeholder="Anything the next shift should know…"></textarea>
               </section>
-            </div>
+                </div>
 
-            <div class="daily-shift-footer-actions">
-              <button id="daily-shift-new" class="button button-secondary" type="button">Start new shift</button>
-              <button id="daily-shift-generate-bottom" class="button button-primary" type="button">Generate shift report</button>
+                <div class="daily-shift-footer-actions">
+                  <button id="daily-shift-new" class="button button-secondary" type="button">Start new shift</button>
+                  <button id="daily-shift-generate-bottom" class="button button-primary" type="button">Generate shift report</button>
+                </div>
+                <p id="daily-shift-draft-note" class="daily-shift-draft-note" aria-live="polite"></p>
+              </div>
             </div>
-            <p id="daily-shift-draft-note" class="daily-shift-draft-note" aria-live="polite"></p>
           </form>
         </section>
 
-        <aside class="panel preview-panel" aria-labelledby="daily-shift-preview-title">
+        <aside class="panel preview-panel daily-report-preview-panel" aria-labelledby="daily-shift-preview-title">
           <div class="panel-heading">
             <div>
               <h2 id="daily-shift-preview-title">Shift report preview</h2>
@@ -8204,6 +8220,11 @@
         "Cell Tracking Reading Rate checks stay tracked and synchronized but are excluded from Total shift completion.": "Cell Tracking 인식률 점검은 계속 기록되고 동기화되지만 전체 교대 완료율에서는 제외됩니다.",
         "Allocation completion rates": "배정별 완료율",
         "Share of completed work": "완료 작업 기여 비율",
+        "Shift workspace": "교대 작업 공간",
+        "Progress and tools": "진행 상황 및 도구",
+        "Everything you need stays in reach while you work.": "작업 중 필요한 도구를 항상 가까이에서 사용할 수 있습니다.",
+        "Incomplete tasks": "미완료 작업",
+        "Missed points": "놓친 점수",
         "Shift report preview": "교대 보고서 미리보기",
         "Review total points, missed work, and each Technician's contribution.": "총점, 미완료 작업 및 각 기술자의 기여도를 검토합니다.",
         "Generate shift report": "교대 보고서 생성",
@@ -12794,6 +12815,8 @@
       var quickPercent = document.getElementById("daily-task-quick-percent");
       var quickPoints = document.getElementById("daily-task-quick-points");
       var quickCount = document.getElementById("daily-task-quick-count");
+      var quickIncompleteCount = document.getElementById("daily-task-incomplete-count");
+      var quickMissedPoints = document.getElementById("daily-task-missed-points");
       var pmEntries = document.getElementById("daily-pm-entries");
       var escalationEntries = document.getElementById("daily-escalation-entries");
       var superEscalationEntries = document.getElementById("daily-super-escalation-entries");
@@ -12962,6 +12985,7 @@
       var addSuperEscalationButton = document.getElementById("daily-add-super-escalation");
       var newShiftButton = document.getElementById("daily-shift-new");
       var generateButton = document.getElementById("daily-shift-generate");
+      var generateSidebarButton = document.getElementById("daily-shift-generate-sidebar");
       var generateBottomButton = document.getElementById("daily-shift-generate-bottom");
       var preview = document.getElementById("daily-shift-preview");
       var previewText = "";
@@ -16323,6 +16347,8 @@
         quickPercent.textContent = result.percent + "%";
         quickPoints.textContent = displayPoints(result.earned) + " / " + displayPoints(result.available) + " pts";
         quickCount.textContent = result.completed + " / " + result.total + " tasks";
+        if (quickIncompleteCount) quickIncompleteCount.textContent = String(Math.max(0, result.total - result.completed));
+        if (quickMissedPoints) quickMissedPoints.textContent = displayPoints(result.missedPoints) + " pts";
         updateDailyAccordionSummaries();
         previewText = buildShiftReport(result);
         renderDailyShiftPreview(result);
@@ -16808,6 +16834,7 @@
       form.addEventListener("input", handleDailyFormChange);
       form.addEventListener("change", handleDailyFormChange);
       generateButton.addEventListener("click", openShiftReport);
+      if (generateSidebarButton) generateSidebarButton.addEventListener("click", openShiftReport);
       generateBottomButton.addEventListener("click", openShiftReport);
       reportCloseButton.addEventListener("click", closeShiftReport);
       reportPrintButton.addEventListener("click", function () { window.print(); });
@@ -19890,6 +19917,723 @@ finally{clearTimeout(timeout);btn.disabled=false;btn.textContent='저장 및 리
 #daily-tasks-view .daily-contribution-card.daily-club-member{border-width:1px}
 #daily-tasks-view .daily-task-score-note{text-align:left;line-height:1.55}
 @media(min-width:760px){#daily-tasks-view > .hero{grid-template-columns:auto minmax(0,1fr) auto;grid-template-areas:"back title tools";padding:20px 24px}}
+</style>
+
+<style id="daily-desktop-workspace-layout">
+/* Preserve the existing phone flow while giving desktop a task-focused workspace. */
+.daily-task-flow,
+.daily-task-main-column,
+.daily-task-sidebar {
+  display: contents;
+}
+
+.daily-task-sidebar-heading,
+.daily-task-sidebar-generate,
+.daily-task-quick-incomplete,
+.daily-task-quick-missed {
+  display: none;
+}
+
+@media (min-width: 980px) {
+  .page-shell:has(#daily-tasks-view:not([hidden])) {
+    width: min(1600px, calc(100% - 48px));
+  }
+
+  #daily-tasks-view .daily-task-workspace {
+    display: block;
+  }
+
+  #daily-tasks-view .daily-task-workspace > .form-panel {
+    width: 100%;
+  }
+
+  #daily-tasks-view .form-panel > .panel-heading {
+    padding: 13px 18px;
+  }
+
+  #daily-tasks-view .form-panel > .panel-heading p {
+    margin-top: 2px;
+  }
+
+  #daily-tasks-view .daily-shift-form {
+    gap: 12px;
+    padding: 14px 18px 22px;
+  }
+
+  #daily-tasks-view .daily-shift-details {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-areas:
+      "date shift error-proof"
+      "roster roster roster";
+    gap: 10px 12px;
+  }
+
+  #daily-tasks-view .daily-shift-date-field {
+    grid-area: date;
+  }
+
+  #daily-tasks-view .daily-shift-select-field {
+    grid-area: shift;
+  }
+
+  #daily-tasks-view .daily-shift-error-proof-field {
+    grid-area: error-proof;
+  }
+
+  #daily-tasks-view .daily-technician-roster {
+    grid-area: roster;
+    gap: 8px;
+    padding: 9px 12px 11px;
+  }
+
+  #daily-tasks-view .daily-technician-roster-copy {
+    line-height: 1.35;
+  }
+
+  #daily-tasks-view .daily-technician-roster-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  #daily-tasks-view .daily-ot-support-list {
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 8px;
+  }
+
+  #daily-tasks-view .daily-add-ot-support {
+    width: auto;
+    min-height: 40px;
+    justify-self: start;
+    padding: 7px 12px;
+  }
+
+  #daily-tasks-view .daily-shift-setup-alert {
+    padding: 8px 11px;
+    line-height: 1.35;
+  }
+
+  #daily-tasks-view .daily-task-scoreboard {
+    grid-template-columns: minmax(240px, 0.72fr) minmax(0, 2.28fr);
+    grid-template-areas:
+      "score-heading score-heading"
+      "overall allocation-title"
+      "overall honor-note"
+      "overall allocation-rates"
+      "overall allocation-note"
+      "contribution-title contribution-title"
+      "contribution-grid contribution-grid"
+      "contribution-note contribution-note";
+    gap: 7px 12px;
+    padding: 10px 12px;
+  }
+
+  #daily-tasks-view .daily-allocation-score-heading {
+    grid-area: score-heading;
+  }
+
+  #daily-tasks-view .daily-shift-overall-card {
+    grid-area: overall;
+    align-content: start;
+    gap: 9px;
+    padding: 11px;
+  }
+
+  #daily-tasks-view .daily-allocation-rate-title {
+    grid-area: allocation-title;
+    margin-top: 1px;
+  }
+
+  #daily-tasks-view #daily-honor-note {
+    grid-area: honor-note;
+    min-height: 0;
+    margin: 0;
+    line-height: 1.3;
+  }
+
+  #daily-tasks-view .daily-allocation-rate-grid {
+    grid-area: allocation-rates;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  #daily-tasks-view .daily-allocation-rate-card {
+    gap: 6px;
+    padding: 9px;
+  }
+
+  #daily-tasks-view .daily-allocation-rate-note {
+    grid-area: allocation-note;
+  }
+
+  #daily-tasks-view .daily-contribution-title {
+    grid-area: contribution-title;
+    margin-top: 2px;
+  }
+
+  #daily-tasks-view .daily-contribution-grid {
+    grid-area: contribution-grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  #daily-tasks-view .daily-contribution-card {
+    gap: 3px;
+    padding: 8px 10px;
+  }
+
+  #daily-tasks-view .daily-contribution-note {
+    grid-area: contribution-note;
+  }
+
+  #daily-tasks-view .daily-task-score-note {
+    line-height: 1.35;
+  }
+
+  #daily-tasks-view .daily-task-flow {
+    display: grid;
+    grid-template-columns: minmax(0, 7fr) minmax(285px, 3fr);
+    gap: 20px;
+    align-items: start;
+    margin-top: 2px;
+  }
+
+  #daily-tasks-view .daily-task-main-column {
+    display: grid;
+    grid-column: 1;
+    grid-row: 1;
+    gap: 15px;
+    min-width: 0;
+  }
+
+  #daily-tasks-view .daily-task-sidebar {
+    position: sticky;
+    top: 18px;
+    z-index: 23;
+    display: grid;
+    grid-column: 2;
+    grid-row: 1;
+    gap: 11px;
+    max-height: calc(100vh - 36px);
+    padding: 14px;
+    overflow-y: auto;
+    border: 1px solid var(--line);
+    border-radius: 13px;
+    background: color-mix(in srgb, var(--cream) 94%, transparent);
+    box-shadow: 0 10px 28px rgba(18, 38, 28, 0.12);
+    backdrop-filter: blur(12px);
+    scrollbar-gutter: stable;
+  }
+
+  #daily-tasks-view .daily-task-sidebar-heading {
+    display: block;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  #daily-tasks-view .daily-task-sidebar-heading p,
+  #daily-tasks-view .daily-task-sidebar-heading h3,
+  #daily-tasks-view .daily-task-sidebar-heading span {
+    margin: 0;
+  }
+
+  #daily-tasks-view .daily-task-sidebar-heading p {
+    color: var(--matcha-700);
+    font-size: 0.65rem;
+    font-weight: 850;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  #daily-tasks-view .daily-task-sidebar-heading h3 {
+    margin-top: 3px;
+    color: var(--ink);
+    font-size: 1rem;
+  }
+
+  #daily-tasks-view .daily-task-sidebar-heading span {
+    display: block;
+    margin-top: 3px;
+    color: var(--muted);
+    font-size: 0.7rem;
+    line-height: 1.35;
+  }
+
+  #daily-tasks-view .daily-task-quick-summary {
+    position: static;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+    backdrop-filter: none;
+  }
+
+  #daily-tasks-view .daily-task-quick-summary > div,
+  #daily-tasks-view .daily-task-quick-summary > span {
+    display: grid;
+    min-width: 0;
+    min-height: 64px;
+    align-content: center;
+    gap: 4px;
+    padding: 9px 10px;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    background: var(--paper);
+  }
+
+  #daily-tasks-view .daily-task-quick-summary > span {
+    color: var(--secondary-ink);
+    font-size: 0.69rem;
+    line-height: 1.35;
+  }
+
+  #daily-tasks-view .daily-task-quick-summary > div:first-child {
+    grid-column: 1 / -1;
+    border-color: color-mix(in srgb, var(--matcha-600) 48%, var(--line));
+  }
+
+  #daily-tasks-view .daily-task-quick-incomplete {
+    display: grid;
+    border-color: color-mix(in srgb, var(--danger) 34%, var(--line));
+    background: color-mix(in srgb, var(--danger) 5%, var(--paper));
+  }
+
+  #daily-tasks-view .daily-task-quick-incomplete strong {
+    color: var(--danger);
+    font-size: 1.08rem;
+  }
+
+  #daily-tasks-view .daily-task-quick-missed {
+    display: grid;
+    border-color: color-mix(in srgb, var(--danger) 34%, var(--line));
+    background: color-mix(in srgb, var(--danger) 5%, var(--paper));
+  }
+
+  #daily-tasks-view .daily-task-quick-missed strong {
+    color: var(--danger);
+    font-size: 1rem;
+  }
+
+  #daily-tasks-view .daily-checklist-controls {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 7px;
+  }
+
+  #daily-tasks-view .daily-checklist-controls .button {
+    min-height: 40px;
+  }
+
+  #daily-tasks-view .daily-incomplete-toggle,
+  #daily-tasks-view .daily-my-tasks-filter-label,
+  #daily-tasks-view #daily-quick-reference-toggle {
+    grid-column: 1 / -1;
+  }
+
+  #daily-tasks-view .daily-my-tasks-filter-label {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+
+  #daily-tasks-view .daily-quick-reference-panel {
+    margin: 0;
+    padding: 10px;
+  }
+
+  #daily-tasks-view .daily-quick-reference-results {
+    max-height: min(320px, 34vh);
+  }
+
+  #daily-tasks-view .daily-task-sidebar-generate {
+    display: inline-flex;
+    width: 100%;
+    min-height: 48px;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #daily-tasks-view .daily-report-preview-panel {
+    display: none;
+  }
+
+  #daily-tasks-view #daily-shift-generate-bottom {
+    display: none;
+  }
+
+  #daily-tasks-view .daily-shift-footer-actions {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  #daily-tasks-view .daily-checklist {
+    gap: 18px;
+  }
+
+  #daily-tasks-view .daily-checklist-toggle {
+    min-height: 58px;
+    padding: 8px 12px;
+  }
+
+  #daily-tasks-view .daily-checklist-group[data-daily-group="black-frame"] .daily-check-items {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  #daily-tasks-view #daily-pkg-update-rows {
+    grid-template-columns: repeat(auto-fit, minmax(245px, 1fr));
+    align-items: stretch;
+  }
+
+  #daily-tasks-view #daily-pkg-update-rows > .daily-allocation-check-row {
+    align-content: start;
+  }
+
+  #daily-tasks-view #daily-pkg-update-rows .daily-pkg-machine-groups {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  #daily-tasks-view .daily-error-proof-group {
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  }
+
+  .daily-report-sheet {
+    width: min(96vw, 1500px);
+  }
+
+  .daily-report-sheet .daily-generated-report {
+    min-height: 0;
+    max-height: none;
+    overflow: visible;
+  }
+}
+
+@media (min-width: 1220px) {
+  #daily-tasks-view :is(#daily-pm-entries, #daily-escalation-entries, #daily-super-escalation-entries) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-auto-rows: 1fr;
+    align-items: stretch;
+  }
+
+  #daily-tasks-view :is(#daily-pm-entries, #daily-escalation-entries, #daily-super-escalation-entries) .daily-dynamic-entry {
+    min-width: 0;
+    min-height: 220px;
+  }
+
+  #daily-tasks-view .daily-dynamic-entry[data-saved="true"] {
+    gap: 11px;
+    padding: 12px;
+    border-left-width: 5px;
+    border-radius: 11px;
+  }
+}
+</style>
+<style id="matcha-visual-refinement">
+/* Matcha: richer botanical direction without adding visual noise to task entry. */
+html[data-theme="matcha"] {
+  --matcha-brass: #aa8240;
+  --matcha-brass-soft: rgba(170, 130, 64, 0.18);
+  --matcha-sage-glow: rgba(145, 173, 105, 0.2);
+  --matcha-sprig: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 96'%3E%3Cg stroke='%235f7d43' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 89C50 50 102 28 176 8' fill='none' stroke-width='2.4' opacity='.46'/%3E%3Cpath d='M46 58C31 39 14 42 6 55C18 70 34 72 46 58Z' fill='%23dfeacf' fill-opacity='.82' stroke-width='1.5' opacity='.72'/%3E%3Cpath d='M74 43C65 23 47 21 36 32C44 50 59 56 74 43Z' fill='%23edf3df' fill-opacity='.88' stroke-width='1.5' opacity='.72'/%3E%3Cpath d='M91 37C97 17 115 11 128 21C124 40 109 49 91 37Z' fill='%23dfeacf' fill-opacity='.82' stroke-width='1.5' opacity='.72'/%3E%3Cpath d='M127 23C137 5 155 3 167 14C159 32 144 38 127 23Z' fill='%23edf3df' fill-opacity='.88' stroke-width='1.5' opacity='.72'/%3E%3Cpath d='M31 55L42 59M56 34L70 42M103 25L93 36M143 13L129 23' fill='none' stroke-width='1.1' opacity='.38'/%3E%3C/g%3E%3C/svg%3E");
+  --matcha-medallion: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Ccircle cx='60' cy='60' r='48' fill='%23edf3df' fill-opacity='.78' stroke='%235f7d43' stroke-opacity='.32' stroke-width='2'/%3E%3Ccircle cx='60' cy='60' r='39' fill='none' stroke='%23aa8240' stroke-opacity='.34' stroke-width='1.5' stroke-dasharray='2 5'/%3E%3Cpath d='M58 83C52 64 54 45 68 29M58 61C45 42 31 46 27 58C38 70 49 70 58 61ZM59 55C70 37 85 39 91 50C82 64 69 67 59 55Z' fill='%23dfeacf' stroke='%23466136' stroke-linecap='round' stroke-linejoin='round' stroke-width='2'/%3E%3Cpath d='M58 61L30 57M59 55L88 50' fill='none' stroke='%23466136' stroke-linecap='round' stroke-width='1.2' opacity='.65'/%3E%3C/svg%3E");
+}
+
+html[data-theme="matcha"] body {
+  background:
+    radial-gradient(circle at 8% 5%, rgba(183, 207, 139, 0.34), transparent 25rem),
+    radial-gradient(circle at 92% 31%, rgba(213, 226, 186, 0.5), transparent 27rem),
+    linear-gradient(145deg, rgba(122, 151, 83, 0.09), transparent 34rem),
+    var(--page);
+  background-attachment: fixed;
+}
+
+html[data-theme="matcha"] .matcha-art-leaves {
+  filter: drop-shadow(0 14px 28px rgba(70, 97, 54, 0.09));
+}
+
+html[data-theme="matcha"] .matcha-art-bowl {
+  filter: drop-shadow(0 12px 24px rgba(70, 97, 54, 0.08));
+}
+
+html[data-theme="matcha"] .matcha-art-line {
+  opacity: 0.34;
+}
+
+html[data-theme="matcha"] .matcha-art-leaf {
+  opacity: 0.66;
+}
+
+html[data-theme="matcha"] .matcha-art-soft {
+  opacity: 0.56;
+}
+
+html[data-theme="matcha"] .matcha-art-dot {
+  opacity: 0.25;
+}
+
+html[data-theme="matcha"] .hero,
+html[data-theme="matcha"] .login-card-heading,
+html[data-theme="matcha"] #daily-tasks-view > .hero {
+  position: relative;
+  overflow: hidden;
+  background-image:
+    radial-gradient(circle at 83% 50%, rgba(216, 233, 185, 0.14) 0 74px, transparent 75px),
+    var(--matcha-sprig),
+    linear-gradient(120deg, #263f29 0%, var(--matcha-900) 48%, #527043 100%);
+  background-position: center, right 18px center, center;
+  background-repeat: no-repeat;
+  background-size: auto, min(430px, 48vw) 100%, auto;
+}
+
+html[data-theme="matcha"] .hero::after,
+html[data-theme="matcha"] #daily-tasks-view > .hero::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: block;
+  height: 3px;
+  background: linear-gradient(90deg, transparent 2%, var(--matcha-brass) 26%, var(--hero-accent) 58%, transparent 96%);
+  opacity: 0.82;
+}
+
+html[data-theme="matcha"] .panel {
+  border-color: color-mix(in srgb, var(--matcha-600) 24%, var(--line));
+}
+
+html[data-theme="matcha"] .panel-heading {
+  background-image:
+    var(--matcha-sprig),
+    linear-gradient(100deg, rgba(237, 243, 223, 0.94), rgba(255, 253, 246, 0.9) 57%, rgba(223, 234, 207, 0.62));
+  background-position: right 14px center, center;
+  background-repeat: no-repeat;
+  background-size: 132px auto, auto;
+  box-shadow: inset 0 -1px 0 rgba(95, 125, 67, 0.08);
+}
+
+html[data-theme="matcha"] .forms-grid {
+  background:
+    radial-gradient(circle at 100% 0%, rgba(215, 230, 187, 0.56), transparent 19rem),
+    linear-gradient(145deg, var(--paper), rgba(237, 243, 223, 0.46));
+}
+
+html[data-theme="matcha"] .form-tile {
+  position: relative;
+  overflow: hidden;
+  border-color: color-mix(in srgb, var(--matcha-600) 28%, var(--control-line));
+  background:
+    var(--matcha-sprig) right -44px bottom -21px / 150px auto no-repeat,
+    linear-gradient(145deg, rgba(255, 253, 246, 0.98), rgba(237, 243, 223, 0.72));
+  box-shadow: 0 9px 24px rgba(52, 72, 42, 0.09);
+  transition: transform 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
+}
+
+html[data-theme="matcha"] .form-tile-icon {
+  border: 1px solid rgba(70, 97, 54, 0.2);
+  background:
+    var(--matcha-medallion) center / 62px 62px no-repeat,
+    linear-gradient(145deg, var(--matcha-100), var(--matcha-200));
+  box-shadow: inset 0 0 0 3px rgba(255, 253, 246, 0.58);
+}
+
+html[data-theme="matcha"] #daily-cloud-panel {
+  background:
+    var(--matcha-sprig) right 22px center / 168px auto no-repeat,
+    linear-gradient(100deg, rgba(255, 253, 246, 0.98), rgba(237, 243, 223, 0.82));
+}
+
+html[data-theme="matcha"] #daily-tasks-view .daily-shift-form {
+  background:
+    radial-gradient(circle at 100% 0%, rgba(223, 234, 207, 0.48), transparent 25rem),
+    linear-gradient(180deg, var(--paper), color-mix(in srgb, var(--page) 30%, var(--paper)));
+}
+
+html[data-theme="matcha"] #daily-tasks-view .daily-technician-roster {
+  background:
+    var(--matcha-sprig) right 12px top 6px / 132px auto no-repeat,
+    linear-gradient(145deg, var(--cream), rgba(237, 243, 223, 0.66));
+  border-color: color-mix(in srgb, var(--matcha-600) 30%, var(--line));
+}
+
+html[data-theme="matcha"] #daily-tasks-view .daily-technician-roster legend {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+
+html[data-theme="matcha"] #daily-tasks-view .daily-technician-roster legend::before {
+  content: "";
+  width: 20px;
+  height: 20px;
+  flex: 0 0 20px;
+  background: var(--matcha-medallion) center / contain no-repeat;
+}
+
+html[data-theme="matcha"] #daily-tasks-view .daily-task-scoreboard {
+  position: relative;
+  overflow: hidden;
+  border-color: color-mix(in srgb, var(--matcha-600) 34%, var(--line));
+  background:
+    var(--matcha-sprig) right -14px top -10px / 255px auto no-repeat,
+    linear-gradient(145deg, rgba(255, 253, 246, 0.98), rgba(237, 243, 223, 0.7));
+  box-shadow: 0 9px 24px rgba(52, 72, 42, 0.08);
+}
+
+html[data-theme="matcha"] #daily-tasks-view .daily-allocation-score-heading h3 {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+html[data-theme="matcha"] #daily-tasks-view .daily-allocation-score-heading h3::before {
+  content: "";
+  width: 24px;
+  height: 24px;
+  flex: 0 0 24px;
+  background: var(--matcha-medallion) center / contain no-repeat;
+}
+
+html[data-theme="matcha"] #daily-tasks-view .daily-shift-overall-card {
+  border-left: 4px solid var(--matcha-brass);
+  background:
+    radial-gradient(circle at 100% 0%, var(--matcha-brass-soft), transparent 8rem),
+    linear-gradient(145deg, rgba(255, 253, 246, 0.98), rgba(237, 243, 223, 0.82));
+  box-shadow: 0 5px 14px rgba(52, 72, 42, 0.07);
+}
+
+html[data-theme="matcha"] #daily-tasks-view :is(.daily-allocation-rate-card, .daily-contribution-card) {
+  position: relative;
+  overflow: hidden;
+  border-color: color-mix(in srgb, var(--matcha-600) 28%, var(--line));
+  background: linear-gradient(145deg, rgba(255, 253, 246, 0.98), rgba(237, 243, 223, 0.66));
+}
+
+html[data-theme="matcha"] #daily-tasks-view :is(.daily-allocation-rate-card, .daily-contribution-card)::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--matcha-600), var(--matcha-brass), transparent 82%);
+  opacity: 0.72;
+}
+
+html[data-theme="matcha"] #daily-tasks-view .daily-task-progress-fill {
+  background: linear-gradient(90deg, #3f6037, #7e9d55 70%, #b09a50);
+  box-shadow: 0 0 10px rgba(126, 157, 85, 0.28);
+}
+
+html[data-theme="matcha"] #daily-tasks-view .daily-task-sidebar {
+  border-color: color-mix(in srgb, var(--matcha-600) 36%, var(--line));
+  background:
+    var(--matcha-sprig) right -28px top -10px / 210px auto no-repeat,
+    linear-gradient(160deg, rgba(255, 253, 246, 0.98), rgba(237, 243, 223, 0.93));
+  box-shadow: 0 14px 34px rgba(52, 72, 42, 0.13);
+}
+
+html[data-theme="matcha"] #daily-tasks-view .daily-task-sidebar-heading {
+  position: relative;
+  min-height: 52px;
+  padding-left: 48px;
+}
+
+html[data-theme="matcha"] #daily-tasks-view .daily-task-sidebar-heading::before {
+  content: "";
+  position: absolute;
+  top: -2px;
+  left: 0;
+  width: 40px;
+  height: 40px;
+  background: var(--matcha-medallion) center / contain no-repeat;
+  filter: drop-shadow(0 3px 6px rgba(52, 72, 42, 0.12));
+}
+
+html[data-theme="matcha"] #daily-tasks-view .daily-task-quick-summary > div,
+html[data-theme="matcha"] #daily-tasks-view .daily-task-quick-summary > span {
+  border-color: color-mix(in srgb, var(--matcha-600) 26%, var(--line));
+  background: linear-gradient(145deg, rgba(255, 253, 246, 0.98), rgba(237, 243, 223, 0.72));
+  box-shadow: 0 4px 12px rgba(52, 72, 42, 0.06);
+}
+
+html[data-theme="matcha"] #daily-tasks-view .daily-checklist-group {
+  border-color: color-mix(in srgb, var(--daily-group-accent) 32%, var(--line));
+  box-shadow: 0 6px 17px rgba(52, 72, 42, 0.07);
+  transition: border-color 160ms ease, box-shadow 160ms ease;
+}
+
+html[data-theme="matcha"] #daily-tasks-view .daily-checklist-toggle {
+  background-image:
+    var(--matcha-sprig),
+    linear-gradient(90deg, color-mix(in srgb, var(--daily-group-heading) 92%, white), var(--daily-group-heading));
+  background-position: right 38px center, center;
+  background-repeat: no-repeat;
+  background-size: 104px auto, auto;
+}
+
+html[data-theme="matcha"] #daily-tasks-view .daily-checklist-group[data-expanded="true"] {
+  box-shadow: 0 10px 25px rgba(52, 72, 42, 0.11);
+}
+
+html[data-theme="matcha"] #daily-tasks-view :is(.daily-check-item, .daily-allocation-check, .daily-fixed-card, .daily-dynamic-entry) {
+  border-color: color-mix(in srgb, var(--matcha-600) 22%, var(--line));
+  background-image: linear-gradient(145deg, rgba(255, 253, 246, 0.98), rgba(237, 243, 223, 0.34));
+}
+
+html[data-theme="matcha"] .button-primary {
+  border-color: #526f3d;
+  background: linear-gradient(135deg, #3f5d35, #668449 72%, #7f9253);
+  box-shadow: 0 5px 13px rgba(48, 73, 45, 0.19);
+}
+
+html[data-theme="matcha"] .button-secondary {
+  border-color: color-mix(in srgb, var(--matcha-600) 28%, var(--control-line));
+  background: linear-gradient(145deg, #fffef9, rgba(237, 243, 223, 0.7));
+}
+
+@media (hover: hover) {
+  html[data-theme="matcha"] .form-tile:hover {
+    border-color: color-mix(in srgb, var(--matcha-600) 62%, var(--control-line));
+    box-shadow: 0 13px 30px rgba(52, 72, 42, 0.14);
+    transform: translateY(-2px);
+  }
+
+  html[data-theme="matcha"] .button-primary:hover {
+    filter: saturate(1.05) brightness(1.03);
+  }
+
+  html[data-theme="matcha"] #daily-tasks-view .daily-checklist-group:hover {
+    border-color: color-mix(in srgb, var(--daily-group-accent) 48%, var(--line));
+  }
+}
+
+@media (max-width: 620px) {
+  html[data-theme="matcha"] body {
+    background-attachment: scroll;
+  }
+
+  html[data-theme="matcha"] .hero,
+  html[data-theme="matcha"] .login-card-heading,
+  html[data-theme="matcha"] #daily-tasks-view > .hero {
+    background-position: center, right -52px center, center;
+    background-size: auto, 280px 100%, auto;
+  }
+
+  html[data-theme="matcha"] .panel-heading {
+    background-position: right -38px center, center;
+    background-size: 112px auto, auto;
+  }
+
+  html[data-theme="matcha"] #daily-cloud-panel,
+  html[data-theme="matcha"] #daily-tasks-view .daily-technician-roster {
+    background-image: linear-gradient(145deg, rgba(255, 253, 246, 0.98), rgba(237, 243, 223, 0.74));
+  }
+
+  html[data-theme="matcha"] #daily-tasks-view .daily-checklist-toggle {
+    background-position: right 30px center, center;
+    background-size: 86px auto, auto;
+  }
+}
 </style>
 <script id="dashboard-settings-controller">
 (()=>{
