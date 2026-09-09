@@ -6027,6 +6027,12 @@
 
 .bt-presentation{background:var(--paper);border:1px solid var(--line);border-radius:12px;overflow:hidden;box-shadow:0 8px 28px #0000000c}.bt-presentation svg{display:block;width:100%;height:auto;min-width:760px}.bt-presentation{overflow-x:auto}.bt-analysis{border:1px solid var(--line);border-radius:12px;background:var(--paper);padding:20px}.bt-analysis>summary{cursor:pointer;font-weight:700;min-height:44px;padding:10px 0}.bt-analysis[open]{display:grid;gap:20px}.bt-analysis .panel{margin:18px 0}.bt-analysis .bt-summary{margin:20px 0}.bt-analysis .bt-charts{margin:20px 0}
 @media print{@page{size:landscape;margin:8mm}body.bt-printing #bt-analysis,body.bt-printing #bt-report>.bt-report-heading{display:none!important}body.bt-printing #bt-presentation{border:0;box-shadow:none;overflow:visible;border-radius:0}body.bt-printing #bt-presentation svg{width:100%;min-width:0;max-height:185mm;print-color-adjust:exact;-webkit-print-color-adjust:exact}body.bt-printing #bt-report{display:block}body.bt-printing .bt-workspace{display:block}}
+
+.bt-vision-hierarchy{display:grid;gap:16px;min-width:0}.bt-vision-hierarchy>h2{margin:0}.bt-vision-line .bt-table td:last-child{min-width:220px;max-width:400px;overflow-wrap:anywhere}.bt-vision-line .bt-table-wrap{max-height:none}.bt-vision-line .bt-report-heading{border-bottom:2px solid var(--matcha-700);margin-bottom:16px;padding-bottom:10px}.bt-vision-line .bt-report-heading strong{font-size:.9rem;color:var(--muted)}
+@media print{body.bt-printing #bt-vision-hierarchy{break-before:page;display:block}body.bt-printing .bt-vision-line{margin-bottom:20px;break-inside:auto}body.bt-printing .bt-vision-line .bt-table{font-size:10pt}body.bt-printing .bt-vision-line .bt-table th{white-space:normal}body.bt-printing .bt-vision-line .bt-table td:last-child{min-width:0;max-width:none}body.bt-printing .bt-vision-line .bt-table td:first-child{min-width:0}body.bt-printing .bt-vision-line thead{display:table-header-group}body.bt-printing .bt-vision-line h3{break-after:avoid}}
+
+.bt-machine-section{margin:22px 0 0;border:1px solid var(--line);border-radius:10px;overflow:hidden}.bt-machine-heading{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;padding:14px 16px;background:var(--cream);border-bottom:1px solid var(--line)}.bt-machine-heading h4{font-size:1rem;margin:0;color:var(--ink)}.bt-machine-heading span{font-size:.9rem;color:var(--muted)}
+@media print{body.bt-printing .bt-machine-heading{break-after:avoid}body.bt-printing .bt-machine-section{overflow:visible;break-inside:auto;border-radius:0}}
 </style>
 </head>
 <body>
@@ -6287,11 +6293,11 @@
         <p id="bt-status" role="status" aria-live="polite"></p>
         <form id="bt-filters" class="panel bt-filters">
           <div class="bt-periods" role="group" aria-label="Report period"><button type="button" data-period="daily" aria-pressed="true">Daily</button><button type="button" data-period="weekly" aria-pressed="false">Weekly</button><button type="button" data-period="monthly" aria-pressed="false">Monthly</button></div>
-          <div class="bt-controls"><label>Report date<input id="bt-date" type="date" required></label><label>Process<select id="bt-process"><option value="">All processes</option></select></label><label>Line<select id="bt-line"><option value="">All lines</option></select></label><label>Record type<select id="bt-type"><option value="BMPD">BM + PD</option><option value="BM">BM</option><option value="PD">PD</option><option value="all">All record types</option><option value="PM">PM</option><option value="PATROL">Patrol</option><option value="ESCALATION">Escalation</option><option value="ETC">ETC</option></select></label><label>Breakdown<select id="bt-group"><option value="line">By line</option><option value="unit">By unit</option></select></label><button class="button button-primary" type="submit">Generate report</button></div>
+          <div class="bt-controls"><label>Report date<input id="bt-date" type="date" required></label><label>Process<select id="bt-process" required><option value="Lami">Lami</option><option value="STK">STK</option><option value="PKG">PKG</option></select></label><label>Line<select id="bt-line"><option value="">All lines</option></select></label><label>Record type<select id="bt-type"><option value="BMPD">BM + PD</option><option value="BM">BM</option><option value="PD">PD</option><option value="all">All record types</option><option value="PM">PM</option><option value="PATROL">Patrol</option><option value="ESCALATION">Escalation</option><option value="ETC">ETC</option></select></label><label>Breakdown<select id="bt-group"><option value="line">By line</option><option value="unit">By unit</option></select></label><button class="button button-primary" type="submit">Generate report</button></div>
         </form>
         <section id="bt-report">
-          <div class="bt-report-heading"><div><h2 id="bt-report-title"></h2><p id="bt-scope"></p></div><div class="bt-actions bt-no-print"><button id="bt-copy-image" class="button button-primary" type="button">Copy report image</button><button id="bt-download-image" class="button button-secondary" type="button">Download image</button><button id="bt-copy" class="button button-secondary" type="button">Copy report text</button><button id="bt-print" class="button button-secondary" type="button">Print / Save PDF</button></div></div>
-          <div id="bt-presentation" class="bt-presentation"></div>
+          <div class="bt-report-heading"><div><h2 id="bt-report-title"></h2><p id="bt-scope"></p></div><div class="bt-actions bt-no-print"><button id="bt-copy-image" class="button button-primary" type="button">Copy summary image</button><button id="bt-download-image" class="button button-secondary" type="button">Download summary image</button><button id="bt-copy" class="button button-secondary" type="button">Copy report text</button><button id="bt-print" class="button button-secondary" type="button">Print / Save PDF</button></div></div>
+          <div id="bt-presentation" class="bt-presentation"></div><section id="bt-vision-hierarchy" class="bt-vision-hierarchy" aria-label="Issues by process, line, machine and vision"></section>
 <details id="bt-analysis" class="bt-analysis"><summary>Detailed analysis and source records</summary>
 <p id="bt-coverage" class="bt-notice"></p>
           <div id="bt-summary" class="bt-summary"></div>
@@ -20059,20 +20065,23 @@ const BMPDCore = (() => {
   function status(text){$('status').textContent=text;}
   function setOptions(id,options,label){const select=$(id),value=select.value;select.replaceChildren(new Option(label,''));options.forEach(v=>select.add(new Option(v,v)));select.value=options.includes(value)?value:'';}
   function dates(){return rows.map(r=>r.date).filter(Boolean).sort();}
-  function options(){setOptions('process',[...new Set(rows.map(r=>r.process))].sort(),'All processes');lineOptions();const d=dates();$('source-note').textContent=source+' · '+fmt(rows.length)+' records · '+(d.length?d[0]+' to '+d[d.length-1]:'No valid occurrence dates');}
-  function lineOptions(){setOptions('line',[...new Set(rows.filter(r=>!$('process').value||r.process===$('process').value).map(r=>r.line))].sort((a,b)=>a.localeCompare(b,undefined,{numeric:true})),'All lines');}
+  function options(){const selected=$('process').value;$('process').replaceChildren(...['Lami','STK','PKG'].map(p=>new Option(p,p)));$('process').value=['Lami','STK','PKG'].includes(selected)?selected:'Lami';lineOptions();const d=dates();$('source-note').textContent=source+' · '+fmt(rows.length)+' records · '+(d.length?d[0]+' to '+d[d.length-1]:'No valid occurrence dates');}
+  function lineOptions(){setOptions('line',['Line 3','Line 4','Line 5'],'Lines 3, 4, and 5');}
   function empty(node,text='No records match this report.'){node.replaceChildren(el('p',text,'bt-empty'));}
   function table(node,headers,data,total){const t=el('table',undefined,'bt-table'),head=el('thead'),hr=el('tr');headers.forEach(h=>{const th=el('th',h);th.scope='col';hr.append(th);});head.append(hr);t.append(head);const body=el('tbody');data.forEach(row=>{const tr=el('tr');row.forEach(value=>{const td=el('td');if(value instanceof Node)td.append(value);else td.textContent=value;tr.append(td);});body.append(tr);});t.append(body);if(total){const foot=el('tfoot'),tr=el('tr');total.forEach(v=>tr.append(el('td',v)));foot.append(tr);t.append(foot);}node.replaceChildren(t);}
   function bars(node,data,metric){if(!data.length){empty(node);return;}const sorted=[...data].sort((a,b)=>b[metric]-a[metric]).slice(0,12),max=Math.max(...sorted.map(r=>r[metric]));node.replaceChildren();sorted.forEach(r=>{const row=el('div',undefined,'bt-bar-row'),track=el('div',undefined,'bt-bar-track'),fill=el('div',undefined,'bt-bar-fill');fill.style.width=(max?r[metric]/max*100:0)+'%';track.setAttribute('aria-hidden','true');track.append(fill);row.append(el('span',r.key),track,el('b',fmt(r[metric])));node.append(row);});if(data.length>12)node.append(el('p','Top 12 shown. All lines appear in the breakdown.'));}
+  const reportName=value=>String(value??'').replace(/^[LSP]_/, '');
+  const issueLabel=r=>[r.process,r.line,reportName(r.unit),reportName(r.vision),r.issue].join(' · ');
+  const groupLabel=r=>r.process+' · '+($('group').value==='unit'?reportName(r.unit):r.line);
   function detailRows(){return drill?filtered.filter(r=>groupKey(r)===drill):filtered;}
   function groupKey(r){return r.process+' · '+r[$('group').value];}
   function showDetails(){
-    const selected=detailRows(), issues=C.aggregate(selected,r=>[r.process,r.line,r.vision,r.issue].join(' · '));
-    $('drill-note').textContent=drill?'Selected: '+drill:'All lines in this report';$('clear-drill').hidden=!drill;
-    if(issues.length)table($('issues'),['Process / line / vision / cause','Records','Downtime (min)','Needs review'],issues.map(r=>[r.key,fmt(r.count),fmt(r.minutes),fmt(r.missing)]));else empty($('issues'));
+    const selected=detailRows(), issues=C.aggregate(selected,r=>[r.process,r.line,r.unit,r.vision,r.issue].join(' · '));
+    $('drill-note').textContent=drill?'Selected: '+groupLabel(selected[0]):'All lines in this report';$('clear-drill').hidden=!drill;
+    if(issues.length)table($('issues'),['Process / line / unit / vision / cause','Records','Downtime (min)','Needs review'],issues.map(r=>[issueLabel(r.items[0]),fmt(r.count),fmt(r.minutes),fmt(r.missing)]));else empty($('issues'));
     const sorted=[...selected].sort((a,b)=>(b.date||'').localeCompare(a.date||'')||b.row-a.row);
     $('records').replaceChildren();sorted.slice(0,detailLimit).forEach(r=>{
-      const d=el('details',undefined,'bt-record'),summary=el('summary',r.date+' · '+r.type+' · '+r.unit+' · '+r.vision+' · '+(r.minutes===null?'Downtime needs review':fmt(r.minutes)+' min'));
+      const d=el('details',undefined,'bt-record'),summary=el('summary',r.date+' · '+r.type+' · '+reportName(r.unit)+' · '+reportName(r.vision)+' · '+(r.minutes===null?'Downtime needs review':fmt(r.minutes)+' min'));
       const dl=el('dl');[['Occurrence',r.start],['Completed',r.end],['Issue type',r.issue],['Phenomenon',r.phenomenon],['Cause',r.cause],['Action',r.action],['Technician',r.worker],['Recorded minutes',r.rawMinutes||'Blank']].forEach(([k,v])=>dl.append(el('dt',k),el('dd',v||'Not recorded')));
       const a=el('a','Open source row '+r.row);a.href='https://docs.google.com/spreadsheets/d/1CrjdQaY98mkV6irYg0537mBsecm0qRtdJ-NGct6dSrA/edit#gid=0&range=A'+r.row+':N'+r.row;a.target='_blank';a.rel='noopener noreferrer';d.append(summary,dl,a);$('records').append(d);
     });
@@ -20083,20 +20092,20 @@ const BMPDCore = (() => {
     if(!$('date').value)return;
     try{currentPeriod=C.period($('date').value,mode);}catch(e){status(e.message);return;}
     drill=null;detailLimit=40;
-    const f={...currentPeriod,process:$('process').value,line:$('line').value,type:$('type').value};filtered=C.filter(rows,f);groups=C.aggregate(filtered,groupKey);const sum=C.totals(filtered);
-    $('report-title').textContent=mode[0].toUpperCase()+mode.slice(1)+' BM/PD Report · '+currentPeriod.start+(currentPeriod.end!==currentPeriod.start?' – '+currentPeriod.end:'');
+    const f={...currentPeriod,process:$('process').value,line:$('line').value,type:$('type').value};filtered=C.filter(rows,f).filter(r=>['Line 3','Line 4','Line 5'].includes(r.line));groups=C.aggregate(filtered,groupKey);const sum=C.totals(filtered);
+    $('report-title').textContent=mode[0].toUpperCase()+mode.slice(1)+' '+$('process').value+' BM/PD Report · '+currentPeriod.start+(currentPeriod.end!==currentPeriod.start?' – '+currentPeriod.end:'');
     $('scope').textContent=[$('process').selectedOptions[0].text,$('line').selectedOptions[0].text,$('type').selectedOptions[0].text].join(' · ');
     const ds=dates(), latest=ds[ds.length-1];$('coverage').textContent=ds.length?'Available occurrence dates: '+ds[0]+' to '+latest+'. '+source+'.'+(currentPeriod.end>latest||currentPeriod.start<ds[0]?' This report extends beyond the loaded date range.':''): 'No valid occurrence dates are available.';
     $('summary').replaceChildren();[['Issue records',fmt(sum.count),fmt(sum.bm)+' BM · '+fmt(sum.pd)+' PD'+(sum.other?' · '+fmt(sum.other)+' other':'')],['Recorded downtime',fmt(sum.minutes)+' min',fmt(sum.minutes/60)+' hours'+(sum.missing?' · partial total':'')],['Zero-minute records',fmt(sum.zero),'Included in issue counts'],['Downtime needs review',fmt(sum.missing),'Excluded from downtime totals']].forEach(([label,value,note])=>{const card=el('article',undefined,'bt-stat');card.append(el('span',label),el('strong',value),el('small',note));$('summary').append(card);});
     const badDates=rows.filter(r=>!r.date).length;
     $('quality').textContent=(sum.missing?fmt(sum.missing)+' records have blank, invalid, or negative downtime. Their issue counts are included; their minutes are excluded. ':'')+(badDates?fmt(badDates)+' source records have invalid occurrence dates and cannot be assigned to a report.':'');
     const lineGroups=C.aggregate(filtered,r=>r.process+' · '+r.line);bars($('count-chart'),lineGroups,'count');bars($('time-chart'),lineGroups,'minutes');
-    if(groups.length)table($('lines'),['Process / '+($('group').value==='line'?'line':'unit'),'Records','BM','PD','Other','Downtime (min)','Needs review'],groups.map(g=>{const b=el('button',g.key);b.type='button';b.onclick=()=>{drill=g.key;detailLimit=40;showDetails();$('drill-note').scrollIntoView({behavior:'smooth',block:'center'});};return [b,fmt(g.count),fmt(g.bm),fmt(g.pd),fmt(g.other),fmt(g.minutes),fmt(g.missing)];}),['Total',fmt(sum.count),fmt(sum.bm),fmt(sum.pd),fmt(sum.other),fmt(sum.minutes),fmt(sum.missing)]);else empty($('lines'));
+    if(groups.length)table($('lines'),['Process / '+($('group').value==='line'?'line':'unit'),'Records','BM','PD','Other','Downtime (min)','Needs review'],groups.map(g=>{const b=el('button',groupLabel(g.items[0]));b.type='button';b.onclick=()=>{drill=g.key;detailLimit=40;showDetails();$('drill-note').scrollIntoView({behavior:'smooth',block:'center'});};return [b,fmt(g.count),fmt(g.bm),fmt(g.pd),fmt(g.other),fmt(g.minutes),fmt(g.missing)];}),['Total',fmt(sum.count),fmt(sum.bm),fmt(sum.pd),fmt(sum.other),fmt(sum.minutes),fmt(sum.missing)]);else empty($('lines'));
     const days=[];for(let day=new Date(currentPeriod.start+'T00:00:00Z');day.toISOString().slice(0,10)<=currentPeriod.end;day.setUTCDate(day.getUTCDate()+1)){const key=day.toISOString().slice(0,10),t=C.totals(filtered.filter(r=>r.date===key));days.push([key,fmt(t.count),fmt(t.minutes),fmt(t.missing)]);}
     table($('timeline'),['Occurrence date','Records','Downtime (min)','Needs review'],days);showDetails();
-    $('copy-fallback').hidden=true;renderPresentation();
+    $('copy-fallback').hidden=true;renderVisionHierarchy();renderPresentation();
   }
-  function reportText(){const t=C.totals(filtered),lines=[$('report-title').textContent,$('scope').textContent,$('coverage').textContent,'','Records: '+t.count+' (BM '+t.bm+', PD '+t.pd+', other '+t.other+')','Recorded downtime: '+fmt(t.minutes)+' min','Downtime needs review: '+t.missing,'','LINE / UNIT BREAKDOWN'];groups.forEach(g=>lines.push(g.key+': '+g.count+' records; '+fmt(g.minutes)+' min; '+g.missing+' downtime needs review'));lines.push('','ISSUE BREAKDOWN');C.aggregate(filtered,r=>[r.process,r.line,r.vision,r.issue].join(' · ')).forEach(g=>lines.push(g.key+': '+g.count+' records; '+fmt(g.minutes)+' min; '+g.missing+' downtime needs review'));lines.push('','DAILY TREND');C.aggregate(filtered,r=>r.date).sort((a,b)=>a.key.localeCompare(b.key)).forEach(g=>lines.push(g.key+': '+g.count+' records; '+fmt(g.minutes)+' min'));lines.push('',$('quality').textContent,document.querySelector('.bt-method').textContent);return lines.join('\n');}
+  function reportText(){const t=C.totals(filtered),lines=[$('report-title').textContent,$('scope').textContent,$('coverage').textContent,'','Records: '+t.count+' (BM '+t.bm+', PD '+t.pd+', other '+t.other+')','Recorded downtime: '+fmt(t.minutes)+' min','Downtime needs review: '+t.missing,'','LINE / UNIT BREAKDOWN'];groups.forEach(g=>lines.push(groupLabel(g.items[0])+': '+g.count+' records; '+fmt(g.minutes)+' min; '+g.missing+' downtime needs review'));lines.push('','PROCESS / LINE / UNIT (MACHINE) / VISION BREAKDOWN');['Line 3','Line 4','Line 5'].filter(line=>!$('line').value||line===$('line').value).forEach(line=>{const entries=filtered.filter(r=>r.line===line),t=C.totals(entries);lines.push($('process').value+' / '+line+': '+t.count+' issues; '+fmt(t.minutes)+' min');C.aggregate(entries,r=>r.unit).sort((a,b)=>a.key.localeCompare(b.key,undefined,{numeric:true})).forEach(machine=>{lines.push('  Unit (machine): '+reportName(machine.key)+': '+machine.count+' issues; '+fmt(machine.minutes)+' min');C.aggregate(machine.items,r=>r.vision).forEach(v=>lines.push('    '+reportName(v.key)+': '+v.count+' issues; '+fmt(v.minutes)+' min; '+v.missing+' need downtime review'));});if(!entries.length)lines.push('  No matching issues.');});lines.push('','ISSUE BREAKDOWN');C.aggregate(filtered,r=>[r.process,r.line,r.unit,r.vision,r.issue].join(' · ')).forEach(g=>lines.push(issueLabel(g.items[0])+': '+g.count+' records; '+fmt(g.minutes)+' min; '+g.missing+' downtime needs review'));lines.push('','DAILY TREND');C.aggregate(filtered,r=>r.date).sort((a,b)=>a.key.localeCompare(b.key)).forEach(g=>lines.push(g.key+': '+g.count+' records; '+fmt(g.minutes)+' min'));lines.push('',$('quality').textContent,document.querySelector('.bt-method').textContent);return lines.join('\n');}
   $('filters').onsubmit=e=>{e.preventDefault();generate();};
   document.querySelectorAll('[data-period]').forEach(b=>b.onclick=()=>{mode=b.dataset.period;document.querySelectorAll('[data-period]').forEach(n=>n.setAttribute('aria-pressed',String(n===b)));generate();});
   ['date','process','line','type','group'].forEach(id=>$(id).addEventListener('change',()=>{if(id==='process')lineOptions();generate();}));
@@ -20106,6 +20115,29 @@ const BMPDCore = (() => {
   $('refresh').onclick=async()=>{if(busy)return;if(!window.BMPDGoogle){status('Google connection is unavailable. Open the hosted app, or download the sheet as CSV and import it here.');return;}busy=true;$('refresh').disabled=true;status('Connecting to Google and reading ESMI_BMPD…');try{const values=await window.BMPDGoogle();const next=C.parse(values);rows=next;source='Google refreshed '+new Date().toLocaleString()+' (this session)';options();generate();status('Spreadsheet refreshed. Reports now use the latest loaded records.');}catch(e){status(e.message+' The previously loaded data remains available.');}finally{busy=false;$('refresh').disabled=false;}};
   $('import').onchange=async e=>{const file=e.target.files[0];if(!file)return;try{if(file.size>20*1024*1024)throw Error('Choose a CSV smaller than 20 MB.');const next=C.parse(C.csv(await file.text()));rows=next;source='CSV imported '+new Date().toLocaleString()+' (this session)';options();generate();status('CSV imported. Reports now use this file.');}catch(e){status(e.message+' The previously loaded data remains available.');}finally{e.target.value='';}};
   document.getElementById('open-bmpd-trends').onclick=()=>{location.hash='bmpd-trends';};
+  function renderVisionHierarchy(){
+    const root=$('vision-hierarchy');root.replaceChildren();
+    root.append(el('h2',$('process').value+' · Machine and vision issues by line'));
+    root.append(el('p','Lines 3, 4, and 5 only. Other numbered lines and special units are outside this report.','bt-method'));
+    const included=$('line').value?[$('line').value]:['Line 3','Line 4','Line 5'];
+    included.forEach(line=>{
+      const entries=filtered.filter(r=>r.line===line),sum=C.totals(entries),section=el('section',undefined,'panel bt-vision-line');
+      const heading=el('div',undefined,'bt-report-heading');heading.append(el('h3',line),el('strong',fmt(sum.count)+' issues · '+fmt(sum.minutes)+' min'+(sum.missing?' · '+fmt(sum.missing)+' need downtime review':'')));section.append(heading);
+      if(!entries.length){section.append(el('p','No matching issues recorded for this line.','bt-empty'));root.append(section);return;}
+      const machines=C.aggregate(entries,r=>r.unit).sort((a,b)=>a.key.localeCompare(b.key,undefined,{numeric:true}));
+      machines.forEach(machine=>{
+        const machineSection=el('section',undefined,'bt-machine-section');
+        const machineHeading=el('div',undefined,'bt-machine-heading');
+        machineHeading.append(el('h4','Unit (machine): '+reportName(machine.key)),el('span',fmt(machine.count)+' issues · '+fmt(machine.minutes)+' min'+(machine.missing?' · '+fmt(machine.missing)+' need downtime review':'')));
+        machineSection.append(machineHeading);
+        const visions=C.aggregate(machine.items,r=>r.vision),target=el('div',undefined,'bt-table-wrap');
+        table(target,['Vision','Issues','BM','PD','Other','Downtime (min)','Needs review','Recorded issue categories'],visions.map(v=>[reportName(v.key),fmt(v.count),fmt(v.bm),fmt(v.pd),fmt(v.other),fmt(v.minutes),fmt(v.missing),C.aggregate(v.items,r=>r.issue).sort((a,b)=>b.count-a.count).map(x=>x.key+' ('+x.count+')').join('; ')]),['Machine total',fmt(machine.count),fmt(machine.bm),fmt(machine.pd),fmt(machine.other),fmt(machine.minutes),fmt(machine.missing),'']);
+        machineSection.append(target);section.append(machineSection);
+      });
+      root.append(section);
+    });
+  }
+
   function presentationSvg(){
     const styles=getComputedStyle(document.documentElement), color=(n,f)=>styles.getPropertyValue(n).trim()||f;
     const c={dark:color('--matcha-950','#1f2f1c'),accent:color('--matcha-700','#3f6b3a'),ink:color('--ink','#1d271b'),muted:color('--muted','#5f6c54'),line:color('--line','#d8ddca'),paper:color('--paper','#fff'),cream:color('--cream','#f7f8ef'),copy:color('--hero-copy','#dce6d4')};
@@ -20115,9 +20147,9 @@ const BMPDCore = (() => {
     const text=(x,y,s,size=18,fill=c.ink,weight=400)=>p.push(`<text x="${x}" y="${y}" font-family="Arial,Helvetica,sans-serif" font-size="${size}" font-weight="${weight}" fill="${esc(fill)}">${esc(s)}</text>`);
     function wrap(s,n){let out=[],line='';for(const word of String(s).split(/\s+/)){if((line+' '+word).length>n&&line){out.push(line);line='';}if(word.length>n){if(line){out.push(line);line='';}for(let i=0;i<word.length;i+=n)out.push(word.slice(i,i+n));}else line+=(line?' ':'')+word;}if(line)out.push(line);return out;}
     function block(x,y,s,n,size=17,max=3){const lines=wrap(s,n);lines.slice(0,max).forEach((l,i)=>text(x,y+i*(size+6),l+(i===max-1&&lines.length>max?'…':''),size));}
-    const totals=C.totals(filtered), byLine=C.aggregate(filtered,r=>r.process+' · '+r.line), byIssue=C.aggregate(filtered,r=>r.issue), top=[...byLine].sort((a,b)=>b.count-a.count)[0], loss=byLine[0];
+    const totals=C.totals(filtered), byLine=C.aggregate(filtered,r=>r.process+' · '+r.line), byIssue=C.aggregate(filtered,r=>r.line+' · '+r.unit+' · '+r.vision), top=[...byLine].sort((a,b)=>b.count-a.count)[0], loss=byLine[0];
     rect(0,0,W,H,c.paper);rect(0,0,W,154,c.dark);
-    text(44,36,'VISIONARY TOOL',17,c.copy,700);text(44,85,mode[0].toUpperCase()+mode.slice(1)+' BM/PD Report',38,'#fff',700);
+    text(44,36,'VISIONARY TOOL',17,c.copy,700);text(44,85,mode[0].toUpperCase()+mode.slice(1)+' '+$('process').value+' BM/PD Report',38,'#fff',700);
     text(44,122,currentPeriod.start+(currentPeriod.end===currentPeriod.start?'':' – '+currentPeriod.end)+'   |   '+$('scope').textContent,19,c.copy);
     [['ISSUE RECORDS',fmt(totals.count),`${totals.bm} BM · ${totals.pd} PD · ${totals.other} other`],['RECORDED DOWNTIME',fmt(totals.minutes)+' min',fmt(totals.minutes/60)+' hours'+(totals.missing?' · partial total':'')],['ZERO-MINUTE RECORDS',fmt(totals.zero),'Included in issue counts'],['DOWNTIME NEEDS REVIEW',fmt(totals.missing),'Minutes excluded from totals']].forEach((a,i)=>{const x=44+i*382;rect(x,178,366,114,c.cream,10);text(x+20,207,a[0],15,c.muted,700);text(x+20,245,a[1],31,c.accent,700);text(x+20,273,a[2],16,c.muted);});
     function heading(x,y,s,w=730){text(x,y,s,23,c.ink,700);rect(x,y+12,w,2,c.accent);}
@@ -20130,10 +20162,10 @@ const BMPDCore = (() => {
     const latest=dates().at(-1),first=dates()[0];
     days.forEach((r,i)=>{const x=66+i*step,hh=max?r.minutes/max*145:0,out=!latest||r.date>latest||r.date<first;if(!out){rect(x+step*.15,929-hh,Math.max(2,step*.7),hh,c.accent,2);}if(days.length<=7||i%5===0||i===days.length-1)text(x+1,956,r.date.slice(5),13,c.muted);if(out)text(x+step*.3,917,'–',14,c.muted);});
     text(44,987,'Occurrence dates as entered. “–” indicates dates outside loaded coverage.',14,c.muted);
-    heading(826,735,'Leading issue categories',730);
+    heading(826,735,'Machine / vision issues (top 5 by downtime)',730);
     const categories=[...byIssue].sort((a,b)=>b.minutes-a.minutes||b.count-a.count).slice(0,5);
-    text(826,774,'Source of cause',15,c.muted,700);text(1360,774,'Records',15,c.muted,700);text(1460,774,'Minutes',15,c.muted,700);
-    categories.forEach((r,i)=>{const y=810+i*34;block(826,y,r.key,51,16,1);text(1360,y,fmt(r.count),17);text(1460,y,fmt(r.minutes),17,c.accent,700);rect(826,y+10,730,1,c.line);});if(!categories.length)text(826,823,'No records in this period.',19,c.muted);
+    text(826,774,'Line / unit (machine) / vision',15,c.muted,700);text(1360,774,'Records',15,c.muted,700);text(1460,774,'Minutes',15,c.muted,700);
+    categories.forEach((r,i)=>{const y=805+i*39;block(826,y,[r.items[0].line,reportName(r.items[0].unit),reportName(r.items[0].vision)].join(' · '),61,14,2);text(1360,y,fmt(r.count),17);text(1460,y,fmt(r.minutes),17,c.accent,700);rect(826,y+10,730,1,c.line);});if(!categories.length)text(826,823,'No records in this period.',19,c.muted);
     rect(44,1020,1512,116,c.cream,10);text(64,1050,'KEY FINDINGS',15,c.muted,700);
     block(64,1080,top?`Most frequent: ${top.key} — ${fmt(top.count)} records (${fmt(top.count/totals.count*100)}% of selected records).`:'No records match the selected period and filters.',85,18,2);
     block(836,1080,loss&&totals.minutes?`Largest downtime: ${loss.key} — ${fmt(loss.minutes)} min (${fmt(loss.minutes/totals.minutes*100)}% of valid recorded minutes).`:'No positive, valid downtime is recorded for this selection.',80,18,2);
