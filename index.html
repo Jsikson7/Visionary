@@ -6751,13 +6751,15 @@
               <section class="daily-checklist-group" data-daily-group="pm-completed">
                 <div class="daily-checklist-heading"><h3>10. PM's Completed</h3><span class="daily-point-badge">60 points each</span></div>
                 <div id="daily-pm-entries" class="daily-dynamic-entries"></div>
-                <button id="daily-add-pm" class="button button-secondary daily-add-entry" type="button">+ New PM entry</button>
+                <p class="daily-section-note">Use the PM Log tab to add a PM. Saved entries can be edited or deleted here.</p>
+                <button id="daily-add-pm" class="button button-secondary daily-add-entry" type="button" hidden disabled aria-hidden="true" tabindex="-1">+ New PM entry</button>
               </section>
 
               <section class="daily-checklist-group" data-daily-group="escalations">
                 <div class="daily-checklist-heading"><h3>11. Escalations</h3><span class="daily-point-badge">50 points each</span></div>
                 <div id="daily-escalation-entries" class="daily-dynamic-entries"></div>
-                <button id="daily-add-escalation" class="button button-secondary daily-add-entry" type="button">+ New escalation</button>
+                <p class="daily-section-note">Use the BM/PD Log tab to add an escalation. Saved entries can be edited or deleted here.</p>
+                <button id="daily-add-escalation" class="button button-secondary daily-add-entry" type="button" hidden disabled aria-hidden="true" tabindex="-1">+ New escalation</button>
               </section>
 
               <section class="daily-checklist-group" data-daily-group="super-escalations">
@@ -14297,6 +14299,7 @@
         entry.setAttribute("data-daily-dynamic-type", type);
         entry.setAttribute("data-daily-dynamic-id", String(id));
         entry.setAttribute("data-saved", saved ? "true" : "false");
+        if (!saved && (type === "pm" || type === "escalation")) entry.hidden = true;
 
         var summary = document.createElement("div");
         summary.className = "daily-dynamic-saved-summary";
