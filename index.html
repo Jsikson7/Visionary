@@ -8889,7 +8889,7 @@
         "Choose each person from the selected shift. Choose Other to open the full technician and supervisor directory.": "선택한 교대조에서 각 작업자를 선택하세요. 기타를 선택하면 전체 기술자 및 감독자 목록이 열립니다.",
         "Cell Tracking": "셀 트래킹",
         "Cell Tracking Log": "셀 트래킹 로그",
-        "Complete and submit the existing Microsoft Form below. Responses continue syncing to the connected SharePoint Excel workbook.": "아래의 기존 Microsoft 양식을 작성하여 제출하세요. 응답은 연결된 SharePoint Excel 통합 문서에 계속 동기화됩니다.",
+        "Save a CT Log to create a completed card in 11. Escalations. Selected technicians share the usual escalation points.": "아래의 기존 Microsoft 양식을 작성하여 제출하세요. 응답은 연결된 SharePoint Excel 통합 문서에 계속 동기화됩니다.",
         "Open Full Screen": "전체 화면으로 열기",
         "If the embedded form does not appear or feels cramped, use Open Full Screen.": "포함된 양식이 표시되지 않거나 화면이 좁으면 전체 화면으로 열기를 사용하세요.",
         "Loading Microsoft Form…": "Microsoft 양식을 불러오는 중…",
@@ -14898,6 +14898,8 @@
         status.textContent = data.complete ? "✓ Done" : "Open";
         status.setAttribute("aria-label", data.complete ? "Completed" : "Incomplete");
         entry.setAttribute("data-completed", data.complete ? "true" : "false");
+        if (entry._dailyRefreshCtTransfer) entry._dailyRefreshCtTransfer();
+        if (entry._dailyRefreshCtSaveControls) entry._dailyRefreshCtSaveControls();
       }
 
       function applyDynamicEntryData(entry, data) {
@@ -14987,6 +14989,59 @@
         summaryActions.appendChild(editButton);
         summaryActions.appendChild(deleteButton);
         summary.appendChild(summaryActions);
+        if (type === 'escalation') {
+          var transfer = document.createElement('div');
+          transfer.className = 'daily-ct-transfer';
+          transfer.hidden = true;
+          var transferButton = document.createElement('button');
+          transferButton.type = 'button';
+          transferButton.className = 'button button-secondary';
+          transferButton.textContent = 'Copy & Open Microsoft Form';
+          var transferStatus = document.createElement('p');
+          transferStatus.setAttribute('role', 'status');
+          transferStatus.setAttribute('aria-live', 'polite');
+          var transferDetails = document.createElement('details');
+          var transferLabel = document.createElement('summary');
+          transferLabel.textContent = 'View / manually copy form details';
+          var transferText = document.createElement('textarea');
+          transferText.readOnly = true;
+          transferText.setAttribute('aria-label', 'Cell Tracking details to copy');
+          var transferLink = document.createElement('a');
+          transferLink.href = 'https://forms.cloud.microsoft/pages/responsepage.aspx?id=tcvvH_u5nU2k66aZgs3W_rMNraQF6j1LnuYSuhZtwgRUNjdJUlhCT0JKVTRGRDdMMzdUNkZGNktGSyQlQCN0PWcu&route=shorturl';
+          transferLink.target = '_blank';
+          transferLink.rel = 'noopener noreferrer';
+          transferLink.textContent = 'Open Microsoft Form';
+          var transferNote = document.createElement('p');
+          transferNote.textContent = 'Paste the summary into an appropriate notes field. Fill the separate required fields and submit in Microsoft Forms. This button does not submit the form.';
+          transferDetails.append(transferLabel, transferText, transferLink);
+          transfer.append(transferButton, transferStatus, transferDetails, transferNote);
+          summary.appendChild(transfer);
+          entry._dailyRefreshCtTransfer = function () {
+            var record = readDynamicEntry(entry);
+            transfer.hidden = !record.saved || record.process !== 'Cell Tracking';
+            var state = draftState();
+            transferText.value = ['CT Log', 'Date: ' + state.date, 'Shift: ' + state.shift, 'Process: Cell Tracking', 'Machine: ' + record.machine, 'Vision: ' + record.vision, 'Completed by: ' + (completedByLabels(record) || 'Not selected'), 'Status: ' + (record.complete ? 'Completed' : 'Open'), 'Details:', record.comment || ''].join('\n');
+          };
+          transferButton.addEventListener('click', function () {
+            entry._dailyRefreshCtTransfer();
+            transferStatus.textContent = 'Copying details…';
+            var copying;
+            try {
+              if (!navigator.clipboard || !navigator.clipboard.writeText) throw new Error('Clipboard unavailable');
+              copying = navigator.clipboard.writeText(transferText.value);
+            } catch (error) { copying = Promise.reject(error); }
+            // Open during the click so popup blockers do not see an asynchronous open.
+            window.open(transferLink.href, '_blank', 'noopener,noreferrer');
+            copying.then(function () {
+              transferStatus.textContent = 'Copied. Paste into Microsoft Forms. If no tab opened, use the link under View / manually copy form details.';
+            }).catch(function () {
+              transferStatus.textContent = 'Automatic copying was blocked. Select and copy the text below, then open Microsoft Forms using the link.';
+              transferDetails.open = true;
+              transferText.focus();
+              transferText.select();
+            });
+          });
+        }
         entry.appendChild(summary);
 
         var editor = document.createElement("div");
@@ -15047,6 +15102,16 @@
         saveButton.type = "button";
         saveButton.className = "button button-primary";
         saveButton.textContent = "Save " + sentenceLabel + " entry";
+        var ctSaveNote = document.createElement('p');
+        ctSaveNote.className = 'daily-dynamic-entry-status';
+        ctSaveNote.textContent = 'Save creates or updates this escalation card, copies its details, and opens Microsoft Forms. Paste the summary into a notes field, complete the required fields, review, and submit there.';
+        ctSaveNote.hidden = true;
+        editor.appendChild(ctSaveNote);
+        entry._dailyRefreshCtSaveControls = function () {
+          var isCt = type === 'escalation' && process.value === 'Cell Tracking';
+          saveButton.textContent = isCt ? 'Save, Copy & Open Microsoft Form' : 'Save ' + sentenceLabel + ' entry';
+          ctSaveNote.hidden = !isCt;
+        };
         var cancelButton = document.createElement("button");
         cancelButton.type = "button";
         cancelButton.className = "button button-secondary";
@@ -15059,6 +15124,7 @@
         updateDynamicEntryChoices(entry, data.machine || "", data.vision || "");
         process.addEventListener("change", function () {
           updateDynamicEntryChoices(entry);
+          entry._dailyRefreshCtSaveControls();
         });
         editButton.addEventListener("click", function () {
           entry._dailyEditBackup = readDynamicEntry(entry, true);
@@ -15075,6 +15141,13 @@
           updateDailyShift();
         });
         saveButton.addEventListener("click", function () {
+          if (type === 'escalation' && process.value === 'Cell Tracking') {
+            var ctState = draftState();
+            if (!ctState.date || !ctState.shift) {
+              entryStatus.textContent = 'Choose a Daily Tasks date and shift before saving your CT Log.';
+              return;
+            }
+          }
           if (!entry._dailyEditBackup) complete.checked = true;
           var current = readDynamicEntry(entry, true);
           if (!current.process || !current.machine || !current.vision) {
@@ -15095,6 +15168,7 @@
           updateDynamicEntrySummary(entry);
           ensureDynamicEditor(type);
           updateDailyShift();
+          if (type === 'escalation' && current.process === 'Cell Tracking' && transferButton) transferButton.click();
         });
         cancelButton.addEventListener("click", function () {
           if (entry.getAttribute("data-saved") === "true" && entry._dailyEditBackup) {
@@ -17699,6 +17773,21 @@
           }
           updateDailyShift();
           return context.shiftId;
+        },
+
+        startCellTrackingEscalation: function () {
+          var entry = ensureDynamicEditor('escalation');
+          var current = readDynamicEntry(entry, true);
+          if (dynamicEntryHasData(current) && (current.process || current.machine || current.vision || current.comment || current.completedBy)) entry = createDynamicEntry('escalation', { saved: false, process: 'Cell Tracking' });
+          else {
+            entry.querySelector('[data-daily-dynamic-field="process"]').value = 'Cell Tracking';
+            updateDynamicEntryChoices(entry);
+          }
+          if (entry._dailyRefreshCtSaveControls) entry._dailyRefreshCtSaveControls();
+          var ancestor = entry.parentElement;
+          while (ancestor) { if (ancestor.tagName === 'DETAILS') ancestor.open = true; ancestor = ancestor.parentElement; }
+          entry.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          entry.querySelector('[data-daily-dynamic-field="machine"]').focus();
         },
 
         saveBmpdEscalation: function (id, data, report, expectedShift) {
@@ -21912,10 +22001,11 @@ panel.innerHTML=`
     <div class="cell-tracking-heading">
       <div>
         <h2>CT Log</h2>
-        <p>Complete and submit the existing Microsoft Form below. Responses continue syncing to the connected SharePoint Excel workbook.</p>
+        <p>Fill out the Cell Tracking entry in the app, then select Save, Copy &amp; Open Microsoft Form. Paste the copied details, review the required fields, and submit in Microsoft Forms.</p>
       </div>
       <a class="button button-primary cell-tracking-fullscreen" href="${FORM_URL}" target="_blank" rel="noopener noreferrer">Open Full Screen</a>
     </div>
+    <div style="padding:16px 18px"><button type="button" class="button button-primary" data-ct-create-card>Fill out CT Log</button><p class="cell-tracking-fallback">The saved card earns the usual escalation points. Copying or opening Microsoft Forms does not add another card or submit the form.</p></div>
     <p class="cell-tracking-loading" data-cell-tracking-loading role="status">Loading Microsoft Form…</p>
     <div class="cell-tracking-frame-wrap">
       <iframe class="cell-tracking-frame" data-src="${EMBED_URL}" title="Cell Tracking BM/PD Report — Microsoft Form" loading="lazy" allow="fullscreen" allowfullscreen></iframe>
@@ -21928,8 +22018,13 @@ panel.innerHTML=`
 const style=document.createElement('style');
 style.id='cell-tracking-form-style';
 style.textContent=`
-#daily-tasks-view > .bmpd-nav{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px;max-width:100%;overflow:visible}
-#daily-tasks-view > .bmpd-nav .button{box-sizing:border-box;width:100%;min-width:0;min-height:40px;margin:0;padding:7px 3px;font-size:clamp(10px,2.7vw,13px);line-height:1.2;letter-spacing:0;white-space:nowrap}
+#daily-tasks-view > .bmpd-nav{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:4px!important;max-width:100%;overflow:visible;padding:4px!important}
+#daily-tasks-view > .bmpd-nav .button{box-sizing:border-box;width:100%;min-width:0;min-height:40px!important;margin:0;padding:7px 3px!important;font-size:clamp(10px,2.7vw,13px)!important;line-height:1.2;letter-spacing:0;white-space:nowrap;grid-column:auto;grid-row:auto}
+.daily-ct-transfer{margin-top:12px;padding-top:12px;border-top:1px solid var(--line)}
+.daily-ct-transfer[hidden]{display:none!important}
+.daily-ct-transfer p{font-size:.82rem;line-height:1.5;margin:8px 0;color:var(--muted)}
+.daily-ct-transfer textarea{display:block;width:100%;box-sizing:border-box;min-height:170px;margin:10px 0;font:inherit;font-size:.85rem;resize:vertical}
+.daily-ct-transfer .button{min-height:44px;white-space:normal}
 
 #cell-tracking-panel[hidden]{display:none!important}
 #cell-tracking-panel{width:100%;max-width:940px;min-width:0;margin:20px auto;padding:0 18px 28px;box-sizing:border-box}
@@ -21979,6 +22074,7 @@ tab.addEventListener('click',()=>{
   ensureLoaded();
   panel.scrollIntoView({block:'start'});
 });
+panel.querySelector('[data-ct-create-card]').addEventListener('click',()=>{taskTab.click();window.VisionaryDailyTasks.startCellTrackingEscalation();});
 panel.querySelector('.cell-tracking-back').addEventListener('click',()=>taskTab.click());
 })();
 </script>
