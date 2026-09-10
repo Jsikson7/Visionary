@@ -6894,7 +6894,7 @@
                   <div class="field"><label for="daily-technician-a3">Allocation 3</label><select id="daily-technician-a3" data-daily-roster-role="Allocation 3" disabled><option value="">Choose shift first</option></select><select id="daily-technician-a3-other" class="daily-roster-other-select" data-daily-roster-other="Allocation 3" aria-label="Choose another technician or supervisor" hidden disabled></select></div>
                 </div>
                 <div id="daily-ot-support-list" class="daily-ot-support-list"></div>
-                <button id="daily-add-ot-support" class="button button-secondary daily-add-ot-support" type="button">+ Add OT Support</button>
+                <button id="daily-add-ot-support" class="button button-secondary daily-add-ot-support" type="button">+ Add Technician</button>
               </fieldset>
               <div class="field">
                 <label for="daily-shift-error-proof">NGM Error Proofing</label>
@@ -8889,7 +8889,7 @@
         "Choose each person from the selected shift. Choose Other to open the full technician and supervisor directory.": "선택한 교대조에서 각 작업자를 선택하세요. 기타를 선택하면 전체 기술자 및 감독자 목록이 열립니다.",
         "Cell Tracking": "셀 트래킹",
         "Cell Tracking Log": "셀 트래킹 로그",
-        "Complete and submit the existing Microsoft Form below. Responses continue syncing to the connected SharePoint Excel workbook.": "아래의 기존 Microsoft 양식을 작성하여 제출하세요. 응답은 연결된 SharePoint Excel 통합 문서에 계속 동기화됩니다.",
+        "Complete and submit the Microsoft Form below. Add escalations manually in Daily Tasks.": "아래의 기존 Microsoft 양식을 작성하여 제출하세요. 응답은 연결된 SharePoint Excel 통합 문서에 계속 동기화됩니다.",
         "Open Full Screen": "전체 화면으로 열기",
         "If the embedded form does not appear or feels cramped, use Open Full Screen.": "포함된 양식이 표시되지 않거나 화면이 좁으면 전체 화면으로 열기를 사용하세요.",
         "Loading Microsoft Form…": "Microsoft 양식을 불러오는 중…",
@@ -9221,7 +9221,7 @@
         "Your checklist, completion, and points update automatically.": "체크리스트, 완료율 및 점수가 자동으로 업데이트됩니다.",
         "Choose shift": "근무조 선택", "Technicians": "담당 기술자", "Choose A or B": "A 또는 B 선택",
         "Enter each person's name once. These names replace the generic allocation labels in completion menus, contribution totals, and generated shift reports.": "각 담당자의 이름을 한 번씩 입력하세요. 완료 담당자 메뉴, 기여도 합계 및 근무 보고서에 배정 구역 대신 이름이 표시됩니다.",
-        "+ Add OT Support": "+ 잔업 지원자 추가", "NGM Error Proofing": "NGM 오류 방지 검사", "NGM Error Proofing A": "NGM 오류 방지 검사 A", "NGM Error Proofing B": "NGM 오류 방지 검사 B",
+        "+ Add Technician": "+ 기술자 추가", "NGM Error Proofing": "NGM 오류 방지 검사", "NGM Error Proofing A": "NGM 오류 방지 검사 A", "NGM Error Proofing B": "NGM 오류 방지 검사 B",
         "Select Date, Shift, and NGM Error Proofing A or B to unlock the numbered tasks.": "날짜, 근무조 및 NGM 오류 방지 검사 A 또는 B를 선택하면 번호별 작업을 시작할 수 있습니다.",
         "pts earned ·": "점 획득 ·", "pts missed": "점 미완료", "pts ·": "점 ·", "pts": "점", "checks": "검사",
         "Shift completion": "근무조 완료율", "Expand all": "모두 펼치기", "Collapse all": "모두 접기", "Incomplete only": "미완료만 표시", "My tasks": "내 작업", "All tasks": "모든 작업", "Quick reference": "빠른 참조", "All numbered tasks are complete.": "모든 번호별 작업이 완료되었습니다.",
@@ -13349,10 +13349,11 @@
         G1: ["Zack", "Noe", "Virgil", "Logan", "Remi"],
         G2: ["Tolay", "Joel", "Adriana", "Hamza"]
       };
+      var DAILY_EOL_TECHNICIANS = ["Teegan", "Evan"];
       var DAILY_SUPERVISORS = ["Sergio", "James"];
       var DAILY_ALL_ROSTER_NAMES = dailyUniqueOptions(
         DAILY_SHIFT_TECHNICIANS.B1
-          .concat(DAILY_SHIFT_TECHNICIANS.B2, DAILY_SHIFT_TECHNICIANS.G1, DAILY_SHIFT_TECHNICIANS.G2, DAILY_SUPERVISORS)
+          .concat(DAILY_SHIFT_TECHNICIANS.B2, DAILY_SHIFT_TECHNICIANS.G1, DAILY_SHIFT_TECHNICIANS.G2, DAILY_EOL_TECHNICIANS, DAILY_SUPERVISORS)
       );
       var DAILY_ROSTER_OTHER_VALUE = "__other__";
       var DAILY_ROSTER_NAME_ALIASES = { tolayc: "Tolay" };
@@ -14273,6 +14274,7 @@
         ["B1", "B2", "G1", "G2"].forEach(function (shiftCode) {
           appendRosterGroup(select, shiftCode + " technicians", DAILY_SHIFT_TECHNICIANS[shiftCode]);
         });
+        appendRosterGroup(select, "EOL technicians", DAILY_EOL_TECHNICIANS);
         appendRosterGroup(select, "Supervisors", DAILY_SUPERVISORS);
         if (canonicalName && DAILY_ALL_ROSTER_NAMES.indexOf(canonicalName) === -1) {
           appendRosterGroup(select, "Saved historical name", [canonicalName]);
@@ -14424,13 +14426,13 @@
         input.id = "daily-ot-support-" + domId;
         input.setAttribute("data-daily-ot-name", "true");
         populateRosterDirectorySelect(input, data.name || "");
-        entry.appendChild(makeField("OT Support", input));
+        entry.appendChild(makeField("Technician", input));
 
         var remove = document.createElement("button");
         remove.type = "button";
         remove.className = "button button-secondary daily-ot-support-remove";
         remove.textContent = "Remove";
-        remove.setAttribute("aria-label", "Remove OT Support technician");
+        remove.setAttribute("aria-label", "Remove technician");
         remove.addEventListener("click", function () {
           entry.remove();
           refreshContributorSelects();
@@ -21912,7 +21914,7 @@ panel.innerHTML=`
     <div class="cell-tracking-heading">
       <div>
         <h2>CT Log</h2>
-        <p>Complete and submit the existing Microsoft Form below. Responses continue syncing to the connected SharePoint Excel workbook.</p>
+        <p>Complete and submit the Microsoft Form below. Add escalations manually in Daily Tasks.</p>
       </div>
       <a class="button button-primary cell-tracking-fullscreen" href="${FORM_URL}" target="_blank" rel="noopener noreferrer">Open Full Screen</a>
     </div>
