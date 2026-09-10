@@ -17572,8 +17572,9 @@
         const response=await fetch(PM_LOG_WEB_APP_URL,{method:'POST',headers:{'Content-Type':'text/plain;charset=UTF-8'},body:JSON.stringify(data),signal:controller.signal});
         const text=await response.text();let payload;
         try{payload=JSON.parse(text);}catch{throw new Error('The PM Log save could not be verified. Check the spreadsheet before submitting again to avoid a duplicate.');}
-        if(!response.ok||payload?.ok!==true||!payload?.timestamp)throw new Error(payload?.error||'Google did not confirm exactly one saved PM Log row. Your entries are retained.');
-        return {timestamp:String(payload.timestamp),range:payload.range||'',row:payload.row||''};
+        const confirmed=response.ok&&(payload?.ok===true||payload?.success===true||payload?.saved===true||String(payload?.result||payload?.status||'').toLowerCase()==='success');
+        if(!confirmed)throw new Error(payload?.error||payload?.message||'Google did not confirm a saved PM Log row. Your entries are retained.');
+        return {timestamp:String(payload.timestamp||payload.savedAt||payload.submittedAt||new Date().toISOString()),range:payload.range||'',row:payload.row||''};
       }catch(error){
         if(error.name==='AbortError')throw new Error('Google timed out. Your entries are retained. Check the PM Log spreadsheet before retrying.');
         throw error;
