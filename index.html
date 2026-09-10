@@ -6758,8 +6758,7 @@
               <section class="daily-checklist-group" data-daily-group="escalations">
                 <div class="daily-checklist-heading"><h3>11. Escalations</h3><span class="daily-point-badge">50 points each</span></div>
                 <div id="daily-escalation-entries" class="daily-dynamic-entries"></div>
-                <p class="daily-section-note">Use the BM/PD Log tab to add an escalation. Saved entries can be edited or deleted here.</p>
-                <button id="daily-add-escalation" class="button button-secondary daily-add-entry" type="button" hidden disabled aria-hidden="true" tabindex="-1">+ New escalation</button>
+                <button id="daily-add-escalation" class="button button-secondary daily-add-entry" type="button">+ New escalation</button>
               </section>
 
               <section class="daily-checklist-group" data-daily-group="super-escalations">
@@ -14307,7 +14306,7 @@
         entry.setAttribute("data-daily-dynamic-type", type);
         entry.setAttribute("data-daily-dynamic-id", String(id));
         entry.setAttribute("data-saved", saved ? "true" : "false");
-        if (!saved && (type === "pm" || type === "escalation")) entry.hidden = true;
+        if (!saved && type === "pm") entry.hidden = true;
 
         var summary = document.createElement("div");
         summary.className = "daily-dynamic-saved-summary";
