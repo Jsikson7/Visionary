@@ -6034,6 +6034,44 @@
 .bt-machine-section{margin:22px 0 0;border:1px solid var(--line);border-radius:10px;overflow:hidden}.bt-machine-heading{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;padding:14px 16px;background:var(--cream);border-bottom:1px solid var(--line)}.bt-machine-heading h4{font-size:1rem;margin:0;color:var(--ink)}.bt-machine-heading span{font-size:.9rem;color:var(--muted)}
 @media print{body.bt-printing .bt-machine-heading{break-after:avoid}body.bt-printing .bt-machine-section{overflow:visible;break-inside:auto;border-radius:0}}
 </style>
+<style id="pm-log-style">
+.bmpd-nav{display:flex;gap:10px;flex-wrap:wrap;margin:16px 0}
+.bmpd-nav [aria-selected=true]{border-color:var(--matcha-600);background:var(--matcha-100);color:var(--matcha-900);box-shadow:inset 0 -3px var(--matcha-600)}
+#daily-task-workspace[hidden],#pm-log-panel[hidden]{display:none!important}
+#pm-log-panel{width:100%;max-width:700px;min-width:0;margin:20px auto;background:var(--cream);color:var(--ink);border:1px solid var(--line);border-radius:var(--radius);font-family:inherit;box-shadow:var(--shadow)}
+#pm-log-panel *{box-sizing:border-box}
+#pm-log-panel .bm-header{background:var(--paper);color:var(--ink);text-align:left;padding:22px 24px;border-radius:var(--radius) var(--radius) 0 0;border-bottom:1px solid var(--line)}
+#pm-log-panel h2{font-size:22px;line-height:1.35;margin:0 0 6px;color:var(--matcha-900)}
+#pm-log-panel h2 span{font-size:14px;font-weight:normal;color:var(--hero-copy)}
+#pm-log-panel .bm-header p{font-size:14px;color:var(--muted);margin:0;line-height:1.5}
+#pm-log-panel .bm-title{background:var(--paper);color:var(--matcha-900);border-bottom:1px solid var(--line);text-align:center;padding:14px 16px;font-size:14px;font-weight:bold}
+#pm-log-panel form{padding:24px}#pm-log-panel .bm-field{margin:0;min-width:0}
+#pm-log-panel .bm-fields{display:grid;gap:24px;margin-bottom:24px}
+#pm-log-panel .bm-section{padding:0 0 24px;margin:0;min-width:0;border:0;border-bottom:1px solid var(--line)}
+#pm-log-panel .bm-section:last-child{padding-bottom:0;border-bottom:0}
+#pm-log-panel .bm-section legend{font-size:15px;font-weight:700;color:var(--matcha-900);margin-bottom:16px;padding:0}
+#pm-log-panel .bm-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px 16px}
+#pm-log-panel .bm-wide{grid-column:1/-1}
+#pm-log-panel label{line-height:1.5}
+#pm-log-panel .bm-status:empty{display:none}
+#pm-log-panel .bm-status{line-height:1.6}
+#pm-log-panel label{display:block;margin-bottom:7px;color:var(--label)}
+#pm-log-panel input,#pm-log-panel select,#pm-log-panel textarea{min-width:0;font-family:inherit}
+#pm-log-panel textarea::placeholder{color:var(--placeholder)}
+#pm-log-panel textarea{min-height:104px;resize:vertical;line-height:1.6;padding:12px}
+#pm-log-panel .bm-time{display:flex;gap:8px}#pm-log-panel .bm-time button{flex-shrink:0;padding:8px 10px}
+#pm-log-panel .bm-submit{width:100%;cursor:pointer}
+#pm-log-panel button{font-family:inherit}
+#pm-log-panel button:disabled{opacity:.55;cursor:not-allowed}
+#pm-log-panel .bm-footer{text-align:right;color:var(--muted);font-size:12px;margin-top:15px}
+#pm-log-panel .bm-status{white-space:pre-wrap;overflow-wrap:anywhere;font-size:14px;margin-top:12px;color:var(--muted)}
+#pm-log-panel .bm-report{padding:12px;background:var(--preview-bg);border:1px solid var(--preview-line);border-radius:9px;margin-bottom:14px;color:var(--preview-ink)}
+#pm-log-panel .bm-report summary{cursor:pointer;padding:8px 0}
+@media(max-width:540px){#pm-log-panel form{padding:18px}#pm-log-panel .bm-header{padding:18px}#pm-log-panel .bm-grid{grid-template-columns:minmax(0,1fr);gap:16px}}
+@media(max-width:380px){#pm-log-panel form{padding:14px}#pm-log-panel .bm-time{flex-wrap:wrap}}
+
+#pm-log-panel .pm-now{margin-top:8px}#pm-log-panel .pm-footer-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}#pm-log-panel .pm-timestamp-note{font-size:.875rem;color:var(--muted);line-height:1.5;margin:0 0 18px}#pm-log-panel select{min-height:46px;border:1px solid var(--line);border-radius:8px;padding:10px}#pm-log-panel select:disabled{background:var(--paper);opacity:.65}#pm-log-panel input[type=date],#pm-log-panel input[type=time]{min-height:46px;padding:10px;width:100%}#pm-log-panel .bm-submit:disabled{cursor:default}#pm-save-confirmation{max-width:460px;width:calc(100% - 32px);border:1px solid var(--line);border-radius:16px;background:var(--paper);color:var(--ink);padding:28px;box-shadow:var(--shadow)}#pm-save-confirmation::backdrop{background:#0009}#pm-save-confirmation h2{margin-top:0}#pm-save-confirmation p{line-height:1.6;white-space:pre-wrap;overflow-wrap:anywhere}#pm-save-confirmation button{width:100%;margin-top:12px}
+</style>
 </head>
 <body>
   <svg class="theme-background-art matcha-theme-art matcha-art-leaves" viewBox="0 0 420 340" aria-hidden="true" focusable="false">
@@ -14080,7 +14118,7 @@
         var vision = entry.querySelector('[data-daily-dynamic-field="vision"]');
         if (!process || !machine || !vision) return;
         var choices = dynamicChoicesForProcess(process.value);
-        if ((entry.getAttribute("data-daily-dynamic-id") || "").indexOf("bmpd-") === 0) {
+        if (/^(bmpd-|pm-log-)/.test(entry.getAttribute("data-daily-dynamic-id") || "")) {
           choices = { machines: choices.machines.slice(), visions: choices.visions.slice() };
           var keptMachine = typeof preferredMachine === "string" ? preferredMachine : machine.value;
           var keptVision = typeof preferredVision === "string" ? preferredVision : vision.value;
@@ -16920,6 +16958,28 @@
       dailyShiftSavingEnabled = true;
       updateDailyShift({ skipSave: true });
       window.VisionaryDailyTasks = {
+        getPmRoster: function () {
+          return dailyContributorOptions().filter(function(option){return option.key.indexOf('OT:')===0 || Boolean(rosterName(option.key));});
+        },
+        getPmContext: function (picKey) {
+          var state=draftState(),options=this.getPmRoster(),person=options.find(function(o){return o.key===picKey;});
+          if(!state.date||!state.shift)throw new Error('Choose a Daily Tasks date and shift before submitting a PM Log.');
+          if(!person)throw new Error('Select a PIC from the current shift roster.');
+          return {shiftId:state.date+'_'+state.shift,date:state.date,picKey:person.key,pic:person.label};
+        },
+        savePmCompletion: function (id,data,report,expectedShift) {
+          var context=this.getPmContext(data.picKey);
+          if(context.shiftId!==expectedShift)throw new Error('PM Log saved to Google, but the active shift changed. Return to the original shift and select Add to PM completed.');
+          if(context.pic!==data.pic)throw new Error('PM Log saved to Google, but the PIC roster entry changed. Restore the original PIC and select Add to PM completed.');
+          var existing=Array.prototype.find.call(pmEntries.querySelectorAll('[data-daily-dynamic-id]'),function(entry){return entry.getAttribute('data-daily-dynamic-id')===id;});
+          if(!existing){
+            createDynamicEntry('pm',{id:id,saved:true,complete:true,process:['LAMI','STK'].indexOf(data.process)>=0?'LNS':data.process,machine:data.machine,vision:data.vision,completedBy:data.picKey,completedByList:[data.picKey],comment:report});
+            ensureDynamicEditor('pm');
+          }
+          updateDailyShift();
+          return context.shiftId;
+        },
+
         saveBmpdEscalation: function (id, data, report, expectedShift) {
           var state = draftState();
           if (!state.date || !state.shift) throw new Error("Choose a Daily Tasks date and shift first.");
@@ -17502,6 +17562,30 @@
         return payload.values || [];
       } catch(error) { if(error.name==='AbortError')throw new Error('Google refresh timed out. Try again.');throw error; }
       finally { clearTimeout(timer); }
+    };
+
+    let pmToken=null,pmTokenExpires=0;
+    onAuthStateChanged(auth,()=>{pmToken=null;pmTokenExpires=0;});
+    window.PMGoogleSave=async function(data){
+      if(!['https:','http:'].includes(location.protocol))throw new Error('Open the hosted app to upload a PM Log. The downloaded copy supports filling and copying the log.');
+      if(!pmToken||Date.now()>=pmTokenExpires){
+        const provider=new GoogleAuthProvider();provider.addScope('https://www.googleapis.com/auth/spreadsheets');provider.setCustomParameters({prompt:'consent'});
+        try{const result=auth.currentUser?await reauthenticateWithPopup(auth.currentUser,provider):await signInWithPopup(auth,provider);const credential=GoogleAuthProvider.credentialFromResult(result);if(!credential?.accessToken)throw Error('missing-token');pmToken=credential.accessToken;pmTokenExpires=Date.now()+50*60*1000;}catch(error){throw new Error('Google authorization did not complete. Allow the popup and use the signed-in account with edit access to PM Log.');}
+      }
+      const base='https://sheets.googleapis.com/v4/spreadsheets/1bV9I-JyDZW7jTt4WltBlFdQW6OErzlW0U5BfgMyUjXI/values/';
+      async function request(path,options={},saving=false){
+        const controller=new AbortController(),timeout=setTimeout(()=>controller.abort(),30000);let response;
+        try{response=await fetch(base+path,{...options,headers:{Authorization:'Bearer '+pmToken,'Content-Type':'application/json'},signal:controller.signal});const payload=await response.json();if(!response.ok){if(response.status===401){pmToken=null;throw Error('Your Google authorization expired. Submit again to sign in.');}if(/SERVICE_DISABLED|has not been used|disabled/i.test(JSON.stringify(payload)))throw Error('Enable Google Sheets API in the app’s Google Cloud project before uploading PM Logs.');throw Error('Google could not save this PM Log. Check that this account has edit access and granted Sheets permission.');}return payload;}catch(error){if(saving&&(!response||response.ok))throw Error('The save could not be confirmed. Check the PM Log spreadsheet before submitting again to avoid a duplicate. Your entries are retained.');if(error.name==='AbortError')throw Error('Google timed out. Your entries are retained.');throw error;}finally{clearTimeout(timeout);}
+      }
+      const headerRange=encodeURIComponent("'Sheet1'!A1:J1"),header=await request(headerRange+'?valueRenderOption=FORMATTED_VALUE'),h=header.values?.[0]||[];
+      const expected=['Timestamp','0. Site','1-1. 공정 (Process)','1-2. Machine','2-2. Vision Type','2-3. Source of Cause','3-1. Completed Time','3-2. Downtime','3-3. PIC'];
+      if(expected.some((v,i)=>String(h[i]||'').trim()!==v)||h[9]&&String(h[9]).trim()!=='3-4. Comments')throw new Error('The PM Log spreadsheet columns have changed. No record was submitted.');
+      if(!h[9])await request(encodeURIComponent("'Sheet1'!J1")+'?valueInputOption=RAW',{method:'PUT',body:JSON.stringify({values:[['3-4. Comments']]})});
+      // Capture submission time after authorization; preserve text as RAW values.
+      const timestamp=new Date().toISOString(),values=[[timestamp,data.building,data.process,data.machine,data.vision,data.cause,data.completed.replace('T',' '),data.downtime,data.pic,data.comments]];
+      const result=await request(encodeURIComponent("'Sheet1'!A:J")+':append?valueInputOption=RAW&insertDataOption=INSERT_ROWS',{method:'POST',body:JSON.stringify({majorDimension:'ROWS',values})},true);
+      if(result.updates?.updatedRows!==1)throw new Error('Google did not confirm exactly one saved row. Check the spreadsheet before submitting again.');
+      return {timestamp,range:result.updates.updatedRange};
     };
 
     const provider = new GoogleAuthProvider();
@@ -20182,6 +20266,61 @@ const BMPDCore = (() => {
   options();const ds=dates();$('date').value=ds[ds.length-1]||new Date().toISOString().slice(0,10);generate();
 })();
 
+</script>
+<script id="pm-reference-options" type="application/json">{"building": [{"value": "MI1"}, {"value": "MI2"}], "process": [{"value": "LAMI"}, {"value": "STK"}, {"value": "PKG"}, {"value": "Cell Tracking"}, {"value": "EOL"}], "machine": [{"value": "1-1"}, {"value": "1-2"}, {"value": "1-3"}, {"value": "1-4"}, {"value": "1-5"}, {"value": "2-1"}, {"value": "2-2"}, {"value": "2-3"}, {"value": "2-4"}, {"value": "2-5"}, {"value": "3-1"}, {"value": "3-2"}, {"value": "3-3"}, {"value": "3-4"}, {"value": "3-H"}, {"value": "3-5"}, {"value": "4-1"}, {"value": "4-2"}, {"value": "4-3"}, {"value": "4-4"}, {"value": "4-5"}, {"value": "4-6"}, {"value": "5-1"}, {"value": "5-2"}, {"value": "5-3"}, {"value": "5-4"}, {"value": "5-5"}, {"value": "5-6"}, {"value": "5-7"}, {"value": "5-8"}], "vision": [{"value": "Merge"}, {"value": "LSS"}, {"value": "Thickness"}, {"value": "NG Mark"}, {"value": "Final Lami"}, {"value": "Mono Sepa"}, {"value": "MS1"}, {"value": "MS2"}, {"value": "MS3"}, {"value": "ALL MS"}, {"value": "Half Cell"}, {"value": "Final Stack"}, {"value": "4-Side"}, {"value": "Lead Align (-)"}, {"value": "Lead Align (+)"}, {"value": "Welding (-)"}, {"value": "Welding(+)"}, {"value": "Lead Vision"}, {"value": "Pouch Pinhole"}, {"value": "Pouch Align"}, {"value": "X-Ray"}, {"value": "CT Machine"}, {"value": "Lead Sealing"}, {"value": "Cosmetic"}, {"value": "Sealing Thickness L"}, {"value": "Sealing Thickness S"}, {"value": "BCR Lami"}, {"value": "BCR Stack"}, {"value": "Laser Glass"}, {"value": "Laser Cover"}], "cause": [{"value": "Electrode Debris"}, {"value": "Foreign Material"}, {"value": "Oil from CE"}, {"value": "Other"}]}</script>
+<script id="pm-selection-rules" type="application/json">{"machines": {"MI1": ["1-1", "1-2", "1-3", "1-4", "1-5", "2-1", "2-2", "2-3", "2-4", "2-5"], "MI2": ["3-1", "3-2", "3-3", "3-4", "3-H", "3-5", "4-1", "4-2", "4-3", "4-4", "4-5", "4-6", "5-1", "5-2", "5-3", "5-4", "5-5", "5-6", "5-7", "5-8"]}, "visions": {"LAMI": ["Merge", "LSS", "Thickness", "NG Mark", "Final Lami"], "STK": ["Mono Sepa", "MS1", "MS2", "MS3", "ALL MS", "Half Cell", "Final Stack", "4-Side"], "PKG": ["Lead Align (-)", "Lead Align (+)", "Welding (-)", "Welding(+)", "Lead Vision", "Pouch Pinhole", "Pouch Align", "X-Ray"], "Cell Tracking": ["BCR Lami", "BCR Stack", "Laser Glass", "Laser Cover"], "EOL": ["CT Machine", "Lead Sealing", "Cosmetic", "Sealing Thickness L", "Sealing Thickness S"]}, "pkgMachines": {"MI1": ["1-1", "1-2", "2-1", "2-2"], "MI2": ["3-1", "3-2", "4-1", "4-2", "5-1", "5-2", "5-3"]}}</script>
+<script id="pm-log-controller">(()=>{
+'use strict';
+const rules=JSON.parse(document.getElementById('pm-selection-rules').textContent);let edited=false,busy=false,pending=null,lastTimestamp='';
+const defs=JSON.parse(document.getElementById('pm-reference-options').textContent),view=document.getElementById('daily-tasks-view'),nav=view.querySelector('.bmpd-nav'),workspace=view.querySelector('.daily-task-workspace'),bm=document.getElementById('bmpd-log-panel');
+const tab=document.createElement('button');tab.id='pm-log-tab';tab.type='button';tab.className='button button-secondary';tab.textContent='PM Log';tab.setAttribute('role','tab');tab.setAttribute('aria-controls','pm-log-panel');tab.setAttribute('aria-selected','false');nav.append(tab);
+const panel=document.createElement('section');panel.id='pm-log-panel';panel.hidden=true;panel.setAttribute('role','tabpanel');panel.setAttribute('aria-labelledby',tab.id);bm.after(panel);
+panel.innerHTML='<div class="bm-header"><h2>PM Log</h2><p>Preventive maintenance record</p></div><form><div class="bm-fields"></div><p class="pm-timestamp-note">Timestamp is recorded automatically when you submit.</p><button type="submit" class="button button-primary bm-submit">Submit PM Log</button><p class="bm-status" role="status" aria-live="polite"></p><div class="pm-footer-actions"><button type="button" class="button button-secondary" data-pm-copy>Copy log</button><button type="button" class="button button-secondary" data-pm-new hidden>New PM Log</button><button type="button" class="button button-secondary" data-pm-back>Back to Daily Tasks</button></div><details data-pm-copy-fallback hidden><summary>Log text</summary><textarea readonly aria-label="PM log text"></textarea></details></form>';
+const form=panel.querySelector('form'),fields=panel.querySelector('.bm-fields'),status=panel.querySelector('.bm-status'),submit=panel.querySelector('.bm-submit'),controls={},newButton=panel.querySelector('[data-pm-new]');
+const sections={};[['equipment','Equipment details'],['completion','Completion details']].forEach(([key,label])=>{const fieldset=document.createElement('fieldset');fieldset.className='bm-section';const legend=document.createElement('legend');legend.textContent=label;const grid=document.createElement('div');grid.className='bm-grid';fieldset.append(legend,grid);fields.append(fieldset);sections[key]=grid;});
+const labels={building:'Building',process:'Process',machine:'Machine',vision:'Vision Type',cause:'Source of Cause',pmDate:'PM Date',hour:'Hour (00–23)',minute:'Minute',downtime:'Downtime',pic:'PIC',comments:'Comments'};
+Object.entries(labels).forEach(([key,label])=>{const group=document.createElement('div');group.className='bm-field';if(['pic','comments'].includes(key))group.classList.add('bm-wide');const caption=document.createElement('label');caption.htmlFor='pm-'+key;caption.textContent=label+(key==='comments'?' (optional)':' *');const input=document.createElement((defs[key]||['hour','minute','pic'].includes(key))?'select':key==='comments'?'textarea':'input');input.id=caption.htmlFor;input.name=key;input.required=key!=='comments';if(input.tagName==='INPUT')input.type=key==='pmDate'?'date':'text';if(['downtime','pic','comments'].includes(key))input.maxLength=key==='comments'?10000:250;if(key==='downtime')input.placeholder='Enter downtime, e.g. 10 min';if(key==='comments')input.placeholder='Enter maintenance notes';controls[key]=input;group.append(caption,input);if(key==='minute'){const now=document.createElement('button');now.className='button button-secondary pm-now';now.type='button';now.textContent='Now';now.onclick=setNow;group.append(now);}sections[defs[key]?'equipment':'completion'].append(group);});
+const otherGroup=document.createElement('div');otherGroup.className='bm-field bm-wide';otherGroup.hidden=true;
+const otherLabel=document.createElement('label');otherLabel.htmlFor='pm-cause-other';otherLabel.textContent='Other cause *';const otherInput=document.createElement('textarea');otherInput.id='pm-cause-other';otherInput.maxLength=2000;otherInput.placeholder='Describe the source of cause';otherGroup.append(otherLabel,otherInput);sections.equipment.append(otherGroup);
+function updateOther(){otherGroup.hidden=controls.cause.value!=='Other';otherInput.required=!otherGroup.hidden;}
+controls.cause.addEventListener('change',updateOther);
+const rosterNote=document.createElement('p');rosterNote.className='pm-timestamp-note';controls.pic.after(rosterNote);
+function refreshPIC(){if(busy||pending)return;const old=controls.pic.value,roster=window.VisionaryDailyTasks?.getPmRoster?.()||[];controls.pic.replaceChildren(new Option('Select PIC',''));roster.forEach(p=>controls.pic.add(new Option(p.label+' ('+p.role+')',p.key)));controls.pic.value=roster.some(p=>p.key===old)?old:'';rosterNote.textContent=roster.length?'PIC receives the PM points for this shift.':'Add technician names to the Daily Tasks shift roster first.';}
+window.addEventListener('visionary-daily-local-change',refreshPIC);window.addEventListener('visionary-daily-ready',refreshPIC);
+function setupTime(){for(const [key,count] of [['hour',24],['minute',60]]){controls[key].replaceChildren();for(let i=0;i<count;i++){const value=String(i).padStart(2,'0');controls[key].add(new Option(value,value));}}}
+function localDate(){const now=new Date();now.setMinutes(now.getMinutes()-now.getTimezoneOffset());return now.toISOString().slice(0,10);}
+function defaultDate(){return document.getElementById('daily-shift-date')?.value||localDate();}
+function setNow(){const now=new Date();controls.hour.value=String(now.getHours()).padStart(2,'0');controls.minute.value=String(now.getMinutes()).padStart(2,'0');}
+function fill(key,items,enabled=true){const select=controls[key],old=select.value;select.replaceChildren(new Option('Select '+labels[key],''));items.forEach(item=>select.add(new Option(item.value,item.value)));select.value=items.some(x=>x.value===old)?old:'';select.disabled=!enabled;}
+function machineChoices(building,process){if(!building||!process)return [];const list=(['PKG','EOL'].includes(process)?rules.pkgMachines[building]:rules.machines[building])||[];return ['LAMI','STK'].includes(process)?[...list,'Rework']:[...list];}
+function updateMachines(){fill('machine',machineChoices(controls.building.value,controls.process.value).map(value=>({value})),!!controls.building.value&&!!controls.process.value);}
+function updateVisions(){fill('vision',(rules.visions[controls.process.value]||[]).map(value=>({value})),!!controls.process.value);}
+Object.keys(defs).forEach(key=>controls[key].addEventListener('change',()=>{if(key==='building'||key==='process')updateMachines();if(key==='process')updateVisions();}));
+form.addEventListener('input',()=>{edited=true;});form.addEventListener('change',()=>{edited=true;});
+function reset(){form.reset();fill('building',defs.building);fill('process',defs.process);fill('cause',defs.cause);updateMachines();updateVisions();updateOther();otherInput.value='';setupTime();refreshPIC();controls.pmDate.value=defaultDate();setNow();edited=false;fields.querySelectorAll('fieldset').forEach(f=>f.disabled=false);submit.disabled=false;submit.textContent='Submit PM Log';newButton.hidden=true;status.textContent='';panel.querySelector('[data-pm-copy-fallback]').hidden=true;}
+const tasks=document.getElementById('bmpd-task-tab'),bmTab=document.getElementById('bmpd-log-tab');[tasks,bmTab].forEach(b=>b.addEventListener('click',()=>{panel.hidden=true;tab.setAttribute('aria-selected','false');}));
+tab.onclick=()=>{refreshPIC();if(!edited&&!lastTimestamp){controls.pmDate.value=defaultDate();setNow();}tasks.click();workspace.hidden=true;bm.hidden=true;panel.hidden=false;tasks.setAttribute('aria-selected','false');bmTab.setAttribute('aria-selected','false');tab.setAttribute('aria-selected','true');};panel.querySelector('[data-pm-back]').onclick=()=>tasks.click();
+const dialog=document.createElement('dialog');dialog.id='pm-save-confirmation';dialog.innerHTML='<h2>PM Log submitted</h2><p>Your entry was saved to Google and added to 10. PM’s completed for shift points.</p><p data-pm-receipt></p><button type="button" class="button button-primary">OK</button>';document.body.append(dialog);dialog.querySelector('button').onclick=()=>dialog.close();
+function record(){const data=Object.fromEntries(Object.entries(controls).map(([k,input])=>[k,input.value.trim()]));data.completed=data.pmDate+'T'+data.hour+':'+data.minute;data.picKey=data.pic;data.pic=controls.pic.selectedOptions[0]?.textContent.replace(/ \([^)]*\)$/,'')||'';data.causeOther=otherInput.value.trim();return data;}
+function valid(data){for(const key of Object.keys(defs)){if(key==='machine')continue;if(!defs[key].some(x=>x.value===data[key]))throw Error('Choose a valid '+labels[key]+'.');}if(!machineChoices(data.building,data.process).includes(data.machine)||!(rules.visions[data.process]||[]).includes(data.vision))throw Error('Choose a machine and vision that match the selected building and process.');if(data.cause==='Other'&&!data.causeOther)throw Error('Describe the other source of cause.');if(!data.picKey||!data.downtime||!data.pmDate||!/^([01]\d|2[0-3]):[0-5]\d$/.test(data.hour+':'+data.minute))throw Error('Enter PM Date, Completed Time, Downtime, and PIC.');return data;}
+function savedReport(data,timestamp){return ['PM Log','Timestamp: '+timestamp,'Building: '+data.building,'Process: '+data.process,'Machine: '+data.machine,'Vision: '+data.vision,'Source of Cause: '+data.cause,'Completed: '+data.completed.replace('T',' '),'Downtime: '+data.downtime,'PIC: '+data.pic,'Comments: '+data.comments].join('\n');}
+form.onsubmit=async e=>{e.preventDefault();if(busy)return;if(!pending&&!form.reportValidity())return;try{
+  const daily=window.VisionaryDailyTasks;if(!daily?.getPmContext||!daily.savePmCompletion)throw Error('Daily Tasks has not loaded. Reopen the app before submitting.');
+  if(!pending){const data=valid(record()),context=daily.getPmContext(data.picKey);if(data.pmDate!==context.date)throw Error('Select the matching Daily Tasks date and shift so this PM receives points on the correct shift.');if(data.pic!==context.pic)throw Error('The shift roster changed. Reopen PM Log and select the PIC again.');data.pic=context.pic;if(data.cause==='Other')data.cause='Other: '+data.causeOther;
+    if(!window.PMGoogleSave)throw Error('Open the hosted app to save this PM Log.');pending={data,shiftId:context.shiftId,id:'pm-log-'+(crypto.randomUUID?crypto.randomUUID():Date.now()+'-'+Math.random().toString(36).slice(2)),receipt:null};
+  }
+  busy=true;submit.disabled=true;fields.querySelectorAll('fieldset').forEach(f=>f.disabled=true);submit.textContent=pending.receipt?'Adding PM points…':'Submitting…';
+  if(!pending.receipt){status.textContent='Saving PM Log to Google…';pending.receipt=await window.PMGoogleSave(pending.data);}
+  lastTimestamp=pending.receipt.timestamp;
+  daily.savePmCompletion(pending.id,pending.data,savedReport(pending.data,lastTimestamp),pending.shiftId);
+  status.textContent='PM Log saved and added to 10. PM’s completed. Timestamp: '+lastTimestamp;submit.textContent='Submitted';newButton.hidden=false;
+  dialog.querySelector('[data-pm-receipt]').textContent=pending.data.pic+' · '+pending.data.machine+' · '+pending.data.vision+'\nTimestamp: '+lastTimestamp;dialog.showModal();
+}catch(error){status.textContent=error.message;submit.disabled=false;if(pending?.receipt){submit.textContent='Add to PM completed';}else{pending=null;submit.textContent='Submit PM Log';fields.querySelectorAll('fieldset').forEach(f=>f.disabled=false);}}finally{busy=false;}};
+
+newButton.onclick=()=>{if(busy)return;lastTimestamp='';pending=null;reset();controls.building.focus();};
+panel.querySelector('[data-pm-copy]').onclick=async()=>{const data=record(),text=['PM Log','Timestamp: '+(lastTimestamp||'Not submitted'),...Object.entries(labels).map(([k,v])=>v+': '+(k==='cause'&&data.cause==='Other'?'Other: '+data.causeOther:data[k]))].join('\n');try{await navigator.clipboard.writeText(text);status.textContent='PM Log copied.';}catch{const box=panel.querySelector('[data-pm-copy-fallback]');box.hidden=false;box.open=true;box.querySelector('textarea').value=text;box.querySelector('textarea').focus();box.querySelector('textarea').select();}};
+reset();
+})();
 </script>
 </body>
 </html>
