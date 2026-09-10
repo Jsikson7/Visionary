@@ -17564,28 +17564,20 @@
       finally { clearTimeout(timer); }
     };
 
-    let pmToken=null,pmTokenExpires=0;
-    onAuthStateChanged(auth,()=>{pmToken=null;pmTokenExpires=0;});
+    const PM_LOG_WEB_APP_URL='https://script.google.com/macros/s/AKfycbzWo7Wf7DfiqhIFmEUZh7m3ZsdmWBYdgk9p3EGBhLzMG_D8g6HBNhJAjYiKh_r1YisXrg/exec';
     window.PMGoogleSave=async function(data){
       if(!['https:','http:'].includes(location.protocol))throw new Error('Open the hosted app to upload a PM Log. The downloaded copy supports filling and copying the log.');
-      if(!pmToken||Date.now()>=pmTokenExpires){
-        const provider=new GoogleAuthProvider();provider.addScope('https://www.googleapis.com/auth/spreadsheets');provider.setCustomParameters({prompt:'consent'});
-        try{const result=auth.currentUser?await reauthenticateWithPopup(auth.currentUser,provider):await signInWithPopup(auth,provider);const credential=GoogleAuthProvider.credentialFromResult(result);if(!credential?.accessToken)throw Error('missing-token');pmToken=credential.accessToken;pmTokenExpires=Date.now()+50*60*1000;}catch(error){throw new Error('Google authorization did not complete. Allow the popup and use the signed-in account with edit access to PM Log.');}
-      }
-      const base='https://sheets.googleapis.com/v4/spreadsheets/1bV9I-JyDZW7jTt4WltBlFdQW6OErzlW0U5BfgMyUjXI/values/';
-      async function request(path,options={},saving=false){
-        const controller=new AbortController(),timeout=setTimeout(()=>controller.abort(),30000);let response;
-        try{response=await fetch(base+path,{...options,headers:{Authorization:'Bearer '+pmToken,'Content-Type':'application/json'},signal:controller.signal});const payload=await response.json();if(!response.ok){if(response.status===401){pmToken=null;throw Error('Your Google authorization expired. Submit again to sign in.');}if(/SERVICE_DISABLED|has not been used|disabled/i.test(JSON.stringify(payload)))throw Error('Enable Google Sheets API in the app’s Google Cloud project before uploading PM Logs.');throw Error('Google could not save this PM Log. Check that this account has edit access and granted Sheets permission.');}return payload;}catch(error){if(saving&&(!response||response.ok))throw Error('The save could not be confirmed. Check the PM Log spreadsheet before submitting again to avoid a duplicate. Your entries are retained.');if(error.name==='AbortError')throw Error('Google timed out. Your entries are retained.');throw error;}finally{clearTimeout(timeout);}
-      }
-      const headerRange=encodeURIComponent("'Sheet1'!A1:J1"),header=await request(headerRange+'?valueRenderOption=FORMATTED_VALUE'),h=header.values?.[0]||[];
-      const expected=['Timestamp','0. Site','1-1. 공정 (Process)','1-2. Machine','2-2. Vision Type','2-3. Source of Cause','3-1. Completed Time','3-2. Downtime','3-3. PIC'];
-      if(expected.some((v,i)=>String(h[i]||'').trim()!==v)||h[9]&&String(h[9]).trim()!=='3-4. Comments')throw new Error('The PM Log spreadsheet columns have changed. No record was submitted.');
-      if(!h[9])await request(encodeURIComponent("'Sheet1'!J1")+'?valueInputOption=RAW',{method:'PUT',body:JSON.stringify({values:[['3-4. Comments']]})});
-      // Capture submission time after authorization; preserve text as RAW values.
-      const timestamp=new Date().toISOString(),values=[[timestamp,data.building,data.process,data.machine,data.vision,data.cause,data.completed.replace('T',' '),data.downtime,data.pic,data.comments]];
-      const result=await request(encodeURIComponent("'Sheet1'!A:J")+':append?valueInputOption=RAW&insertDataOption=INSERT_ROWS',{method:'POST',body:JSON.stringify({majorDimension:'ROWS',values})},true);
-      if(result.updates?.updatedRows!==1)throw new Error('Google did not confirm exactly one saved row. Check the spreadsheet before submitting again.');
-      return {timestamp,range:result.updates.updatedRange};
+      const controller=new AbortController(),timeout=setTimeout(()=>controller.abort(),30000);
+      try{
+        const response=await fetch(PM_LOG_WEB_APP_URL,{method:'POST',headers:{'Content-Type':'text/plain;charset=UTF-8'},body:JSON.stringify(data),signal:controller.signal});
+        const text=await response.text();let payload;
+        try{payload=JSON.parse(text);}catch{throw new Error('The PM Log save could not be verified. Check the spreadsheet before submitting again to avoid a duplicate.');}
+        if(!response.ok||payload?.ok!==true||!payload?.timestamp)throw new Error(payload?.error||'Google did not confirm exactly one saved PM Log row. Your entries are retained.');
+        return {timestamp:String(payload.timestamp),range:payload.range||'',row:payload.row||''};
+      }catch(error){
+        if(error.name==='AbortError')throw new Error('Google timed out. Your entries are retained. Check the PM Log spreadsheet before retrying.');
+        throw error;
+      }finally{clearTimeout(timeout);}
     };
 
     const provider = new GoogleAuthProvider();
