@@ -7339,7 +7339,7 @@
               <div class="monthly-ranking-heading">
                 <div>
                   <h3 id="monthly-technician-title" class="reports-section-heading">Top 3 technicians</h3>
-                  <p class="monthly-ranking-subtitle">Ranked by Avg PPS · Minimum 5 shifts in the selected range. Total points and medals remain visible.</p>
+                  <p class="monthly-ranking-subtitle">Ranked by Avg PPS · Minimum 3 shifts in the selected range. Total points and medals remain visible.</p>
                 </div>
                 <div class="monthly-ranking-actions">
                   <button id="monthly-technician-save-png" class="button button-secondary" type="button" disabled>Save PNG</button>
@@ -7351,7 +7351,7 @@
               <div class="monthly-ranking-heading">
                 <div>
                   <h3 id="monthly-shift-title" class="reports-section-heading">Top shifts</h3>
-                  <p class="monthly-ranking-subtitle">Ranked by Avg PPS · Completion rate breaks ties. Requires 75% of the highest team shift count, rounded up.</p>
+                  <p class="monthly-ranking-subtitle">Ranked by Avg PPS · Completion rate breaks ties. Minimum 3 shifts in the selected range.</p>
                 </div>
                 <div class="monthly-ranking-actions">
                   <button id="monthly-shift-save-png" class="button button-secondary" type="button" disabled>Save PNG</button>
@@ -19487,7 +19487,7 @@
       };
     }
 
-    const RANKING_MINIMUM_TECHNICIAN_SHIFTS = 5;
+    const RANKING_MINIMUM_TECHNICIAN_SHIFTS = 3;
 
     function monthlyRankTechnicians(technicians) {
       return technicians
@@ -19497,7 +19497,7 @@
     }
 
     function monthlyRankShifts(shifts) {
-      const requiredShifts = Math.max(1, Math.ceil(Math.max(0, ...shifts.map((shift) => shift.shiftCount)) * 0.75));
+      const requiredShifts = 3;
       const active = shifts
         .filter((shift) => shift.shiftCount >= requiredShifts)
         .sort((left, right) => {
@@ -19639,7 +19639,7 @@
       return metric;
     }
 
-    function monthlyRankingCardTop(rank, name, shiftLabel, streak, points, hasData) {
+    function monthlyRankingCardTop(rank, name, shiftLabel, streak, averagePoints, hasData) {
       const top = document.createElement("div");
       top.className = "monthly-ranking-card-top";
       const place = document.createElement("span");
@@ -19664,9 +19664,9 @@
       const score = document.createElement("span");
       score.className = "monthly-ranking-points";
       const scoreValue = document.createElement("strong");
-      scoreValue.textContent = monthlyNumber(points);
+      scoreValue.textContent = averagePoints;
       const scoreLabel = document.createElement("span");
-      scoreLabel.textContent = "points";
+      scoreLabel.textContent = "Avg PPS";
       score.append(scoreValue, scoreLabel);
       top.append(place, identity, score);
       return top;
@@ -19678,7 +19678,7 @@
       if (!leaders.length) {
         const empty = document.createElement("p");
         empty.className = "monthly-empty-state";
-        empty.textContent = "No technicians qualify yet. At least 5 recorded shifts and earned points are required within the selected date range.";
+        empty.textContent = "No technicians qualify yet. At least 3 recorded shifts and earned points are required within the selected date range.";
         monthlyTechnicianLeaders.appendChild(empty);
         return;
       }
@@ -19697,7 +19697,7 @@
         metrics.className = "monthly-ranking-metrics";
         metrics.append(
           monthlyRankingMetric("SW", "Shifts worked", String(technician.shiftCount)),
-          monthlyRankingMetric("AVG", "Avg PPS", monthlyAveragePoints(technician)),
+          monthlyRankingMetric("PTS", "Total points", monthlyNumber(technician.points)),
           monthlyRankingMetric("!", "Escalations", String(technician.escalationCount)),
           monthlyRankingMetric("PM", "PMs", String(technician.pmCount)),
           monthlyRankingMetric("SE", "Super escalations", String(technician.superEscalationCount)),
@@ -19709,7 +19709,7 @@
             technician.name,
             monthlyTechnicianShiftLabel(technician),
             streaks.get(technician.key),
-            technician.points,
+            monthlyAveragePoints(technician),
             true
           ),
           medalRow,
@@ -19732,7 +19732,7 @@
         metrics.className = "monthly-ranking-metrics";
         metrics.append(
           monthlyRankingMetric("SW", "Shifts worked", String(shift.shiftCount)),
-          monthlyRankingMetric("AVG", "Avg PPS", monthlyAveragePoints(shift)),
+          monthlyRankingMetric("PTS", "Total points", monthlyNumber(shift.points)),
           monthlyRankingMetric("%", "% Completed", completion),
           monthlyRankingMetric("★", "Perfect shifts", String(shift.perfectShiftCount)),
           monthlyRankingMetric("!", "Escalations", String(shift.escalationCount)),
@@ -19746,7 +19746,7 @@
             shift.shift + " Shift",
             "",
             streaks.get(shift.key),
-            shift.points,
+            monthlyAveragePoints(shift),
             shift.shiftCount > 0
           ),
           metrics
@@ -19837,7 +19837,7 @@
       const height = headerHeight + items.length * cardHeight + Math.max(0, items.length - 1) * cardGap + footerHeight;
       const parts = [];
       monthlySvgRect(parts, 0, 0, width, height, "#f2f4e8", 0);
-      monthlySvgText(parts, padding, 58, technicianExport ? "POWER RANKINGS · AVG PPS · MINIMUM 5 SHIFTS" : "POWER RANKINGS · AVG PPS · COMPLETION TIEBREAK · 75% MINIMUM", 20, 800, "#5f7d43");
+      monthlySvgText(parts, padding, 58, technicianExport ? "POWER RANKINGS · AVG PPS · MINIMUM 3 SHIFTS" : "POWER RANKINGS · AVG PPS · COMPLETION TIEBREAK · MINIMUM 3 SHIFTS", 20, 800, "#5f7d43");
       monthlySvgText(parts, padding, 103, technicianExport ? "Top 3 Technicians" : "Top Shifts", 38, 800, "#293225");
       monthlySvgText(
         parts,
@@ -19866,8 +19866,8 @@
         monthlySvgText(parts, padding + 60, y + 67, rank == null ? "—" : "#" + rank, 25, 800, palette.accent, "middle");
         monthlySvgText(parts, width / 2, y + 50, displayName, 28, 800, "#293225", "middle");
         if (shiftLabel) monthlySvgText(parts, width / 2, y + 78, shiftLabel, 16, 700, "#5f7d43", "middle");
-        monthlySvgText(parts, width - padding - 24, y + 52, monthlyNumber(item.points), 32, 800, "#466136", "end");
-        monthlySvgText(parts, width - padding - 24, y + 78, "points", 16, 700, "#6b7562", "end");
+        monthlySvgText(parts, width - padding - 24, y + 52, monthlyAveragePoints(item), 32, 800, "#466136", "end");
+        monthlySvgText(parts, width - padding - 24, y + 78, "Avg PPS", 16, 700, "#6b7562", "end");
         if (!technicianExport && item.rank == null) {
           monthlySvgText(parts, padding + 118, y + 105, "Not ranked: " + item.shiftCount + " / " + item.requiredShifts + " shifts required", 16, 700, "#6b7562");
         }
@@ -19876,8 +19876,8 @@
           const medal = monthlyExportMedals(item);
           monthlySvgText(parts, padding + 24, y + 137, medal.total + " medal" + (medal.total === 1 ? "" : "s"), 19, 800, "#466136");
           monthlySvgText(parts, padding + 170, y + 137, medal.detail, 16, 700, "#6b7562");
-          const labels = ["Shifts worked", "Avg PPS", "Escalations", "PMs", "Super escalations", "Error proofing"];
-          const values = [item.shiftCount, monthlyAveragePoints(item), item.escalationCount, item.pmCount, item.superEscalationCount, item.errorProofingCount];
+          const labels = ["Shifts worked", "Total points", "Escalations", "PMs", "Super escalations", "Error proofing"];
+          const values = [item.shiftCount, monthlyNumber(item.points), item.escalationCount, item.pmCount, item.superEscalationCount, item.errorProofingCount];
           const gap = 12;
           const metricWidth = (cardWidth - 48 - gap * 2) / 3;
           labels.forEach((label, metricIndex) => {
@@ -19887,8 +19887,8 @@
           const completion = item.completionAvailable
             ? Math.round((item.completionEarned / item.completionAvailable) * 100) + "%"
             : "—";
-          const labels = ["Shifts worked", "Avg PPS", "% Completed", "Perfect shifts", "Escalations", "PMs", "Super escalations", "Error proofing"];
-          const values = [item.shiftCount, monthlyAveragePoints(item), completion, item.perfectShiftCount, item.escalationCount, item.pmCount, item.superEscalationCount, item.errorProofingCount];
+          const labels = ["Shifts worked", "Total points", "% Completed", "Perfect shifts", "Escalations", "PMs", "Super escalations", "Error proofing"];
+          const values = [item.shiftCount, monthlyNumber(item.points), completion, item.perfectShiftCount, item.escalationCount, item.pmCount, item.superEscalationCount, item.errorProofingCount];
           const gap = 12;
           const metricWidth = (cardWidth - 48 - gap * 2) / 3;
           labels.forEach((label, metricIndex) => {
