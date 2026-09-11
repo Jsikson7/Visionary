@@ -6481,9 +6481,25 @@
   window.VisionaryShiftEditPolicy={deadline,locked,current,message,assertEditable(state){if(locked(state))throw new Error(message);}};
 })();
 </script>
-<style id="power-ranking-shifts-worked-style">
-.monthly-shifts-worked{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:9px 12px;border:1px solid var(--line);border-radius:8px;background:var(--cream);color:var(--muted);font-size:.82rem;line-height:1.4}
-.monthly-shifts-worked strong{color:var(--ink);font-size:1rem;font-variant-numeric:tabular-nums;font-weight:750}
+<style id="ranking-card-refinements">
+.monthly-ranking-card-top{grid-template-columns:40px minmax(0,1fr) 40px;align-items:center}
+.monthly-ranking-place{grid-column:1;grid-row:1}
+.monthly-ranking-identity{grid-column:2;grid-row:1;text-align:center}
+.monthly-ranking-name-row{justify-content:center;text-align:center}
+.monthly-ranking-points{grid-column:1 / -1;text-align:center}
+.monthly-ranking-points strong,.monthly-ranking-points span{display:inline}
+.monthly-ranking-points span{margin-left:4px}
+.monthly-ranking-metric-label{white-space:nowrap;overflow-wrap:normal}
+@media(max-width:480px){
+.monthly-ranking-card-top{grid-template-columns:40px minmax(0,1fr) 40px}
+.monthly-ranking-points{grid-column:1 / -1;text-align:center}
+.monthly-ranking-metric{grid-template-columns:minmax(0,1fr) auto;gap:5px}
+.monthly-ranking-metric-icon{display:none}
+}
+@media(max-width:380px){
+.monthly-ranking-metric{grid-template-columns:minmax(0,1fr);gap:5px}
+.monthly-ranking-metric-value{text-align:right}
+}
 </style>
 </head>
 <body>
@@ -7312,9 +7328,9 @@
                 <label for="monthly-performance-end">End date</label>
                 <input id="monthly-performance-end" type="date" required>
               </div>
-              <button id="monthly-performance-refresh" class="button button-primary" type="submit">Refresh rankings</button>
+              <button id="monthly-performance-refresh" class="button button-primary" type="submit">Apply to everyone</button>
             </div>
-            <p class="monthly-performance-default-note">Showing the current calendar month through today.</p>
+            <p class="monthly-performance-default-note">Technician accounts show the date range applied by an administrator.</p>
           </form>
           <p id="monthly-performance-status" class="status" role="status" aria-live="polite"></p>
           <div id="monthly-performance-output" hidden>
@@ -18273,6 +18289,7 @@
       query,
       runTransaction,
       serverTimestamp,
+      setDoc,
       Timestamp,
       updateDoc,
       where
@@ -19143,10 +19160,15 @@
       }
       subscribeToShift(currentState());
       subscribeToHonorHistory();
-      maybeLoadMonthlyPerformance();
+      subscribeToRankingRange();
     }
 
     function stopUserListeners() {
+      if (rankingRangeUnsubscribe) rankingRangeUnsubscribe();
+      rankingRangeUnsubscribe = null;
+      sharedRankingRange = null;
+      rankingRangeReady = false;
+      rankingRangeError = "";
       if (honorHistoryUnsubscribe) honorHistoryUnsubscribe();
       honorHistoryUnsubscribe = null;
       const daily = bridge();
@@ -19247,6 +19269,90 @@
       { minimum: 1300, name: "Platinum", key: "platinum" },
       { minimum: 1500, name: "Diamond", key: "diamond" }
     ];
+    let sharedRankingRange = null;
+    let rankingRangeUnsubscribe = null;
+    let rankingRangeReady = false;
+    let rankingRangeError = "";
+    let rankingReloadQueued = false;
+    const rankingRangeRef = doc(db, "settings", "powerRankings");
+
+    function validRankingRange(value) {
+      const validDate = (date) => typeof date === "string" && /^\d{4}-\d{2}-\d{2}$/.test(date) &&
+        !Number.isNaN(Date.parse(date + "T12:00:00Z")) && new Date(date + "T12:00:00Z").toISOString().slice(0,10) === date;
+      return value && validDate(value.start) && validDate(value.end) && value.start <= value.end;
+    }
+
+    function subscribeToRankingRange() {
+      if (rankingRangeUnsubscribe) rankingRangeUnsubscribe();
+      rankingRangeReady = false;
+      rankingRangeError = "";
+      rankingRangeUnsubscribe = onSnapshot(rankingRangeRef, { includeMetadataChanges: true }, snapshot => {
+        if (snapshot.metadata.hasPendingWrites || snapshot.metadata.fromCache) return;
+        const value = snapshot.exists() ? snapshot.data() : null;
+        if (value && !validRankingRange(value)) {
+          rankingRangeError = "The shared ranking date range is invalid. Ask an administrator to apply a valid range.";
+          rankingRangeReady = false;
+          monthlyPerformanceOutput.hidden = true;
+          setMonthlyPerformanceStatus(rankingRangeError, true);
+          return;
+        }
+        sharedRankingRange = value ? { start: value.start, end: value.end } : null;
+        rankingRangeReady = true;
+        rankingRangeError = "";
+        if (sharedRankingRange) {
+          monthlyPerformanceStart.value = sharedRankingRange.start;
+          monthlyPerformanceEnd.value = sharedRankingRange.end;
+        }
+        monthlyPerformanceLoadedRange = "";
+        monthlyPerformanceOutput.hidden = true;
+        resetMonthlyRankingExports();
+        if (monthlyPerformanceBusy) rankingReloadQueued = true;
+        else maybeLoadMonthlyPerformance(true);
+      }, error => {
+        rankingRangeReady = false;
+        rankingRangeError = "Shared ranking dates could not be loaded. " + (String(error.code || "").includes("permission-denied")
+          ? "Firebase must allow signed-in users to read settings/powerRankings and administrators to update it."
+          : "Reconnect and sign in again to retry.");
+        monthlyPerformanceOutput.hidden = true;
+        resetMonthlyRankingExports();
+        setMonthlyPerformanceStatus(rankingRangeError, true);
+      });
+    }
+
+    async function applyRankingRange(event) {
+      event.preventDefault();
+      if (!isLocalLeaderboardAdmin()) {
+        setMonthlyPerformanceStatus("Log in to the app as Admin to apply dates for everyone.", true);
+        return;
+      }
+      if (!currentUser || !accessAllowed) {
+        setMonthlyPerformanceStatus("Admin login confirmed. Connect shared sync on the Daily Tasks tab, then apply the dates again.", true);
+        return;
+      }
+      const range = { start: monthlyPerformanceStart.value, end: monthlyPerformanceEnd.value };
+      if (!validRankingRange(range) || range.start > localDateValue(new Date())) {
+        setMonthlyPerformanceStatus("Choose valid dates with the start on or before the end and today.", true);
+        return;
+      }
+      monthlyPerformanceRefresh.disabled = true;
+      setMonthlyPerformanceStatus("Applying date range for everyone…");
+      try {
+        await setDoc(rankingRangeRef, { ...range, updatedAt: serverTimestamp(), updatedByUid: currentUser.uid });
+        sharedRankingRange = range;
+        rankingRangeReady = true;
+        rankingRangeError = "";
+        monthlyPerformanceLoadedRange = "";
+        if (monthlyPerformanceBusy) rankingReloadQueued = true;
+        else await generateMonthlyPerformance();
+      } catch(error) {
+        setMonthlyPerformanceStatus("Date range was not shared. " + (String(error.code || "").includes("permission-denied")
+          ? "Your Admin login is active, but shared storage rejected the update. Its permissions must allow this shared setting to be saved."
+          : "Check your connection and try Apply to everyone again."), true);
+      } finally {
+        monthlyPerformanceRefresh.disabled = monthlyPerformanceBusy;
+      }
+    }
+
     let monthlyPerformanceLoadedRange = "";
     let monthlyPerformanceBusy = false;
     let monthlyRankingExportData = null;
@@ -19307,8 +19413,8 @@
     function monthlySelectedBounds() {
       const today = localDateValue(new Date());
       const defaultStart = today.slice(0, 7) + "-01";
-      const start = isLocalLeaderboardAdmin() ? String(monthlyPerformanceStart.value || "") : defaultStart;
-      const selectedEnd = isLocalLeaderboardAdmin() ? String(monthlyPerformanceEnd.value || "") : today;
+      const start = sharedRankingRange ? sharedRankingRange.start : defaultStart;
+      const selectedEnd = sharedRankingRange ? sharedRankingRange.end : today;
       if (!/^\d{4}-\d{2}-\d{2}$/.test(start) || !/^\d{4}-\d{2}-\d{2}$/.test(selectedEnd)) return null;
       const cutoff = selectedEnd > today ? today : selectedEnd;
       return {
@@ -19597,6 +19703,10 @@
         .join(" · ");
     }
 
+    function monthlyAveragePoints(item) {
+      return item.shiftCount > 0 ? monthlyNumber(item.points / item.shiftCount) : "—";
+    }
+
     function monthlyRankingMetric(icon, label, value) {
       const metric = document.createElement("div");
       metric.className = "monthly-ranking-metric";
@@ -19612,18 +19722,6 @@
       valueNode.textContent = value;
       metric.append(iconNode, labelNode, valueNode);
       return metric;
-    }
-
-    function monthlyShiftsWorked(count) {
-      const row = document.createElement("div");
-      row.className = "monthly-shifts-worked";
-      row.title = "Saved shifts in the selected date range. Technician totals count shifts where the person is listed on the roster.";
-      const label = document.createElement("span");
-      label.textContent = "Shifts worked";
-      const value = document.createElement("strong");
-      value.textContent = monthlyNumber(count);
-      row.append(label, value);
-      return row;
     }
 
     function monthlyRankingCardTop(rank, name, shiftLabel, streak, points, hasData) {
@@ -19647,7 +19745,7 @@
         shift.title = "Contributing shift" + (shiftLabel.indexOf("·") === -1 ? "" : "s");
         nameRow.appendChild(shift);
       }
-      identity.append(nameRow, monthlyPositionStreak(rank, streak, hasData));
+      identity.append(nameRow);
       const score = document.createElement("span");
       score.className = "monthly-ranking-points";
       const scoreValue = document.createElement("strong");
@@ -19683,6 +19781,8 @@
         const metrics = document.createElement("div");
         metrics.className = "monthly-ranking-metrics";
         metrics.append(
+          monthlyRankingMetric("SW", "Shifts worked", String(technician.shiftCount)),
+          monthlyRankingMetric("AVG", "Avg PPS", monthlyAveragePoints(technician)),
           monthlyRankingMetric("!", "Escalations", String(technician.escalationCount)),
           monthlyRankingMetric("PM", "PMs", String(technician.pmCount)),
           monthlyRankingMetric("SE", "Super escalations", String(technician.superEscalationCount)),
@@ -19697,7 +19797,6 @@
             technician.points,
             true
           ),
-          monthlyShiftsWorked(technician.shiftCount),
           medalRow,
           metrics
         );
@@ -19717,7 +19816,9 @@
         const metrics = document.createElement("div");
         metrics.className = "monthly-ranking-metrics";
         metrics.append(
-          monthlyRankingMetric("%", "Completed", completion),
+          monthlyRankingMetric("SW", "Shifts worked", String(shift.shiftCount)),
+          monthlyRankingMetric("AVG", "Avg PPS", monthlyAveragePoints(shift)),
+          monthlyRankingMetric("%", "% Completed", completion),
           monthlyRankingMetric("★", "Perfect shifts", String(shift.perfectShiftCount)),
           monthlyRankingMetric("!", "Escalations", String(shift.escalationCount)),
           monthlyRankingMetric("PM", "PMs", String(shift.pmCount)),
@@ -19733,7 +19834,6 @@
             shift.points,
             shift.shiftCount > 0
           ),
-          monthlyShiftsWorked(shift.shiftCount),
           metrics
         );
         monthlyShiftLeaders.appendChild(card);
@@ -19809,7 +19909,7 @@
       const width = 1080;
       const padding = 54;
       const cardWidth = width - padding * 2;
-      const cardHeight = technicianExport ? 250 : 286;
+      const cardHeight = technicianExport ? 326 : 362;
       const cardGap = 22;
       const headerHeight = 150;
       const footerHeight = 70;
@@ -19843,30 +19943,28 @@
         monthlySvgRect(parts, padding, y, 8, cardHeight, palette.accent, 4);
         monthlySvgRect(parts, padding + 24, y + 22, 72, 72, palette.soft, 14);
         monthlySvgText(parts, padding + 60, y + 67, rank == null ? "—" : "#" + rank, 25, 800, palette.accent, "middle");
-        monthlySvgText(parts, padding + 118, y + 50, displayName, 28, 800, "#293225");
-        if (shiftLabel) monthlySvgText(parts, padding + 118, y + 78, shiftLabel, 16, 700, "#5f7d43");
-        monthlySvgText(parts, padding + 118, y + (shiftLabel ? 104 : 82), "Streak: " + monthlyExportStreak(rank, streak, hasData), 17, 700, "#b65f25");
+        monthlySvgText(parts, width / 2, y + 50, displayName, 28, 800, "#293225", "middle");
+        if (shiftLabel) monthlySvgText(parts, width / 2, y + 78, shiftLabel, 16, 700, "#5f7d43", "middle");
         monthlySvgText(parts, width - padding - 24, y + 52, monthlyNumber(item.points), 32, 800, "#466136", "end");
         monthlySvgText(parts, width - padding - 24, y + 78, "points", 16, 700, "#6b7562", "end");
-        monthlySvgText(parts, width - padding - 24, y + 104, "Shifts worked: " + monthlyNumber(item.shiftCount), 16, 700, "#466136", "end");
 
         if (technicianExport) {
           const medal = monthlyExportMedals(item);
           monthlySvgText(parts, padding + 24, y + 137, medal.total + " medal" + (medal.total === 1 ? "" : "s"), 19, 800, "#466136");
           monthlySvgText(parts, padding + 170, y + 137, medal.detail, 16, 700, "#6b7562");
-          const labels = ["Escalations", "PMs", "Super escalations", "Error proofing"];
-          const values = [item.escalationCount, item.pmCount, item.superEscalationCount, item.errorProofingCount];
+          const labels = ["Shifts worked", "Avg PPS", "Escalations", "PMs", "Super escalations", "Error proofing"];
+          const values = [item.shiftCount, monthlyAveragePoints(item), item.escalationCount, item.pmCount, item.superEscalationCount, item.errorProofingCount];
           const gap = 12;
-          const metricWidth = (cardWidth - 48 - gap * 3) / 4;
+          const metricWidth = (cardWidth - 48 - gap * 2) / 3;
           labels.forEach((label, metricIndex) => {
-            monthlyExportMetric(parts, padding + 24 + metricIndex * (metricWidth + gap), y + 163, metricWidth, label, String(values[metricIndex]));
+            monthlyExportMetric(parts, padding + 24 + (metricIndex % 3) * (metricWidth + gap), y + 163 + Math.floor(metricIndex / 3) * 76, metricWidth, label, String(values[metricIndex]));
           });
         } else {
           const completion = item.completionAvailable
             ? Math.round((item.completionEarned / item.completionAvailable) * 100) + "%"
             : "—";
-          const labels = ["Completed", "Perfect shifts", "Escalations", "PMs", "Super escalations", "Error proofing"];
-          const values = [completion, item.perfectShiftCount, item.escalationCount, item.pmCount, item.superEscalationCount, item.errorProofingCount];
+          const labels = ["Shifts worked", "Avg PPS", "% Completed", "Perfect shifts", "Escalations", "PMs", "Super escalations", "Error proofing"];
+          const values = [item.shiftCount, monthlyAveragePoints(item), completion, item.perfectShiftCount, item.escalationCount, item.pmCount, item.superEscalationCount, item.errorProofingCount];
           const gap = 12;
           const metricWidth = (cardWidth - 48 - gap * 2) / 3;
           labels.forEach((label, metricIndex) => {
@@ -20016,6 +20114,10 @@
         setMonthlyPerformanceStatus("Sign in with Google on the Daily Tasks tab first.", true);
         return;
       }
+      if (!rankingRangeReady) {
+        setMonthlyPerformanceStatus(rankingRangeError || "Loading the shared ranking date range…", Boolean(rankingRangeError));
+        return;
+      }
       const bounds = monthlySelectedBounds();
       if (!bounds) {
         setMonthlyPerformanceStatus("Choose a start and end date.", true);
@@ -20059,7 +20161,7 @@
         renderMonthlyShifts(rankedShifts, streaks.shifts);
         monthlyPerformanceRange.textContent =
           monthlyReadableDate(bounds.start) + " – " + monthlyReadableDate(bounds.cutoff) +
-          " · Streaks count consecutive calendar days at the current rank within this range.";
+          (sharedRankingRange ? " · Admin-selected range" : " · Current month");
         monthlyPerformanceOutput.hidden = false;
         monthlyRankingExportData = {
           bounds: bounds,
@@ -20078,6 +20180,10 @@
         daily.applyCloudState(originalState);
         monthlyPerformanceRefresh.disabled = false;
         monthlyPerformanceBusy = false;
+        if (rankingReloadQueued) {
+          rankingReloadQueued = false;
+          maybeLoadMonthlyPerformance(true);
+        }
       }
     }
 
@@ -20852,12 +20958,12 @@
       const leaderboardToday = localDateValue(new Date());
       monthlyPerformanceStart.value = leaderboardToday.slice(0, 7) + "-01";
       monthlyPerformanceEnd.value = leaderboardToday;
-      monthlyPerformanceForm.addEventListener("submit", generateMonthlyPerformance);
+      monthlyPerformanceForm.addEventListener("submit", applyRankingRange);
       [monthlyPerformanceStart, monthlyPerformanceEnd].forEach((control) => control.addEventListener("change", () => {
         monthlyPerformanceLoadedRange = "";
         monthlyPerformanceOutput.hidden = true;
         resetMonthlyRankingExports();
-        setMonthlyPerformanceStatus("");
+        setMonthlyPerformanceStatus("Dates changed. Select Apply to everyone to update technician accounts.");
       }));
       window.addEventListener("hashchange", () => maybeLoadMonthlyPerformance());
     }
