@@ -6455,6 +6455,36 @@
 
 #pm-log-panel .pm-now{margin-top:8px}#pm-log-panel .pm-footer-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}#pm-log-panel .pm-timestamp-note{font-size:.875rem;color:var(--muted);line-height:1.5;margin:0 0 18px}#pm-log-panel select{min-height:46px;border:1px solid var(--line);border-radius:8px;padding:10px}#pm-log-panel select:disabled{background:var(--paper);opacity:.65}#pm-log-panel input[type=date],#pm-log-panel input[type=time]{min-height:46px;padding:10px;width:100%}#pm-log-panel .bm-submit:disabled{cursor:default}#pm-save-confirmation{max-width:460px;width:calc(100% - 32px);border:1px solid var(--line);border-radius:16px;background:var(--paper);color:var(--ink);padding:28px;box-shadow:var(--shadow)}#pm-save-confirmation::backdrop{background:#0009}#pm-save-confirmation h2{margin-top:0}#pm-save-confirmation p{line-height:1.6;white-space:pre-wrap;overflow-wrap:anywhere}#pm-save-confirmation button{width:100%;margin-top:12px}
 </style>
+<script id="shift-edit-policy">
+(()=>{
+  'use strict';
+  const zone='America/Detroit';
+  const fmt=new Intl.DateTimeFormat('en-CA',{timeZone:zone,year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',second:'2-digit',hourCycle:'h23'});
+  function deadline(state){
+    if(!state||!/^\d{4}-\d{2}-\d{2}$/.test(state.date||'')||!['B1','B2','G1','G2'].includes(state.shift))return null;
+    const [y,m,d]=state.date.split('-').map(Number),night=['B2','G2'].includes(state.shift);
+    // The selected date is the date the shift starts. Resolve plant wall time, including DST.
+    const wall=Date.UTC(y,m-1,d+(night?1:0),night?8:20);let instant=wall;
+    for(let i=0;i<3;i++){
+      const parts=Object.fromEntries(fmt.formatToParts(new Date(instant)).map(p=>[p.type,p.value]));
+      const represented=Date.UTC(+parts.year,+parts.month-1,+parts.day,+parts.hour,+parts.minute,+parts.second);
+      instant+=wall-represented;
+    }
+    return instant;
+  }
+  function current(){return {date:document.getElementById('daily-shift-date')?.value,shift:document.getElementById('daily-shift-shift')?.value};}
+  function locked(state=current(),now=Date.now()){
+    if(document.getElementById('app-shell')?.dataset.authRole==='Admin')return false;
+    const end=deadline(state);return end!==null&&now>=end;
+  }
+  const message='This shift is locked. Technician editing ends 3 hours after the shift ends. Only an Admin can make changes.';
+  window.VisionaryShiftEditPolicy={deadline,locked,current,message,assertEditable(state){if(locked(state))throw new Error(message);}};
+})();
+</script>
+<style id="power-ranking-shifts-worked-style">
+.monthly-shifts-worked{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:9px 12px;border:1px solid var(--line);border-radius:8px;background:var(--cream);color:var(--muted);font-size:.82rem;line-height:1.4}
+.monthly-shifts-worked strong{color:var(--ink);font-size:1rem;font-variant-numeric:tabular-nums;font-weight:750}
+</style>
 </head>
 <body>
   <svg class="theme-background-art matcha-theme-art matcha-art-leaves" viewBox="0 0 420 340" aria-hidden="true" focusable="false">
@@ -17137,6 +17167,7 @@
       }
 
       function saveDraft() {
+        if (window.VisionaryShiftEditPolicy.locked()) return;
         dailyShiftSaveTimer = null;
         if (!dailyShiftSavingEnabled || !dailyShiftStorage) return;
         var state = draftState();
@@ -17685,6 +17716,7 @@
           return dailyContributorOptions().filter(function(option){return option.key.indexOf('OT:')===0 || Boolean(rosterName(option.key));});
         },
         getPmContext: function (picKey) {
+          window.VisionaryShiftEditPolicy.assertEditable();
           var state=draftState(),options=this.getPmRoster(),person=options.find(function(o){return o.key===picKey;});
           if(!state.date||!state.shift)throw new Error('Choose a Daily Tasks date and shift before submitting a PM Log.');
           if(!person)throw new Error('Select a PIC from the current shift roster.');
@@ -17704,6 +17736,7 @@
         },
 
         saveBmpdEscalation: function (id, data, report, expectedShift) {
+          window.VisionaryShiftEditPolicy.assertEditable();
           var state = draftState();
           if (!state.date || !state.shift) throw new Error("Choose a Daily Tasks date and shift first.");
           if (expectedShift && expectedShift !== state.date + '_' + state.shift) throw new Error("This log belongs to a different shift. Return to that shift or start a new BM/PD log.");
@@ -18341,6 +18374,7 @@
     const inFlightShiftWrites = new Set();
 
     function rememberPendingState(state) {
+      if (window.VisionaryShiftEditPolicy.locked(state)) { pendingShiftStates.delete(shiftKeyFor(state)); return; }
       const key = shiftKeyFor(state);
       if (!key) return;
       const failedWrite = failedShiftWrites.get(key);
@@ -18756,6 +18790,7 @@
       await runTransaction(db, async (transaction) => {
         const snapshot = await transaction.get(targetRef);
         const pendingState = pendingStateFor(targetKey) || state;
+        window.VisionaryShiftEditPolicy.assertEditable(pendingState);
         if (!snapshot.exists()) {
           savedState = normalizeState(pendingState);
           transaction.set(targetRef, cloudDocument(pendingState));
@@ -18792,6 +18827,7 @@
     }
 
     async function createShiftIfMissing(state) {
+      if (window.VisionaryShiftEditPolicy.locked(state)) { pendingShiftStates.delete(shiftKeyFor(state)); return; }
       if (creatingShift || !currentShiftRef) return;
       const targetKey = currentShiftKey;
       const targetRef = currentShiftRef;
@@ -18804,6 +18840,7 @@
           const snapshot = await transaction.get(targetRef);
           if (!snapshot.exists()) {
             const pending = pendingStateFor(targetKey);
+            window.VisionaryShiftEditPolicy.assertEditable(pending || state);
             transaction.set(targetRef, cloudDocument(pending || state));
           }
         });
@@ -18849,6 +18886,7 @@
           lastCloudState = null;
           lastCloudDocument = null;
           shiftReady = true;
+          if (window.VisionaryShiftEditPolicy.locked(state)) pendingShiftStates.delete(nextKey);
           const pendingState = pendingStateFor(nextKey);
           const emptyShiftState = stateFromCloud({ date: state.date, shift: state.shift, scoringRulesVersion: 2 });
           if (pendingState) {
@@ -18871,7 +18909,8 @@
         lastCloudState = normalizeState(remoteState);
         shiftReady = true;
         const baselineState = shiftOpenBaselines.get(nextKey) || normalizeState(state);
-        const pendingState = pendingStateFor(nextKey);
+        if (window.VisionaryShiftEditPolicy.locked(state)) pendingShiftStates.delete(nextKey);
+          const pendingState = pendingStateFor(nextKey);
         let protectedState = remoteState;
         if (pendingState) protectedState = mergePendingChanges(protectedState, baselineState, pendingState);
         const protectedNormalized = normalizeState(protectedState);
@@ -18925,6 +18964,7 @@
     }
 
     async function saveStateChanges(state) {
+      if (window.VisionaryShiftEditPolicy.locked(state)) { pendingShiftStates.delete(shiftKeyFor(state)); return; }
       if (!currentUser || !accessAllowed) return;
       const targetKey = shiftKeyFor(state);
       if (!targetKey) return;
@@ -19008,6 +19048,7 @@
         if (migrationRequired) {
           savedState = await migrateShiftDocument(targetRef, targetKey, state, changedTaskKeys);
         } else {
+          window.VisionaryShiftEditPolicy.assertEditable(state);
           await updateDoc(targetRef, ...changes);
         }
         failedShiftWrites.delete(targetKey);
@@ -19030,6 +19071,7 @@
     }
 
     function scheduleCloudSave(state) {
+      if (window.VisionaryShiftEditPolicy.locked(state)) { pendingShiftStates.delete(shiftKeyFor(state)); return; }
       rememberPendingState(state);
       if (saveTimer) window.clearTimeout(saveTimer);
       const targetKey = shiftKeyFor(state);
@@ -19322,7 +19364,7 @@
           : enteredName;
         const contributor = result.contributors[option.key];
         const points = Number(contributor && contributor.points) || 0;
-        if (!name || points <= 0) return;
+        if (!name) return;
         const key = name.replace(/\s+/g, " ").toLowerCase();
         const breakdown = summary.contributorBreakdowns && summary.contributorBreakdowns[option.key] || {};
         const existing = people.get(key) || {
@@ -19387,6 +19429,7 @@
           const technician = technicianMap.get(person.key) || {
             key: person.key,
             name: person.name,
+            shiftCount: 0,
             points: 0,
             medals: MONTHLY_MEDAL_TIERS.map(() => 0),
             pmCount: 0,
@@ -19395,6 +19438,7 @@
             errorProofingCount: 0,
             shiftCounts: Object.create(null)
           };
+          technician.shiftCount += 1;
           technician.points += person.points;
           technician.pmCount += Number(person.pmCount) || 0;
           technician.escalationCount += Number(person.escalationCount) || 0;
@@ -19570,6 +19614,18 @@
       return metric;
     }
 
+    function monthlyShiftsWorked(count) {
+      const row = document.createElement("div");
+      row.className = "monthly-shifts-worked";
+      row.title = "Saved shifts in the selected date range. Technician totals count shifts where the person is listed on the roster.";
+      const label = document.createElement("span");
+      label.textContent = "Shifts worked";
+      const value = document.createElement("strong");
+      value.textContent = monthlyNumber(count);
+      row.append(label, value);
+      return row;
+    }
+
     function monthlyRankingCardTop(rank, name, shiftLabel, streak, points, hasData) {
       const top = document.createElement("div");
       top.className = "monthly-ranking-card-top";
@@ -19641,6 +19697,7 @@
             technician.points,
             true
           ),
+          monthlyShiftsWorked(technician.shiftCount),
           medalRow,
           metrics
         );
@@ -19676,6 +19733,7 @@
             shift.points,
             shift.shiftCount > 0
           ),
+          monthlyShiftsWorked(shift.shiftCount),
           metrics
         );
         monthlyShiftLeaders.appendChild(card);
@@ -19790,6 +19848,7 @@
         monthlySvgText(parts, padding + 118, y + (shiftLabel ? 104 : 82), "Streak: " + monthlyExportStreak(rank, streak, hasData), 17, 700, "#b65f25");
         monthlySvgText(parts, width - padding - 24, y + 52, monthlyNumber(item.points), 32, 800, "#466136", "end");
         monthlySvgText(parts, width - padding - 24, y + 78, "points", 16, 700, "#6b7562", "end");
+        monthlySvgText(parts, width - padding - 24, y + 104, "Shifts worked: " + monthlyNumber(item.shiftCount), 16, 700, "#466136", "end");
 
         if (technicianExport) {
           const medal = monthlyExportMedals(item);
@@ -21982,6 +22041,30 @@ tab.addEventListener('click',()=>{
   panel.scrollIntoView({block:'start'});
 });
 panel.querySelector('.cell-tracking-back').addEventListener('click',()=>taskTab.click());
+})();
+</script>
+<script id="shift-edit-lock-ui">
+(()=>{
+  const policy=window.VisionaryShiftEditPolicy,form=document.getElementById('daily-shift-form');
+  const notice=document.createElement('p');notice.id='shift-edit-lock-notice';notice.setAttribute('role','status');notice.className='daily-shift-setup-alert';form.before(notice);
+  const preserved=new Map();
+  const allowed='#daily-shift-date,#daily-shift-shift,#daily-shift-generate-bottom,#daily-shift-generate,input[type="search"],input[type="checkbox"][id*="incomplete"],button[id*="expand"],button[id*="collapse"]';
+  function editableControl(el){return el.matches('input,select,textarea,button')&&!el.matches(allowed)&&!el.closest('.daily-task-scoreboard')&&!el.matches('[aria-expanded]');}
+  function refresh(){
+    const locked=policy.locked(),end=policy.deadline(policy.current());
+    const text=locked?policy.message:(end===null?'':(document.getElementById('app-shell').dataset.authRole==='Admin'?'Admin access: shift editing is available.':'Technician editing closes '+new Date(end).toLocaleString('en-US',{timeZone:'America/Detroit',month:'short',day:'numeric',hour:'numeric',minute:'2-digit',timeZoneName:'short'})+'.'));
+    if(notice.textContent!==text)notice.textContent=text;notice.hidden=!text;
+    if(locked){form.querySelectorAll('input,select,textarea,button').forEach(el=>{if(editableControl(el)){if(!preserved.has(el))preserved.set(el,el.disabled);if(!el.disabled)el.disabled=true;}});}
+    else {preserved.forEach((disabled,el)=>{el.disabled=disabled;});preserved.clear();}
+  }
+  ['click','beforeinput','input','change','submit'].forEach(type=>document.addEventListener(type,event=>{
+    if(!policy.locked())return;
+    const control=event.target.closest('input,select,textarea,button');
+    if(form.contains(event.target)&&((control&&editableControl(control))||type==='submit')){event.preventDefault();event.stopImmediatePropagation();refresh();}
+  },true));
+  new MutationObserver(refresh).observe(form,{childList:true,subtree:true,attributes:true,attributeFilter:['disabled']});
+  new MutationObserver(refresh).observe(document.getElementById('app-shell'),{attributes:true,attributeFilter:['data-auth-role']});
+  form.addEventListener('change',refresh);window.addEventListener('visionary-daily-local-change',refresh);window.addEventListener('focus',refresh);document.addEventListener('visibilitychange',refresh);setInterval(refresh,1000);refresh();
 })();
 </script>
 </body>
