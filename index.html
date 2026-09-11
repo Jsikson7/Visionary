@@ -7186,7 +7186,7 @@
               </section>
 
               <section class="daily-checklist-group" data-daily-group="pm-completed">
-                <div class="daily-checklist-heading"><h3>10. PM's Completed</h3><span class="daily-point-badge">50 points each</span></div>
+                <div class="daily-checklist-heading"><h3>10. PM's Completed</h3><span class="daily-point-badge">60 points each</span></div>
                 <div id="daily-pm-entries" class="daily-dynamic-entries"></div>
                 <button id="daily-add-pm" class="button button-secondary daily-add-entry" type="button">+ New PM entry</button>
               </section>
@@ -13382,10 +13382,10 @@
       var LOCAL_TASK_CONFIG_KEY = "visionary-local-task-config-v1";
       var DAILY_ACCORDION_STATE_KEY = "visionary-daily-task-accordion-v1";
       var DAILY_SHIFT_DRAFT_VERSION = 10;
-      var DAILY_SCORING_RULES_VERSION = 3;
+      var DAILY_SCORING_RULES_VERSION = 2;
       var dailyScoringRulesVersion = DAILY_SCORING_RULES_VERSION;
       var DAILY_SHIFT_DRAFT_TTL_MS = 16 * 60 * 60 * 1000;
-      var DAILY_PM_POINTS = 50;
+      var DAILY_PM_POINTS = 60;
       var DAILY_ESCALATION_POINTS = 50;
       var DAILY_SUPER_ESCALATION_POINTS = 150;
       var DAILY_CONTRIBUTORS = ["Lead", "Allocation 1", "Allocation 2", "Allocation 3"];
@@ -14831,7 +14831,7 @@
       function dynamicEntryPoints(type) {
         var rulesVersion = arguments.length > 1 ? Number(arguments[1]) || 1 : dailyScoringRulesVersion;
         if (type === "super-escalation") return DAILY_SUPER_ESCALATION_POINTS;
-        if (type === "pm") return rulesVersion === 2 ? 60 : DAILY_PM_POINTS;
+        if (type === "pm") return rulesVersion < 2 ? 50 : DAILY_PM_POINTS;
         return DAILY_ESCALATION_POINTS;
       }
 
@@ -17225,7 +17225,7 @@
 
       function restoreDraft(state) {
         if (!state) return false;
-        dailyScoringRulesVersion = Number(state.scoringRulesVersion) || 1;
+        dailyScoringRulesVersion = Number(state.scoringRulesVersion) === 3 ? 2 : (Number(state.scoringRulesVersion) || 1);
         dateInput.value = state.date || localDateValue(new Date());
         shiftSelect.value = ["B1", "B2", "G1", "G2"].indexOf(state.shift) !== -1 ? state.shift : "";
         errorProofSelect.value = ["A", "B"].indexOf(state.errorProof) !== -1 ? state.errorProof : "";
@@ -18481,7 +18481,7 @@
       const source = state || {};
       return {
         version: Number(source.version) || 10,
-        scoringRulesVersion: Number(source.scoringRulesVersion) || 1,
+        scoringRulesVersion: Number(source.scoringRulesVersion) === 3 ? 2 : (Number(source.scoringRulesVersion) || 1),
         date: String(source.date || ""),
         shift: String(source.shift || ""),
         roster: {
@@ -18904,7 +18904,7 @@
           shiftReady = true;
           if (window.VisionaryShiftEditPolicy.locked(state)) pendingShiftStates.delete(nextKey);
           const pendingState = pendingStateFor(nextKey);
-          const emptyShiftState = stateFromCloud({ date: state.date, shift: state.shift, scoringRulesVersion: 3 });
+          const emptyShiftState = stateFromCloud({ date: state.date, shift: state.shift, scoringRulesVersion: 2 });
           if (pendingState) {
             const baselineState = shiftOpenBaselines.get(nextKey) || normalizeState(state);
             const firstEditedState = mergePendingChanges(emptyShiftState, baselineState, pendingState);
