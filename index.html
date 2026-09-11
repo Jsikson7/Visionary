@@ -7328,9 +7328,9 @@
                 <label for="monthly-performance-end">End date</label>
                 <input id="monthly-performance-end" type="date" required>
               </div>
-              <button id="monthly-performance-refresh" class="button button-primary" type="submit">Apply to everyone</button>
+              <button id="monthly-performance-refresh" class="button button-primary" type="submit">Refresh rankings</button>
             </div>
-            <p class="monthly-performance-default-note">Technician accounts show the date range applied by an administrator.</p>
+            <p class="monthly-performance-default-note">Showing the current calendar month through today.</p>
           </form>
           <p id="monthly-performance-status" class="status" role="status" aria-live="polite"></p>
           <div id="monthly-performance-output" hidden>
@@ -18289,7 +18289,6 @@
       query,
       runTransaction,
       serverTimestamp,
-      setDoc,
       Timestamp,
       updateDoc,
       where
@@ -19160,15 +19159,10 @@
       }
       subscribeToShift(currentState());
       subscribeToHonorHistory();
-      subscribeToRankingRange();
+      maybeLoadMonthlyPerformance();
     }
 
     function stopUserListeners() {
-      if (rankingRangeUnsubscribe) rankingRangeUnsubscribe();
-      rankingRangeUnsubscribe = null;
-      sharedRankingRange = null;
-      rankingRangeReady = false;
-      rankingRangeError = "";
       if (honorHistoryUnsubscribe) honorHistoryUnsubscribe();
       honorHistoryUnsubscribe = null;
       const daily = bridge();
@@ -19269,90 +19263,6 @@
       { minimum: 1300, name: "Platinum", key: "platinum" },
       { minimum: 1500, name: "Diamond", key: "diamond" }
     ];
-    let sharedRankingRange = null;
-    let rankingRangeUnsubscribe = null;
-    let rankingRangeReady = false;
-    let rankingRangeError = "";
-    let rankingReloadQueued = false;
-    const rankingRangeRef = doc(db, "settings", "powerRankings");
-
-    function validRankingRange(value) {
-      const validDate = (date) => typeof date === "string" && /^\d{4}-\d{2}-\d{2}$/.test(date) &&
-        !Number.isNaN(Date.parse(date + "T12:00:00Z")) && new Date(date + "T12:00:00Z").toISOString().slice(0,10) === date;
-      return value && validDate(value.start) && validDate(value.end) && value.start <= value.end;
-    }
-
-    function subscribeToRankingRange() {
-      if (rankingRangeUnsubscribe) rankingRangeUnsubscribe();
-      rankingRangeReady = false;
-      rankingRangeError = "";
-      rankingRangeUnsubscribe = onSnapshot(rankingRangeRef, { includeMetadataChanges: true }, snapshot => {
-        if (snapshot.metadata.hasPendingWrites || snapshot.metadata.fromCache) return;
-        const value = snapshot.exists() ? snapshot.data() : null;
-        if (value && !validRankingRange(value)) {
-          rankingRangeError = "The shared ranking date range is invalid. Ask an administrator to apply a valid range.";
-          rankingRangeReady = false;
-          monthlyPerformanceOutput.hidden = true;
-          setMonthlyPerformanceStatus(rankingRangeError, true);
-          return;
-        }
-        sharedRankingRange = value ? { start: value.start, end: value.end } : null;
-        rankingRangeReady = true;
-        rankingRangeError = "";
-        if (sharedRankingRange) {
-          monthlyPerformanceStart.value = sharedRankingRange.start;
-          monthlyPerformanceEnd.value = sharedRankingRange.end;
-        }
-        monthlyPerformanceLoadedRange = "";
-        monthlyPerformanceOutput.hidden = true;
-        resetMonthlyRankingExports();
-        if (monthlyPerformanceBusy) rankingReloadQueued = true;
-        else maybeLoadMonthlyPerformance(true);
-      }, error => {
-        rankingRangeReady = false;
-        rankingRangeError = "Shared ranking dates could not be loaded. " + (String(error.code || "").includes("permission-denied")
-          ? "Firebase must allow signed-in users to read settings/powerRankings and administrators to update it."
-          : "Reconnect and sign in again to retry.");
-        monthlyPerformanceOutput.hidden = true;
-        resetMonthlyRankingExports();
-        setMonthlyPerformanceStatus(rankingRangeError, true);
-      });
-    }
-
-    async function applyRankingRange(event) {
-      event.preventDefault();
-      if (!isLocalLeaderboardAdmin()) {
-        setMonthlyPerformanceStatus("Log in to the app as Admin to apply dates for everyone.", true);
-        return;
-      }
-      if (!currentUser || !accessAllowed) {
-        setMonthlyPerformanceStatus("Admin login confirmed. Connect shared sync on the Daily Tasks tab, then apply the dates again.", true);
-        return;
-      }
-      const range = { start: monthlyPerformanceStart.value, end: monthlyPerformanceEnd.value };
-      if (!validRankingRange(range) || range.start > localDateValue(new Date())) {
-        setMonthlyPerformanceStatus("Choose valid dates with the start on or before the end and today.", true);
-        return;
-      }
-      monthlyPerformanceRefresh.disabled = true;
-      setMonthlyPerformanceStatus("Applying date range for everyone…");
-      try {
-        await setDoc(rankingRangeRef, { ...range, updatedAt: serverTimestamp(), updatedByUid: currentUser.uid });
-        sharedRankingRange = range;
-        rankingRangeReady = true;
-        rankingRangeError = "";
-        monthlyPerformanceLoadedRange = "";
-        if (monthlyPerformanceBusy) rankingReloadQueued = true;
-        else await generateMonthlyPerformance();
-      } catch(error) {
-        setMonthlyPerformanceStatus("Date range was not shared. " + (String(error.code || "").includes("permission-denied")
-          ? "Your Admin login is active, but shared storage rejected the update. Its permissions must allow this shared setting to be saved."
-          : "Check your connection and try Apply to everyone again."), true);
-      } finally {
-        monthlyPerformanceRefresh.disabled = monthlyPerformanceBusy;
-      }
-    }
-
     let monthlyPerformanceLoadedRange = "";
     let monthlyPerformanceBusy = false;
     let monthlyRankingExportData = null;
@@ -19413,8 +19323,8 @@
     function monthlySelectedBounds() {
       const today = localDateValue(new Date());
       const defaultStart = today.slice(0, 7) + "-01";
-      const start = sharedRankingRange ? sharedRankingRange.start : defaultStart;
-      const selectedEnd = sharedRankingRange ? sharedRankingRange.end : today;
+      const start = isLocalLeaderboardAdmin() ? String(monthlyPerformanceStart.value || "") : defaultStart;
+      const selectedEnd = isLocalLeaderboardAdmin() ? String(monthlyPerformanceEnd.value || "") : today;
       if (!/^\d{4}-\d{2}-\d{2}$/.test(start) || !/^\d{4}-\d{2}-\d{2}$/.test(selectedEnd)) return null;
       const cutoff = selectedEnd > today ? today : selectedEnd;
       return {
@@ -20114,10 +20024,6 @@
         setMonthlyPerformanceStatus("Sign in with Google on the Daily Tasks tab first.", true);
         return;
       }
-      if (!rankingRangeReady) {
-        setMonthlyPerformanceStatus(rankingRangeError || "Loading the shared ranking date range…", Boolean(rankingRangeError));
-        return;
-      }
       const bounds = monthlySelectedBounds();
       if (!bounds) {
         setMonthlyPerformanceStatus("Choose a start and end date.", true);
@@ -20161,7 +20067,7 @@
         renderMonthlyShifts(rankedShifts, streaks.shifts);
         monthlyPerformanceRange.textContent =
           monthlyReadableDate(bounds.start) + " – " + monthlyReadableDate(bounds.cutoff) +
-          (sharedRankingRange ? " · Admin-selected range" : " · Current month");
+          " · Streaks count consecutive calendar days at the current rank within this range.";
         monthlyPerformanceOutput.hidden = false;
         monthlyRankingExportData = {
           bounds: bounds,
@@ -20180,10 +20086,6 @@
         daily.applyCloudState(originalState);
         monthlyPerformanceRefresh.disabled = false;
         monthlyPerformanceBusy = false;
-        if (rankingReloadQueued) {
-          rankingReloadQueued = false;
-          maybeLoadMonthlyPerformance(true);
-        }
       }
     }
 
@@ -20958,12 +20860,12 @@
       const leaderboardToday = localDateValue(new Date());
       monthlyPerformanceStart.value = leaderboardToday.slice(0, 7) + "-01";
       monthlyPerformanceEnd.value = leaderboardToday;
-      monthlyPerformanceForm.addEventListener("submit", applyRankingRange);
+      monthlyPerformanceForm.addEventListener("submit", generateMonthlyPerformance);
       [monthlyPerformanceStart, monthlyPerformanceEnd].forEach((control) => control.addEventListener("change", () => {
         monthlyPerformanceLoadedRange = "";
         monthlyPerformanceOutput.hidden = true;
         resetMonthlyRankingExports();
-        setMonthlyPerformanceStatus("Dates changed. Select Apply to everyone to update technician accounts.");
+        setMonthlyPerformanceStatus("");
       }));
       window.addEventListener("hashchange", () => maybeLoadMonthlyPerformance());
     }
