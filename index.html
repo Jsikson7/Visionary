@@ -6501,6 +6501,9 @@
 .monthly-ranking-metric-value{text-align:right}
 }
 </style>
+<style id="reading-rate-temporarily-disabled">
+#daily-shift-checklist [data-daily-group="reading-rate"]{display:none!important}
+</style>
 </head>
 <body>
   <svg class="theme-background-art matcha-theme-art matcha-art-leaves" viewBox="0 0 420 340" aria-hidden="true" focusable="false">
@@ -6963,7 +6966,7 @@
                 <div class="daily-shift-overall-heading"><span>Total shift completion</span><strong id="daily-shift-overall-percent">0%</strong></div>
                 <p><span id="daily-shift-overall-earned">0</span> / <span id="daily-shift-overall-available">0</span> pts earned · <span id="daily-shift-overall-missed">0</span> pts missed</p>
                 <div id="daily-shift-overall-progress" class="daily-task-progress" role="progressbar" aria-label="Total shift completion" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div id="daily-shift-overall-progress-fill" class="daily-task-progress-fill"></div></div>
-                <p class="daily-task-score-note">Cell Tracking Reading Rate checks stay tracked and synchronized but are excluded from Total shift completion.</p>
+                <p class="daily-task-score-note">Total shift completion reflects required daily tasks.</p>
               </article>
               <h4 class="daily-contribution-heading">Allocation completion rates</h4>
               <p id="daily-honor-note"></p>
@@ -6984,7 +6987,7 @@
                   <div id="daily-shift-a3-progress" class="daily-task-progress" role="progressbar" aria-label="Allocation 3 completion rate" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div id="daily-shift-a3-progress-fill" class="daily-task-progress-fill"></div></div>
                 </article>
               </div>
-              <p class="daily-task-score-note">Each rate uses that allocation's Black Frame and PKG 2 Hour Update checks. Cell Tracking Reading Rate adds points only. Entered names replace the allocation labels automatically.</p>
+              <p class="daily-task-score-note">Each rate uses that allocation's Black Frame and PKG 2 Hour Update checks. Entered names replace the allocation labels automatically.</p>
               <h4 class="daily-contribution-heading">Share of completed work</h4>
               <div class="daily-contribution-grid" aria-label="Technician work contribution">
                 <article class="daily-contribution-card"><span id="daily-contribution-lead-name">Lead</span><strong id="daily-contribution-lead-percent">0%</strong><small><span id="daily-contribution-lead-points">0</span> pts</small></article>
@@ -6992,7 +6995,7 @@
                 <article class="daily-contribution-card"><span id="daily-contribution-a2-name">Allocation 2</span><strong id="daily-contribution-a2-percent">0%</strong><small><span id="daily-contribution-a2-points">0</span> pts</small></article>
                 <article class="daily-contribution-card"><span id="daily-contribution-a3-name">Allocation 3</span><strong id="daily-contribution-a3-percent">0%</strong><small><span id="daily-contribution-a3-points">0</span> pts</small></article>
               </div>
-              <p class="daily-task-score-note">Check a task, then choose Completed By. Escalations and Super Escalations can credit multiple technicians and divide their points evenly. Allocation completion rates follow the assigned A1, A2, and A3 work. Cell Tracking Reading Rate earns points but does not affect completion percentages or count as missed work.</p>
+              <p class="daily-task-score-note">Check a task, then choose Completed By. Escalations and Super Escalations can credit multiple technicians and divide their points evenly. Allocation completion rates follow the assigned A1, A2, and A3 work.</p>
             </section>
 
             <section id="daily-task-quick-summary" class="daily-task-quick-summary" aria-label="Current shift progress">
@@ -7048,7 +7051,7 @@
                 </div>
               </section>
 
-              <section class="daily-checklist-group" data-daily-group="reading-rate">
+              <section class="daily-checklist-group" data-daily-group="reading-rate" data-temporarily-disabled="true" hidden inert>
                 <div class="daily-checklist-heading"><h3>2. Cell Tracking Reading Rate</h3><span class="daily-point-badge">All allocations</span></div>
                 <div class="daily-check-items">
                   <div class="daily-allocation-check-row">
@@ -21618,12 +21621,14 @@ btn.disabled=true;btn.textContent='처리 중... (Processing...)';
 const text=report(data),details=panel.querySelector('.bm-report'),output=details.querySelector('textarea');output.value=text;details.hidden=false;
 let copied=false;try{await navigator.clipboard.writeText(text);copied=true;}catch{details.open=true;output.focus();output.select();try{copied=document.execCommand('copy');}catch{}}
 status.textContent='Escalation card saved in section 11; points updated. '+(copied?'Report copied. Sending…':'Report ready for manual copying. Sending…');
-const controller=new AbortController(),timeout=setTimeout(()=>controller.abort(),20000);
+const slowNotice=setTimeout(()=>{
+status.textContent=(copied?'Report copied. ':'Copy the report below. ')+'Google is taking longer than usual. Keep this page open and do not submit again; the request is still processing.';
+},20000);
 try{
-await fetch('https://script.google.com/macros/s/AKfycbzWo7Wf7DfiqhIFmEUZh7m3ZsdmWBYdgk9p3EGBhLzMG_D8g6HBNhJAjYiKh_r1YisXrg/exec',{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=UTF-8'},body:JSON.stringify(data),signal:controller.signal});
-status.textContent=(copied?'Report copied. ':'Copy the report below. ')+'Submission attempted. This endpoint does not confirm whether Google Sheets saved it; verify the log before sending again.';
-}catch{status.textContent=(copied?'Report copied. ':'Copy the report below. ')+'Submission could not be confirmed. Your entries remain here. Check the log before retrying to avoid duplicates.';}
-finally{clearTimeout(timeout);btn.disabled=false;btn.textContent='저장 및 리포트 복사 (Save & Copy Report)';}
+await fetch('https://script.google.com/macros/s/AKfycbzWo7Wf7DfiqhIFmEUZh7m3ZsdmWBYdgk9p3EGBhLzMG_D8g6HBNhJAjYiKh_r1YisXrg/exec',{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=UTF-8'},body:JSON.stringify(data),keepalive:true});
+status.textContent=(copied?'Report copied. ':'Copy the report below. ')+'Submission sent to Google Sheets. Verify the log before sending again.';
+}catch(error){console.error('BM/PD submission failed',error);status.textContent=(copied?'Report copied. ':'Copy the report below. ')+'Submission failed before completion. Your entries remain here. Check your connection, then verify the log before retrying.';}
+finally{clearTimeout(slowNotice);btn.disabled=false;btn.textContent='저장 및 리포트 복사 (Save & Copy Report)';}
 });
 })();
 </script>
