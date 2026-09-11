@@ -7186,7 +7186,7 @@
               </section>
 
               <section class="daily-checklist-group" data-daily-group="pm-completed">
-                <div class="daily-checklist-heading"><h3>10. PM's Completed</h3><span class="daily-point-badge">60 points each</span></div>
+                <div class="daily-checklist-heading"><h3>10. PM's Completed</h3><span class="daily-point-badge">50 points each</span></div>
                 <div id="daily-pm-entries" class="daily-dynamic-entries"></div>
                 <button id="daily-add-pm" class="button button-secondary daily-add-entry" type="button">+ New PM entry</button>
               </section>
@@ -7315,7 +7315,7 @@
           <div class="panel-heading">
             <div>
               <h2 id="monthly-performance-title">Performance rankings</h2>
-              <p>Technicians and shifts are ranked by points, with consecutive-day position streaks.</p>
+              <p>Technicians rank by average points per shift. Teams rank by average points per shift.</p>
             </div>
           </div>
           <form id="monthly-performance-form" class="monthly-performance-controls">
@@ -7328,9 +7328,9 @@
                 <label for="monthly-performance-end">End date</label>
                 <input id="monthly-performance-end" type="date" required>
               </div>
-              <button id="monthly-performance-refresh" class="button button-primary" type="submit">Refresh rankings</button>
+              <button id="monthly-performance-refresh" class="button button-primary" type="submit">Apply to everyone</button>
             </div>
-            <p class="monthly-performance-default-note">Showing the current calendar month through today.</p>
+            <p class="monthly-performance-default-note">Technician accounts show the date range applied by an administrator.</p>
           </form>
           <p id="monthly-performance-status" class="status" role="status" aria-live="polite"></p>
           <div id="monthly-performance-output" hidden>
@@ -7339,7 +7339,7 @@
               <div class="monthly-ranking-heading">
                 <div>
                   <h3 id="monthly-technician-title" class="reports-section-heading">Top 3 technicians</h3>
-                  <p class="monthly-ranking-subtitle">Points, medals, completed activities, and position streaks.</p>
+                  <p class="monthly-ranking-subtitle">Ranked by Avg PPS · Minimum 5 shifts in the selected range. Total points and medals remain visible.</p>
                 </div>
                 <div class="monthly-ranking-actions">
                   <button id="monthly-technician-save-png" class="button button-secondary" type="button" disabled>Save PNG</button>
@@ -7351,7 +7351,7 @@
               <div class="monthly-ranking-heading">
                 <div>
                   <h3 id="monthly-shift-title" class="reports-section-heading">Top shifts</h3>
-                  <p class="monthly-ranking-subtitle">All four shifts ranked with completion, activity totals, and position streaks.</p>
+                  <p class="monthly-ranking-subtitle">Ranked by Avg PPS · Completion rate breaks ties. Requires 75% of the highest team shift count, rounded up.</p>
                 </div>
                 <div class="monthly-ranking-actions">
                   <button id="monthly-shift-save-png" class="button button-secondary" type="button" disabled>Save PNG</button>
@@ -13382,10 +13382,10 @@
       var LOCAL_TASK_CONFIG_KEY = "visionary-local-task-config-v1";
       var DAILY_ACCORDION_STATE_KEY = "visionary-daily-task-accordion-v1";
       var DAILY_SHIFT_DRAFT_VERSION = 10;
-      var DAILY_SCORING_RULES_VERSION = 2;
+      var DAILY_SCORING_RULES_VERSION = 3;
       var dailyScoringRulesVersion = DAILY_SCORING_RULES_VERSION;
       var DAILY_SHIFT_DRAFT_TTL_MS = 16 * 60 * 60 * 1000;
-      var DAILY_PM_POINTS = 60;
+      var DAILY_PM_POINTS = 50;
       var DAILY_ESCALATION_POINTS = 50;
       var DAILY_SUPER_ESCALATION_POINTS = 150;
       var DAILY_CONTRIBUTORS = ["Lead", "Allocation 1", "Allocation 2", "Allocation 3"];
@@ -14831,7 +14831,7 @@
       function dynamicEntryPoints(type) {
         var rulesVersion = arguments.length > 1 ? Number(arguments[1]) || 1 : dailyScoringRulesVersion;
         if (type === "super-escalation") return DAILY_SUPER_ESCALATION_POINTS;
-        if (type === "pm") return rulesVersion < 2 ? 50 : DAILY_PM_POINTS;
+        if (type === "pm") return rulesVersion === 2 ? 60 : DAILY_PM_POINTS;
         return DAILY_ESCALATION_POINTS;
       }
 
@@ -18289,6 +18289,7 @@
       query,
       runTransaction,
       serverTimestamp,
+      setDoc,
       Timestamp,
       updateDoc,
       where
@@ -18904,7 +18905,7 @@
           shiftReady = true;
           if (window.VisionaryShiftEditPolicy.locked(state)) pendingShiftStates.delete(nextKey);
           const pendingState = pendingStateFor(nextKey);
-          const emptyShiftState = stateFromCloud({ date: state.date, shift: state.shift, scoringRulesVersion: 2 });
+          const emptyShiftState = stateFromCloud({ date: state.date, shift: state.shift, scoringRulesVersion: 3 });
           if (pendingState) {
             const baselineState = shiftOpenBaselines.get(nextKey) || normalizeState(state);
             const firstEditedState = mergePendingChanges(emptyShiftState, baselineState, pendingState);
@@ -19159,10 +19160,15 @@
       }
       subscribeToShift(currentState());
       subscribeToHonorHistory();
-      maybeLoadMonthlyPerformance();
+      subscribeToRankingRange();
     }
 
     function stopUserListeners() {
+      if (rankingRangeUnsubscribe) rankingRangeUnsubscribe();
+      rankingRangeUnsubscribe = null;
+      sharedRankingRange = null;
+      rankingRangeReady = false;
+      rankingRangeError = "";
       if (honorHistoryUnsubscribe) honorHistoryUnsubscribe();
       honorHistoryUnsubscribe = null;
       const daily = bridge();
@@ -19263,6 +19269,90 @@
       { minimum: 1300, name: "Platinum", key: "platinum" },
       { minimum: 1500, name: "Diamond", key: "diamond" }
     ];
+    let sharedRankingRange = null;
+    let rankingRangeUnsubscribe = null;
+    let rankingRangeReady = false;
+    let rankingRangeError = "";
+    let rankingReloadQueued = false;
+    const rankingRangeRef = doc(db, "settings", "powerRankings");
+
+    function validRankingRange(value) {
+      const validDate = (date) => typeof date === "string" && /^\d{4}-\d{2}-\d{2}$/.test(date) &&
+        !Number.isNaN(Date.parse(date + "T12:00:00Z")) && new Date(date + "T12:00:00Z").toISOString().slice(0,10) === date;
+      return value && validDate(value.start) && validDate(value.end) && value.start <= value.end;
+    }
+
+    function subscribeToRankingRange() {
+      if (rankingRangeUnsubscribe) rankingRangeUnsubscribe();
+      rankingRangeReady = false;
+      rankingRangeError = "";
+      rankingRangeUnsubscribe = onSnapshot(rankingRangeRef, { includeMetadataChanges: true }, snapshot => {
+        if (snapshot.metadata.hasPendingWrites || snapshot.metadata.fromCache) return;
+        const value = snapshot.exists() ? snapshot.data() : null;
+        if (value && !validRankingRange(value)) {
+          rankingRangeError = "The shared ranking date range is invalid. Ask an administrator to apply a valid range.";
+          rankingRangeReady = false;
+          monthlyPerformanceOutput.hidden = true;
+          setMonthlyPerformanceStatus(rankingRangeError, true);
+          return;
+        }
+        sharedRankingRange = value ? { start: value.start, end: value.end } : null;
+        rankingRangeReady = true;
+        rankingRangeError = "";
+        if (sharedRankingRange) {
+          monthlyPerformanceStart.value = sharedRankingRange.start;
+          monthlyPerformanceEnd.value = sharedRankingRange.end;
+        }
+        monthlyPerformanceLoadedRange = "";
+        monthlyPerformanceOutput.hidden = true;
+        resetMonthlyRankingExports();
+        if (monthlyPerformanceBusy) rankingReloadQueued = true;
+        else maybeLoadMonthlyPerformance(true);
+      }, error => {
+        rankingRangeReady = false;
+        rankingRangeError = "Shared ranking dates could not be loaded. " + (String(error.code || "").includes("permission-denied")
+          ? "Firebase must allow signed-in users to read settings/powerRankings and administrators to update it."
+          : "Reconnect and sign in again to retry.");
+        monthlyPerformanceOutput.hidden = true;
+        resetMonthlyRankingExports();
+        setMonthlyPerformanceStatus(rankingRangeError, true);
+      });
+    }
+
+    async function applyRankingRange(event) {
+      event.preventDefault();
+      if (!isLocalLeaderboardAdmin()) {
+        setMonthlyPerformanceStatus("Log in to the app as Admin to apply dates for everyone.", true);
+        return;
+      }
+      if (!currentUser || !accessAllowed) {
+        setMonthlyPerformanceStatus("Admin login confirmed. Connect shared sync on the Daily Tasks tab, then apply the dates again.", true);
+        return;
+      }
+      const range = { start: monthlyPerformanceStart.value, end: monthlyPerformanceEnd.value };
+      if (!validRankingRange(range) || range.start > localDateValue(new Date())) {
+        setMonthlyPerformanceStatus("Choose valid dates with the start on or before the end and today.", true);
+        return;
+      }
+      monthlyPerformanceRefresh.disabled = true;
+      setMonthlyPerformanceStatus("Applying date range for everyone…");
+      try {
+        await setDoc(rankingRangeRef, { ...range, updatedAt: serverTimestamp(), updatedByUid: currentUser.uid });
+        sharedRankingRange = range;
+        rankingRangeReady = true;
+        rankingRangeError = "";
+        monthlyPerformanceLoadedRange = "";
+        if (monthlyPerformanceBusy) rankingReloadQueued = true;
+        else await generateMonthlyPerformance();
+      } catch(error) {
+        setMonthlyPerformanceStatus("Date range was not shared. " + (String(error.code || "").includes("permission-denied")
+          ? "Your Admin login is active, but shared storage rejected the update. Its permissions must allow this shared setting to be saved."
+          : "Check your connection and try Apply to everyone again."), true);
+      } finally {
+        monthlyPerformanceRefresh.disabled = monthlyPerformanceBusy;
+      }
+    }
+
     let monthlyPerformanceLoadedRange = "";
     let monthlyPerformanceBusy = false;
     let monthlyRankingExportData = null;
@@ -19323,8 +19413,8 @@
     function monthlySelectedBounds() {
       const today = localDateValue(new Date());
       const defaultStart = today.slice(0, 7) + "-01";
-      const start = isLocalLeaderboardAdmin() ? String(monthlyPerformanceStart.value || "") : defaultStart;
-      const selectedEnd = isLocalLeaderboardAdmin() ? String(monthlyPerformanceEnd.value || "") : today;
+      const start = sharedRankingRange ? sharedRankingRange.start : defaultStart;
+      const selectedEnd = sharedRankingRange ? sharedRankingRange.end : today;
       if (!/^\d{4}-\d{2}-\d{2}$/.test(start) || !/^\d{4}-\d{2}-\d{2}$/.test(selectedEnd)) return null;
       const cutoff = selectedEnd > today ? today : selectedEnd;
       return {
@@ -19487,26 +19577,31 @@
       };
     }
 
+    const RANKING_MINIMUM_TECHNICIAN_SHIFTS = 5;
+
     function monthlyRankTechnicians(technicians) {
       return technicians
-        .filter((technician) => technician.points > 0)
-        .sort((left, right) => right.points - left.points || left.name.localeCompare(right.name))
+        .filter((technician) => technician.points > 0 && technician.shiftCount >= RANKING_MINIMUM_TECHNICIAN_SHIFTS)
+        .sort((left, right) => (right.points / right.shiftCount) - (left.points / left.shiftCount) || left.name.localeCompare(right.name))
         .map((technician, index) => Object.assign({}, technician, { rank: index + 1 }));
     }
 
     function monthlyRankShifts(shifts) {
+      const requiredShifts = Math.max(1, Math.ceil(Math.max(0, ...shifts.map((shift) => shift.shiftCount)) * 0.75));
       const active = shifts
-        .filter((shift) => shift.shiftCount > 0)
+        .filter((shift) => shift.shiftCount >= requiredShifts)
         .sort((left, right) => {
           const leftPercent = left.completionAvailable ? left.completionEarned / left.completionAvailable : 0;
           const rightPercent = right.completionAvailable ? right.completionEarned / right.completionAvailable : 0;
-          return right.points - left.points || rightPercent - leftPercent || right.perfectShiftCount - left.perfectShiftCount || left.shift.localeCompare(right.shift);
+          const leftAverage = left.points / left.shiftCount;
+          const rightAverage = right.points / right.shiftCount;
+          return rightAverage - leftAverage || rightPercent - leftPercent || left.shift.localeCompare(right.shift);
         })
         .map((shift, index) => Object.assign({}, shift, { rank: index + 1 }));
       const inactive = shifts
-        .filter((shift) => !shift.shiftCount)
+        .filter((shift) => shift.shiftCount < requiredShifts)
         .sort((left, right) => left.shift.localeCompare(right.shift))
-        .map((shift) => Object.assign({}, shift, { rank: null }));
+        .map((shift) => Object.assign({}, shift, { rank: null, requiredShifts: requiredShifts }));
       return active.concat(inactive);
     }
 
@@ -19673,7 +19768,7 @@
       if (!leaders.length) {
         const empty = document.createElement("p");
         empty.className = "monthly-empty-state";
-        empty.textContent = "No technician points have been recorded for this date range.";
+        empty.textContent = "No technicians qualify yet. At least 5 recorded shifts and earned points are required within the selected date range.";
         monthlyTechnicianLeaders.appendChild(empty);
         return;
       }
@@ -19746,6 +19841,12 @@
           ),
           metrics
         );
+        if (shift.rank == null) {
+          const eligibility = document.createElement("p");
+          eligibility.className = "monthly-ranking-subtitle";
+          eligibility.textContent = "Not ranked · " + shift.shiftCount + " / " + shift.requiredShifts + " shifts required";
+          card.appendChild(eligibility);
+        }
         monthlyShiftLeaders.appendChild(card);
       });
     }
@@ -19826,7 +19927,7 @@
       const height = headerHeight + items.length * cardHeight + Math.max(0, items.length - 1) * cardGap + footerHeight;
       const parts = [];
       monthlySvgRect(parts, 0, 0, width, height, "#f2f4e8", 0);
-      monthlySvgText(parts, padding, 58, "POWER RANKINGS", 20, 800, "#5f7d43");
+      monthlySvgText(parts, padding, 58, technicianExport ? "POWER RANKINGS · AVG PPS · MINIMUM 5 SHIFTS" : "POWER RANKINGS · AVG PPS · COMPLETION TIEBREAK · 75% MINIMUM", 20, 800, "#5f7d43");
       monthlySvgText(parts, padding, 103, technicianExport ? "Top 3 Technicians" : "Top Shifts", 38, 800, "#293225");
       monthlySvgText(
         parts,
@@ -19857,6 +19958,9 @@
         if (shiftLabel) monthlySvgText(parts, width / 2, y + 78, shiftLabel, 16, 700, "#5f7d43", "middle");
         monthlySvgText(parts, width - padding - 24, y + 52, monthlyNumber(item.points), 32, 800, "#466136", "end");
         monthlySvgText(parts, width - padding - 24, y + 78, "points", 16, 700, "#6b7562", "end");
+        if (!technicianExport && item.rank == null) {
+          monthlySvgText(parts, padding + 118, y + 105, "Not ranked: " + item.shiftCount + " / " + item.requiredShifts + " shifts required", 16, 700, "#6b7562");
+        }
 
         if (technicianExport) {
           const medal = monthlyExportMedals(item);
@@ -20024,6 +20128,10 @@
         setMonthlyPerformanceStatus("Sign in with Google on the Daily Tasks tab first.", true);
         return;
       }
+      if (!rankingRangeReady) {
+        setMonthlyPerformanceStatus(rankingRangeError || "Loading the shared ranking date range…", Boolean(rankingRangeError));
+        return;
+      }
       const bounds = monthlySelectedBounds();
       if (!bounds) {
         setMonthlyPerformanceStatus("Choose a start and end date.", true);
@@ -20067,7 +20175,7 @@
         renderMonthlyShifts(rankedShifts, streaks.shifts);
         monthlyPerformanceRange.textContent =
           monthlyReadableDate(bounds.start) + " – " + monthlyReadableDate(bounds.cutoff) +
-          " · Streaks count consecutive calendar days at the current rank within this range.";
+          (sharedRankingRange ? " · Admin-selected range" : " · Current month");
         monthlyPerformanceOutput.hidden = false;
         monthlyRankingExportData = {
           bounds: bounds,
@@ -20086,6 +20194,10 @@
         daily.applyCloudState(originalState);
         monthlyPerformanceRefresh.disabled = false;
         monthlyPerformanceBusy = false;
+        if (rankingReloadQueued) {
+          rankingReloadQueued = false;
+          maybeLoadMonthlyPerformance(true);
+        }
       }
     }
 
@@ -20860,12 +20972,12 @@
       const leaderboardToday = localDateValue(new Date());
       monthlyPerformanceStart.value = leaderboardToday.slice(0, 7) + "-01";
       monthlyPerformanceEnd.value = leaderboardToday;
-      monthlyPerformanceForm.addEventListener("submit", generateMonthlyPerformance);
+      monthlyPerformanceForm.addEventListener("submit", applyRankingRange);
       [monthlyPerformanceStart, monthlyPerformanceEnd].forEach((control) => control.addEventListener("change", () => {
         monthlyPerformanceLoadedRange = "";
         monthlyPerformanceOutput.hidden = true;
         resetMonthlyRankingExports();
-        setMonthlyPerformanceStatus("");
+        setMonthlyPerformanceStatus("Dates changed. Select Apply to everyone to update technician accounts.");
       }));
       window.addEventListener("hashchange", () => maybeLoadMonthlyPerformance());
     }
