@@ -17754,14 +17754,17 @@
           return context.shiftId;
         },
 
-        saveBmpdEscalation: function (id, data, report, expectedShift) {
+        saveBmpdEscalation: function (id, data, report, expectedShift, picKey) {
           window.VisionaryShiftEditPolicy.assertEditable();
           var state = draftState();
           if (!state.date || !state.shift) throw new Error("Choose a Daily Tasks date and shift first.");
           if (expectedShift && expectedShift !== state.date + '_' + state.shift) throw new Error("This log belongs to a different shift. Return to that shift or start a new BM/PD log.");
           var workerName = canonicalRosterName(data.worker);
-          var matches = dailyContributorOptions().filter(function (option) { return canonicalRosterName(option.label) === workerName; });
-          if (matches.length !== 1) throw new Error("PIC must match exactly one technician in this shift's roster or OT Support. Update the roster or PIC before saving.");
+          // Attribute a dropdown selection by roster key, not by ambiguous typed names.
+          var matches = this.getPmRoster().filter(function (option) {
+            return (!picKey || option.key === picKey) && canonicalRosterName(option.label) === workerName;
+          });
+          if (matches.length !== 1) throw new Error("Select a technician from the current shift in the BM/PD PIC dropdown. If the roster changed, select the technician again.");
           var existing = Array.prototype.find.call(escalationEntries.querySelectorAll('[data-daily-dynamic-id]'), function (entry) { return entry.getAttribute('data-daily-dynamic-id') === id; });
           if (existing) {
             var previous = readDynamicEntry(existing, true);
@@ -21576,7 +21579,7 @@ const definitions=[
 ['source','2-3. 원인처 (Source of Cause) : *',['Camera','Lighting','PC','전장 (Electricity)','S/W','H/W','ROI 수정 (ROI Modification)','Recipe 수정 (Recipe Modification)','Calibration','공정불량 (Process Defect)','설비기인 (Machine Issue)']],
 ['startTime','3-1. 발생시간 (Occurrence Time) :',null],
 ['endTime','3-2. 조치완료 (Action Completed Time) :',null],
-['worker','4. 작업자 (PIC) : *',null,'이름 입력 (Enter Name)'],
+['worker','4. 작업자 (PIC) : *',[]],
 ['phenomenon','5. 현상 (Phenomenon) : *','textarea','현상 입력 (Enter Phenomenon)'],
 ['cause','6. 원인 (Cause) : *','textarea','원인 입력 (Enter Cause)'],
 ['action','7. 조치 (Action) : *','textarea','조치 내용 입력 (Enter Action)']];
@@ -21620,12 +21623,27 @@ function showBmpdStatus(message,isError=false){
 status.textContent=message;status.setAttribute('role',isError?'alert':'status');
 status.scrollIntoView({block:'nearest',behavior:'smooth'});
 }
-const picChoices=document.createElement('datalist');picChoices.id='bmpd-pic-options';controls.worker.setAttribute('list',picChoices.id);form.append(picChoices);
+const picNote=document.createElement('p');picNote.className='bm-status';picNote.id='bmpd-pic-note';controls.worker.setAttribute('aria-describedby',picNote.id);controls.worker.after(picNote);
+let bmpdRosterShift='',bmpdRoster=[];
 function refreshBmpdPIC(){
-const daily=window.VisionaryDailyTasks;if(!daily||!daily.getPmRoster)return;
-picChoices.replaceChildren();daily.getPmRoster().forEach(person=>picChoices.append(new Option(person.label,person.label)));
+if(bmpdSent||btn.disabled)return;
+const daily=window.VisionaryDailyTasks;
+const state=daily&&daily.getState?daily.getState():{};
+const shift=state.date&&state.shift?state.date+'_'+state.shift:'';
+const oldKey=controls.worker.value,oldPerson=bmpdRoster.find(person=>person.key===oldKey);
+const roster=daily&&daily.getPmRoster?daily.getPmRoster():[];
+const keep=shift===bmpdRosterShift&&oldPerson&&roster.some(person=>person.key===oldKey&&person.label===oldPerson.label);
+controls.worker.replaceChildren(new Option('Select scheduled technician',''));
+roster.forEach(person=>controls.worker.add(new Option(person.label+' ('+person.role.replace('OT Support','Added Technician')+')',person.key)));
+controls.worker.value=keep?oldKey:'';
+bmpdRosterShift=shift;bmpdRoster=roster;
+picNote.textContent=!shift?'Choose the date and shift in Daily Tasks first.':roster.length?'Select a technician from '+state.shift+' on '+state.date+'.':'Add technician names to this shift in Daily Tasks first.';
 }
-log.addEventListener('click',refreshBmpdPIC);controls.worker.addEventListener('focus',refreshBmpdPIC);window.addEventListener('visionary-daily-ready',refreshBmpdPIC);
+log.addEventListener('click',refreshBmpdPIC);
+window.addEventListener('visionary-daily-ready',refreshBmpdPIC);
+window.addEventListener('visionary-daily-local-change',refreshBmpdPIC);
+['daily-shift-date','daily-shift-shift'].forEach(id=>document.getElementById(id)?.addEventListener('change',refreshBmpdPIC));
+refreshBmpdPIC();
 const newLog=document.createElement('button');newLog.type='button';newLog.className='button button-secondary';newLog.textContent='Start New BM/PD Log';newLog.hidden=true;newLog.style.cssText='width:100%;margin-top:14px';form.append(newLog);
 newLog.onclick=()=>{
 form.reset();filterDropdowns();controls.startTime.value=formattedTime();controls.endTime.value=formattedTime();
@@ -21641,13 +21659,17 @@ const backToTasks=document.createElement('button');backToTasks.type='button';bac
 backToTasks.onclick=()=>{selectLog(false);view.querySelector('.hero').scrollIntoView({block:'start',behavior:'smooth'});tasks.focus({preventScroll:true});};form.append(backToTasks);
 form.addEventListener('submit',async event=>{
 event.preventDefault();if(btn.disabled||bmpdSent)return;
+refreshBmpdPIC();
 const data={},missing=[];
 for(const [key,label] of definitions){data[key]=controls[key].value.trim();if(controls[key].required&&!data[key])missing.push([key,label]);}
 if(missing.length){showBmpdStatus('Complete these required fields: '+missing.map(item=>item[1].replace(/\s*:\s*\*?$/,'')).join(', '),true);controls[missing[0][0]].focus({preventScroll:true});return;}
 try{
 const daily=window.VisionaryDailyTasks;
 if(!daily||typeof daily.saveBmpdEscalation!=='function')throw new Error('Daily Tasks has not finished loading. Keep your entries here and try again after the app loads.');
-bmpdShift=daily.saveBmpdEscalation(bmpdId,data,report(data),bmpdShift);
+const picKey=controls.worker.value,person=bmpdRoster.find(item=>item.key===picKey);
+if(!person)throw new Error('Select a technician from the current shift in PIC.');
+data.worker=person.label;
+bmpdShift=daily.saveBmpdEscalation(bmpdId,data,report(data),bmpdShift,picKey);
 }catch(error){showBmpdStatus(error.message||'Could not save the escalation. Your entries are still here.',true);return;}
 btn.disabled=true;btn.textContent='처리 중... (Processing...)';
 const text=report(data),details=panel.querySelector('.bm-report'),output=details.querySelector('textarea');output.value=text;details.hidden=false;
