@@ -21610,25 +21610,60 @@ function report(data){return `[부동 분석 공유 (Downtime Analysis Report)]
 5. 현상 (Phenomenon) : ${data.phenomenon}
 6. 원인 (Cause) : ${data.cause}
 7. 조치 (Action) : ${data.action}`;}
-let bmpdId='bmpd-'+crypto.randomUUID(),bmpdShift='';
+// Generate IDs without requiring randomUUID (unavailable on some browsers/origins).
+function newBmpdId(){return 'bmpd-'+(globalThis.crypto&&typeof globalThis.crypto.randomUUID==='function'?globalThis.crypto.randomUUID():Date.now().toString(36)+'-'+Math.random().toString(36).slice(2)+'-'+Math.random().toString(36).slice(2));}
+let bmpdId=newBmpdId(),bmpdShift='',bmpdSent=false;
+// Handle validation here so every click produces an inline explanation.
+form.noValidate=true;
+status.setAttribute('aria-live','polite');status.tabIndex=-1;
+function showBmpdStatus(message,isError=false){
+status.textContent=message;status.setAttribute('role',isError?'alert':'status');
+status.scrollIntoView({block:'nearest',behavior:'smooth'});
+}
+const picChoices=document.createElement('datalist');picChoices.id='bmpd-pic-options';controls.worker.setAttribute('list',picChoices.id);form.append(picChoices);
+function refreshBmpdPIC(){
+const daily=window.VisionaryDailyTasks;if(!daily||!daily.getPmRoster)return;
+picChoices.replaceChildren();daily.getPmRoster().forEach(person=>picChoices.append(new Option(person.label,person.label)));
+}
+log.addEventListener('click',refreshBmpdPIC);controls.worker.addEventListener('focus',refreshBmpdPIC);window.addEventListener('visionary-daily-ready',refreshBmpdPIC);
+const newLog=document.createElement('button');newLog.type='button';newLog.className='button button-secondary';newLog.textContent='Start New BM/PD Log';newLog.hidden=true;newLog.style.cssText='width:100%;margin-top:14px';form.append(newLog);
+newLog.onclick=()=>{
+form.reset();filterDropdowns();controls.startTime.value=formattedTime();controls.endTime.value=formattedTime();
+bmpdId=newBmpdId();bmpdShift='';bmpdSent=false;
+Object.values(bmSections).forEach(grid=>grid.parentElement.disabled=false);
+btn.disabled=false;btn.textContent='저장 및 리포트 복사 (Save & Copy Report)';newLog.hidden=true;
+status.textContent='';panel.querySelector('.bm-report').hidden=true;refreshBmpdPIC();controls.type.focus();
+};
+const confirmation=document.createElement('dialog');confirmation.style.cssText='max-width:460px;width:calc(100% - 32px);padding:24px;border-radius:16px';
+confirmation.innerHTML='<h2>BM/PD submission sent</h2><p>The escalation card was added to Daily Tasks. The request was sent to Google; check the sheet to confirm it was recorded.</p><button type="button" class="button button-primary">OK</button>';
+document.body.append(confirmation);confirmation.querySelector('button').onclick=()=>confirmation.close();
 const backToTasks=document.createElement('button');backToTasks.type='button';backToTasks.className='button button-secondary';backToTasks.textContent='Back to Daily Tasks';backToTasks.style.cssText='display:block;width:100%;margin-top:14px';
 backToTasks.onclick=()=>{selectLog(false);view.querySelector('.hero').scrollIntoView({block:'start',behavior:'smooth'});tasks.focus({preventScroll:true});};form.append(backToTasks);
 form.addEventListener('submit',async event=>{
-event.preventDefault();if(btn.disabled)return;
-const data={};for(const [key] of definitions){data[key]=['worker','phenomenon','cause','action'].includes(key)?controls[key].value.trim():controls[key].value;if(controls[key].required&&!data[key]){controls[key].focus();status.textContent='필수 항목을 입력해주세요. (Complete all required fields.)';return;}}
-try{bmpdShift=window.VisionaryDailyTasks.saveBmpdEscalation(bmpdId,data,report(data),bmpdShift);}catch(error){status.textContent=error.message;return;}
+event.preventDefault();if(btn.disabled||bmpdSent)return;
+const data={},missing=[];
+for(const [key,label] of definitions){data[key]=controls[key].value.trim();if(controls[key].required&&!data[key])missing.push([key,label]);}
+if(missing.length){showBmpdStatus('Complete these required fields: '+missing.map(item=>item[1].replace(/\s*:\s*\*?$/,'')).join(', '),true);controls[missing[0][0]].focus({preventScroll:true});return;}
+try{
+const daily=window.VisionaryDailyTasks;
+if(!daily||typeof daily.saveBmpdEscalation!=='function')throw new Error('Daily Tasks has not finished loading. Keep your entries here and try again after the app loads.');
+bmpdShift=daily.saveBmpdEscalation(bmpdId,data,report(data),bmpdShift);
+}catch(error){showBmpdStatus(error.message||'Could not save the escalation. Your entries are still here.',true);return;}
 btn.disabled=true;btn.textContent='처리 중... (Processing...)';
 const text=report(data),details=panel.querySelector('.bm-report'),output=details.querySelector('textarea');output.value=text;details.hidden=false;
 let copied=false;try{await navigator.clipboard.writeText(text);copied=true;}catch{details.open=true;output.focus();output.select();try{copied=document.execCommand('copy');}catch{}}
-status.textContent='Escalation card saved in section 11; points updated. '+(copied?'Report copied. Sending…':'Report ready for manual copying. Sending…');
+showBmpdStatus('Escalation card added to Daily Tasks. '+(copied?'Report copied. Sending…':'Report ready for manual copying. Sending…'));
 const slowNotice=setTimeout(()=>{
 status.textContent=(copied?'Report copied. ':'Copy the report below. ')+'Google is taking longer than usual. Keep this page open and do not submit again; the request is still processing.';
 },20000);
 try{
 await fetch('https://script.google.com/macros/s/AKfycbzWo7Wf7DfiqhIFmEUZh7m3ZsdmWBYdgk9p3EGBhLzMG_D8g6HBNhJAjYiKh_r1YisXrg/exec',{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=UTF-8'},body:JSON.stringify(data),keepalive:true});
-status.textContent=(copied?'Report copied. ':'Copy the report below. ')+'Submission sent to Google Sheets. Verify the log before sending again.';
+bmpdSent=true;newLog.hidden=false;
+Object.values(bmSections).forEach(grid=>grid.parentElement.disabled=true);
+showBmpdStatus((copied?'Report copied. ':'Copy the report below. ')+'Submission sent. Check Google Sheets to confirm it was recorded. Use Start New BM/PD Log for another entry.');
+if(typeof confirmation.showModal==='function'){try{confirmation.showModal();}catch{}}
 }catch(error){console.error('BM/PD submission failed',error);status.textContent=(copied?'Report copied. ':'Copy the report below. ')+'Submission failed before completion. Your entries remain here. Check your connection, then verify the log before retrying.';}
-finally{clearTimeout(slowNotice);btn.disabled=false;btn.textContent='저장 및 리포트 복사 (Save & Copy Report)';}
+finally{clearTimeout(slowNotice);btn.disabled=bmpdSent;btn.textContent=bmpdSent?'Submission sent':'저장 및 리포트 복사 (Save & Copy Report)';}
 });
 })();
 </script>
