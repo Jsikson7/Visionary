@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="description" content="A mobile-friendly collection of vision production guides, troubleshooting history, and copy-ready reporting tools.">
-  <meta name="visionary-app-version" content="3.0.47">
+  <meta name="visionary-app-version" content="3.0.48">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
@@ -6772,8 +6772,8 @@
           <button id="open-daily-tasks" class="form-tile" type="button">
             <span class="form-tile-icon" aria-hidden="true">DT</span>
             <span class="form-tile-copy">
-              <strong>Daily Tasks</strong>
-              <small>Track the shift checklist and open BM/PD, PM, and Cell Tracking logs.</small>
+              <strong>MI2 Daily Tasks</strong>
+              <small>Track the MI2 shift checklist and open BM/PD, PM, and Cell Tracking logs.</small>
             </span>
             <span class="form-tile-arrow" aria-hidden="true">›</span>
           </button>
@@ -6819,7 +6819,7 @@
             <span class="form-tile-arrow" aria-hidden="true">›</span>
           </button>
         </div>
-        <p class="last-updated">Version 3.0.47 · Last updated: <time datetime="2026-09-14">September 14, 2026</time></p>
+        <p class="last-updated">Version 3.0.48 · Last updated: <time datetime="2026-09-14">September 14, 2026</time></p>
         <div class="version-history-link-wrap">
           <button id="open-version-history" class="version-history-link" type="button">View version history</button>
         </div>
@@ -6943,7 +6943,7 @@
       <header class="hero">
         <div>
           <p class="eyebrow">Shift task tracker</p>
-          <h1 id="daily-tasks-title">Daily Tasks</h1>
+          <h1 id="daily-tasks-title">MI2 Daily Tasks</h1>
           <p class="hero-copy">Choose the shift and Technician, then check off work as it is completed.</p>
         </div>
         <button id="daily-tasks-back" class="button button-secondary top-action-button" type="button">Back</button>
@@ -6956,7 +6956,7 @@
             <div class="daily-cloud-copy">
               <strong id="daily-cloud-title">Shared shift synchronization</strong>
               <span id="daily-cloud-status" role="status" aria-live="polite">Sign in with Google to share Daily Tasks across phones.</span>
-              <small>Safe Sync v6.2 · App <span id="daily-app-version">3.0.47</span><span id="daily-version-health" class="daily-version-health" hidden></span></small>
+              <small>Safe Sync v6.2 · App <span id="daily-app-version">3.0.48</span><span id="daily-version-health" class="daily-version-health" hidden></span></small>
             </div>
           </div>
           <div class="daily-cloud-actions">
@@ -7695,7 +7695,12 @@
 
       <section class="panel" aria-label="Release history">
         <div class="version-history-list">
-          <article class="version-card version-card-current"><div class="version-card-heading"><h2>Version 3.0.47</h2><time datetime="2026-09-14">September 14, 2026</time></div>
+          <article class="version-card version-card-current"><div class="version-card-heading"><h2>Version 3.0.48</h2><time datetime="2026-09-14">September 14, 2026</time></div>
+            <p class="version-summary-intro">Renamed the existing production tracker to MI2 Daily Tasks.</p><ul class="version-summary-list">
+            <li><strong>Clear MI2 identity</strong>The existing Daily Tasks tab, page heading, home tile, and browser title now identify the tracker as MI2 Daily Tasks.</li>
+            <li><strong>Existing data protected</strong>Internal routes, element IDs, shift-history keys, and shared synchronization identifiers are unchanged, so current MI2 records continue to load normally.</li>
+            <li><strong>Ready for MI1</strong>The naming now leaves a clear path for a separate MI1 Daily Tasks tab with its own trackers in a future update.</li></ul></article>
+          <article class="version-card"><div class="version-card-heading"><h2>Version 3.0.47</h2><time datetime="2026-09-14">September 14, 2026</time></div>
             <p class="version-summary-intro">Added automatic stale-version and shared-sync safety warnings.</p><ul class="version-summary-list">
             <li><strong>Outdated build warning</strong>The hosted app checks the deployed index with a cache-busting request and prompts the user to refresh when a newer app version is available.</li>
             <li><strong>Sync health warning</strong>Cloud errors, offline status, and unusually long pending sync states trigger a clear popup so technicians know the phone backup may not yet be shared.</li>
@@ -8921,6 +8926,7 @@
         "Copy/Paste": "복사/붙여넣기",
         "Open the copy-ready production report tools.": "복사 가능한 생산 보고서 도구를 엽니다.",
         "Daily Tasks": "일일 작업",
+        "MI2 Daily Tasks": "MI2 일일 작업",
         "Track assigned shift work, completion, and points.": "배정된 교대 작업, 완료 상태 및 점수를 기록합니다.",
         "Shift task tracker": "교대 작업 추적기",
         "Choose the shift and Technician, then check off work as it is completed.": "근무조와 기술자를 선택한 다음 완료된 작업을 체크하세요.",
@@ -9029,6 +9035,8 @@
         "Open Full Screen": "전체 화면으로 열기",
         "If the embedded form does not appear or feels cramped, use Open Full Screen.": "포함된 양식이 표시되지 않거나 화면이 좁으면 전체 화면으로 열기를 사용하세요.",
         "Loading Microsoft Form…": "Microsoft 양식을 불러오는 중…",
+        "Version 3.0.48 · Last updated:": "버전 3.0.48 · 마지막 업데이트:",
+        "Version 3.0.48": "버전 3.0.48",
         "Version 3.0.47 · Last updated:": "버전 3.0.47 · 마지막 업데이트:",
         "Version 3.0.47": "버전 3.0.47",
         "Version 3.0.46": "버전 3.0.46",
@@ -9598,6 +9606,7 @@
           "Guides - Visionary Tool": "가이드 - Visionary Tool",
           "Copy/Paste - Visionary Tool": "복사/붙여넣기 - Visionary Tool",
           "Daily Tasks - Visionary Tool": "일일 작업 - Visionary Tool",
+          "MI2 Daily Tasks - Visionary Tool": "MI2 일일 작업 - Visionary Tool",
           "PKG DL Update": "PKG DL 업데이트",
           "LNS IQ Check": "LNS IQ 검사",
           "L&S Top 3 High NG": "L&S 불량 상위 3개",
@@ -11738,7 +11747,7 @@
         }
         if (showGuidesMenu) document.title = localizedPageTitle("Guides - Visionary Tool");
         else if (showCopyMenu) document.title = localizedPageTitle("Copy/Paste - Visionary Tool");
-        else if (showDailyTasks) document.title = localizedPageTitle("Daily Tasks - Visionary Tool");
+        else if (showDailyTasks) document.title = localizedPageTitle("MI2 Daily Tasks - Visionary Tool");
         else if (showLiveDashboard) document.title = localizedPageTitle("Live Dashboard - Visionary Tool");
         else if (showLeaderboard) document.title = localizedPageTitle("Power Rankings - Visionary Tool");
         else if (showBmpdTrends) document.title = localizedPageTitle("BM/PD Trends - Visionary Tool");
@@ -18532,7 +18541,7 @@
     const provider = new GoogleAuthProvider();
     provider.setCustomParameters({ prompt: "select_account" });
     const SYNC_PROTOCOL_VERSION = 6;
-    const APP_VERSION = String(document.querySelector('meta[name="visionary-app-version"]')?.content || "3.0.47");
+    const APP_VERSION = String(document.querySelector('meta[name="visionary-app-version"]')?.content || "3.0.48");
     const HOSTED_APP_ROOT = "https://jsikson7.github.io/Visionary/";
     const HOSTED_APP_URL = HOSTED_APP_ROOT + "?v=" + APP_VERSION.replace(/\D/g, "");
     const isDirectFilePage = !["http:", "https:"].includes(window.location.protocol);
@@ -21881,7 +21890,7 @@ const view=document.getElementById('daily-tasks-view'), workspace=view.querySele
 const nav=document.createElement('div');nav.className='bmpd-nav';nav.setAttribute('role','tablist');
 const tasks=document.createElement('button'),log=document.createElement('button');
 [tasks,log].forEach(b=>{b.type='button';b.className='button button-secondary';b.setAttribute('role','tab');});
-tasks.textContent='Daily Tasks';log.textContent='BM/PD Log';tasks.id='bmpd-task-tab';log.id='bmpd-log-tab';
+tasks.textContent='MI2 Daily Tasks';log.textContent='BM/PD Log';tasks.id='bmpd-task-tab';log.id='bmpd-log-tab';
 nav.append(tasks,log);workspace.before(nav);
 const panel=document.createElement('section');panel.id='bmpd-log-panel';panel.hidden=true;panel.setAttribute('role','tabpanel');panel.setAttribute('aria-labelledby',log.id);
 workspace.id=workspace.id||'daily-task-workspace';tasks.setAttribute('aria-controls',workspace.id);log.setAttribute('aria-controls',panel.id);
