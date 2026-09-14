@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="description" content="A mobile-friendly collection of vision production guides, troubleshooting history, and copy-ready reporting tools.">
-  <meta name="visionary-app-version" content="3.0.42">
+  <meta name="visionary-app-version" content="3.0.44">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
@@ -6757,7 +6757,7 @@
             <span class="form-tile-arrow" aria-hidden="true">›</span>
           </button>
         </div>
-        <p class="last-updated">Version 3.0.42 · Last updated: <time datetime="2026-09-10">September 10, 2026</time></p>
+        <p class="last-updated">Version 3.0.44 · Last updated: <time datetime="2026-09-14">September 14, 2026</time></p>
         <div class="version-history-link-wrap">
           <button id="open-version-history" class="version-history-link" type="button">View version history</button>
         </div>
@@ -7189,13 +7189,13 @@
               </section>
 
               <section class="daily-checklist-group" data-daily-group="pm-completed">
-                <div class="daily-checklist-heading"><h3>10. PM's Completed</h3><span class="daily-point-badge">60 points each</span></div>
+                <div class="daily-checklist-heading"><h3>10. PM's Completed</h3><span class="daily-point-badge">50 points each</span></div>
                 <div id="daily-pm-entries" class="daily-dynamic-entries"></div>
                 <button id="daily-add-pm" class="button button-secondary daily-add-entry" type="button">+ New PM entry</button>
               </section>
 
               <section class="daily-checklist-group" data-daily-group="escalations">
-                <div class="daily-checklist-heading"><h3>11. Escalations</h3><span class="daily-point-badge">50 points each</span></div>
+                <div class="daily-checklist-heading"><h3>11. Escalations</h3><span class="daily-point-badge">25 manual · 50 BM/PD</span></div>
                 <div id="daily-escalation-entries" class="daily-dynamic-entries"></div>
                 <button id="daily-add-escalation" class="button button-secondary daily-add-entry" type="button">+ New escalation</button>
               </section>
@@ -7633,6 +7633,16 @@
 
       <section class="panel" aria-label="Release history">
         <div class="version-history-list">
+          <article class="version-card"><div class="version-card-heading"><h2>Version 3.0.44</h2><time datetime="2026-09-14">September 14, 2026</time></div>
+            <p class="version-summary-intro">Normalized PM scoring to 50 points across all historical and future shifts.</p><ul class="version-summary-list">
+            <li><strong>All PM history</strong>Every completed PM now contributes 50 points, including shifts originally saved while PMs were worth 60.</li>
+            <li><strong>Historical rankings recalculated</strong>Reports, Power Rankings, contributor totals, and achievement medal thresholds now evaluate historical PM work at 50 points.</li>
+            <li><strong>Other grandfathered rules retained</strong>Historical LNS TOP NG, Error Proofing, and escalation scoring continue to follow their existing saved scoring-rule versions.</li></ul></article>
+          <article class="version-card"><div class="version-card-heading"><h2>Version 3.0.43</h2><time datetime="2026-09-14">September 14, 2026</time></div>
+            <p class="version-summary-intro">Updated PM and escalation scoring while protecting previously recorded points and achievements.</p><ul class="version-summary-list">
+            <li><strong>PM scoring</strong>New PM completions earn 50 points instead of 60.</li>
+            <li><strong>Escalation source scoring</strong>Manual escalation entries earn 25 points; escalations submitted through the BM/PD Log retain the full 50 points.</li>
+            <li><strong>Historical scoring preserved</strong>Saved dynamic entries retain the scoring-rule version they were created under, so prior point totals and achievement medals are not recalculated by this update.</li></ul></article>
           <article class="version-card"><div class="version-card-heading"><h2>Version 3.0.42</h2><time datetime="2026-09-10">September 10, 2026</time></div>
             <p class="version-summary-intro">Embedded the existing Microsoft Cell Tracking form inside Daily Tasks.</p><ul class="version-summary-list">
             <li><strong>Dedicated tab</strong>Cell Tracking now appears beside Daily Tasks, BM/PD Log, and PM Log.</li>
@@ -8942,7 +8952,8 @@
         "Open Full Screen": "전체 화면으로 열기",
         "If the embedded form does not appear or feels cramped, use Open Full Screen.": "포함된 양식이 표시되지 않거나 화면이 좁으면 전체 화면으로 열기를 사용하세요.",
         "Loading Microsoft Form…": "Microsoft 양식을 불러오는 중…",
-        "Version 3.0.42 · Last updated:": "버전 3.0.42 · 마지막 업데이트:",
+        "Version 3.0.44 · Last updated:": "버전 3.0.44 · 마지막 업데이트:",
+        "Version 3.0.44": "버전 3.0.44",
         "Version 3.0.42": "버전 3.0.42",
         "Version 3.0.41": "버전 3.0.41",
         "Version 3.0.23": "버전 3.0.23",
@@ -9254,6 +9265,7 @@
         "Escalations": "에스컬레이션",
         "Super Escalations": "슈퍼 에스컬레이션",
         "150 points each": "각 150점",
+        "25 manual · 50 BM/PD": "수동 25점 · BM/PD 50점",
         "+ New super escalation": "+ 새 슈퍼 에스컬레이션",
         "Top Contributor": "최고 기여자",
         "Work Contribution": "업무 기여도",
@@ -9669,7 +9681,7 @@
           id: "pm-completed",
           title: "PM Completed",
           process: "LNS",
-          points: 25,
+          points: 50,
           planned: 1,
           detail: "Enter the machine or PM item"
         },
@@ -9677,7 +9689,7 @@
           id: "escalation-logged",
           title: "Escalation Logged",
           process: "Other",
-          points: 50,
+          points: 25,
           planned: 1,
           detail: "Enter the process, machine, or issue"
         },
@@ -13385,11 +13397,12 @@
       var LOCAL_TASK_CONFIG_KEY = "visionary-local-task-config-v1";
       var DAILY_ACCORDION_STATE_KEY = "visionary-daily-task-accordion-v1";
       var DAILY_SHIFT_DRAFT_VERSION = 10;
-      var DAILY_SCORING_RULES_VERSION = 2;
+      var DAILY_SCORING_RULES_VERSION = 4;
       var dailyScoringRulesVersion = DAILY_SCORING_RULES_VERSION;
       var DAILY_SHIFT_DRAFT_TTL_MS = 16 * 60 * 60 * 1000;
-      var DAILY_PM_POINTS = 60;
+      var DAILY_PM_POINTS = 50;
       var DAILY_ESCALATION_POINTS = 50;
+      var DAILY_MANUAL_ESCALATION_POINTS = 25;
       var DAILY_SUPER_ESCALATION_POINTS = 150;
       var DAILY_CONTRIBUTORS = ["Lead", "Allocation 1", "Allocation 2", "Allocation 3"];
       var DAILY_SHIFT_TECHNICIANS = {
@@ -14153,13 +14166,16 @@
             ? "pm"
             : (groupName === "super-escalations" ? "super-escalation" : "escalation");
           var container = dynamicEntryContainer(dynamicType);
-          var pointsPerEntry = dynamicEntryPoints(dynamicType);
           var entries = collectDynamic(container).filter(dynamicEntryIsActive);
           var completedEntries = entries.filter(function (entry) {
-            return entry.complete && entry.completedBy;
+            return entry.complete && completedByKeysFromData(entry).length > 0;
           });
-          var available = entries.length * pointsPerEntry;
-          var earned = completedEntries.length * pointsPerEntry;
+          var available = entries.reduce(function (sum, entry) {
+            return sum + dynamicEntryPoints(dynamicType, dailyScoringRulesVersion, entry);
+          }, 0);
+          var earned = completedEntries.reduce(function (sum, entry) {
+            return sum + dynamicEntryPoints(dynamicType, dailyScoringRulesVersion, entry);
+          }, 0);
           return {
             complete: entries.length > 0 && completedEntries.length === entries.length,
             missing: entries.some(function (entry) { return !entry.complete || !entry.completedBy; }),
@@ -14545,7 +14561,7 @@
       }
 
       function dynamicPointCreditText(type, entryData) {
-        var points = dynamicEntryPoints(type);
+        var points = dynamicEntryPoints(type, dailyScoringRulesVersion, entryData);
         var technicians = completedByKeysFromData(entryData);
         if (dynamicEntrySupportsMultipleTechnicians(type) && technicians.length > 1) {
           return displayPoints(points) + " pts total · " + displayPoints(points / technicians.length) + " pts each";
@@ -14570,7 +14586,7 @@
         addButton.textContent = "+ Add another technician";
         var hint = document.createElement("p");
         hint.className = "daily-super-completed-by-hint";
-        hint.textContent = "The " + displayPoints(dynamicEntryPoints(type)) + " points are divided evenly between everyone selected.";
+        hint.textContent = "The " + displayPoints(dynamicEntryPoints(type, dailyScoringRulesVersion, source)) + " points are divided evenly between everyone selected.";
         var nextRowId = 1;
 
         function updateAddButton() {
@@ -14831,10 +14847,31 @@
         populateFilteredSelect(vision, choices.visions, typeof preferredVision === "string" ? preferredVision : vision.value);
       }
 
-      function dynamicEntryPoints(type) {
-        var rulesVersion = arguments.length > 1 ? Number(arguments[1]) || 1 : dailyScoringRulesVersion;
+      function dynamicEntrySource(entryData) {
+        var data = entryData || {};
+        var source = String(data.source || "").trim().toLowerCase();
+        if (source) return source;
+        var id = String(data.id || "");
+        if (/^bmpd-/.test(id)) return "bmpd";
+        if (/^pm-log-/.test(id)) return "pm-log";
+        return "manual";
+      }
+
+      function dynamicEntryRulesVersion(entryData, fallbackVersion) {
+        var entryVersion = Number(entryData && entryData.scoringRulesVersion);
+        if (isFinite(entryVersion) && entryVersion > 0) return entryVersion;
+        var fallback = Number(fallbackVersion);
+        if (isFinite(fallback) && fallback > 0) return fallback;
+        return dailyScoringRulesVersion;
+      }
+
+      function dynamicEntryPoints(type, rulesVersion, entryData) {
+        var version = dynamicEntryRulesVersion(entryData, rulesVersion);
         if (type === "super-escalation") return DAILY_SUPER_ESCALATION_POINTS;
-        if (type === "pm") return rulesVersion < 2 ? 50 : DAILY_PM_POINTS;
+        if (type === "pm") return DAILY_PM_POINTS;
+        if (type === "escalation" && version >= 3 && dynamicEntrySource(entryData) !== "bmpd") {
+          return DAILY_MANUAL_ESCALATION_POINTS;
+        }
         return DAILY_ESCALATION_POINTS;
       }
 
@@ -14865,7 +14902,9 @@
         var errorBadge = form.querySelector('[data-daily-group="error-proofing"] .daily-point-badge');
         if (errorBadge) errorBadge.textContent = (dailyScoringRulesVersion < 2 ? 75 : 50) + " points each";
         var pmBadge = form.querySelector('[data-daily-group="pm-completed"] .daily-point-badge');
-        if (pmBadge) pmBadge.textContent = displayPoints(dynamicEntryPoints("pm")) + " points each";
+        if (pmBadge) pmBadge.textContent = displayPoints(dynamicEntryPoints("pm", DAILY_SCORING_RULES_VERSION, { scoringRulesVersion: DAILY_SCORING_RULES_VERSION })) + " points each";
+        var escalationBadge = form.querySelector('[data-daily-group="escalations"] .daily-point-badge');
+        if (escalationBadge) escalationBadge.textContent = displayPoints(DAILY_MANUAL_ESCALATION_POINTS) + " manual · " + displayPoints(DAILY_ESCALATION_POINTS) + " BM/PD";
       }
 
       function dynamicEntryContainer(type) {
@@ -14901,6 +14940,8 @@
         var current = {
           id: entry.getAttribute("data-daily-dynamic-id") || "",
           saved: entry.getAttribute("data-saved") === "true",
+          scoringRulesVersion: Number(entry.getAttribute("data-scoring-rules-version")) || dailyScoringRulesVersion,
+          source: entry.getAttribute("data-entry-source") || "manual",
           complete: Boolean(complete && complete.checked),
           process: value("process"),
           machine: value("machine"),
@@ -14954,6 +14995,12 @@
       function applyDynamicEntryData(entry, data) {
         var source = data || {};
         var type = entry.getAttribute("data-daily-dynamic-type") || "escalation";
+        var existingVersion = Number(entry.getAttribute("data-scoring-rules-version")) || 0;
+        var nextVersion = Number(source.scoringRulesVersion) || existingVersion || dailyScoringRulesVersion;
+        var existingSource = entry.getAttribute("data-entry-source") || "";
+        var nextSource = String(source.source || existingSource || dynamicEntrySource(source) || "manual");
+        entry.setAttribute("data-scoring-rules-version", String(nextVersion));
+        entry.setAttribute("data-entry-source", nextSource);
         var complete = entry.querySelector('[data-daily-dynamic-field="complete"]');
         var process = entry.querySelector('[data-daily-dynamic-field="process"]');
         var completedBy = entry.querySelector('[data-daily-dynamic-field="completedBy"]');
@@ -14985,12 +15032,18 @@
       }
 
       function createDynamicEntry(type, source) {
-        var data = source || {};
+        var original = source || {};
+        var data = Object.assign({}, original);
         var sentenceLabel = dynamicEntrySentenceLabel(type);
-        var points = dynamicEntryPoints(type);
         var container = dynamicEntryContainer(type);
         var domId = dailyDynamicNextId++;
-        var id = data.id === 0 || data.id ? String(data.id) : "entry-" + Date.now().toString(36) + "-" + Math.random().toString(36).slice(2, 9);
+        var hasStoredIdentity = data.id === 0 || Boolean(data.id);
+        var id = hasStoredIdentity ? String(data.id) : "entry-" + Date.now().toString(36) + "-" + Math.random().toString(36).slice(2, 9);
+        if (!Number(data.scoringRulesVersion)) {
+          data.scoringRulesVersion = (data.saved === true || hasStoredIdentity) ? dailyScoringRulesVersion : DAILY_SCORING_RULES_VERSION;
+        }
+        if (!data.source) data.source = dynamicEntrySource({ id: id });
+        var points = dynamicEntryPoints(type, dailyScoringRulesVersion, data);
         var prefix = "daily-" + type + "-" + domId;
         var saved = typeof data.saved === "boolean" ? data.saved : dynamicEntryHasData(data);
 
@@ -14998,6 +15051,8 @@
         entry.className = "daily-dynamic-entry";
         entry.setAttribute("data-daily-dynamic-type", type);
         entry.setAttribute("data-daily-dynamic-id", String(id));
+        entry.setAttribute("data-scoring-rules-version", String(data.scoringRulesVersion));
+        entry.setAttribute("data-entry-source", String(data.source || "manual"));
         entry.setAttribute("data-saved", saved ? "true" : "false");
 
         var summary = document.createElement("div");
@@ -15285,9 +15340,9 @@
           { type: "escalation", container: escalationEntries },
           { type: "super-escalation", container: superEscalationEntries }
         ].forEach(function (group) {
-          var points = dynamicEntryPoints(group.type);
           collectDynamic(group.container).forEach(function (entry) {
             if (!dynamicEntryIsActive(entry)) return;
+            var points = dynamicEntryPoints(group.type, dailyScoringRulesVersion, entry);
             var completedByKeys = completedByKeysFromData(entry);
             result.available += points;
             result.completionAvailable += points;
@@ -15500,9 +15555,12 @@
 
       function dynamicReportTotal(container) {
         var entries = collectDynamic(container).filter(dynamicEntryIsActive);
+        var type = dynamicEntryTypeForContainer(container);
         return {
           count: entries.length,
-          points: entries.length * dynamicEntryPoints(dynamicEntryTypeForContainer(container))
+          points: entries.reduce(function (sum, entry) {
+            return sum + dynamicEntryPoints(type, dailyScoringRulesVersion, entry);
+          }, 0)
         };
       }
 
@@ -15579,7 +15637,7 @@
           entries.forEach(function (entry) {
             if (!entry || entry.saved === false || !entry.complete) return;
             var keys = completedByKeysFromData(entry);
-            keys.forEach(function (key) { award(key, dynamicEntryPoints(group[1], state.scoringRulesVersion) / keys.length); });
+            keys.forEach(function (key) { award(key, dynamicEntryPoints(group[1], state.scoringRulesVersion, entry) / keys.length); });
           });
         });
         return totals;
@@ -16044,8 +16102,8 @@
 
       function appendDynamicReportSection(titleText, container, emptyText) {
         var type = dynamicEntryTypeForContainer(container);
-        var points = dynamicEntryPoints(type);
         appendReportDetailSection(titleText, activeDynamicReportEntries(container), emptyText, function (entry) {
+          var points = dynamicEntryPoints(type, dailyScoringRulesVersion, entry);
           var details = [entry.process, entry.machine, entry.vision].filter(Boolean).join(" · ") || "Details not entered";
           var completedByKeys = completedByKeysFromData(entry);
           var credited = entry.complete && completedByKeys.length > 0;
@@ -17228,7 +17286,7 @@
 
       function restoreDraft(state) {
         if (!state) return false;
-        dailyScoringRulesVersion = Number(state.scoringRulesVersion) === 3 ? 2 : (Number(state.scoringRulesVersion) || 1);
+        dailyScoringRulesVersion = Number(state.scoringRulesVersion) || 1;
         dateInput.value = state.date || localDateValue(new Date());
         shiftSelect.value = ["B1", "B2", "G1", "G2"].indexOf(state.shift) !== -1 ? state.shift : "";
         errorProofSelect.value = ["A", "B"].indexOf(state.errorProof) !== -1 ? state.errorProof : "";
@@ -17747,7 +17805,7 @@
           if(context.pic!==data.pic)throw new Error('PM Log saved to Google, but the PIC roster entry changed. Restore the original PIC and select Add to PM completed.');
           var existing=Array.prototype.find.call(pmEntries.querySelectorAll('[data-daily-dynamic-id]'),function(entry){return entry.getAttribute('data-daily-dynamic-id')===id;});
           if(!existing){
-            createDynamicEntry('pm',{id:id,saved:true,complete:true,process:['LAMI','STK'].indexOf(data.process)>=0?'LNS':data.process,machine:data.machine,vision:data.vision,completedBy:data.picKey,completedByList:[data.picKey],comment:report});
+            createDynamicEntry('pm',{id:id,saved:true,scoringRulesVersion:DAILY_SCORING_RULES_VERSION,source:'pm-log',complete:true,process:['LAMI','STK'].indexOf(data.process)>=0?'LNS':data.process,machine:data.machine,vision:data.vision,completedBy:data.picKey,completedByList:[data.picKey],comment:report});
             ensureDynamicEditor('pm');
           }
           updateDailyShift();
@@ -17774,7 +17832,7 @@
             applyDynamicEntryData(existing, { id: id, saved: true, complete: true, process: data.process === 'Lami' || data.process === 'STK' ? 'LNS' : data.process, machine: data.hogi, vision: data.visionType, completedBy: credits[0], completedByList: credits, comment: report });
             setDynamicEntryMode(existing, true, false);
           } else {
-            createDynamicEntry('escalation', { id: id, saved: true, complete: true, process: data.process === 'Lami' || data.process === 'STK' ? 'LNS' : data.process, machine: data.hogi, vision: data.visionType, completedBy: matches[0].key, completedByList: [matches[0].key], comment: report });
+            createDynamicEntry('escalation', { id: id, saved: true, scoringRulesVersion: DAILY_SCORING_RULES_VERSION, source: 'bmpd', complete: true, process: data.process === 'Lami' || data.process === 'STK' ? 'LNS' : data.process, machine: data.hogi, vision: data.visionType, completedBy: matches[0].key, completedByList: [matches[0].key], comment: report });
           }
           ensureDynamicEditor('escalation');
           updateDailyShift();
@@ -18460,6 +18518,8 @@
       const cleaned = {
         id: String(entry && entry.id || ""),
         saved: true,
+        scoringRulesVersion: Number(entry && entry.scoringRulesVersion) || 0,
+        source: String(entry && entry.source || (/^bmpd-/.test(String(entry && entry.id || "")) ? "bmpd" : (/^pm-log-/.test(String(entry && entry.id || "")) ? "pm-log" : "manual"))),
         complete: Boolean(entry && entry.complete),
         process: String(entry && entry.process || ""),
         machine: String(entry && entry.machine || ""),
@@ -18487,7 +18547,7 @@
       const source = state || {};
       return {
         version: Number(source.version) || 10,
-        scoringRulesVersion: Number(source.scoringRulesVersion) === 3 ? 2 : (Number(source.scoringRulesVersion) || 1),
+        scoringRulesVersion: Number(source.scoringRulesVersion) || 1,
         date: String(source.date || ""),
         shift: String(source.shift || ""),
         roster: {
@@ -18569,6 +18629,7 @@
 
     const SHIFT_DOCUMENT_KEYS = [
       "version",
+      "scoringRulesVersion",
       "date",
       "shift",
       "roster",
@@ -18910,7 +18971,7 @@
           shiftReady = true;
           if (window.VisionaryShiftEditPolicy.locked(state)) pendingShiftStates.delete(nextKey);
           const pendingState = pendingStateFor(nextKey);
-          const emptyShiftState = stateFromCloud({ date: state.date, shift: state.shift, scoringRulesVersion: 2 });
+          const emptyShiftState = stateFromCloud({ date: state.date, shift: state.shift, scoringRulesVersion: 4 });
           if (pendingState) {
             const baselineState = shiftOpenBaselines.get(nextKey) || normalizeState(state);
             const firstEditedState = mergePendingChanges(emptyShiftState, baselineState, pendingState);
@@ -20688,9 +20749,9 @@
       const appProperties = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>' +
         '<Properties xmlns="http://schemas.openxmlformats.org/officeDocument/2006/extended-properties" ' +
         'xmlns:vt="http://schemas.openxmlformats.org/officeDocument/2006/docPropsVTypes">' +
-        '<Application>Visionary 3.0.42</Application><DocSecurity>0</DocSecurity><ScaleCrop>false</ScaleCrop>' +
+        '<Application>Visionary 3.0.44</Application><DocSecurity>0</DocSecurity><ScaleCrop>false</ScaleCrop>' +
         '<Company></Company><LinksUpToDate>false</LinksUpToDate><SharedDoc>false</SharedDoc><HyperlinksChanged>false</HyperlinksChanged>' +
-        '<AppVersion>3.0.42</AppVersion></Properties>';
+        '<AppVersion>3.0.44</AppVersion></Properties>';
 
       const zip = xlsxZipStoredFiles([
         { name: "[Content_Types].xml", contents: contentTypes },
