@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="description" content="A mobile-friendly collection of vision production guides, troubleshooting history, and copy-ready reporting tools.">
-  <meta name="visionary-app-version" content="3.0.44">
+  <meta name="visionary-app-version" content="3.0.46">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
@@ -6757,7 +6757,7 @@
             <span class="form-tile-arrow" aria-hidden="true">›</span>
           </button>
         </div>
-        <p class="last-updated">Version 3.0.44 · Last updated: <time datetime="2026-09-14">September 14, 2026</time></p>
+        <p class="last-updated">Version 3.0.46 · Last updated: <time datetime="2026-09-14">September 14, 2026</time></p>
         <div class="version-history-link-wrap">
           <button id="open-version-history" class="version-history-link" type="button">View version history</button>
         </div>
@@ -7191,7 +7191,7 @@
               <section class="daily-checklist-group" data-daily-group="pm-completed">
                 <div class="daily-checklist-heading"><h3>10. PM's Completed</h3><span class="daily-point-badge">50 points each</span></div>
                 <div id="daily-pm-entries" class="daily-dynamic-entries"></div>
-                <button id="daily-add-pm" class="button button-secondary daily-add-entry" type="button">+ New PM entry</button>
+                <p class="daily-task-score-note">PM entries are added automatically after a successful PM Log submission.</p>
               </section>
 
               <section class="daily-checklist-group" data-daily-group="escalations">
@@ -7633,6 +7633,16 @@
 
       <section class="panel" aria-label="Release history">
         <div class="version-history-list">
+          <article class="version-card"><div class="version-card-heading"><h2>Version 3.0.46</h2><time datetime="2026-09-14">September 14, 2026</time></div>
+            <p class="version-summary-intro">Added required requester tracking to manual escalations.</p><ul class="version-summary-list">
+            <li><strong>Requested By</strong>Manual escalation entries now include a text field identifying who requested the work.</li>
+            <li><strong>Required submission fields</strong>Process, Machine, Vision, Requested By, and Completed By must all be filled before a manual escalation can be saved.</li>
+            <li><strong>Saved with history</strong>Requested By is retained through drafts, cloud sync, restored shifts, and escalation reports without altering existing historical entries.</li></ul></article>
+          <article class="version-card"><div class="version-card-heading"><h2>Version 3.0.45</h2><time datetime="2026-09-14">September 14, 2026</time></div>
+            <p class="version-summary-intro">Removed manual PM entry from Daily Tasks.</p><ul class="version-summary-list">
+            <li><strong>PM Log only</strong>New PM point entries can now be created only by submitting the dedicated PM Log.</li>
+            <li><strong>No blank PM editor</strong>Starting, restoring, or syncing a shift no longer creates a manual PM form in Section 10.</li>
+            <li><strong>History preserved</strong>Previously recorded PM entries remain visible and continue to count at 50 points each.</li></ul></article>
           <article class="version-card"><div class="version-card-heading"><h2>Version 3.0.44</h2><time datetime="2026-09-14">September 14, 2026</time></div>
             <p class="version-summary-intro">Normalized PM scoring to 50 points across all historical and future shifts.</p><ul class="version-summary-list">
             <li><strong>All PM history</strong>Every completed PM now contributes 50 points, including shifts originally saved while PMs were worth 60.</li>
@@ -8952,7 +8962,9 @@
         "Open Full Screen": "전체 화면으로 열기",
         "If the embedded form does not appear or feels cramped, use Open Full Screen.": "포함된 양식이 표시되지 않거나 화면이 좁으면 전체 화면으로 열기를 사용하세요.",
         "Loading Microsoft Form…": "Microsoft 양식을 불러오는 중…",
-        "Version 3.0.44 · Last updated:": "버전 3.0.44 · 마지막 업데이트:",
+        "Version 3.0.46 · Last updated:": "버전 3.0.46 · 마지막 업데이트:",
+        "Version 3.0.46": "버전 3.0.46",
+        "Version 3.0.45": "버전 3.0.45",
         "Version 3.0.44": "버전 3.0.44",
         "Version 3.0.42": "버전 3.0.42",
         "Version 3.0.41": "버전 3.0.41",
@@ -13682,7 +13694,6 @@
         customTaskGroup.setAttribute("data-has-custom-tasks", visibleCount ? "true" : "false");
       }
 
-      var addPmButton = document.getElementById("daily-add-pm");
       var addEscalationButton = document.getElementById("daily-add-escalation");
       var addSuperEscalationButton = document.getElementById("daily-add-super-escalation");
       var newShiftButton = document.getElementById("daily-shift-new");
@@ -14946,6 +14957,7 @@
           process: value("process"),
           machine: value("machine"),
           vision: value("vision"),
+          requestedBy: value("requestedBy"),
           completedBy: completedByKeys[0] || "",
           comment: value("comment")
         };
@@ -14957,7 +14969,7 @@
       }
 
       function dynamicEntryHasData(entryData) {
-        return entryData.complete || Boolean(entryData.process || entryData.machine || entryData.vision || completedByKeysFromData(entryData).length || entryData.comment);
+        return entryData.complete || Boolean(entryData.process || entryData.machine || entryData.vision || entryData.requestedBy || completedByKeysFromData(entryData).length || entryData.comment);
       }
 
       function dynamicEntryIsActive(entryData) {
@@ -14981,7 +14993,10 @@
         var summaryTitle = entry.querySelector("[data-daily-summary-title]");
         summaryTitle.textContent = title;
         summaryTitle.title = title;
-        entry.querySelector("[data-daily-summary-meta]").textContent = completedBy + " · " + dynamicPointCreditText(type, data);
+        var requestedByMeta = (type === "escalation" && dynamicEntrySource(data) !== "bmpd" && data.requestedBy)
+          ? "Requested by: " + data.requestedBy + " · "
+          : "";
+        entry.querySelector("[data-daily-summary-meta]").textContent = requestedByMeta + completedBy + " · " + dynamicPointCreditText(type, data);
         var comment = entry.querySelector("[data-daily-summary-comment]");
         comment.textContent = data.comment;
         comment.title = data.comment;
@@ -15003,11 +15018,13 @@
         entry.setAttribute("data-entry-source", nextSource);
         var complete = entry.querySelector('[data-daily-dynamic-field="complete"]');
         var process = entry.querySelector('[data-daily-dynamic-field="process"]');
+        var requestedBy = entry.querySelector('[data-daily-dynamic-field="requestedBy"]');
         var completedBy = entry.querySelector('[data-daily-dynamic-field="completedBy"]');
         var comment = entry.querySelector('[data-daily-dynamic-field="comment"]');
         complete.checked = Boolean(source.complete);
         process.value = source.process || "";
         updateDynamicEntryChoices(entry, source.machine || "", source.vision || "");
+        if (requestedBy) requestedBy.value = source.requestedBy || "";
         if (dynamicEntrySupportsMultipleTechnicians(type) && typeof entry._dailySetCompletedBy === "function") {
           entry._dailySetCompletedBy(completedByKeysFromData(source));
         } else {
@@ -15022,6 +15039,10 @@
       function ensureDynamicEditor(type) {
         var container = dynamicEntryContainer(type);
         var editors = Array.prototype.slice.call(container.querySelectorAll('.daily-dynamic-entry[data-saved="false"]'));
+        if (type === "pm") {
+          editors.forEach(function (editor) { editor.remove(); });
+          return null;
+        }
         if (!editors.length) return createDynamicEntry(type, { saved: false });
         var editor = editors[0];
         editors.slice(1).forEach(function (duplicate) {
@@ -15121,6 +15142,16 @@
         process.value = data.process || "";
         var machine = filteredSelect(prefix + "-machine", "machine", "Choose machine");
         var vision = filteredSelect(prefix + "-vision", "vision", "Choose vision");
+        var requestedByField = null;
+        if (type === "escalation" && dynamicEntrySource(data) !== "bmpd") {
+          var requestedBy = document.createElement("input");
+          requestedBy.type = "text";
+          requestedBy.id = prefix + "-requested-by";
+          requestedBy.placeholder = "Requested by";
+          requestedBy.value = data.requestedBy || "";
+          requestedBy.setAttribute("data-daily-dynamic-field", "requestedBy");
+          requestedByField = makeField("Requested by", requestedBy, "daily-dynamic-requested-by");
+        }
         var completedByField;
         if (dynamicEntrySupportsMultipleTechnicians(type)) {
           completedByField = createMultiCompletedByField(entry, prefix, data, type);
@@ -15137,6 +15168,7 @@
         fields.appendChild(makeField("Process", process));
         fields.appendChild(makeField("Machine", machine));
         fields.appendChild(makeField("Vision", vision));
+        if (requestedByField) fields.appendChild(requestedByField);
         fields.appendChild(makeField("Comment", comment, "daily-dynamic-comment"));
         fields.appendChild(completedByField);
         editor.appendChild(fields);
@@ -15187,12 +15219,21 @@
             entryStatus.textContent = "Choose a Process, Machine, and Vision before saving.";
             return;
           }
+          var isManualEscalation = type === "escalation" && dynamicEntrySource(current) !== "bmpd";
+          if (isManualEscalation && !current.requestedBy) {
+            entryStatus.textContent = "Enter who requested this escalation before saving.";
+            var requestedByControl = entry.querySelector('[data-daily-dynamic-field="requestedBy"]');
+            if (requestedByControl) requestedByControl.focus();
+            return;
+          }
           if (dynamicEntrySupportsMultipleTechnicians(type) && completedBySelectionsHaveDuplicates(entry)) {
             entryStatus.textContent = "Choose each technician only once.";
             return;
           }
-          if (current.complete && !current.completedBy) {
-            entryStatus.textContent = "Choose who completed this entry before saving it as complete.";
+          if ((isManualEscalation || current.complete) && !current.completedBy) {
+            entryStatus.textContent = isManualEscalation
+              ? "Choose who completed this escalation before saving."
+              : "Choose who completed this entry before saving it as complete.";
             return;
           }
           entryStatus.textContent = "";
@@ -15257,6 +15298,7 @@
       function dynamicEntryReportLabel(type, entry) {
         var details = [entry.process, entry.machine, entry.vision].filter(Boolean).join(", ");
         if (!details) details = "Details not entered";
+        if (type === "escalation" && dynamicEntrySource(entry) !== "bmpd" && entry.requestedBy) details += " - Requested by: " + entry.requestedBy;
         if (entry.comment) details += " - " + entry.comment;
         return dynamicEntryDisplayLabel(type) + " - " + details;
       }
@@ -15478,6 +15520,7 @@
           if (!dynamicEntryIsActive(entry)) return;
           var details = [entry.process, entry.machine, entry.vision].filter(Boolean).join(", ");
           if (!details) details = "Details not entered";
+          if (type === "escalation" && dynamicEntrySource(entry) !== "bmpd" && entry.requestedBy) details += " | Requested by: " + entry.requestedBy;
           if (entry.comment) details += " - " + entry.comment;
           details += entry.complete
             ? " | Completed by: " + (completedByLabels(entry) || "Not selected")
@@ -17377,7 +17420,9 @@
         pmEntries.innerHTML = "";
         escalationEntries.innerHTML = "";
         superEscalationEntries.innerHTML = "";
-        (Array.isArray(state.pms) && state.pms.length ? state.pms : [{}]).forEach(function (entry) {
+        (Array.isArray(state.pms) ? state.pms : []).filter(function (entry) {
+          return entry && entry.saved !== false;
+        }).forEach(function (entry) {
           createDynamicEntry("pm", entry);
         });
         (Array.isArray(state.escalations) && state.escalations.length ? state.escalations : [{}]).forEach(function (entry) {
@@ -17386,7 +17431,6 @@
         (Array.isArray(state.superEscalations) && state.superEscalations.length ? state.superEscalations : [{}]).forEach(function (entry) {
           createDynamicEntry("super-escalation", entry);
         });
-        ensureDynamicEditor("pm");
         ensureDynamicEditor("escalation");
         ensureDynamicEditor("super-escalation");
         handoffNoteInput.value = typeof state.handoffNote === "string" ? state.handoffNote : "";
@@ -17495,7 +17539,6 @@
         pmEntries.innerHTML = "";
         escalationEntries.innerHTML = "";
         superEscalationEntries.innerHTML = "";
-        createDynamicEntry("pm", {});
         createDynamicEntry("escalation", {});
         createDynamicEntry("super-escalation", {});
         updateDailyShift({ skipSave: true });
@@ -17699,12 +17742,6 @@
         }
       }
 
-      addPmButton.addEventListener("click", function () {
-        var entry = ensureDynamicEditor("pm");
-        entry.scrollIntoView({ behavior: "smooth", block: "center" });
-        var target = entry.querySelector('[data-daily-dynamic-field="process"]');
-        if (target) target.focus();
-      });
       addEscalationButton.addEventListener("click", function () {
         var entry = ensureDynamicEditor("escalation");
         entry.scrollIntoView({ behavior: "smooth", block: "center" });
@@ -18524,6 +18561,7 @@
         process: String(entry && entry.process || ""),
         machine: String(entry && entry.machine || ""),
         vision: String(entry && entry.vision || ""),
+        requestedBy: String(entry && entry.requestedBy || ""),
         completedBy: String(entry && entry.completedBy || ""),
         comment: String(entry && entry.comment || ""),
         sortIndex: Number(index) || 0
@@ -20749,9 +20787,9 @@
       const appProperties = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>' +
         '<Properties xmlns="http://schemas.openxmlformats.org/officeDocument/2006/extended-properties" ' +
         'xmlns:vt="http://schemas.openxmlformats.org/officeDocument/2006/docPropsVTypes">' +
-        '<Application>Visionary 3.0.44</Application><DocSecurity>0</DocSecurity><ScaleCrop>false</ScaleCrop>' +
+        '<Application>Visionary 3.0.46</Application><DocSecurity>0</DocSecurity><ScaleCrop>false</ScaleCrop>' +
         '<Company></Company><LinksUpToDate>false</LinksUpToDate><SharedDoc>false</SharedDoc><HyperlinksChanged>false</HyperlinksChanged>' +
-        '<AppVersion>3.0.44</AppVersion></Properties>';
+        '<AppVersion>3.0.46</AppVersion></Properties>';
 
       const zip = xlsxZipStoredFiles([
         { name: "[Content_Types].xml", contents: contentTypes },
