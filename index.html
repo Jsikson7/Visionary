@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="description" content="A mobile-friendly collection of vision production guides, troubleshooting history, and copy-ready reporting tools.">
-  <meta name="visionary-app-version" content="3.0.48">
+  <meta name="visionary-app-version" content="3.0.50">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
@@ -6819,7 +6819,7 @@
             <span class="form-tile-arrow" aria-hidden="true">›</span>
           </button>
         </div>
-        <p class="last-updated">Version 3.0.48 · Last updated: <time datetime="2026-09-14">September 14, 2026</time></p>
+        <p class="last-updated">Version 3.0.50 · Last updated: <time datetime="2026-09-14">September 14, 2026</time></p>
         <div class="version-history-link-wrap">
           <button id="open-version-history" class="version-history-link" type="button">View version history</button>
         </div>
@@ -6956,7 +6956,7 @@
             <div class="daily-cloud-copy">
               <strong id="daily-cloud-title">Shared shift synchronization</strong>
               <span id="daily-cloud-status" role="status" aria-live="polite">Sign in with Google to share Daily Tasks across phones.</span>
-              <small>Safe Sync v6.2 · App <span id="daily-app-version">3.0.48</span><span id="daily-version-health" class="daily-version-health" hidden></span></small>
+              <small>Safe Sync v6.2 · App <span id="daily-app-version">3.0.49</span><span id="daily-version-health" class="daily-version-health" hidden></span></small>
             </div>
           </div>
           <div class="daily-cloud-actions">
@@ -7404,7 +7404,7 @@
               <div class="monthly-ranking-heading">
                 <div>
                   <h3 id="monthly-technician-title" class="reports-section-heading">Top 3 technicians</h3>
-                  <p class="monthly-ranking-subtitle">Ranked by Avg PPS · Minimum 3 shifts in the selected range. Total points and medals remain visible.</p>
+                  <p class="monthly-ranking-subtitle">Ranked by Avg PPS · Only shifts with at least 70% completion count. Minimum 3 qualifying shifts in the selected range.</p>
                 </div>
                 <div class="monthly-ranking-actions">
                   <button id="monthly-technician-save-png" class="button button-secondary" type="button" disabled>Save PNG</button>
@@ -7416,7 +7416,7 @@
               <div class="monthly-ranking-heading">
                 <div>
                   <h3 id="monthly-shift-title" class="reports-section-heading">Top shifts</h3>
-                  <p class="monthly-ranking-subtitle">Ranked by Avg PPS · Completion rate breaks ties. Minimum 3 shifts in the selected range.</p>
+                  <p class="monthly-ranking-subtitle">Ranked by Avg PPS · Only shifts with at least 70% completion count. Completion rate breaks ties. Minimum 3 qualifying shifts.</p>
                 </div>
                 <div class="monthly-ranking-actions">
                   <button id="monthly-shift-save-png" class="button button-secondary" type="button" disabled>Save PNG</button>
@@ -7695,7 +7695,17 @@
 
       <section class="panel" aria-label="Release history">
         <div class="version-history-list">
-          <article class="version-card version-card-current"><div class="version-card-heading"><h2>Version 3.0.48</h2><time datetime="2026-09-14">September 14, 2026</time></div>
+          <article class="version-card version-card-current"><div class="version-card-heading"><h2>Version 3.0.50</h2><time datetime="2026-09-14">September 14, 2026</time></div>
+            <p class="version-summary-intro">Added a 70% completion requirement before a shift can affect Power Rankings.</p><ul class="version-summary-list">
+            <li><strong>70% qualification rule</strong>A shift must complete at least 70% of available work before it counts toward Shifts Worked, Avg PPS, total ranking points, or ranking eligibility.</li>
+            <li><strong>Low-completion shifts excluded</strong>Shifts below 70% remain saved in history and reports, but no longer distort technician or shift Power Rankings.</li>
+            <li><strong>Visible verification</strong>The live ranking status now shows how many loaded shift records meet the 70% minimum.</li></ul></article>
+          <article class="version-card"><div class="version-card-heading"><h2>Version 3.0.49</h2><time datetime="2026-09-14">September 14, 2026</time></div>
+            <p class="version-summary-intro">Made Power Rankings verify fresh shared data instead of reusing an old ranking snapshot.</p><ul class="version-summary-list">
+            <li><strong>Server-verified rankings</strong>Power Rankings now query the shared Firebase server directly so an offline or stale local cache cannot silently change the ranking order.</li>
+            <li><strong>Automatic freshness</strong>Rankings refresh every time the page is opened and again when the app returns to the foreground.</li>
+            <li><strong>Visible refresh proof</strong>The ranking status shows the update time and the exact number of shift records loaded; failed refreshes clearly warn that displayed results may be stale.</li></ul></article>
+          <article class="version-card"><div class="version-card-heading"><h2>Version 3.0.48</h2><time datetime="2026-09-14">September 14, 2026</time></div>
             <p class="version-summary-intro">Renamed the existing production tracker to MI2 Daily Tasks.</p><ul class="version-summary-list">
             <li><strong>Clear MI2 identity</strong>The existing Daily Tasks tab, page heading, home tile, and browser title now identify the tracker as MI2 Daily Tasks.</li>
             <li><strong>Existing data protected</strong>Internal routes, element IDs, shift-history keys, and shared synchronization identifiers are unchanged, so current MI2 records continue to load normally.</li>
@@ -9035,6 +9045,10 @@
         "Open Full Screen": "전체 화면으로 열기",
         "If the embedded form does not appear or feels cramped, use Open Full Screen.": "포함된 양식이 표시되지 않거나 화면이 좁으면 전체 화면으로 열기를 사용하세요.",
         "Loading Microsoft Form…": "Microsoft 양식을 불러오는 중…",
+        "Version 3.0.50 · Last updated:": "버전 3.0.50 · 마지막 업데이트:",
+        "Version 3.0.50": "버전 3.0.50",
+        "Version 3.0.49 · Last updated:": "버전 3.0.49 · 마지막 업데이트:",
+        "Version 3.0.49": "버전 3.0.49",
         "Version 3.0.48 · Last updated:": "버전 3.0.48 · 마지막 업데이트:",
         "Version 3.0.48": "버전 3.0.48",
         "Version 3.0.47 · Last updated:": "버전 3.0.47 · 마지막 업데이트:",
@@ -18460,6 +18474,7 @@
       getDoc,
       getDocFromServer,
       getDocs,
+      getDocsFromServer,
       initializeFirestore,
       onSnapshot,
       persistentLocalCache,
@@ -18541,7 +18556,7 @@
     const provider = new GoogleAuthProvider();
     provider.setCustomParameters({ prompt: "select_account" });
     const SYNC_PROTOCOL_VERSION = 6;
-    const APP_VERSION = String(document.querySelector('meta[name="visionary-app-version"]')?.content || "3.0.48");
+    const APP_VERSION = String(document.querySelector('meta[name="visionary-app-version"]')?.content || "3.0.50");
     const HOSTED_APP_ROOT = "https://jsikson7.github.io/Visionary/";
     const HOSTED_APP_URL = HOSTED_APP_ROOT + "?v=" + APP_VERSION.replace(/\D/g, "");
     const isDirectFilePage = !["http:", "https:"].includes(window.location.protocol);
@@ -19640,6 +19655,7 @@
     const monthlyTechnicianSavePng = document.getElementById("monthly-technician-save-png");
     const monthlyShiftSavePng = document.getElementById("monthly-shift-save-png");
     const MONTHLY_SHIFT_CODES = ["B1", "B2", "G1", "G2"];
+    const MONTHLY_MIN_SHIFT_COMPLETION = 0.70;
     const MONTHLY_MEDAL_TIERS = [
       { minimum: 1000, name: "Bronze", key: "bronze" },
       { minimum: 1100, name: "Silver", key: "silver" },
@@ -19649,6 +19665,9 @@
     ];
     let monthlyPerformanceLoadedRange = "";
     let monthlyPerformanceBusy = false;
+    let monthlyPerformanceLastRequestAt = 0;
+    let monthlyPerformanceLastSuccessAt = 0;
+    const MONTHLY_RANKING_REFRESH_DEBOUNCE_MS = 3000;
     let monthlyRankingExportData = null;
     let monthlyRankingExportFiles = { technicians: null, shifts: null };
     let monthlyRankingExportBuildId = 0;
@@ -19698,6 +19717,14 @@
       if (!monthlyPerformanceStatus) return;
       monthlyPerformanceStatus.textContent = message || "";
       monthlyPerformanceStatus.style.color = isError ? "#b23b3b" : "";
+    }
+
+    function monthlyRankingRefreshLabel(date, totalCount, qualifyingCount) {
+      const time = new Intl.DateTimeFormat(undefined, { hour: "numeric", minute: "2-digit" }).format(date);
+      const loaded = Number(totalCount) || 0;
+      const qualifying = Number(qualifyingCount) || 0;
+      return "Live data updated " + time + " · " + loaded + " shift" + (loaded === 1 ? "" : "s") +
+        " loaded · " + qualifying + " meet the 70% completion minimum.";
     }
 
     function isLocalLeaderboardAdmin() {
@@ -19807,6 +19834,16 @@
       };
     }
 
+    function monthlyRecordCompletionRate(record) {
+      const available = Number(record && record.completionAvailable) || 0;
+      const earned = Number(record && record.completionEarned) || 0;
+      return available > 0 ? earned / available : 0;
+    }
+
+    function monthlyRecordQualifies(record) {
+      return monthlyRecordCompletionRate(record) >= MONTHLY_MIN_SHIFT_COMPLETION;
+    }
+
     function monthlyAggregate(records, cutoff) {
       const technicianMap = new Map();
       const shiftMap = new Map();
@@ -19824,7 +19861,7 @@
         perfectShiftCount: 0
       }));
 
-      records.filter((record) => record.date <= cutoff).forEach((record) => {
+      records.filter((record) => record.date <= cutoff && monthlyRecordQualifies(record)).forEach((record) => {
         record.people.forEach((person) => {
           const technician = technicianMap.get(person.key) || {
             key: person.key,
@@ -20419,7 +20456,7 @@
       if (event) event.preventDefault();
       if (monthlyPerformanceBusy) return;
       if (!currentUser || !accessAllowed) {
-        setMonthlyPerformanceStatus("Sign in with Google on the Daily Tasks tab first.", true);
+        setMonthlyPerformanceStatus("Sign in with Google on the MI2 Daily Tasks tab first.", true);
         return;
       }
       const bounds = monthlySelectedBounds();
@@ -20433,17 +20470,18 @@
       }
       const daily = bridge();
       if (!daily || typeof daily.getReportSummary !== "function") {
-        setMonthlyPerformanceStatus("Daily Tasks did not load. Close and reopen this page, then try again.", true);
+        setMonthlyPerformanceStatus("MI2 Daily Tasks did not load. Close and reopen this page, then try again.", true);
         return;
       }
 
       monthlyPerformanceBusy = true;
+      monthlyPerformanceLastRequestAt = Date.now();
       monthlyPerformanceRefresh.disabled = true;
       resetMonthlyRankingExports();
-      setMonthlyPerformanceStatus("Loading monthly performance…");
+      setMonthlyPerformanceStatus("Checking the latest shared Power Rankings…");
       const originalState = daily.getState();
       try {
-        const snapshot = await getDocs(query(
+        const snapshot = await getDocsFromServer(query(
           collection(db, "shifts"),
           where("date", ">=", bounds.start),
           where("date", "<=", bounds.cutoff)
@@ -20465,7 +20503,8 @@
         renderMonthlyShifts(rankedShifts, streaks.shifts);
         monthlyPerformanceRange.textContent =
           monthlyReadableDate(bounds.start) + " – " + monthlyReadableDate(bounds.cutoff) +
-          (isLocalLeaderboardAdmin() ? " · Selected date range" : " · Current month");
+          (isLocalLeaderboardAdmin() ? " · Selected date range" : " · Current month") +
+          " · 70% minimum completion";
         monthlyPerformanceOutput.hidden = false;
         monthlyRankingExportData = {
           bounds: bounds,
@@ -20476,10 +20515,20 @@
         };
         prepareMonthlyRankingExports();
         monthlyPerformanceLoadedRange = bounds.start + "|" + bounds.cutoff + "|" + (isLocalLeaderboardAdmin() ? "admin" : "technician");
-        setMonthlyPerformanceStatus(snapshot.empty ? "No saved shifts were found for this date range." : "Power Rankings updated.");
+        monthlyPerformanceLastSuccessAt = Date.now();
+        const qualifyingShiftCount = records.filter((record) => monthlyRecordQualifies(record)).length;
+        setMonthlyPerformanceStatus(monthlyRankingRefreshLabel(
+          new Date(monthlyPerformanceLastSuccessAt),
+          documents.length,
+          qualifyingShiftCount
+        ));
       } catch (error) {
         resetMonthlyRankingExports();
-        setMonthlyPerformanceStatus(friendlyError(error), true);
+        const detail = friendlyError(error);
+        setMonthlyPerformanceStatus(
+          "Could not verify the latest shared Power Rankings. Any rankings still shown may be stale. " + detail,
+          true
+        );
       } finally {
         daily.applyCloudState(originalState);
         monthlyPerformanceRefresh.disabled = false;
@@ -20489,9 +20538,10 @@
 
     function maybeLoadMonthlyPerformance(force) {
       if (!monthlyPerformanceStart || !monthlyPerformanceEnd || !currentUser || !accessAllowed || window.location.hash !== "#leaderboard") return;
-      const bounds = monthlySelectedBounds();
-      const key = bounds ? bounds.start + "|" + bounds.cutoff + "|" + (isLocalLeaderboardAdmin() ? "admin" : "technician") : "";
-      if (force || key !== monthlyPerformanceLoadedRange) generateMonthlyPerformance();
+      if (monthlyPerformanceBusy) return;
+      const now = Date.now();
+      if (!force && now - monthlyPerformanceLastRequestAt < MONTHLY_RANKING_REFRESH_DEBOUNCE_MS) return;
+      generateMonthlyPerformance();
     }
 
     function reportsMetricCard(label, value) {
@@ -21265,7 +21315,11 @@
         resetMonthlyRankingExports();
         setMonthlyPerformanceStatus("Dates changed. Select Refresh rankings to view this range.");
       }));
-      window.addEventListener("hashchange", () => maybeLoadMonthlyPerformance());
+      window.addEventListener("hashchange", () => maybeLoadMonthlyPerformance(true));
+      window.addEventListener("focus", () => maybeLoadMonthlyPerformance(false));
+      document.addEventListener("visibilitychange", () => {
+        if (!document.hidden) maybeLoadMonthlyPerformance(false);
+      });
     }
 
     if (monthlyTechnicianSavePng) {
