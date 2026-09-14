@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="description" content="A mobile-friendly collection of vision production guides, troubleshooting history, and copy-ready reporting tools.">
-  <meta name="visionary-app-version" content="3.0.50">
+  <meta name="visionary-app-version" content="3.0.51">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
@@ -3159,6 +3159,17 @@
       margin: 0;
       color: var(--muted);
       font-size: 0.82rem;
+    }
+
+    .monthly-ranking-period-note {
+      margin: 10px 16px 0;
+      padding: 10px 12px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: var(--surface-soft, rgba(127, 127, 127, 0.06));
+      color: var(--text);
+      font-size: 0.82rem;
+      line-height: 1.4;
     }
 
     .monthly-performance-range {
@@ -6819,7 +6830,7 @@
             <span class="form-tile-arrow" aria-hidden="true">›</span>
           </button>
         </div>
-        <p class="last-updated">Version 3.0.50 · Last updated: <time datetime="2026-09-14">September 14, 2026</time></p>
+        <p class="last-updated">Version 3.0.51 · Last updated: <time datetime="2026-09-14">September 14, 2026</time></p>
         <div class="version-history-link-wrap">
           <button id="open-version-history" class="version-history-link" type="button">View version history</button>
         </div>
@@ -6956,7 +6967,7 @@
             <div class="daily-cloud-copy">
               <strong id="daily-cloud-title">Shared shift synchronization</strong>
               <span id="daily-cloud-status" role="status" aria-live="polite">Sign in with Google to share Daily Tasks across phones.</span>
-              <small>Safe Sync v6.2 · App <span id="daily-app-version">3.0.49</span><span id="daily-version-health" class="daily-version-health" hidden></span></small>
+              <small>Safe Sync v6.2 · App <span id="daily-app-version">3.0.51</span><span id="daily-version-health" class="daily-version-health" hidden></span></small>
             </div>
           </div>
           <div class="daily-cloud-actions">
@@ -7395,8 +7406,9 @@
               </div>
               <button id="monthly-performance-refresh" class="button button-primary" type="submit">Refresh rankings</button>
             </div>
-            <p class="monthly-performance-default-note">Technician rankings show the current calendar month through today. Admin can choose a date range for their own view.</p>
+            <p class="monthly-performance-default-note">Technician rankings use the official monthly ranking period through today. Admin can choose a date range for their own view.</p>
           </form>
+          <p id="monthly-ranking-period-note" class="monthly-ranking-period-note" hidden>September 2026 Power Rankings officially begin September 7 because MI2 Daily Tasks was still rolling out earlier in the month.</p>
           <p id="monthly-performance-status" class="status" role="status" aria-live="polite"></p>
           <div id="monthly-performance-output" hidden>
             <p id="monthly-performance-range" class="monthly-performance-range"></p>
@@ -7695,7 +7707,12 @@
 
       <section class="panel" aria-label="Release history">
         <div class="version-history-list">
-          <article class="version-card version-card-current"><div class="version-card-heading"><h2>Version 3.0.50</h2><time datetime="2026-09-14">September 14, 2026</time></div>
+          <article class="version-card version-card-current"><div class="version-card-heading"><h2>Version 3.0.51</h2><time datetime="2026-09-14">September 14, 2026</time></div>
+            <p class="version-summary-intro">Set the official September Power Rankings period to begin after the MI2 Daily Tasks rollout.</p><ul class="version-summary-list">
+            <li><strong>September cutoff</strong>September 2026 rankings default to September 7 instead of September 1 so early rollout days do not affect standings.</li>
+            <li><strong>Future months unchanged</strong>Beginning in October, monthly Power Rankings automatically return to the first day of the calendar month.</li>
+            <li><strong>Transparent rollout note</strong>The rankings page explains the September 7 cutoff while the existing 70% shift-completion requirement remains in effect.</li></ul></article>
+          <article class="version-card"><div class="version-card-heading"><h2>Version 3.0.50</h2><time datetime="2026-09-14">September 14, 2026</time></div>
             <p class="version-summary-intro">Added a 70% completion requirement before a shift can affect Power Rankings.</p><ul class="version-summary-list">
             <li><strong>70% qualification rule</strong>A shift must complete at least 70% of available work before it counts toward Shifts Worked, Avg PPS, total ranking points, or ranking eligibility.</li>
             <li><strong>Low-completion shifts excluded</strong>Shifts below 70% remain saved in history and reports, but no longer distort technician or shift Power Rankings.</li>
@@ -9029,6 +9046,8 @@
         "Guides": "가이드",
         "Open Work Instructions and Troubleshooting.": "작업 지침과 문제 해결을 엽니다.",
         "Power Rankings": "파워 랭킹",
+        "Technician rankings use the official monthly ranking period through today. Admin can choose a date range for their own view.": "기술자 순위는 공식 월간 순위 기간부터 오늘까지의 데이터를 사용합니다. 관리자는 직접 날짜 범위를 선택할 수 있습니다.",
+        "September 2026 Power Rankings officially begin September 7 because MI2 Daily Tasks was still rolling out earlier in the month.": "2026년 9월 파워 랭킹은 월초에 MI2 일일 작업 도구가 도입 중이었기 때문에 공식적으로 9월 7일부터 시작합니다.",
         "Performance rankings": "성과 순위",
         "Refresh rankings": "순위 새로 고침",
         "Save PNG": "PNG 저장",
@@ -9045,7 +9064,8 @@
         "Open Full Screen": "전체 화면으로 열기",
         "If the embedded form does not appear or feels cramped, use Open Full Screen.": "포함된 양식이 표시되지 않거나 화면이 좁으면 전체 화면으로 열기를 사용하세요.",
         "Loading Microsoft Form…": "Microsoft 양식을 불러오는 중…",
-        "Version 3.0.50 · Last updated:": "버전 3.0.50 · 마지막 업데이트:",
+        "Version 3.0.51 · Last updated:": "버전 3.0.51 · 마지막 업데이트:",
+        "Version 3.0.51": "버전 3.0.51",
         "Version 3.0.50": "버전 3.0.50",
         "Version 3.0.49 · Last updated:": "버전 3.0.49 · 마지막 업데이트:",
         "Version 3.0.49": "버전 3.0.49",
@@ -18556,7 +18576,7 @@
     const provider = new GoogleAuthProvider();
     provider.setCustomParameters({ prompt: "select_account" });
     const SYNC_PROTOCOL_VERSION = 6;
-    const APP_VERSION = String(document.querySelector('meta[name="visionary-app-version"]')?.content || "3.0.50");
+    const APP_VERSION = String(document.querySelector('meta[name="visionary-app-version"]')?.content || "3.0.51");
     const HOSTED_APP_ROOT = "https://jsikson7.github.io/Visionary/";
     const HOSTED_APP_URL = HOSTED_APP_ROOT + "?v=" + APP_VERSION.replace(/\D/g, "");
     const isDirectFilePage = !["http:", "https:"].includes(window.location.protocol);
@@ -19647,6 +19667,7 @@
     const monthlyPerformanceStart = document.getElementById("monthly-performance-start");
     const monthlyPerformanceEnd = document.getElementById("monthly-performance-end");
     const monthlyPerformanceRefresh = document.getElementById("monthly-performance-refresh");
+    const monthlyRankingPeriodNote = document.getElementById("monthly-ranking-period-note");
     const monthlyPerformanceStatus = document.getElementById("monthly-performance-status");
     const monthlyPerformanceOutput = document.getElementById("monthly-performance-output");
     const monthlyPerformanceRange = document.getElementById("monthly-performance-range");
@@ -19731,9 +19752,22 @@
       return Boolean(appShellElement && appShellElement.dataset.authRole === "Admin");
     }
 
+    const SEPTEMBER_2026_RANKING_START = "2026-09-07";
+
+    function monthlyOfficialDefaultStart(today) {
+      const monthStart = today.slice(0, 7) + "-01";
+      return today.slice(0, 7) === "2026-09" ? SEPTEMBER_2026_RANKING_START : monthStart;
+    }
+
+    function updateMonthlyRankingPeriodNote(bounds) {
+      if (!monthlyRankingPeriodNote) return;
+      const overlapsSeptemberRollout = Boolean(bounds && bounds.start <= "2026-09-30" && bounds.cutoff >= "2026-09-01");
+      monthlyRankingPeriodNote.hidden = !overlapsSeptemberRollout;
+    }
+
     function monthlySelectedBounds() {
       const today = localDateValue(new Date());
-      const defaultStart = today.slice(0, 7) + "-01";
+      const defaultStart = monthlyOfficialDefaultStart(today);
       const start = isLocalLeaderboardAdmin() ? String(monthlyPerformanceStart.value || "") : defaultStart;
       const selectedEnd = isLocalLeaderboardAdmin() ? String(monthlyPerformanceEnd.value || "") : today;
       if (!/^\d{4}-\d{2}-\d{2}$/.test(start) || !/^\d{4}-\d{2}-\d{2}$/.test(selectedEnd)) return null;
@@ -20460,6 +20494,7 @@
         return;
       }
       const bounds = monthlySelectedBounds();
+      updateMonthlyRankingPeriodNote(bounds);
       if (!bounds) {
         setMonthlyPerformanceStatus("Choose a start and end date.", true);
         return;
@@ -21306,8 +21341,9 @@
 
     if (monthlyPerformanceForm) {
       const leaderboardToday = localDateValue(new Date());
-      monthlyPerformanceStart.value = leaderboardToday.slice(0, 7) + "-01";
+      monthlyPerformanceStart.value = monthlyOfficialDefaultStart(leaderboardToday);
       monthlyPerformanceEnd.value = leaderboardToday;
+      updateMonthlyRankingPeriodNote(monthlySelectedBounds());
       monthlyPerformanceForm.addEventListener("submit", generateMonthlyPerformance);
       [monthlyPerformanceStart, monthlyPerformanceEnd].forEach((control) => control.addEventListener("change", () => {
         monthlyPerformanceLoadedRange = "";
