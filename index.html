@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="description" content="A mobile-friendly collection of vision production guides, troubleshooting history, and copy-ready reporting tools.">
-  <meta name="visionary-app-version" content="3.0.51">
+  <meta name="visionary-app-version" content="3.0.53">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
@@ -3176,6 +3176,107 @@
       margin: 0;
       color: var(--muted);
       font-size: 0.82rem;
+    }
+
+    .monthly-ranking-audit {
+      width: 100%;
+      max-width: 960px;
+      margin: 20px auto 0;
+      padding-top: 18px;
+      border-top: 1px solid var(--line);
+    }
+
+    #app-shell:not([data-auth-role="Admin"]) .monthly-ranking-audit {
+      display: none !important;
+    }
+
+    .monthly-ranking-audit-heading {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+
+    .monthly-ranking-audit-heading h3 {
+      margin: 0;
+    }
+
+    .monthly-ranking-audit-heading p {
+      margin: 4px 0 0;
+      color: var(--muted);
+      font-size: 0.78rem;
+      line-height: 1.4;
+    }
+
+    .monthly-ranking-audit-summary {
+      margin: 0 0 10px;
+      padding: 9px 11px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface-soft, rgba(127, 127, 127, 0.06));
+      font-size: 0.78rem;
+      line-height: 1.4;
+    }
+
+    .monthly-ranking-audit-summary[data-warning="true"] {
+      font-weight: 700;
+    }
+
+    .monthly-ranking-audit-table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: var(--paper);
+    }
+
+    .monthly-ranking-audit-table {
+      width: 100%;
+      min-width: 760px;
+      border-collapse: collapse;
+      font-size: 0.76rem;
+    }
+
+    .monthly-ranking-audit-table th,
+    .monthly-ranking-audit-table td {
+      padding: 9px 10px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+      white-space: nowrap;
+    }
+
+    .monthly-ranking-audit-table tr:last-child td {
+      border-bottom: 0;
+    }
+
+    .monthly-ranking-audit-table th {
+      font-size: 0.7rem;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      color: var(--muted);
+      background: var(--surface-soft, rgba(127, 127, 127, 0.06));
+    }
+
+    .monthly-ranking-audit-id {
+      max-width: 270px;
+      white-space: normal !important;
+      overflow-wrap: anywhere;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 0.72rem;
+    }
+
+    .monthly-ranking-audit-id small {
+      display: block;
+      margin-top: 3px;
+      color: var(--muted);
+      font-family: inherit;
+    }
+
+    .monthly-ranking-audit-status {
+      white-space: normal !important;
+      min-width: 170px;
+      font-weight: 700;
     }
 
     .leaderboard-performance-panel {
@@ -6830,7 +6931,7 @@
             <span class="form-tile-arrow" aria-hidden="true">›</span>
           </button>
         </div>
-        <p class="last-updated">Version 3.0.51 · Last updated: <time datetime="2026-09-14">September 14, 2026</time></p>
+        <p class="last-updated">Version 3.0.53 · Last updated: <time datetime="2026-09-14">September 14, 2026</time></p>
         <div class="version-history-link-wrap">
           <button id="open-version-history" class="version-history-link" type="button">View version history</button>
         </div>
@@ -6967,7 +7068,7 @@
             <div class="daily-cloud-copy">
               <strong id="daily-cloud-title">Shared shift synchronization</strong>
               <span id="daily-cloud-status" role="status" aria-live="polite">Sign in with Google to share Daily Tasks across phones.</span>
-              <small>Safe Sync v6.2 · App <span id="daily-app-version">3.0.51</span><span id="daily-version-health" class="daily-version-health" hidden></span></small>
+              <small>Safe Sync v6.2 · App <span id="daily-app-version">3.0.53</span><span id="daily-version-health" class="daily-version-health" hidden></span></small>
             </div>
           </div>
           <div class="daily-cloud-actions">
@@ -7408,7 +7509,7 @@
             </div>
             <p class="monthly-performance-default-note">Technician rankings use the official monthly ranking period through today. Admin can choose a date range for their own view.</p>
           </form>
-          <p id="monthly-ranking-period-note" class="monthly-ranking-period-note" hidden>September 2026 Power Rankings officially begin September 7 because MI2 Daily Tasks was still rolling out earlier in the month.</p>
+          <p id="monthly-ranking-period-note" class="monthly-ranking-period-note" hidden>September 2026 Power Rankings officially begin September 5 because MI2 Daily Tasks was still rolling out earlier in the month.</p>
           <p id="monthly-performance-status" class="status" role="status" aria-live="polite"></p>
           <div id="monthly-performance-output" hidden>
             <p id="monthly-performance-range" class="monthly-performance-range"></p>
@@ -7435,6 +7536,21 @@
                 </div>
               </div>
               <div id="monthly-shift-leaders" class="monthly-ranking-grid monthly-shift-grid"></div>
+            </section>
+            <section id="monthly-ranking-audit" class="monthly-ranking-audit" aria-labelledby="monthly-ranking-audit-title" hidden>
+              <div class="monthly-ranking-audit-heading">
+                <div>
+                  <h3 id="monthly-ranking-audit-title" class="reports-section-heading">Ranking data audit</h3>
+                  <p>Admin-only integrity check. Rankings count only the canonical Firebase document whose ID exactly matches YYYY-MM-DD_SHIFT.</p>
+                </div>
+              </div>
+              <p id="monthly-ranking-audit-summary" class="monthly-ranking-audit-summary"></p>
+              <div class="monthly-ranking-audit-table-wrap">
+                <table class="monthly-ranking-audit-table">
+                  <thead><tr><th>Date</th><th>Shift</th><th>Completion</th><th>Points</th><th>Firebase document ID</th><th>Ranking status</th></tr></thead>
+                  <tbody id="monthly-ranking-audit-body"></tbody>
+                </table>
+              </div>
             </section>
           </div>
         </section>
@@ -7707,7 +7823,17 @@
 
       <section class="panel" aria-label="Release history">
         <div class="version-history-list">
-          <article class="version-card version-card-current"><div class="version-card-heading"><h2>Version 3.0.51</h2><time datetime="2026-09-14">September 14, 2026</time></div>
+          <article class="version-card version-card-current"><div class="version-card-heading"><h2>Version 3.0.53</h2><time datetime="2026-09-14">September 14, 2026</time></div>
+            <p class="version-summary-intro">Protected Power Rankings from orphaned, duplicate, or malformed Firebase shift records.</p><ul class="version-summary-list">
+            <li><strong>Canonical shift IDs only</strong>A record can affect Power Rankings only when its Firebase document ID exactly matches its saved date and shift in YYYY-MM-DD_SHIFT format.</li>
+            <li><strong>Phantom records blocked</strong>Legacy or duplicate documents with mismatched IDs are ignored even when their internal date and shift fields would otherwise place them in the ranking period.</li>
+            <li><strong>Admin integrity audit</strong>Power Rankings now show Admin the document ID, date, shift, completion, points, and Counted/Excluded/Ignored reason for every server record checked.</li></ul></article>
+          <article class="version-card"><div class="version-card-heading"><h2>Version 3.0.52</h2><time datetime="2026-09-14">September 14, 2026</time></div>
+            <p class="version-summary-intro">Moved the official September Power Rankings start date to September 5.</p><ul class="version-summary-list">
+            <li><strong>September cutoff adjusted</strong>September 2026 rankings now default to September 5 instead of September 7.</li>
+            <li><strong>70% rule retained</strong>Only shifts completing at least 70% of available work can affect Power Rankings.</li>
+            <li><strong>Future months unchanged</strong>Beginning in October, monthly Power Rankings automatically start on the first day of the calendar month.</li></ul></article>
+          <article class="version-card"><div class="version-card-heading"><h2>Version 3.0.51</h2><time datetime="2026-09-14">September 14, 2026</time></div>
             <p class="version-summary-intro">Set the official September Power Rankings period to begin after the MI2 Daily Tasks rollout.</p><ul class="version-summary-list">
             <li><strong>September cutoff</strong>September 2026 rankings default to September 7 instead of September 1 so early rollout days do not affect standings.</li>
             <li><strong>Future months unchanged</strong>Beginning in October, monthly Power Rankings automatically return to the first day of the calendar month.</li>
@@ -9047,7 +9173,7 @@
         "Open Work Instructions and Troubleshooting.": "작업 지침과 문제 해결을 엽니다.",
         "Power Rankings": "파워 랭킹",
         "Technician rankings use the official monthly ranking period through today. Admin can choose a date range for their own view.": "기술자 순위는 공식 월간 순위 기간부터 오늘까지의 데이터를 사용합니다. 관리자는 직접 날짜 범위를 선택할 수 있습니다.",
-        "September 2026 Power Rankings officially begin September 7 because MI2 Daily Tasks was still rolling out earlier in the month.": "2026년 9월 파워 랭킹은 월초에 MI2 일일 작업 도구가 도입 중이었기 때문에 공식적으로 9월 7일부터 시작합니다.",
+        "September 2026 Power Rankings officially begin September 5 because MI2 Daily Tasks was still rolling out earlier in the month.": "2026년 9월 파워 랭킹은 월초에 MI2 일일 작업 도구가 도입 중이었기 때문에 공식적으로 9월 5일부터 시작합니다.",
         "Performance rankings": "성과 순위",
         "Refresh rankings": "순위 새로 고침",
         "Save PNG": "PNG 저장",
@@ -9064,6 +9190,18 @@
         "Open Full Screen": "전체 화면으로 열기",
         "If the embedded form does not appear or feels cramped, use Open Full Screen.": "포함된 양식이 표시되지 않거나 화면이 좁으면 전체 화면으로 열기를 사용하세요.",
         "Loading Microsoft Form…": "Microsoft 양식을 불러오는 중…",
+        "Version 3.0.53 · Last updated:": "버전 3.0.53 · 마지막 업데이트:",
+        "Version 3.0.53": "버전 3.0.53",
+        "Version 3.0.52 · Last updated:": "버전 3.0.52 · 마지막 업데이트:",
+        "Version 3.0.52": "버전 3.0.52",
+        "Ranking data audit": "순위 데이터 감사",
+        "Admin-only integrity check. Rankings count only the canonical Firebase document whose ID exactly matches YYYY-MM-DD_SHIFT.": "관리자 전용 무결성 검사입니다. 순위에는 ID가 YYYY-MM-DD_SHIFT와 정확히 일치하는 정식 Firebase 문서만 반영됩니다.",
+        "Date": "날짜",
+        "Shift": "교대조",
+        "Completion": "완료율",
+        "Points": "점수",
+        "Firebase document ID": "Firebase 문서 ID",
+        "Ranking status": "순위 상태",
         "Version 3.0.51 · Last updated:": "버전 3.0.51 · 마지막 업데이트:",
         "Version 3.0.51": "버전 3.0.51",
         "Version 3.0.50": "버전 3.0.50",
@@ -18576,7 +18714,7 @@
     const provider = new GoogleAuthProvider();
     provider.setCustomParameters({ prompt: "select_account" });
     const SYNC_PROTOCOL_VERSION = 6;
-    const APP_VERSION = String(document.querySelector('meta[name="visionary-app-version"]')?.content || "3.0.51");
+    const APP_VERSION = String(document.querySelector('meta[name="visionary-app-version"]')?.content || "3.0.53");
     const HOSTED_APP_ROOT = "https://jsikson7.github.io/Visionary/";
     const HOSTED_APP_URL = HOSTED_APP_ROOT + "?v=" + APP_VERSION.replace(/\D/g, "");
     const isDirectFilePage = !["http:", "https:"].includes(window.location.protocol);
@@ -19675,6 +19813,9 @@
     const monthlyShiftLeaders = document.getElementById("monthly-shift-leaders");
     const monthlyTechnicianSavePng = document.getElementById("monthly-technician-save-png");
     const monthlyShiftSavePng = document.getElementById("monthly-shift-save-png");
+    const monthlyRankingAudit = document.getElementById("monthly-ranking-audit");
+    const monthlyRankingAuditSummary = document.getElementById("monthly-ranking-audit-summary");
+    const monthlyRankingAuditBody = document.getElementById("monthly-ranking-audit-body");
     const MONTHLY_SHIFT_CODES = ["B1", "B2", "G1", "G2"];
     const MONTHLY_MIN_SHIFT_COMPLETION = 0.70;
     const MONTHLY_MEDAL_TIERS = [
@@ -19740,19 +19881,169 @@
       monthlyPerformanceStatus.style.color = isError ? "#b23b3b" : "";
     }
 
-    function monthlyRankingRefreshLabel(date, totalCount, qualifyingCount) {
+    function monthlyRankingRefreshLabel(date, totalCount, canonicalCount, qualifyingCount, ignoredCount) {
       const time = new Intl.DateTimeFormat(undefined, { hour: "numeric", minute: "2-digit" }).format(date);
-      const loaded = Number(totalCount) || 0;
+      const checked = Number(totalCount) || 0;
+      const canonical = Number(canonicalCount) || 0;
       const qualifying = Number(qualifyingCount) || 0;
-      return "Live data updated " + time + " · " + loaded + " shift" + (loaded === 1 ? "" : "s") +
-        " loaded · " + qualifying + " meet the 70% completion minimum.";
+      const ignored = Number(ignoredCount) || 0;
+      return "Live data updated " + time + " · " + checked + " Firebase record" + (checked === 1 ? "" : "s") +
+        " checked · " + canonical + " canonical shift" + (canonical === 1 ? "" : "s") +
+        " · " + qualifying + " meet the 70% minimum" +
+        (ignored ? " · " + ignored + " invalid/orphan record" + (ignored === 1 ? "" : "s") + " ignored." : " · No invalid records found.");
+    }
+
+    function monthlyRawDocumentIdentity(documentId, data) {
+      const date = String(data && data.date != null ? data.date : "");
+      const shift = String(data && data.shift != null ? data.shift : "");
+      const validDate = /^\d{4}-\d{2}-\d{2}$/.test(date);
+      const validShift = MONTHLY_SHIFT_CODES.indexOf(shift) !== -1;
+      const expectedKey = validDate && validShift ? date + "_" + shift : "";
+      return {
+        documentId: String(documentId || ""),
+        date: date,
+        shift: shift,
+        validDate: validDate,
+        validShift: validShift,
+        expectedKey: expectedKey,
+        canonical: Boolean(expectedKey && String(documentId || "") === expectedKey)
+      };
+    }
+
+    function monthlyAuditDocuments(documentSnapshots, daily) {
+      const raw = documentSnapshots.map((documentSnapshot) => ({
+        id: documentSnapshot.id,
+        data: documentSnapshot.data(),
+        identity: monthlyRawDocumentIdentity(documentSnapshot.id, documentSnapshot.data())
+      }));
+      const canonicalKeys = new Set(raw
+        .filter((item) => item.identity.canonical)
+        .map((item) => item.identity.expectedKey));
+
+      return raw.map((item) => {
+        const identity = item.identity;
+        let record = null;
+        let calculationError = "";
+        if (identity.validDate && identity.validShift) {
+          try {
+            record = monthlyRecordFromCloud(item.data, daily, item.id);
+          } catch (error) {
+            calculationError = error && error.message ? error.message : "Unable to calculate shift metrics";
+          }
+        }
+
+        let statusCode = "ignored-invalid";
+        let statusLabel = "Ignored · invalid date/shift";
+        if (identity.validDate && identity.validShift && !identity.canonical) {
+          if (canonicalKeys.has(identity.expectedKey)) {
+            statusCode = "ignored-duplicate";
+            statusLabel = "Ignored · duplicate/orphan ID";
+          } else {
+            statusCode = "ignored-orphan";
+            statusLabel = "Ignored · canonical record missing";
+          }
+        } else if (identity.canonical && calculationError) {
+          statusCode = "ignored-unreadable";
+          statusLabel = "Ignored · unreadable shift data";
+        } else if (identity.canonical && record && !monthlyRecordQualifies(record)) {
+          statusCode = "below-minimum";
+          statusLabel = "Excluded · below 70%";
+        } else if (identity.canonical && record) {
+          statusCode = "counted";
+          statusLabel = "Counted";
+        }
+
+        return {
+          documentId: item.id,
+          data: item.data,
+          identity: identity,
+          record: record,
+          calculationError: calculationError,
+          statusCode: statusCode,
+          statusLabel: statusLabel,
+          integrityIssue: statusCode.indexOf("ignored-") === 0,
+          counted: statusCode === "counted"
+        };
+      }).sort((left, right) => {
+        const leftDate = left.identity.date || "9999-99-99";
+        const rightDate = right.identity.date || "9999-99-99";
+        return leftDate.localeCompare(rightDate) ||
+          String(left.identity.shift || "").localeCompare(String(right.identity.shift || "")) ||
+          String(left.documentId || "").localeCompare(String(right.documentId || ""));
+      });
+    }
+
+    function renderMonthlyRankingAudit(auditRows) {
+      if (!monthlyRankingAudit || !monthlyRankingAuditSummary || !monthlyRankingAuditBody) return;
+      if (!isLocalLeaderboardAdmin()) {
+        monthlyRankingAudit.hidden = true;
+        monthlyRankingAuditBody.innerHTML = "";
+        monthlyRankingAuditSummary.textContent = "";
+        return;
+      }
+
+      const rows = Array.isArray(auditRows) ? auditRows : [];
+      const integrityIssues = rows.filter((row) => row.integrityIssue).length;
+      const belowMinimum = rows.filter((row) => row.statusCode === "below-minimum").length;
+      const counted = rows.filter((row) => row.statusCode === "counted").length;
+      monthlyRankingAudit.hidden = false;
+      monthlyRankingAuditSummary.dataset.warning = integrityIssues ? "true" : "false";
+      monthlyRankingAuditSummary.textContent = rows.length + " Firebase record" + (rows.length === 1 ? "" : "s") +
+        " checked · " + counted + " counted · " + belowMinimum + " below 70% · " + integrityIssues +
+        " invalid/orphan record" + (integrityIssues === 1 ? "" : "s") + " ignored.";
+      monthlyRankingAuditBody.innerHTML = "";
+
+      if (!rows.length) {
+        const tr = document.createElement("tr");
+        const td = document.createElement("td");
+        td.colSpan = 6;
+        td.textContent = "No Firebase shift records were returned for this date range.";
+        tr.appendChild(td);
+        monthlyRankingAuditBody.appendChild(tr);
+        return;
+      }
+
+      rows.forEach((row) => {
+        const tr = document.createElement("tr");
+        tr.dataset.auditStatus = row.statusCode;
+        const record = row.record;
+        const completion = record ? monthlyRecordCompletionRate(record) : null;
+        const values = [
+          row.identity.date || "—",
+          row.identity.shift || "—",
+          completion == null ? "—" : (completion * 100).toLocaleString(undefined, { maximumFractionDigits: 1 }) + "%",
+          record ? monthlyNumber(record.earned) : "—"
+        ];
+        values.forEach((value) => {
+          const td = document.createElement("td");
+          td.textContent = value;
+          tr.appendChild(td);
+        });
+
+        const idCell = document.createElement("td");
+        idCell.className = "monthly-ranking-audit-id";
+        idCell.textContent = row.documentId || "—";
+        if (row.identity.expectedKey && row.documentId !== row.identity.expectedKey) {
+          const expected = document.createElement("small");
+          expected.textContent = "Expected: " + row.identity.expectedKey;
+          idCell.appendChild(expected);
+        }
+        tr.appendChild(idCell);
+
+        const statusCell = document.createElement("td");
+        statusCell.className = "monthly-ranking-audit-status";
+        statusCell.textContent = row.statusLabel;
+        if (row.calculationError) statusCell.title = row.calculationError;
+        tr.appendChild(statusCell);
+        monthlyRankingAuditBody.appendChild(tr);
+      });
     }
 
     function isLocalLeaderboardAdmin() {
       return Boolean(appShellElement && appShellElement.dataset.authRole === "Admin");
     }
 
-    const SEPTEMBER_2026_RANKING_START = "2026-09-07";
+    const SEPTEMBER_2026_RANKING_START = "2026-09-05";
 
     function monthlyOfficialDefaultStart(today) {
       const monthStart = today.slice(0, 7) + "-01";
@@ -19811,7 +20102,7 @@
       return -1;
     }
 
-    function monthlyRecordFromCloud(data, daily) {
+    function monthlyRecordFromCloud(data, daily, documentId) {
       const state = stateFromCloud(data);
       daily.applyCloudState(state);
       const summary = daily.getReportSummary();
@@ -19854,6 +20145,7 @@
         result.missed.length === 0;
 
       return {
+        documentId: String(documentId || ""),
         date: state.date,
         shift: state.shift,
         earned: Number(result.earned) || 0,
@@ -20521,14 +20813,12 @@
           where("date", ">=", bounds.start),
           where("date", "<=", bounds.cutoff)
         ));
-        const documents = [];
-        snapshot.forEach((documentSnapshot) => documents.push(documentSnapshot.data()));
-        documents.sort((left, right) => {
-          const leftKey = String(left.date || "") + "_" + String(left.shift || "");
-          const rightKey = String(right.date || "") + "_" + String(right.shift || "");
-          return leftKey.localeCompare(rightKey);
-        });
-        const records = documents.map((data) => monthlyRecordFromCloud(data, daily));
+        const documentSnapshots = [];
+        snapshot.forEach((documentSnapshot) => documentSnapshots.push(documentSnapshot));
+        const auditRows = monthlyAuditDocuments(documentSnapshots, daily);
+        const records = auditRows
+          .filter((row) => row.identity.canonical && row.record && !row.calculationError)
+          .map((row) => row.record);
         const current = monthlyAggregate(records, bounds.cutoff);
         const rankedTechnicians = monthlyRankTechnicians(current.technicians);
         const rankedShifts = monthlyRankShifts(current.shifts);
@@ -20536,6 +20826,7 @@
 
         renderMonthlyTechnicians(rankedTechnicians, streaks.technicians);
         renderMonthlyShifts(rankedShifts, streaks.shifts);
+        renderMonthlyRankingAudit(auditRows);
         monthlyPerformanceRange.textContent =
           monthlyReadableDate(bounds.start) + " – " + monthlyReadableDate(bounds.cutoff) +
           (isLocalLeaderboardAdmin() ? " · Selected date range" : " · Current month") +
@@ -20552,16 +20843,19 @@
         monthlyPerformanceLoadedRange = bounds.start + "|" + bounds.cutoff + "|" + (isLocalLeaderboardAdmin() ? "admin" : "technician");
         monthlyPerformanceLastSuccessAt = Date.now();
         const qualifyingShiftCount = records.filter((record) => monthlyRecordQualifies(record)).length;
+        const ignoredIntegrityCount = auditRows.filter((row) => row.integrityIssue).length;
         setMonthlyPerformanceStatus(monthlyRankingRefreshLabel(
           new Date(monthlyPerformanceLastSuccessAt),
-          documents.length,
-          qualifyingShiftCount
+          documentSnapshots.length,
+          records.length,
+          qualifyingShiftCount,
+          ignoredIntegrityCount
         ));
       } catch (error) {
         resetMonthlyRankingExports();
         const detail = friendlyError(error);
         setMonthlyPerformanceStatus(
-          "Could not verify the latest shared Power Rankings. Any rankings still shown may be stale. " + detail,
+          "Could not verify the latest shared Power Rankings. Any rankings or audit details still shown may be stale. " + detail,
           true
         );
       } finally {
@@ -21151,9 +21445,9 @@
       const appProperties = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>' +
         '<Properties xmlns="http://schemas.openxmlformats.org/officeDocument/2006/extended-properties" ' +
         'xmlns:vt="http://schemas.openxmlformats.org/officeDocument/2006/docPropsVTypes">' +
-        '<Application>Visionary 3.0.46</Application><DocSecurity>0</DocSecurity><ScaleCrop>false</ScaleCrop>' +
+        '<Application>Visionary 3.0.53</Application><DocSecurity>0</DocSecurity><ScaleCrop>false</ScaleCrop>' +
         '<Company></Company><LinksUpToDate>false</LinksUpToDate><SharedDoc>false</SharedDoc><HyperlinksChanged>false</HyperlinksChanged>' +
-        '<AppVersion>3.0.46</AppVersion></Properties>';
+        '<AppVersion>3.0.53</AppVersion></Properties>';
 
       const zip = xlsxZipStoredFiles([
         { name: "[Content_Types].xml", contents: contentTypes },
