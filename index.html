@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="description" content="A mobile-friendly collection of vision production guides, troubleshooting history, and copy-ready reporting tools.">
-  <meta name="visionary-app-version" content="3.0.54">
+  <meta name="visionary-app-version" content="3.0.55">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
@@ -3186,6 +3186,7 @@
       border-top: 1px solid var(--line);
     }
 
+    #app-shell:not([data-auth-role="Admin"]) #admin-ranking-details,
     #app-shell:not([data-auth-role="Admin"]) .monthly-ranking-audit {
       display: none !important;
     }
@@ -6931,7 +6932,7 @@
             <span class="form-tile-arrow" aria-hidden="true">›</span>
           </button>
         </div>
-        <p class="last-updated">Version 3.0.54 · Last updated: <time datetime="2026-09-22">September 22, 2026</time></p>
+        <p class="last-updated">Version 3.0.55 · Last updated: <time datetime="2026-09-23">September 23, 2026</time></p>
         <div class="version-history-link-wrap">
           <button id="open-version-history" class="version-history-link" type="button">View version history</button>
         </div>
@@ -7068,7 +7069,7 @@
             <div class="daily-cloud-copy">
               <strong id="daily-cloud-title">Shared shift synchronization</strong>
               <span id="daily-cloud-status" role="status" aria-live="polite">Sign in with Google to share Daily Tasks across phones.</span>
-              <small>Safe Sync v6.2 · App <span id="daily-app-version">3.0.54</span><span id="daily-version-health" class="daily-version-health" hidden></span></small>
+              <small>Safe Sync v6.2 · App <span id="daily-app-version">3.0.55</span><span id="daily-version-health" class="daily-version-health" hidden></span></small>
             </div>
           </div>
           <div class="daily-cloud-actions">
@@ -7537,7 +7538,7 @@
               </div>
               <div id="monthly-shift-leaders" class="monthly-ranking-grid monthly-shift-grid"></div>
             </section>
-            <section id="pm-points-impact" class="leaderboard-ranking-block" aria-label="PM points impact" hidden></section>
+            <section id="admin-ranking-details" class="leaderboard-ranking-block" aria-label="Detailed rankings" hidden></section>
             <section id="monthly-ranking-audit" class="monthly-ranking-audit" aria-labelledby="monthly-ranking-audit-title" hidden>
               <div class="monthly-ranking-audit-heading">
                 <div>
@@ -7824,7 +7825,8 @@
 
       <section class="panel" aria-label="Release history">
         <div class="version-history-list">
-          <article class="version-card version-card-current"><div class="version-card-heading"><h2>Version 3.0.54</h2><time datetime="2026-09-22">September 22, 2026</time></div>
+          <article class="version-card version-card-current"><div class="version-card-heading"><h2>Version 3.0.55</h2><time datetime="2026-09-23">September 23, 2026</time></div><p class="version-summary-intro">Admin-only detailed technician and shift rankings with current points, averages, work counts, and achievements. Removed PM before-and-after comparisons.</p></article>
+          <article class="version-card"><div class="version-card-heading"><h2>Version 3.0.54</h2><time datetime="2026-09-22">September 22, 2026</time></div>
             <p class="version-summary-intro">PMs now earn 25 points each, including recalculated historical reports and rankings.</p><ul class="version-summary-list"><li><strong>PM impact comparison</strong>Power Rankings compares 50 vs 25 points for technicians and shifts using the same server records, shared credit, and qualification rules.</li></ul></article>
           <article class="version-card"><div class="version-card-heading"><h2>Version 3.0.53</h2><time datetime="2026-09-14">September 14, 2026</time></div>
             <p class="version-summary-intro">Protected Power Rankings from orphaned, duplicate, or malformed Firebase shift records.</p><ul class="version-summary-list">
@@ -9193,8 +9195,8 @@
         "Open Full Screen": "전체 화면으로 열기",
         "If the embedded form does not appear or feels cramped, use Open Full Screen.": "포함된 양식이 표시되지 않거나 화면이 좁으면 전체 화면으로 열기를 사용하세요.",
         "Loading Microsoft Form…": "Microsoft 양식을 불러오는 중…",
-        "Version 3.0.54 · Last updated:": "버전 3.0.54 · 마지막 업데이트:",
-        "Version 3.0.54": "버전 3.0.54",
+        "Version 3.0.55 · Last updated:": "버전 3.0.55 · 마지막 업데이트:",
+        "Version 3.0.55": "버전 3.0.55",
         "Version 3.0.52 · Last updated:": "버전 3.0.52 · 마지막 업데이트:",
         "Version 3.0.52": "버전 3.0.52",
         "Ranking data audit": "순위 데이터 감사",
@@ -18133,10 +18135,7 @@
         canonicalTechnicianName: canonicalRosterName,
         update: function () { return updateDailyShift({ skipSave: true }); },
         getMetrics: metrics,
-        getReportSummary: function (pmPointsOverride) {
-          var savedPMPoints = DAILY_PM_POINTS;
-          if (pmPointsOverride === 50 || pmPointsOverride === 25) DAILY_PM_POINTS = pmPointsOverride;
-          try {
+        getReportSummary: function () {
           var result = metrics();
           var contributorBreakdowns = {};
           result.contributorOrder.forEach(function (option) {
@@ -18150,7 +18149,6 @@
             topContributor: topContributorSummary(result),
             contributorBreakdowns: contributorBreakdowns
           };
-          } finally { DAILY_PM_POINTS = savedPMPoints; }
         },
         getEntryLines: function () {
           return {
@@ -18721,7 +18719,7 @@
     const provider = new GoogleAuthProvider();
     provider.setCustomParameters({ prompt: "select_account" });
     const SYNC_PROTOCOL_VERSION = 6;
-    const APP_VERSION = String(document.querySelector('meta[name="visionary-app-version"]')?.content || "3.0.54");
+    const APP_VERSION = String(document.querySelector('meta[name="visionary-app-version"]')?.content || "3.0.55");
     const HOSTED_APP_ROOT = "https://jsikson7.github.io/Visionary/";
     const HOSTED_APP_URL = HOSTED_APP_ROOT + "?v=" + APP_VERSION.replace(/\D/g, "");
     const isDirectFilePage = !["http:", "https:"].includes(window.location.protocol);
@@ -19917,7 +19915,7 @@
       };
     }
 
-    function monthlyAuditDocuments(documentSnapshots, daily, pmPointsOverride) {
+    function monthlyAuditDocuments(documentSnapshots, daily) {
       const raw = documentSnapshots.map((documentSnapshot) => ({
         id: documentSnapshot.id,
         data: documentSnapshot.data(),
@@ -19933,7 +19931,7 @@
         let calculationError = "";
         if (identity.validDate && identity.validShift) {
           try {
-            record = monthlyRecordFromCloud(item.data, daily, item.id, pmPointsOverride);
+            record = monthlyRecordFromCloud(item.data, daily, item.id);
           } catch (error) {
             calculationError = error && error.message ? error.message : "Unable to calculate shift metrics";
           }
@@ -20109,10 +20107,10 @@
       return -1;
     }
 
-    function monthlyRecordFromCloud(data, daily, documentId, pmPointsOverride) {
+    function monthlyRecordFromCloud(data, daily, documentId) {
       const state = stateFromCloud(data);
       daily.applyCloudState(state);
-      const summary = daily.getReportSummary(pmPointsOverride);
+      const summary = daily.getReportSummary();
       const result = summary.result;
       const people = new Map();
 
@@ -20269,53 +20267,62 @@
       return active.concat(inactive);
     }
 
-    function renderPMPointsImpact(before, after, oldRecords, newRecords) {
-      const host = document.getElementById("pm-points-impact");
+    function renderAdminRankingDetails(current) {
+      const host = document.getElementById("admin-ranking-details");
       host.replaceChildren();
-      host.hidden = false;
-      function text(tag, value) {
-        const el = document.createElement(tag); el.textContent = value; host.appendChild(el); return el;
-      }
-      text("h3", "PM points impact: 50 → 25");
-      text("p", "Same saved work and selected dates, recalculated at both rates. Historical totals and medal thresholds use 25 points. Shared PM credit is split equally. Each scenario applies the 70% completion and 3-shift minimum independently; eligibility can change.");
-      const oldQualified = oldRecords.filter(monthlyRecordQualifies).length;
-      const newQualified = newRecords.filter(monthlyRecordQualifies).length;
-      text("p", "Qualifying shift records: " + oldQualified + " → " + newQualified + ". PPS = average points per qualifying shift. Tables show the largest PPS decrease first; — means unranked.");
-      function group(label, oldItems, newItems) {
-        const oldMap = new Map(oldItems.map(x => [x.key, x]));
-        const newMap = new Map(newItems.map(x => [x.key, x]));
-        const avg = x => x && x.shiftCount ? x.points / x.shiftCount : null;
-        const fmt = x => x == null ? "—" : monthlyNumber(x);
-        const name = x => x ? (x.name || x.shift) : "None eligible";
-        const leader = items => items.find(x => x.rank === 1);
-        text("h4", label);
-        text("p", "Top at 50: " + name(leader(oldItems)) + " → Top at 25: " + name(leader(newItems)));
-        const rows = Array.from(new Set([...oldMap.keys(), ...newMap.keys()])).map(key => {
-          const old = oldMap.get(key), next = newMap.get(key);
-          const loss = avg(old) != null && avg(next) != null ? avg(old) - avg(next) : null;
-          return { old, next, loss };
-        }).sort((a,b) => (b.loss ?? -Infinity) - (a.loss ?? -Infinity) || name(a.next || a.old).localeCompare(name(b.next || b.old)));
-        const worst = rows.find(x => x.loss > 0);
-        if (worst) text("p", "Largest PPS decrease: " + name(worst.next || worst.old) + " (" + fmt(worst.loss) + " points per shift). Ties appear in the table.");
-        if (!rows.length) { text("p", "No eligible records in this date range."); return; }
-        const wrap = document.createElement("div"); wrap.className = "monthly-ranking-audit-table-wrap";
-        const table = document.createElement("table"); table.className = "monthly-ranking-audit-table";
-        const caption = document.createElement("caption"); caption.textContent = label + " — before and after PM scoring"; table.appendChild(caption);
-        const head = document.createElement("thead"), hr = document.createElement("tr");
-        ["Name", "Rank 50 → 25", "PPS at 50", "PPS at 25", "PPS decrease", "Total points 50 → 25", "Qualifying shifts 50 → 25"].forEach(value => {
-          const th = document.createElement("th"); th.scope = "col"; th.textContent = value; hr.appendChild(th);
-        }); head.appendChild(hr); table.appendChild(head);
+      host.hidden = true;
+      if (!isLocalLeaderboardAdmin()) return;
+      const heading = document.createElement("h3");
+      heading.textContent = "Detailed rankings";
+      host.appendChild(heading);
+      function table(title, headers, rows) {
+        const wrap = document.createElement("div");
+        wrap.className = "monthly-ranking-audit-table-wrap";
+        wrap.tabIndex = 0;
+        wrap.setAttribute("role", "region");
+        wrap.setAttribute("aria-label", title + ", scroll horizontally for all metrics");
+        const table = document.createElement("table");
+        table.className = "monthly-ranking-audit-table";
+        const caption = document.createElement("caption");
+        caption.textContent = title;
+        table.appendChild(caption);
+        const head = document.createElement("thead"), tr = document.createElement("tr");
+        headers.forEach(label => {
+          const th = document.createElement("th"); th.scope = "col"; th.textContent = label; tr.appendChild(th);
+        });
+        head.appendChild(tr); table.appendChild(head);
         const body = document.createElement("tbody");
-        rows.forEach(({old, next, loss}) => {
-          const tr = document.createElement("tr");
-          [name(next || old), (old?.rank ?? "—") + " → " + (next?.rank ?? "—"), fmt(avg(old)), fmt(avg(next)), fmt(loss), fmt(old?.points) + " → " + fmt(next?.points), (old?.shiftCount ?? 0) + " → " + (next?.shiftCount ?? 0)].forEach(value => {
-            const td = document.createElement("td"); td.textContent = value; tr.appendChild(td);
-          }); body.appendChild(tr);
-        }); table.appendChild(body); wrap.appendChild(table); host.appendChild(wrap);
+        rows.forEach(values => {
+          const row = document.createElement("tr");
+          values.forEach(value => {
+            const cell = document.createElement("td"); cell.textContent = String(value); row.appendChild(cell);
+          }); body.appendChild(row);
+        });
+        if (!rows.length) {
+          const row = document.createElement("tr"), cell = document.createElement("td");
+          cell.colSpan = headers.length; cell.textContent = "No qualifying shift data in this date range.";
+          row.appendChild(cell); body.appendChild(row);
+        }
+        table.appendChild(body); wrap.appendChild(table); host.appendChild(wrap);
       }
-      group("Technicians", monthlyRankTechnicians(before.technicians), monthlyRankTechnicians(after.technicians));
-      group("Shifts", monthlyRankShifts(before.shifts), monthlyRankShifts(after.shifts));
+      const ranked = monthlyRankTechnicians(current.technicians);
+      const ranks = new Map(ranked.map(person => [person.key, person.rank]));
+      const technicians = current.technicians.slice().sort((a, b) =>
+        (ranks.get(a.key) ?? Infinity) - (ranks.get(b.key) ?? Infinity) ||
+        (b.points / (b.shiftCount || 1)) - (a.points / (a.shiftCount || 1)) || a.name.localeCompare(b.name));
+      table("All technicians", ["Rank", "Technician", "Shift", "Total points", "Avg points / shift", "Qualifying shifts", "PMs", "Escalations", "Super escalations", "Error proofing", ...MONTHLY_MEDAL_TIERS.map(tier => tier.name + " medals")],
+        technicians.map(person => [ranks.get(person.key) ?? "Unranked", person.name, monthlyTechnicianShiftLabel(person), monthlyNumber(person.points), monthlyAveragePoints(person), person.shiftCount, monthlyNumber(person.pmCount), monthlyNumber(person.escalationCount), monthlyNumber(person.superEscalationCount), monthlyNumber(person.errorProofingCount), ...person.medals]));
+      table("All shifts", ["Rank", "Shift", "Total points", "Avg points / shift", "Qualifying shifts", "Completion", "Perfect shifts", "PMs", "Escalations", "Super escalations", "Error proofing"],
+        monthlyRankShifts(current.shifts).map(shift => [shift.rank ?? "Unranked", shift.shift, monthlyNumber(shift.points), monthlyAveragePoints(shift), shift.shiftCount, shift.completionAvailable ? monthlyNumber(100 * shift.completionEarned / shift.completionAvailable) + "%" : "—", shift.perfectShiftCount, monthlyNumber(shift.pmCount), monthlyNumber(shift.escalationCount), monthlyNumber(shift.superEscalationCount), monthlyNumber(shift.errorProofingCount)]));
+      host.hidden = false;
     }
+
+    new MutationObserver(() => {
+      const host = document.getElementById("admin-ranking-details");
+      host.hidden = true;
+      host.replaceChildren();
+      monthlyPerformanceLoadedRange = "";
+    }).observe(appShellElement, { attributes: true, attributeFilter: ["data-auth-role"] });
 
     function monthlyRankMap(items) {
       const map = new Map();
@@ -20859,7 +20866,7 @@
       monthlyPerformanceBusy = true;
       monthlyPerformanceLastRequestAt = Date.now();
       monthlyPerformanceRefresh.disabled = true;
-      document.getElementById("pm-points-impact").hidden = true;
+      document.getElementById("admin-ranking-details").hidden = true;
       resetMonthlyRankingExports();
       setMonthlyPerformanceStatus("Checking the latest shared Power Rankings…");
       const originalState = daily.getState();
@@ -20875,12 +20882,8 @@
         const records = auditRows
           .filter((row) => row.identity.canonical && row.record && !row.calculationError)
           .map((row) => row.record);
-        const previousRecords = monthlyAuditDocuments(documentSnapshots, daily, 50)
-          .filter(row => row.identity.canonical && row.record && !row.calculationError)
-          .map(row => row.record);
-        const previous = monthlyAggregate(previousRecords, bounds.cutoff);
         const current = monthlyAggregate(records, bounds.cutoff);
-        renderPMPointsImpact(previous, current, previousRecords, records);
+        renderAdminRankingDetails(current);
         const rankedTechnicians = monthlyRankTechnicians(current.technicians);
         const rankedShifts = monthlyRankShifts(current.shifts);
         const streaks = monthlyPositionStreakMaps(records, bounds.start, bounds.cutoff);
@@ -21506,9 +21509,9 @@
       const appProperties = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>' +
         '<Properties xmlns="http://schemas.openxmlformats.org/officeDocument/2006/extended-properties" ' +
         'xmlns:vt="http://schemas.openxmlformats.org/officeDocument/2006/docPropsVTypes">' +
-        '<Application>Visionary 3.0.54</Application><DocSecurity>0</DocSecurity><ScaleCrop>false</ScaleCrop>' +
+        '<Application>Visionary 3.0.55</Application><DocSecurity>0</DocSecurity><ScaleCrop>false</ScaleCrop>' +
         '<Company></Company><LinksUpToDate>false</LinksUpToDate><SharedDoc>false</SharedDoc><HyperlinksChanged>false</HyperlinksChanged>' +
-        '<AppVersion>3.0.54</AppVersion></Properties>';
+        '<AppVersion>3.0.55</AppVersion></Properties>';
 
       const zip = xlsxZipStoredFiles([
         { name: "[Content_Types].xml", contents: contentTypes },
