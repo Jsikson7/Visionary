@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="description" content="A mobile-friendly collection of vision production guides, troubleshooting history, and copy-ready reporting tools.">
-  <meta name="visionary-app-version" content="3.0.55">
+  <meta name="visionary-app-version" content="3.0.56">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
@@ -6932,7 +6932,7 @@
             <span class="form-tile-arrow" aria-hidden="true">›</span>
           </button>
         </div>
-        <p class="last-updated">Version 3.0.55 · Last updated: <time datetime="2026-09-23">September 23, 2026</time></p>
+        <p class="last-updated">Version 3.0.56 · Last updated: <time datetime="2026-09-23">September 23, 2026</time></p>
         <div class="version-history-link-wrap">
           <button id="open-version-history" class="version-history-link" type="button">View version history</button>
         </div>
@@ -7069,7 +7069,7 @@
             <div class="daily-cloud-copy">
               <strong id="daily-cloud-title">Shared shift synchronization</strong>
               <span id="daily-cloud-status" role="status" aria-live="polite">Sign in with Google to share Daily Tasks across phones.</span>
-              <small>Safe Sync v6.2 · App <span id="daily-app-version">3.0.55</span><span id="daily-version-health" class="daily-version-health" hidden></span></small>
+              <small>Safe Sync v6.2 · App <span id="daily-app-version">3.0.56</span><span id="daily-version-health" class="daily-version-health" hidden></span></small>
             </div>
           </div>
           <div class="daily-cloud-actions">
@@ -7825,7 +7825,8 @@
 
       <section class="panel" aria-label="Release history">
         <div class="version-history-list">
-          <article class="version-card version-card-current"><div class="version-card-heading"><h2>Version 3.0.55</h2><time datetime="2026-09-23">September 23, 2026</time></div><p class="version-summary-intro">Admin-only detailed technician and shift rankings with current points, averages, work counts, and achievements. Removed PM before-and-after comparisons.</p></article>
+          <article class="version-card version-card-current"><div class="version-card-heading"><h2>Version 3.0.56</h2><time datetime="2026-09-23">September 23, 2026</time></div><p class="version-summary-intro">Added an Admin-only balanced ranking trial with weighted activity categories, split task credit, five-shift eligibility, and official-versus-trial movement. Official ranking calculations remain unchanged.</p></article>
+          <article class="version-card"><div class="version-card-heading"><h2>Version 3.0.55</h2><time datetime="2026-09-23">September 23, 2026</time></div><p class="version-summary-intro">Admin-only detailed technician and shift rankings with current points, averages, work counts, and achievements. Removed PM before-and-after comparisons.</p></article>
           <article class="version-card"><div class="version-card-heading"><h2>Version 3.0.54</h2><time datetime="2026-09-22">September 22, 2026</time></div>
             <p class="version-summary-intro">PMs now earn 25 points each, including recalculated historical reports and rankings.</p><ul class="version-summary-list"><li><strong>PM impact comparison</strong>Power Rankings compares 50 vs 25 points for technicians and shifts using the same server records, shared credit, and qualification rules.</li></ul></article>
           <article class="version-card"><div class="version-card-heading"><h2>Version 3.0.53</h2><time datetime="2026-09-14">September 14, 2026</time></div>
@@ -9195,8 +9196,8 @@
         "Open Full Screen": "전체 화면으로 열기",
         "If the embedded form does not appear or feels cramped, use Open Full Screen.": "포함된 양식이 표시되지 않거나 화면이 좁으면 전체 화면으로 열기를 사용하세요.",
         "Loading Microsoft Form…": "Microsoft 양식을 불러오는 중…",
-        "Version 3.0.55 · Last updated:": "버전 3.0.55 · 마지막 업데이트:",
-        "Version 3.0.55": "버전 3.0.55",
+        "Version 3.0.56 · Last updated:": "버전 3.0.56 · 마지막 업데이트:",
+        "Version 3.0.56": "버전 3.0.56",
         "Version 3.0.52 · Last updated:": "버전 3.0.52 · 마지막 업데이트:",
         "Version 3.0.52": "버전 3.0.52",
         "Ranking data audit": "순위 데이터 감사",
@@ -15861,6 +15862,35 @@
         };
       }
 
+      // Read-only trial metrics: count earned work once and split shared credit.
+      function trialWorkBreakdown() {
+        var empty = function () { return { core: 0, proof: 0, escalation: 0, super: 0, pm: 0 }; };
+        var total = empty(), people = Object.create(null);
+        dailyContributorOptions().forEach(function (option) { people[option.key] = empty(); });
+        function award(category, amount, keys) {
+          total[category] += amount;
+          keys.forEach(function (key) { if (people[key]) people[key][category] += amount / keys.length; });
+        }
+        activeFixedCheckboxes().forEach(function (box) {
+          if (!fixedTaskIsEarned(box)) return;
+          var proof = (box.getAttribute("data-group") || "").indexOf("NGM Error Proofing") === 0;
+          var allocation = box.getAttribute("data-allocation");
+          var key = box.getAttribute("data-technician-required") === "true"
+            ? taskTechnician(box.getAttribute("data-daily-fixed")) : (allocation ? "Allocation " + allocation : "");
+          award(proof ? "proof" : "core", proof ? 1 : fixedTaskPoints(box), key ? [key] : []);
+        });
+        [[pmEntries,"pm"],[escalationEntries,"escalation"],[superEscalationEntries,"super"]].forEach(function (group) {
+          collectDynamic(group[0]).forEach(function (entry) {
+            var keys = completedByKeysFromData(entry);
+            if (!dynamicEntryIsActive(entry) || !entry.complete || !keys.length) return;
+            // Preserve the existing manual-escalation half-credit policy.
+            var amount = group[1] === "escalation" ? dynamicEntryPoints("escalation", dailyScoringRulesVersion, entry) / DAILY_ESCALATION_POINTS : 1;
+            award(group[1], amount, keys);
+          });
+        });
+        return { total: total, people: people };
+      }
+
       function contributorCompletionBreakdown(contributorKey) {
         var pmCount = collectDynamic(pmEntries).filter(function (entry) {
           return dynamicEntryIsActive(entry) && entry.complete && completedByKeysFromData(entry).indexOf(contributorKey) !== -1;
@@ -18147,7 +18177,8 @@
             escalationTotal: dynamicReportTotal(escalationEntries),
             superEscalationTotal: dynamicReportTotal(superEscalationEntries),
             topContributor: topContributorSummary(result),
-            contributorBreakdowns: contributorBreakdowns
+            contributorBreakdowns: contributorBreakdowns,
+            trial: trialWorkBreakdown()
           };
         },
         getEntryLines: function () {
@@ -18719,7 +18750,7 @@
     const provider = new GoogleAuthProvider();
     provider.setCustomParameters({ prompt: "select_account" });
     const SYNC_PROTOCOL_VERSION = 6;
-    const APP_VERSION = String(document.querySelector('meta[name="visionary-app-version"]')?.content || "3.0.55");
+    const APP_VERSION = String(document.querySelector('meta[name="visionary-app-version"]')?.content || "3.0.56");
     const HOSTED_APP_ROOT = "https://jsikson7.github.io/Visionary/";
     const HOSTED_APP_URL = HOSTED_APP_ROOT + "?v=" + APP_VERSION.replace(/\D/g, "");
     const isDirectFilePage = !["http:", "https:"].includes(window.location.protocol);
@@ -20132,8 +20163,12 @@
           escalationCount: 0,
           superEscalationCount: 0,
           errorProofingCount: 0,
+          trial: { core: 0, proof: 0, escalation: 0, super: 0, pm: 0 },
           shifts: []
         };
+        Object.keys(existing.trial).forEach(category => {
+          existing.trial[category] += Number(summary.trial?.people[option.key]?.[category]) || 0;
+        });
         existing.points += points;
         existing.pmCount += Number(breakdown.pm) || 0;
         existing.escalationCount += Number(breakdown.escalations) || 0;
@@ -20161,6 +20196,7 @@
         superEscalationCount: Number(summary.superEscalationTotal.count) || 0,
         errorProofingCount: errorProofingCount,
         perfect: perfect,
+        trial: summary.trial.total,
         people: Array.from(people.values())
       };
     }
@@ -20267,7 +20303,90 @@
       return active.concat(inactive);
     }
 
-    function renderAdminRankingDetails(current) {
+    const TRIAL_CATEGORIES = [
+      { key: "core", label: "Core work", weight: 40 },
+      { key: "proof", label: "Error proofing", weight: 20 },
+      { key: "escalation", label: "Escalations", weight: 15 },
+      { key: "super", label: "Super escalations", weight: 15 },
+      { key: "pm", label: "PMs", weight: 10 }
+    ];
+
+    function balancedTrialAggregate(records) {
+      const techs = new Map(), shifts = new Map();
+      const empty = (key, name) => ({ key, name, shifts: 0, exposure: 0, points: 0,
+        work: { core: 0, proof: 0, escalation: 0, super: 0, pm: 0 } });
+      const add = (item, work) => TRIAL_CATEGORIES.forEach(c => { item.work[c.key] += Number(work?.[c.key]) || 0; });
+      // Caller supplies canonical, successfully calculated records; no 70% performance exclusion.
+      records.forEach(record => {
+        const team = shifts.get(record.shift) || empty(record.shift, record.shift);
+        team.shifts += 1;
+        team.exposure += record.people.length;
+        team.points += record.earned;
+        add(team, record.trial);
+        shifts.set(record.shift, team);
+        record.people.forEach(person => {
+          const tech = techs.get(person.key) || empty(person.key, person.name);
+          tech.shifts += 1; tech.exposure += 1; tech.points += person.points;
+          add(tech, person.trial); techs.set(person.key, tech);
+        });
+      });
+      return { technicians: Array.from(techs.values()), shifts: Array.from(shifts.values()) };
+    }
+
+    function balancedTrialRank(items) {
+      const rates = item => Object.fromEntries(TRIAL_CATEGORIES.map(c => [c.key, item.exposure ? item.work[c.key] / item.exposure : 0]));
+      const pool = items.filter(item => item.shifts >= 5 && item.exposure > 0);
+      const reference = pool.map(rates);
+      const active = TRIAL_CATEGORIES.filter(c => reference.some(r => r[c.key] > 0));
+      const weight = active.reduce((sum, c) => sum + c.weight, 0);
+      const rows = items.map(item => {
+        const rate = rates(item), parts = {}, confirmed = item.shifts >= 5 && item.exposure > 0;
+        active.forEach(c => {
+          const value = rate[c.key];
+          const less = reference.filter(r => r[c.key] < value - 1e-9).length;
+          const equal = reference.filter(r => Math.abs(r[c.key] - value) <= 1e-9).length;
+          // Percentile midrank: ties receive the same credit; zero work receives zero.
+          parts[c.key] = value > 0 ? ((less + equal / 2) / reference.length) * 100 * c.weight / weight : 0;
+        });
+        return { ...item, rate, parts, confirmed, score: weight && confirmed ? Object.values(parts).reduce((a,b) => a+b,0) : null, rank: null };
+      }).sort((a,b) => (b.score ?? -1) - (a.score ?? -1) || a.name.localeCompare(b.name));
+      rows.forEach((row, index) => {
+        if (row.score == null) return;
+        const previous = rows[index-1];
+        row.rank = previous && Math.abs(previous.score - row.score) < 1e-9 ? previous.rank : index + 1;
+      });
+      return { rows, active, poolSize: pool.length };
+    }
+
+    function renderBalancedTrial(current, records, host, table) {
+      const heading = document.createElement("h3"); heading.textContent = "Balanced ranking trial"; host.appendChild(heading);
+      const note = document.createElement("p");
+      note.textContent = "Trial only · Core work 40% · Error proofing 20% · Escalations 15% · Super escalations 15% · PMs 10%. Official rankings and achievements stay unchanged.";
+      host.appendChild(note);
+      const details = document.createElement("details"), summary = document.createElement("summary"), description = document.createElement("p");
+      summary.textContent = "How the trial works";
+      description.textContent = "Activity-based preview, not an assigned-work or quality score. Core points exclude all four separately scored categories. Completed shared work is divided equally; manual escalations retain half credit. Technicians use work per recorded rostered shift; teams use work per recorded technician-shift to adjust for crew size. Five recorded shifts are required for a trial rank. Category rates are converted to percentile scores within each eligible group, with equal rates tied and zero work scoring zero. The weighted score is out of 100; empty categories are skipped and weights rebalanced. Scores depend on the selected dates and comparison group. All valid saved shifts count, including those below 70%; empty records and roster errors need Admin review. Hours, assignment opportunities, difficulty, and quality are not yet accounted for. Rank movement reflects both the formula and changed eligibility. Category columns show points contributed to the total score.";
+      details.appendChild(summary); details.appendChild(description); host.appendChild(details);
+      const aggregate = balancedTrialAggregate(records);
+      [["Technicians", aggregate.technicians, monthlyRankTechnicians(current.technicians)], ["Shifts", aggregate.shifts, monthlyRankShifts(current.shifts)]].forEach(([label, items, official]) => {
+        const result = balancedTrialRank(items), officialRanks = new Map(official.map(item => [item.key, item.rank]));
+        const format = value => value == null ? "—" : monthlyNumber(value);
+        const change = item => {
+          const old = officialRanks.get(item.key);
+          if (item.rank == null || old == null) return "—";
+          const delta = old - item.rank; return delta > 0 ? "↑ " + delta : delta < 0 ? "↓ " + Math.abs(delta) : "Same";
+        };
+        const poolNote = document.createElement("p");
+        poolNote.textContent = label + ": " + result.poolSize + " eligible. " + (result.active.length ? "Active weights: " + result.active.map(c => c.label + " " + monthlyNumber(100 * c.weight / result.active.reduce((n,x) => n+x.weight,0)) + "%").join(" · ") : "Not enough eligible activity to score yet.");
+        host.appendChild(poolNote);
+        table(label + " — trial score", ["Trial rank", "Name", "Official rank", "Movement", "Trial / 100", "Status", "Recorded shifts", "Technician-shifts", ...TRIAL_CATEGORIES.map(c => c.label + " score")],
+          result.rows.map(item => [format(item.rank), item.name, format(officialRanks.get(item.key)), change(item), format(item.score), !item.confirmed ? "Provisional (<5 shifts or missing roster)" : item.score == null ? "No scored activity" : "Eligible", item.shifts, item.exposure, ...TRIAL_CATEGORIES.map(c => format(item.confirmed ? item.parts[c.key] : null))]));
+        table(label + " — trial work rates", ["Name", "Total points", "Core points / exposure", "Error proofing / exposure", "Escalation credits / exposure", "Super credits / exposure", "PM credits / exposure"],
+          result.rows.map(item => [item.name, monthlyNumber(item.points), ...TRIAL_CATEGORIES.map(c => monthlyNumber(item.rate[c.key]))]));
+      });
+    }
+
+    function renderAdminRankingDetails(current, records) {
       const host = document.getElementById("admin-ranking-details");
       host.replaceChildren();
       host.hidden = true;
@@ -20314,6 +20433,7 @@
         technicians.map(person => [ranks.get(person.key) ?? "Unranked", person.name, monthlyTechnicianShiftLabel(person), monthlyNumber(person.points), monthlyAveragePoints(person), person.shiftCount, monthlyNumber(person.pmCount), monthlyNumber(person.escalationCount), monthlyNumber(person.superEscalationCount), monthlyNumber(person.errorProofingCount), ...person.medals]));
       table("All shifts", ["Rank", "Shift", "Total points", "Avg points / shift", "Qualifying shifts", "Completion", "Perfect shifts", "PMs", "Escalations", "Super escalations", "Error proofing"],
         monthlyRankShifts(current.shifts).map(shift => [shift.rank ?? "Unranked", shift.shift, monthlyNumber(shift.points), monthlyAveragePoints(shift), shift.shiftCount, shift.completionAvailable ? monthlyNumber(100 * shift.completionEarned / shift.completionAvailable) + "%" : "—", shift.perfectShiftCount, monthlyNumber(shift.pmCount), monthlyNumber(shift.escalationCount), monthlyNumber(shift.superEscalationCount), monthlyNumber(shift.errorProofingCount)]));
+      renderBalancedTrial(current, records || [], host, table);
       host.hidden = false;
     }
 
@@ -20883,7 +21003,7 @@
           .filter((row) => row.identity.canonical && row.record && !row.calculationError)
           .map((row) => row.record);
         const current = monthlyAggregate(records, bounds.cutoff);
-        renderAdminRankingDetails(current);
+        renderAdminRankingDetails(current, records);
         const rankedTechnicians = monthlyRankTechnicians(current.technicians);
         const rankedShifts = monthlyRankShifts(current.shifts);
         const streaks = monthlyPositionStreakMaps(records, bounds.start, bounds.cutoff);
@@ -21509,9 +21629,9 @@
       const appProperties = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>' +
         '<Properties xmlns="http://schemas.openxmlformats.org/officeDocument/2006/extended-properties" ' +
         'xmlns:vt="http://schemas.openxmlformats.org/officeDocument/2006/docPropsVTypes">' +
-        '<Application>Visionary 3.0.55</Application><DocSecurity>0</DocSecurity><ScaleCrop>false</ScaleCrop>' +
+        '<Application>Visionary 3.0.56</Application><DocSecurity>0</DocSecurity><ScaleCrop>false</ScaleCrop>' +
         '<Company></Company><LinksUpToDate>false</LinksUpToDate><SharedDoc>false</SharedDoc><HyperlinksChanged>false</HyperlinksChanged>' +
-        '<AppVersion>3.0.55</AppVersion></Properties>';
+        '<AppVersion>3.0.56</AppVersion></Properties>';
 
       const zip = xlsxZipStoredFiles([
         { name: "[Content_Types].xml", contents: contentTypes },
