@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="description" content="A mobile-friendly collection of vision production guides, troubleshooting history, and copy-ready reporting tools.">
-  <meta name="visionary-app-version" content="3.0.56">
+  <meta name="visionary-app-version" content="3.0.57">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
@@ -6932,7 +6932,7 @@
             <span class="form-tile-arrow" aria-hidden="true">›</span>
           </button>
         </div>
-        <p class="last-updated">Version 3.0.56 · Last updated: <time datetime="2026-09-23">September 23, 2026</time></p>
+        <p class="last-updated">Version 3.0.57 · Last updated: <time datetime="2026-09-23">September 23, 2026</time></p>
         <div class="version-history-link-wrap">
           <button id="open-version-history" class="version-history-link" type="button">View version history</button>
         </div>
@@ -7069,7 +7069,7 @@
             <div class="daily-cloud-copy">
               <strong id="daily-cloud-title">Shared shift synchronization</strong>
               <span id="daily-cloud-status" role="status" aria-live="polite">Sign in with Google to share Daily Tasks across phones.</span>
-              <small>Safe Sync v6.2 · App <span id="daily-app-version">3.0.56</span><span id="daily-version-health" class="daily-version-health" hidden></span></small>
+              <small>Safe Sync v6.2 · App <span id="daily-app-version">3.0.57</span><span id="daily-version-health" class="daily-version-health" hidden></span></small>
             </div>
           </div>
           <div class="daily-cloud-actions">
@@ -7825,7 +7825,8 @@
 
       <section class="panel" aria-label="Release history">
         <div class="version-history-list">
-          <article class="version-card version-card-current"><div class="version-card-heading"><h2>Version 3.0.56</h2><time datetime="2026-09-23">September 23, 2026</time></div><p class="version-summary-intro">Added an Admin-only balanced ranking trial with weighted activity categories, split task credit, five-shift eligibility, and official-versus-trial movement. Official ranking calculations remain unchanged.</p></article>
+          <article class="version-card version-card-current"><div class="version-card-heading"><h2>Version 3.0.57</h2><time datetime="2026-09-23">September 23, 2026</time></div><p class="version-summary-intro">Updated the Admin trial to Core work 20%, Escalations 20%, Avg PPS 20%, and Medals, Error proofing, Super escalations, and PMs at 10% each.</p></article>
+          <article class="version-card"><div class="version-card-heading"><h2>Version 3.0.56</h2><time datetime="2026-09-23">September 23, 2026</time></div><p class="version-summary-intro">Added an Admin-only balanced ranking trial with weighted activity categories, split task credit, five-shift eligibility, and official-versus-trial movement. Official ranking calculations remain unchanged.</p></article>
           <article class="version-card"><div class="version-card-heading"><h2>Version 3.0.55</h2><time datetime="2026-09-23">September 23, 2026</time></div><p class="version-summary-intro">Admin-only detailed technician and shift rankings with current points, averages, work counts, and achievements. Removed PM before-and-after comparisons.</p></article>
           <article class="version-card"><div class="version-card-heading"><h2>Version 3.0.54</h2><time datetime="2026-09-22">September 22, 2026</time></div>
             <p class="version-summary-intro">PMs now earn 25 points each, including recalculated historical reports and rankings.</p><ul class="version-summary-list"><li><strong>PM impact comparison</strong>Power Rankings compares 50 vs 25 points for technicians and shifts using the same server records, shared credit, and qualification rules.</li></ul></article>
@@ -9196,8 +9197,8 @@
         "Open Full Screen": "전체 화면으로 열기",
         "If the embedded form does not appear or feels cramped, use Open Full Screen.": "포함된 양식이 표시되지 않거나 화면이 좁으면 전체 화면으로 열기를 사용하세요.",
         "Loading Microsoft Form…": "Microsoft 양식을 불러오는 중…",
-        "Version 3.0.56 · Last updated:": "버전 3.0.56 · 마지막 업데이트:",
-        "Version 3.0.56": "버전 3.0.56",
+        "Version 3.0.57 · Last updated:": "버전 3.0.57 · 마지막 업데이트:",
+        "Version 3.0.57": "버전 3.0.57",
         "Version 3.0.52 · Last updated:": "버전 3.0.52 · 마지막 업데이트:",
         "Version 3.0.52": "버전 3.0.52",
         "Ranking data audit": "순위 데이터 감사",
@@ -18750,7 +18751,7 @@
     const provider = new GoogleAuthProvider();
     provider.setCustomParameters({ prompt: "select_account" });
     const SYNC_PROTOCOL_VERSION = 6;
-    const APP_VERSION = String(document.querySelector('meta[name="visionary-app-version"]')?.content || "3.0.56");
+    const APP_VERSION = String(document.querySelector('meta[name="visionary-app-version"]')?.content || "3.0.57");
     const HOSTED_APP_ROOT = "https://jsikson7.github.io/Visionary/";
     const HOSTED_APP_URL = HOSTED_APP_ROOT + "?v=" + APP_VERSION.replace(/\D/g, "");
     const isDirectFilePage = !["http:", "https:"].includes(window.location.protocol);
@@ -20304,17 +20305,19 @@
     }
 
     const TRIAL_CATEGORIES = [
-      { key: "core", label: "Core work", weight: 40 },
-      { key: "proof", label: "Error proofing", weight: 20 },
-      { key: "escalation", label: "Escalations", weight: 15 },
-      { key: "super", label: "Super escalations", weight: 15 },
-      { key: "pm", label: "PMs", weight: 10 }
+      { key: "core", label: "Core work", weight: 20, rateLabel: "Core points / exposure" },
+      { key: "escalation", label: "Escalations", weight: 20, rateLabel: "Escalation credits / exposure" },
+      { key: "pps", label: "Avg PPS", weight: 20, rateLabel: "Avg points / recorded shift" },
+      { key: "medals", label: "Medals earned", weight: 10, rateLabel: "Medals / exposure" },
+      { key: "proof", label: "Error proofing", weight: 10, rateLabel: "Error proofing / exposure" },
+      { key: "super", label: "Super escalations", weight: 10, rateLabel: "Super credits / exposure" },
+      { key: "pm", label: "PMs", weight: 10, rateLabel: "PM credits / exposure" }
     ];
 
     function balancedTrialAggregate(records) {
       const techs = new Map(), shifts = new Map();
       const empty = (key, name) => ({ key, name, shifts: 0, exposure: 0, points: 0,
-        work: { core: 0, proof: 0, escalation: 0, super: 0, pm: 0 } });
+        work: { core: 0, proof: 0, escalation: 0, super: 0, pm: 0, medals: 0, pps: 0 } });
       const add = (item, work) => TRIAL_CATEGORIES.forEach(c => { item.work[c.key] += Number(work?.[c.key]) || 0; });
       // Caller supplies canonical, successfully calculated records; no 70% performance exclusion.
       records.forEach(record => {
@@ -20327,14 +20330,21 @@
         record.people.forEach(person => {
           const tech = techs.get(person.key) || empty(person.key, person.name);
           tech.shifts += 1; tech.exposure += 1; tech.points += person.points;
-          add(tech, person.trial); techs.set(person.key, tech);
+          add(tech, person.trial);
+          // One medal per person per saved shift, using their highest earned tier.
+          const medal = monthlyMedalIndex(person.points) >= 0 ? 1 : 0;
+          tech.work.medals += medal;
+          team.work.medals += medal;
+          techs.set(person.key, tech);
         });
       });
       return { technicians: Array.from(techs.values()), shifts: Array.from(shifts.values()) };
     }
 
     function balancedTrialRank(items) {
-      const rates = item => Object.fromEntries(TRIAL_CATEGORIES.map(c => [c.key, item.exposure ? item.work[c.key] / item.exposure : 0]));
+      const rates = item => Object.fromEntries(TRIAL_CATEGORIES.map(c => [c.key,
+        c.key === "pps" ? (item.shifts ? item.points / item.shifts : 0)
+          : (item.exposure ? (Number(item.work[c.key]) || 0) / item.exposure : 0)]));
       const pool = items.filter(item => item.shifts >= 5 && item.exposure > 0);
       const reference = pool.map(rates);
       const active = TRIAL_CATEGORIES.filter(c => reference.some(r => r[c.key] > 0));
@@ -20361,11 +20371,11 @@
     function renderBalancedTrial(current, records, host, table) {
       const heading = document.createElement("h3"); heading.textContent = "Balanced ranking trial"; host.appendChild(heading);
       const note = document.createElement("p");
-      note.textContent = "Trial only · Core work 40% · Error proofing 20% · Escalations 15% · Super escalations 15% · PMs 10%. Official rankings and achievements stay unchanged.";
+      note.textContent = "Trial only · Core work 20% · Escalations 20% · Avg PPS 20% · Medals earned 10% · Error proofing 10% · Super escalations 10% · PMs 10%. Official rankings and achievements stay unchanged.";
       host.appendChild(note);
       const details = document.createElement("details"), summary = document.createElement("summary"), description = document.createElement("p");
       summary.textContent = "How the trial works";
-      description.textContent = "Activity-based preview, not an assigned-work or quality score. Core points exclude all four separately scored categories. Completed shared work is divided equally; manual escalations retain half credit. Technicians use work per recorded rostered shift; teams use work per recorded technician-shift to adjust for crew size. Five recorded shifts are required for a trial rank. Category rates are converted to percentile scores within each eligible group, with equal rates tied and zero work scoring zero. The weighted score is out of 100; empty categories are skipped and weights rebalanced. Scores depend on the selected dates and comparison group. All valid saved shifts count, including those below 70%; empty records and roster errors need Admin review. Hours, assignment opportunities, difficulty, and quality are not yet accounted for. Rank movement reflects both the formula and changed eligibility. Category columns show points contributed to the total score.";
+      description.textContent = "Activity-based preview, not an assigned-work or quality score. Core points exclude error proofing, escalations, super escalations, and PMs. Avg PPS uses total points divided by recorded shifts; it intentionally overlaps the activity categories. Medals also reflect points: one highest-tier medal per technician per recorded shift, with all tiers counting equally. Completed shared work is divided equally; manual escalations retain half credit. Activity and medal rates use recorded rostered shifts for technicians and recorded technician-shifts for teams. Avg PPS uses total points per recorded shift for both, so team Avg PPS is affected by crew size. Five recorded shifts are required for a trial rank. Category rates are converted to percentile scores within each eligible group, with equal rates tied and zero work scoring zero. The weighted score is out of 100; empty categories are skipped and weights rebalanced. Scores depend on the selected dates and comparison group. All valid saved shifts count, including those below 70%; empty records and roster errors need Admin review. Hours, assignment opportunities, difficulty, and quality are not yet accounted for. Rank movement reflects both the formula and changed eligibility. Category columns show points contributed to the total score.";
       details.appendChild(summary); details.appendChild(description); host.appendChild(details);
       const aggregate = balancedTrialAggregate(records);
       [["Technicians", aggregate.technicians, monthlyRankTechnicians(current.technicians)], ["Shifts", aggregate.shifts, monthlyRankShifts(current.shifts)]].forEach(([label, items, official]) => {
@@ -20381,8 +20391,8 @@
         host.appendChild(poolNote);
         table(label + " — trial score", ["Trial rank", "Name", "Official rank", "Movement", "Trial / 100", "Status", "Recorded shifts", "Technician-shifts", ...TRIAL_CATEGORIES.map(c => c.label + " score")],
           result.rows.map(item => [format(item.rank), item.name, format(officialRanks.get(item.key)), change(item), format(item.score), !item.confirmed ? "Provisional (<5 shifts or missing roster)" : item.score == null ? "No scored activity" : "Eligible", item.shifts, item.exposure, ...TRIAL_CATEGORIES.map(c => format(item.confirmed ? item.parts[c.key] : null))]));
-        table(label + " — trial work rates", ["Name", "Total points", "Core points / exposure", "Error proofing / exposure", "Escalation credits / exposure", "Super credits / exposure", "PM credits / exposure"],
-          result.rows.map(item => [item.name, monthlyNumber(item.points), ...TRIAL_CATEGORIES.map(c => monthlyNumber(item.rate[c.key]))]));
+        table(label + " — trial work rates", ["Name", "Total points", "Medals earned", ...TRIAL_CATEGORIES.map(c => c.rateLabel)],
+          result.rows.map(item => [item.name, monthlyNumber(item.points), monthlyNumber(item.work.medals), ...TRIAL_CATEGORIES.map(c => monthlyNumber(item.rate[c.key]))]));
       });
     }
 
@@ -21629,9 +21639,9 @@
       const appProperties = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>' +
         '<Properties xmlns="http://schemas.openxmlformats.org/officeDocument/2006/extended-properties" ' +
         'xmlns:vt="http://schemas.openxmlformats.org/officeDocument/2006/docPropsVTypes">' +
-        '<Application>Visionary 3.0.56</Application><DocSecurity>0</DocSecurity><ScaleCrop>false</ScaleCrop>' +
+        '<Application>Visionary 3.0.57</Application><DocSecurity>0</DocSecurity><ScaleCrop>false</ScaleCrop>' +
         '<Company></Company><LinksUpToDate>false</LinksUpToDate><SharedDoc>false</SharedDoc><HyperlinksChanged>false</HyperlinksChanged>' +
-        '<AppVersion>3.0.56</AppVersion></Properties>';
+        '<AppVersion>3.0.57</AppVersion></Properties>';
 
       const zip = xlsxZipStoredFiles([
         { name: "[Content_Types].xml", contents: contentTypes },
