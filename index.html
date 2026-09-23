@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="description" content="A mobile-friendly collection of vision production guides, troubleshooting history, and copy-ready reporting tools.">
-  <meta name="visionary-app-version" content="3.0.62">
+  <meta name="visionary-app-version" content="3.0.64">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
@@ -1356,6 +1356,12 @@
     }
 
     .cell-recognition-entry,
+    .top3-comment { min-width: 0; }
+    .top3-comment > summary { cursor: pointer; color: var(--muted); font-size: .85rem; font-weight: 650; padding: 6px 0; min-height: 32px; }
+    .top3-comment > summary:focus-visible { outline: 2px solid var(--success); outline-offset: 3px; border-radius: 4px; }
+    .top3-comment[open] > .field { margin-top: 8px; }
+    .top3-comment:not([open]) > .field { display: none; }
+
     .top3-entry {
       --entry-tone: var(--section-tone-1);
       --entry-heading: var(--section-heading-1);
@@ -5693,6 +5699,10 @@
       margin-top: 8px;
     }
 
+    .pkg-comment { grid-column: 2 / -1; }
+    .pkg-comment:not([open]) .item-comment-wrap { display: none; }
+    .pkg-comment[open] .item-comment-wrap { margin-top: 8px; }
+
     .item-comment-wrap {
       display: grid;
       grid-column: 2 / -1;
@@ -6950,7 +6960,7 @@
             <span class="form-tile-arrow" aria-hidden="true">›</span>
           </button>
         </div>
-        <p class="last-updated">Version 3.0.62 · Last updated: <time datetime="2026-09-23">September 23, 2026</time></p>
+        <p class="last-updated">Version 3.0.64 · Last updated: <time datetime="2026-09-23">September 23, 2026</time></p>
         <div class="version-history-link-wrap">
           <button id="open-version-history" class="version-history-link" type="button">View version history</button>
         </div>
@@ -7092,7 +7102,7 @@
             <div class="daily-cloud-copy">
               <strong id="daily-cloud-title">Shared shift synchronization</strong>
               <span id="daily-cloud-status" role="status" aria-live="polite">Sign in with Google to share Daily Tasks across phones.</span>
-              <small>Safe Sync v6.2 · App <span id="daily-app-version">3.0.62</span><span id="daily-version-health" class="daily-version-health" hidden></span></small>
+              <small>Safe Sync v6.2 · App <span id="daily-app-version">3.0.64</span><span id="daily-version-health" class="daily-version-health" hidden></span></small>
             </div>
           </div>
           <div class="daily-cloud-actions">
@@ -7848,7 +7858,9 @@
 
       <section class="panel" aria-label="Release history">
         <div class="version-history-list">
-          <article class="version-card version-card-current"><div class="version-card-heading"><h2>Version 3.0.62</h2><time datetime="2026-09-23">September 23, 2026</time></div><p class="version-summary-intro">Added PH to MI2 PKG IQ Checks and aligned preview results beneath their vision headers. Compact copied text and line selection are retained.</p></article>
+          <article class="version-card version-card-current"><div class="version-card-heading"><h2>Version 3.0.64</h2><time datetime="2026-09-23">September 23, 2026</time></div><p class="version-summary-intro">Collapsed PKG Update comments behind Add comment controls and simplified the Lead Align heading. Saved comments remain available through Edit comment and remain in copied reports.</p></article>
+          <article class="version-card"><div class="version-card-heading"><h2>Version 3.0.63</h2><time datetime="2026-09-23">September 23, 2026</time></div><p class="version-summary-intro">Collapsed optional NG rate and Major NG comments behind Add comment controls in all Top 3 NG entries. Entered comments remain in the copied report when collapsed.</p></article>
+          <article class="version-card"><div class="version-card-heading"><h2>Version 3.0.62</h2><time datetime="2026-09-23">September 23, 2026</time></div><p class="version-summary-intro">Added PH to MI2 PKG IQ Checks and aligned preview results beneath their vision headers. Compact copied text and line selection are retained.</p></article>
           <article class="version-card"><div class="version-card-heading"><h2>Version 3.0.61</h2><time datetime="2026-09-23">September 23, 2026</time></div><p class="version-summary-intro">Updated the v3.0.59 PKG IQ tool with compact plain-text reports, line selection, MI1 PH checks, and the X-R heading.</p></article>
           <article class="version-card"><div class="version-card-heading"><h2>Version 3.0.59</h2><time datetime="2026-09-23">September 23, 2026</time></div><p class="version-summary-intro">Added PKG IQ Checks to Copy/Paste with MI1/MI2 machine lists, MI1 X-ray checks, tap-to-toggle results, building-specific drafts, and copy-ready reports.</p></article>
           <article class="version-card"><div class="version-card-heading"><h2>Version 3.0.58</h2><time datetime="2026-09-23">September 23, 2026</time></div><p class="version-summary-intro">Separated Tolay, Karla, Zack, and Esme from technician rankings and Top 3 cards. Admin tables show leads at the bottom with their separate lead rank in parentheses, including the balanced trial.</p></article>
@@ -8837,7 +8849,7 @@
           ]
         },
         {
-          heading: "Lead Align (Particle)",
+          heading: "Lead Align",
           buildings: ["MI1", "MI2"],
           categories: [
             { id: "lead-cathode", polarity: "Cathode (+)", itemType: "NG Items" },
@@ -9251,8 +9263,8 @@
         "Open Full Screen": "전체 화면으로 열기",
         "If the embedded form does not appear or feels cramped, use Open Full Screen.": "포함된 양식이 표시되지 않거나 화면이 좁으면 전체 화면으로 열기를 사용하세요.",
         "Loading Microsoft Form…": "Microsoft 양식을 불러오는 중…",
-        "Version 3.0.62 · Last updated:": "버전 3.0.62 · 마지막 업데이트:",
-        "Version 3.0.62": "버전 3.0.62",
+        "Version 3.0.64 · Last updated:": "버전 3.0.64 · 마지막 업데이트:",
+        "Version 3.0.64": "버전 3.0.64",
         "Version 3.0.52 · Last updated:": "버전 3.0.52 · 마지막 업데이트:",
         "Version 3.0.52": "버전 3.0.52",
         "Ranking data audit": "순위 데이터 감사",
@@ -9478,6 +9490,9 @@
         "Recognition Rate": "인식률",
         "Cause": "원인",
         "NG rate": "NG 비율",
+        "Add comment": "코멘트 추가",
+        "Hide comment": "코멘트 숨기기",
+        "Edit comment": "코멘트 수정",
         "NG rate comment (optional)": "NG 비율 코멘트(선택)",
         "Major NG": "주요 NG",
         "Major NG comment (optional)": "주요 NG 코멘트(선택)",
@@ -9535,7 +9550,7 @@
         "No troubleshooting records were included in this copy of the app.": "이 앱 사본에 문제 해결 기록이 포함되어 있지 않습니다.",
         "AUTO": "자동",
         "Rule Based NG": "규칙 기반 NG",
-        "Lead Align (Particle)": "리드 정렬(이물)",
+        "Lead Align": "리드 정렬",
         "Cathode (+)": "양극 (+)",
         "Cathode (-)": "양극 (-)",
         "Anode (-)": "음극 (-)",
@@ -10252,6 +10267,21 @@
         return field;
       }
 
+      function createTop3Comment(label, id) {
+        var details = document.createElement("details");
+        details.className = "top3-comment";
+        var summary = document.createElement("summary");
+        summary.textContent = translateUiPhrase("Add comment");
+        var field = createTop3Field(label, id, "input", null, "Optional comment");
+        details.appendChild(summary);
+        details.appendChild(field);
+        details.addEventListener("toggle", function () {
+          var hasComment = field.querySelector("input").value.trim().length > 0;
+          summary.textContent = translateUiPhrase(details.open ? "Hide comment" : hasComment ? "Edit comment" : "Add comment");
+        });
+        return details;
+      }
+
       function initializeTop3Form() {
         for (var hour = 0; hour < 24; hour += 1) {
           var time = String(hour).padStart(2, "0") + ":00";
@@ -10272,9 +10302,9 @@
           entry.appendChild(createTop3Field("Vision", "top3-vision-" + index, "select", lnsVisionChoices));
           entry.appendChild(createTop3Field("Line", "top3-line-" + index, "select", lnsLineChoices));
           entry.appendChild(createTop3Field("NG rate", "top3-ng-rate-" + index, "input", null, "Enter NG rate"));
-          entry.appendChild(createTop3Field("NG rate comment (optional)", "top3-ng-rate-comment-" + index, "input", null, "Optional comment"));
+          entry.appendChild(createTop3Comment("NG rate comment (optional)", "top3-ng-rate-comment-" + index));
           entry.appendChild(createTop3Field("Major NG", "top3-major-ng-" + index, "input", null, "Enter major NG"));
-          entry.appendChild(createTop3Field("Major NG comment (optional)", "top3-major-ng-comment-" + index, "input", null, "Optional comment"));
+          entry.appendChild(createTop3Comment("Major NG comment (optional)", "top3-major-ng-comment-" + index));
           top3Entries.appendChild(entry);
         }
         updateTop3Preview();
@@ -13088,7 +13118,7 @@
           "DL NG": "DL NG",
           "C-NG": "C-NG",
           "Rule Based NG": "규칙 기반 NG",
-          "Lead Align (Particle)": "리드 정렬(이물)",
+          "Lead Align": "리드 정렬",
           "X-Ray": "X-Ray"
         };
         return sectionMap[heading] || heading;
@@ -13256,6 +13286,10 @@
           endControl.title = "Remove row";
         }
 
+        var commentDetails = makeElement("details", "top3-comment pkg-comment");
+        var commentToggle = document.createElement("summary");
+        commentToggle.textContent = translateUiPhrase(options.comment ? "Edit comment" : "Add comment");
+        commentDetails.appendChild(commentToggle);
         var commentWrap = makeElement("div", "item-comment-wrap");
         var commentLabel = document.createElement("label");
         commentLabel.setAttribute("for", "comment-" + category.id + "-" + rowId);
@@ -13274,7 +13308,11 @@
         row.appendChild(itemInput);
         row.appendChild(amountInput);
         row.appendChild(endControl);
-        row.appendChild(commentWrap);
+        commentDetails.appendChild(commentWrap);
+        commentDetails.addEventListener("toggle", function () {
+          commentToggle.textContent = translateUiPhrase(commentDetails.open ? "Hide comment" : commentInput.value.trim() ? "Edit comment" : "Add comment");
+        });
+        row.appendChild(commentDetails);
         list.appendChild(row);
 
         function refreshLabels() {
@@ -13303,6 +13341,8 @@
               itemInput.value = "";
               amountInput.value = "";
               commentInput.value = "";
+              commentDetails.open = false;
+              commentToggle.textContent = translateUiPhrase("Add comment");
             } else {
               row.remove();
             }
@@ -18808,7 +18848,7 @@
     const provider = new GoogleAuthProvider();
     provider.setCustomParameters({ prompt: "select_account" });
     const SYNC_PROTOCOL_VERSION = 6;
-    const APP_VERSION = String(document.querySelector('meta[name="visionary-app-version"]')?.content || "3.0.62");
+    const APP_VERSION = String(document.querySelector('meta[name="visionary-app-version"]')?.content || "3.0.64");
     const HOSTED_APP_ROOT = "https://jsikson7.github.io/Visionary/";
     const HOSTED_APP_URL = HOSTED_APP_ROOT + "?v=" + APP_VERSION.replace(/\D/g, "");
     const isDirectFilePage = !["http:", "https:"].includes(window.location.protocol);
@@ -21749,9 +21789,9 @@
       const appProperties = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>' +
         '<Properties xmlns="http://schemas.openxmlformats.org/officeDocument/2006/extended-properties" ' +
         'xmlns:vt="http://schemas.openxmlformats.org/officeDocument/2006/docPropsVTypes">' +
-        '<Application>Visionary 3.0.62</Application><DocSecurity>0</DocSecurity><ScaleCrop>false</ScaleCrop>' +
+        '<Application>Visionary 3.0.64</Application><DocSecurity>0</DocSecurity><ScaleCrop>false</ScaleCrop>' +
         '<Company></Company><LinksUpToDate>false</LinksUpToDate><SharedDoc>false</SharedDoc><HyperlinksChanged>false</HyperlinksChanged>' +
-        '<AppVersion>3.0.62</AppVersion></Properties>';
+        '<AppVersion>3.0.64</AppVersion></Properties>';
 
       const zip = xlsxZipStoredFiles([
         { name: "[Content_Types].xml", contents: contentTypes },
