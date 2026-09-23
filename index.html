@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="description" content="A mobile-friendly collection of vision production guides, troubleshooting history, and copy-ready reporting tools.">
-  <meta name="visionary-app-version" content="3.0.58">
+  <meta name="visionary-app-version" content="3.0.59">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
@@ -6563,6 +6563,10 @@
     .daily-honor-control { margin:4px 0 0; }
     #daily-honor-note { font-size:12px; color:var(--muted); line-height:1.5; }
 
+
+    #pkg-iq-sections .iq-section { overflow-x: auto; }
+    #pkg-iq-sections .iq-grid { grid-template-columns: 44px repeat(var(--pkg-iq-columns), minmax(40px, 1fr)); gap: 5px; }
+    #pkg-iq-preview { margin: 0; white-space: pre; overflow-x: auto; font-family: "SFMono-Regular", Consolas, monospace; font-size: .8rem; line-height: 1.8; }
   </style>
 <style id="bmpd-trends-style">
 #bmpd-trends-view[hidden]{display:none!important}
@@ -6932,7 +6936,7 @@
             <span class="form-tile-arrow" aria-hidden="true">›</span>
           </button>
         </div>
-        <p class="last-updated">Version 3.0.58 · Last updated: <time datetime="2026-09-23">September 23, 2026</time></p>
+        <p class="last-updated">Version 3.0.59 · Last updated: <time datetime="2026-09-23">September 23, 2026</time></p>
         <div class="version-history-link-wrap">
           <button id="open-version-history" class="version-history-link" type="button">View version history</button>
         </div>
@@ -7024,6 +7028,11 @@
             </span>
             <span class="form-tile-arrow" aria-hidden="true">›</span>
           </button>
+          <button id="open-pkg-iq-form" class="form-tile" type="button">
+            <span class="form-tile-icon" aria-hidden="true">IQ</span>
+            <span class="form-tile-copy"><strong>PKG IQ Checks</strong><small>Check PKG image quality for MI1 or MI2.</small></span>
+            <span class="form-tile-arrow" aria-hidden="true">›</span>
+          </button>
           <button id="open-cell-recognition-form" class="form-tile" type="button">
             <span class="form-tile-icon" aria-hidden="true">CR</span>
             <span class="form-tile-copy">
@@ -7069,7 +7078,7 @@
             <div class="daily-cloud-copy">
               <strong id="daily-cloud-title">Shared shift synchronization</strong>
               <span id="daily-cloud-status" role="status" aria-live="polite">Sign in with Google to share Daily Tasks across phones.</span>
-              <small>Safe Sync v6.2 · App <span id="daily-app-version">3.0.58</span><span id="daily-version-health" class="daily-version-health" hidden></span></small>
+              <small>Safe Sync v6.2 · App <span id="daily-app-version">3.0.59</span><span id="daily-version-health" class="daily-version-health" hidden></span></small>
             </div>
           </div>
           <div class="daily-cloud-actions">
@@ -7825,7 +7834,8 @@
 
       <section class="panel" aria-label="Release history">
         <div class="version-history-list">
-          <article class="version-card version-card-current"><div class="version-card-heading"><h2>Version 3.0.58</h2><time datetime="2026-09-23">September 23, 2026</time></div><p class="version-summary-intro">Separated Tolay, Karla, Zack, and Esme from technician rankings and Top 3 cards. Admin tables show leads at the bottom with their separate lead rank in parentheses, including the balanced trial.</p></article>
+          <article class="version-card version-card-current"><div class="version-card-heading"><h2>Version 3.0.59</h2><time datetime="2026-09-23">September 23, 2026</time></div><p class="version-summary-intro">Added PKG IQ Checks to Copy/Paste with MI1/MI2 machine lists, MI1 X-ray checks, tap-to-toggle results, building-specific drafts, and copy-ready reports.</p></article>
+          <article class="version-card"><div class="version-card-heading"><h2>Version 3.0.58</h2><time datetime="2026-09-23">September 23, 2026</time></div><p class="version-summary-intro">Separated Tolay, Karla, Zack, and Esme from technician rankings and Top 3 cards. Admin tables show leads at the bottom with their separate lead rank in parentheses, including the balanced trial.</p></article>
           <article class="version-card"><div class="version-card-heading"><h2>Version 3.0.57</h2><time datetime="2026-09-23">September 23, 2026</time></div><p class="version-summary-intro">Updated the Admin trial to Core work 20%, Escalations 20%, Avg PPS 20%, and Medals, Error proofing, Super escalations, and PMs at 10% each.</p></article>
           <article class="version-card"><div class="version-card-heading"><h2>Version 3.0.56</h2><time datetime="2026-09-23">September 23, 2026</time></div><p class="version-summary-intro">Added an Admin-only balanced ranking trial with weighted activity categories, split task credit, five-shift eligibility, and official-versus-trial movement. Official ranking calculations remain unchanged.</p></article>
           <article class="version-card"><div class="version-card-heading"><h2>Version 3.0.55</h2><time datetime="2026-09-23">September 23, 2026</time></div><p class="version-summary-intro">Admin-only detailed technician and shift rankings with current points, averages, work counts, and achievements. Removed PM before-and-after comparisons.</p></article>
@@ -8680,6 +8690,31 @@
     </div>
     </section>
 
+    <section id="pkg-iq-form-view" class="app-view" aria-labelledby="pkg-iq-title" hidden>
+      <header class="hero"><div><p class="eyebrow">A Vision Dictionary</p><h1 id="pkg-iq-title">PKG IQ Checks</h1><p class="hero-copy">Tap each inspection point, review the preview, then copy it into chat.</p></div></header>
+      <div class="workspace iq-workspace">
+        <form id="pkg-iq-form" class="panel form-panel iq-form-panel" autocomplete="off">
+          <div class="panel-heading"><div><h2 id="pkg-iq-heading">MI2 PKG Image Quality Check</h2><p>Every checkpoint starts as ✅ OK. Tap only the items that need to change.</p></div>
+            <div class="panel-heading-actions"><button id="pkg-iq-back" class="button button-secondary top-action-button" type="button">Back</button><button id="pkg-iq-reset" class="button button-secondary top-action-button" type="button">Start new check</button></div></div>
+          <div class="iq-details">
+            <div class="field"><label for="pkg-iq-building">Building</label><select id="pkg-iq-building"><option value="MI1">MI1</option><option value="MI2" selected>MI2</option></select></div>
+            <div class="field"><label for="pkg-iq-date">Check date</label><input id="pkg-iq-date" type="date" required></div>
+            <div class="field"><label for="pkg-iq-time">Check time</label><input id="pkg-iq-time" type="time" step="60" required></div>
+            <p class="iq-instructions">Tap a checkpoint to switch between ✅ OK and ❌ Not OK. LA = Lead Align · W(-)/W(+) = Welding · L = Lead Vision · PA = Pouch Align.</p>
+          </div>
+          <div id="pkg-iq-sections" class="iq-sections"></div>
+          <div class="iq-toolbar"><button id="pkg-iq-all-ok" class="button button-secondary" type="button">Mark all OK</button></div>
+        </form>
+        <aside class="panel preview-panel iq-preview-panel" aria-label="PKG IQ Checks chat preview">
+          <div class="panel-heading"><div><h2>Chat preview</h2><p>This is exactly what will be copied.</p></div></div>
+          <div class="preview-wrap"><pre id="pkg-iq-preview" class="iq-preview" aria-live="polite"></pre></div>
+          <div class="actions"><button id="pkg-iq-copy" class="button button-primary" type="button">Copy IQ check</button></div>
+          <p id="pkg-iq-status" class="status" role="status" aria-live="polite"></p>
+          <p id="pkg-iq-draft-note" class="privacy-note">Separate building drafts are saved in this browser and can be restored for up to 12 hours after the last change.</p>
+        </aside>
+      </div>
+    </section>
+
     <section id="lns-form-view" class="app-view" aria-labelledby="lns-form-title" hidden>
       <header class="hero">
         <div>
@@ -9198,8 +9233,8 @@
         "Open Full Screen": "전체 화면으로 열기",
         "If the embedded form does not appear or feels cramped, use Open Full Screen.": "포함된 양식이 표시되지 않거나 화면이 좁으면 전체 화면으로 열기를 사용하세요.",
         "Loading Microsoft Form…": "Microsoft 양식을 불러오는 중…",
-        "Version 3.0.58 · Last updated:": "버전 3.0.58 · 마지막 업데이트:",
-        "Version 3.0.58": "버전 3.0.58",
+        "Version 3.0.59 · Last updated:": "버전 3.0.59 · 마지막 업데이트:",
+        "Version 3.0.59": "버전 3.0.59",
         "Version 3.0.52 · Last updated:": "버전 3.0.52 · 마지막 업데이트:",
         "Version 3.0.52": "버전 3.0.52",
         "Ranking data audit": "순위 데이터 감사",
@@ -11899,13 +11934,14 @@
         var showLocalAdmin = window.location.hash === "#local-admin";
         var showPkgForm = window.location.hash === "#pkg-update";
         var showLnsForm = window.location.hash === "#lns-iq-check";
+        var showPkgIqForm = window.location.hash === "#pkg-iq-check";
         var showTop3Form = window.location.hash === "#lns-top-3-ng";
         var showCellRecognitionForm = window.location.hash === "#cell-recognition-rate";
         var showEscalationForm = window.location.hash === "#escalation-format";
         var showTroubleshooting = window.location.hash === "#troubleshooting";
         var showWorkInstructions = window.location.hash === "#work-instructions";
         var showVersionHistory = window.location.hash === "#version-history";
-        formsMenuView.hidden = showBmpdTrends || showGuidesMenu || showCopyMenu || showDailyTasks || showLiveDashboard || showLeaderboard || showReports || showLocalAdmin || showPkgForm || showLnsForm || showTop3Form || showCellRecognitionForm || showEscalationForm || showTroubleshooting || showWorkInstructions || showVersionHistory;
+        formsMenuView.hidden = showPkgIqForm || showBmpdTrends || showGuidesMenu || showCopyMenu || showDailyTasks || showLiveDashboard || showLeaderboard || showReports || showLocalAdmin || showPkgForm || showLnsForm || showTop3Form || showCellRecognitionForm || showEscalationForm || showTroubleshooting || showWorkInstructions || showVersionHistory;
         guidesMenuView.hidden = !showGuidesMenu;
         copyMenuView.hidden = !showCopyMenu;
         dailyTasksView.hidden = !showDailyTasks;
@@ -11916,6 +11952,7 @@
         versionHistoryView.hidden = !showVersionHistory;
         pkgFormView.hidden = !showPkgForm;
         lnsFormView.hidden = !showLnsForm;
+        document.getElementById("pkg-iq-form-view").hidden = !showPkgIqForm;
         top3FormView.hidden = !showTop3Form;
         cellRecognitionFormView.hidden = !showCellRecognitionForm;
         escalationFormView.hidden = !showEscalationForm;
@@ -11934,6 +11971,7 @@
         else if (showReports) document.title = localizedPageTitle("Reports - Visionary Tool");
         else if (showLocalAdmin) document.title = localizedPageTitle("Admin - Visionary Tool");
         else if (showPkgForm) document.title = localizedPageTitle("PKG DL Update");
+        else if (showPkgIqForm) document.title = localizedPageTitle("PKG IQ Checks");
         else if (showLnsForm) document.title = localizedPageTitle("LNS IQ Check");
         else if (showTop3Form) document.title = localizedPageTitle("L&S Top 3 High NG");
         else if (showCellRecognitionForm) document.title = localizedPageTitle("Cell Tracking Recognition Rate");
@@ -18752,7 +18790,7 @@
     const provider = new GoogleAuthProvider();
     provider.setCustomParameters({ prompt: "select_account" });
     const SYNC_PROTOCOL_VERSION = 6;
-    const APP_VERSION = String(document.querySelector('meta[name="visionary-app-version"]')?.content || "3.0.58");
+    const APP_VERSION = String(document.querySelector('meta[name="visionary-app-version"]')?.content || "3.0.59");
     const HOSTED_APP_ROOT = "https://jsikson7.github.io/Visionary/";
     const HOSTED_APP_URL = HOSTED_APP_ROOT + "?v=" + APP_VERSION.replace(/\D/g, "");
     const isDirectFilePage = !["http:", "https:"].includes(window.location.protocol);
@@ -21693,9 +21731,9 @@
       const appProperties = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>' +
         '<Properties xmlns="http://schemas.openxmlformats.org/officeDocument/2006/extended-properties" ' +
         'xmlns:vt="http://schemas.openxmlformats.org/officeDocument/2006/docPropsVTypes">' +
-        '<Application>Visionary 3.0.58</Application><DocSecurity>0</DocSecurity><ScaleCrop>false</ScaleCrop>' +
+        '<Application>Visionary 3.0.59</Application><DocSecurity>0</DocSecurity><ScaleCrop>false</ScaleCrop>' +
         '<Company></Company><LinksUpToDate>false</LinksUpToDate><SharedDoc>false</SharedDoc><HyperlinksChanged>false</HyperlinksChanged>' +
-        '<AppVersion>3.0.58</AppVersion></Properties>';
+        '<AppVersion>3.0.59</AppVersion></Properties>';
 
       const zip = xlsxZipStoredFiles([
         { name: "[Content_Types].xml", contents: contentTypes },
@@ -23161,5 +23199,110 @@ panel.querySelector('.cell-tracking-back').addEventListener('click',()=>taskTab.
   form.addEventListener('change',refresh);window.addEventListener('visionary-daily-local-change',refresh);window.addEventListener('focus',refresh);document.addEventListener('visibilitychange',refresh);setInterval(refresh,1000);refresh();
 })();
 </script>
+
+<script id="pkg-iq-script">
+(function () {
+  "use strict";
+  const machines = { MI1: ["1-1","1-2","2-1","2-2"], MI2: ["3-1","3-2","4-1","4-2","5-1","5-2","5-3"] };
+  const columns = { MI1: ["LA","W(-)","W(+)","L","PA","X-ray"], MI2: ["LA","W(-)","W(+)","L","PA"] };
+  const $ = id => document.getElementById("pkg-iq-" + id);
+  const key = "visionary-pkg-iq-drafts-v1", ttl = 12 * 60 * 60 * 1000;
+  let building = "MI2", drafts = {};
+  const pad = value => String(value).padStart(2,"0");
+  function fresh() {
+    const now = new Date();
+    return { date: now.getFullYear()+"-"+pad(now.getMonth()+1)+"-"+pad(now.getDate()), time: pad(now.getHours())+":"+pad(now.getMinutes()), checks: {} };
+  }
+  function report(building, draft) {
+    const parts = draft.date.split("-");
+    const lines = [building + " PKG Image Quality Check", (parts.length === 3 ? parts[1]+"/"+parts[2] : "") + " - " + draft.time,
+      "Line | " + columns[building].join(" | "), ""];
+    machines[building].forEach((machine,index,all) => {
+      if (index && machine.split("-")[0] !== all[index-1].split("-")[0]) lines.push("");
+      lines.push(machine + "  | " + columns[building].map(vision => draft.checks[machine+"|"+vision] === "ng" ? "❌" : "✅").join(" | "));
+    });
+    return lines.join("\n");
+  }
+  function save() {
+    drafts[building].savedAt = Date.now();
+    try { localStorage.setItem(key, JSON.stringify({building, drafts})); }
+    catch (_) { $("draft-note").textContent = "Draft saving is unavailable in this browser. Copy your report before closing."; }
+  }
+  function preview() {
+    $("preview").textContent = report(building,drafts[building]);
+    $("heading").textContent = building + " PKG Image Quality Check";
+    $("status").textContent = "";
+  }
+  function state(button, machine, vision) {
+    const ng = drafts[building].checks[machine+"|"+vision] === "ng";
+    button.dataset.state = ng ? "ng" : "ok";
+    button.textContent = ng ? "❌" : "✅";
+    button.setAttribute("aria-pressed", String(ng));
+    button.setAttribute("aria-label", machine+" "+vision+": "+(ng ? "Not OK" : "OK")+". Tap to change.");
+  }
+  function render() {
+    if (!drafts[building] || (drafts[building].savedAt && Date.now()-drafts[building].savedAt >= ttl)) drafts[building] = fresh();
+    const draft = drafts[building];
+    $("building").value = building; $("date").value = draft.date; $("time").value = draft.time;
+    $("sections").replaceChildren();
+    const lines = [...new Set(machines[building].map(machine => machine.split("-")[0]))];
+    lines.forEach(line => {
+      const section = document.createElement("section"); section.className = "iq-section";
+      const heading = document.createElement("div"); heading.className = "iq-section-heading";
+      const title = document.createElement("h3"); title.textContent = "Line " + line; heading.appendChild(title); section.appendChild(heading);
+      const grid = document.createElement("div"); grid.className = "iq-grid"; grid.style.setProperty("--pkg-iq-columns",columns[building].length);
+      ["Line",...columns[building]].forEach(value => { const label = document.createElement("span"); label.className = "iq-column-label"; label.textContent = value; grid.appendChild(label); });
+      machines[building].filter(machine => machine.split("-")[0] === line).forEach(machine => {
+        const label = document.createElement("span"); label.className = "iq-row-label"; label.textContent = machine; grid.appendChild(label);
+        columns[building].forEach(vision => {
+          const button = document.createElement("button"); button.type = "button"; button.className = "iq-check"; state(button,machine,vision);
+          button.addEventListener("click",() => { draft.checks[machine+"|"+vision] = draft.checks[machine+"|"+vision] === "ng" ? "ok" : "ng"; state(button,machine,vision); save(); preview(); });
+          grid.appendChild(button);
+        });
+      });
+      section.appendChild(grid); $("sections").appendChild(section);
+    });
+    preview();
+  }
+  try {
+    const stored = JSON.parse(localStorage.getItem(key) || "null");
+    if (stored && machines[stored.building]) building = stored.building;
+    ["MI1","MI2"].forEach(b => {
+      const d = stored?.drafts?.[b];
+      if (d && typeof d.savedAt === "number" && Date.now()-d.savedAt >= 0 && Date.now()-d.savedAt < ttl && /^\d{4}-\d{2}-\d{2}$/.test(d.date) && /^\d{2}:\d{2}$/.test(d.time) && d.checks && typeof d.checks === "object") drafts[b] = d;
+    });
+  } catch (_) {}
+  document.getElementById("open-pkg-iq-form").addEventListener("click",() => { window.location.hash = "pkg-iq-check"; });
+  $("back").addEventListener("click",() => { window.location.hash = "copy-paste"; });
+  $("form").addEventListener("submit",e => e.preventDefault());
+  $("building").addEventListener("change",() => { building = $("building").value; render(); save(); });
+  ["date","time"].forEach(field => $(field).addEventListener("input",() => { drafts[building][field] = $(field).value; save(); preview(); }));
+  $("all-ok").addEventListener("click",() => {
+    if (!window.confirm("Mark every " + building + " PKG checkpoint as OK?")) return;
+    drafts[building].checks = {}; save(); render();
+  });
+  $("reset").addEventListener("click",() => {
+    if (!window.confirm("Clear this " + building + " PKG IQ check and start over?")) return;
+    drafts[building] = fresh(); save(); render();
+  });
+  $("copy").addEventListener("click",async () => {
+    if (!$("form").reportValidity()) return;
+    const value = report(building,drafts[building]);
+    try {
+      if (!navigator.clipboard || !window.isSecureContext) throw new Error("fallback");
+      await navigator.clipboard.writeText(value);
+      $("status").textContent = "PKG IQ check copied.";
+    } catch (_) {
+      const source = document.createElement("textarea"); source.value = value; source.setAttribute("readonly","");
+      source.style.cssText = "position:fixed;top:0;left:0;opacity:0;"; document.body.appendChild(source); source.focus(); source.select(); source.setSelectionRange(0,value.length);
+      let copied = false;
+      try { copied = document.execCommand("copy"); } catch (_) {} finally { source.remove(); }
+      $("status").textContent = copied ? "PKG IQ check copied." : "Copy was blocked. Select and copy the report from the preview.";
+    }
+  });
+  render();
+}());
+</script>
+
 </body>
 </html>
