@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="description" content="A mobile-friendly collection of vision production guides, troubleshooting history, and copy-ready reporting tools.">
-  <meta name="visionary-app-version" content="3.0.57">
+  <meta name="visionary-app-version" content="3.0.58">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
@@ -6932,7 +6932,7 @@
             <span class="form-tile-arrow" aria-hidden="true">›</span>
           </button>
         </div>
-        <p class="last-updated">Version 3.0.57 · Last updated: <time datetime="2026-09-23">September 23, 2026</time></p>
+        <p class="last-updated">Version 3.0.58 · Last updated: <time datetime="2026-09-23">September 23, 2026</time></p>
         <div class="version-history-link-wrap">
           <button id="open-version-history" class="version-history-link" type="button">View version history</button>
         </div>
@@ -7069,7 +7069,7 @@
             <div class="daily-cloud-copy">
               <strong id="daily-cloud-title">Shared shift synchronization</strong>
               <span id="daily-cloud-status" role="status" aria-live="polite">Sign in with Google to share Daily Tasks across phones.</span>
-              <small>Safe Sync v6.2 · App <span id="daily-app-version">3.0.57</span><span id="daily-version-health" class="daily-version-health" hidden></span></small>
+              <small>Safe Sync v6.2 · App <span id="daily-app-version">3.0.58</span><span id="daily-version-health" class="daily-version-health" hidden></span></small>
             </div>
           </div>
           <div class="daily-cloud-actions">
@@ -7825,7 +7825,8 @@
 
       <section class="panel" aria-label="Release history">
         <div class="version-history-list">
-          <article class="version-card version-card-current"><div class="version-card-heading"><h2>Version 3.0.57</h2><time datetime="2026-09-23">September 23, 2026</time></div><p class="version-summary-intro">Updated the Admin trial to Core work 20%, Escalations 20%, Avg PPS 20%, and Medals, Error proofing, Super escalations, and PMs at 10% each.</p></article>
+          <article class="version-card version-card-current"><div class="version-card-heading"><h2>Version 3.0.58</h2><time datetime="2026-09-23">September 23, 2026</time></div><p class="version-summary-intro">Separated Tolay, Karla, Zack, and Esme from technician rankings and Top 3 cards. Admin tables show leads at the bottom with their separate lead rank in parentheses, including the balanced trial.</p></article>
+          <article class="version-card"><div class="version-card-heading"><h2>Version 3.0.57</h2><time datetime="2026-09-23">September 23, 2026</time></div><p class="version-summary-intro">Updated the Admin trial to Core work 20%, Escalations 20%, Avg PPS 20%, and Medals, Error proofing, Super escalations, and PMs at 10% each.</p></article>
           <article class="version-card"><div class="version-card-heading"><h2>Version 3.0.56</h2><time datetime="2026-09-23">September 23, 2026</time></div><p class="version-summary-intro">Added an Admin-only balanced ranking trial with weighted activity categories, split task credit, five-shift eligibility, and official-versus-trial movement. Official ranking calculations remain unchanged.</p></article>
           <article class="version-card"><div class="version-card-heading"><h2>Version 3.0.55</h2><time datetime="2026-09-23">September 23, 2026</time></div><p class="version-summary-intro">Admin-only detailed technician and shift rankings with current points, averages, work counts, and achievements. Removed PM before-and-after comparisons.</p></article>
           <article class="version-card"><div class="version-card-heading"><h2>Version 3.0.54</h2><time datetime="2026-09-22">September 22, 2026</time></div>
@@ -9197,8 +9198,8 @@
         "Open Full Screen": "전체 화면으로 열기",
         "If the embedded form does not appear or feels cramped, use Open Full Screen.": "포함된 양식이 표시되지 않거나 화면이 좁으면 전체 화면으로 열기를 사용하세요.",
         "Loading Microsoft Form…": "Microsoft 양식을 불러오는 중…",
-        "Version 3.0.57 · Last updated:": "버전 3.0.57 · 마지막 업데이트:",
-        "Version 3.0.57": "버전 3.0.57",
+        "Version 3.0.58 · Last updated:": "버전 3.0.58 · 마지막 업데이트:",
+        "Version 3.0.58": "버전 3.0.58",
         "Version 3.0.52 · Last updated:": "버전 3.0.52 · 마지막 업데이트:",
         "Version 3.0.52": "버전 3.0.52",
         "Ranking data audit": "순위 데이터 감사",
@@ -18751,7 +18752,7 @@
     const provider = new GoogleAuthProvider();
     provider.setCustomParameters({ prompt: "select_account" });
     const SYNC_PROTOCOL_VERSION = 6;
-    const APP_VERSION = String(document.querySelector('meta[name="visionary-app-version"]')?.content || "3.0.57");
+    const APP_VERSION = String(document.querySelector('meta[name="visionary-app-version"]')?.content || "3.0.58");
     const HOSTED_APP_ROOT = "https://jsikson7.github.io/Visionary/";
     const HOSTED_APP_URL = HOSTED_APP_ROOT + "?v=" + APP_VERSION.replace(/\D/g, "");
     const isDirectFilePage = !["http:", "https:"].includes(window.location.protocol);
@@ -20278,11 +20279,46 @@
 
     const RANKING_MINIMUM_TECHNICIAN_SHIFTS = 3;
 
+    const RANKING_LEAD_NAMES = ["Tolay", "Karla", "Zack", "Esme"];
+    function isRankingLead(person) {
+      const name = String(person && person.name || "").trim().toLowerCase();
+      return RANKING_LEAD_NAMES.some(lead => lead.toLowerCase() === name) || name === "tolayc";
+    }
+
+    function monthlyRankPeople(people) {
+      return people
+        .filter(person => person.points > 0 && person.shiftCount >= RANKING_MINIMUM_TECHNICIAN_SHIFTS)
+        .sort((a, b) => (b.points / b.shiftCount) - (a.points / a.shiftCount) || a.name.localeCompare(b.name))
+        .map((person, index) => Object.assign({}, person, { rank: index + 1 }));
+    }
+
     function monthlyRankTechnicians(technicians) {
-      return technicians
-        .filter((technician) => technician.points > 0 && technician.shiftCount >= RANKING_MINIMUM_TECHNICIAN_SHIFTS)
-        .sort((left, right) => (right.points / right.shiftCount) - (left.points / left.shiftCount) || left.name.localeCompare(right.name))
-        .map((technician, index) => Object.assign({}, technician, { rank: index + 1 }));
+      return monthlyRankPeople(technicians.filter(person => !isRankingLead(person)));
+    }
+
+    function monthlyRankLeads(technicians) {
+      return monthlyRankPeople(technicians.filter(isRankingLead));
+    }
+
+    function includeRankingLeads(people, trial) {
+      const result = people.slice();
+      RANKING_LEAD_NAMES.forEach(name => {
+        if (result.some(person => String(person.name).trim().toLowerCase() === name.toLowerCase() ||
+          (name === "Tolay" && String(person.name).trim().toLowerCase() === "tolayc"))) return;
+        result.push(trial ? {
+          key: name.toLowerCase(), name, shifts: 0, exposure: 0, points: 0,
+          work: { core: 0, escalation: 0, pps: 0, medals: 0, proof: 0, super: 0, pm: 0 }
+        } : {
+          key: name.toLowerCase(), name, shiftCount: 0, points: 0, shiftCounts: {},
+          pmCount: 0, escalationCount: 0, superEscalationCount: 0, errorProofingCount: 0,
+          medals: MONTHLY_MEDAL_TIERS.map(() => 0)
+        });
+      });
+      return result;
+    }
+
+    function leadRankingLabel(rank) {
+      return "Unranked (Lead " + (rank == null ? "—" : "#" + rank) + ")";
     }
 
     function monthlyRankShifts(shifts) {
@@ -20379,20 +20415,32 @@
       details.appendChild(summary); details.appendChild(description); host.appendChild(details);
       const aggregate = balancedTrialAggregate(records);
       [["Technicians", aggregate.technicians, monthlyRankTechnicians(current.technicians)], ["Shifts", aggregate.shifts, monthlyRankShifts(current.shifts)]].forEach(([label, items, official]) => {
-        const result = balancedTrialRank(items), officialRanks = new Map(official.map(item => [item.key, item.rank]));
+        const technicianTable = label === "Technicians";
+        const result = balancedTrialRank(technicianTable ? items.filter(item => !isRankingLead(item)) : items);
+        const leadResult = technicianTable ? balancedTrialRank(includeRankingLeads(items.filter(isRankingLead), true)) : null;
+        const officialRanks = new Map(official.map(item => [item.key, item.rank]));
+        const officialLeadRanks = new Map(monthlyRankLeads(current.technicians).map(item => [item.key, item.rank]));
+        const rows = result.rows.concat(leadResult ? leadResult.rows : []);
+        const officialRank = item => technicianTable && isRankingLead(item) ? officialLeadRanks.get(item.key) : officialRanks.get(item.key);
+        const rankLabel = (item, rank) => technicianTable && isRankingLead(item) ? leadRankingLabel(rank) : (rank == null ? "—" : monthlyNumber(rank));
         const format = value => value == null ? "—" : monthlyNumber(value);
         const change = item => {
-          const old = officialRanks.get(item.key);
+          const old = officialRank(item);
           if (item.rank == null || old == null) return "—";
           const delta = old - item.rank; return delta > 0 ? "↑ " + delta : delta < 0 ? "↓ " + Math.abs(delta) : "Same";
         };
         const poolNote = document.createElement("p");
         poolNote.textContent = label + ": " + result.poolSize + " eligible. " + (result.active.length ? "Active weights: " + result.active.map(c => c.label + " " + monthlyNumber(100 * c.weight / result.active.reduce((n,x) => n+x.weight,0)) + "%").join(" · ") : "Not enough eligible activity to score yet.");
         host.appendChild(poolNote);
+        if (leadResult) {
+          const note = document.createElement("p");
+          note.textContent = "Leads: " + leadResult.poolSize + " eligible in their separate trial group. " + (leadResult.active.length ? "Active weights: " + leadResult.active.map(c => c.label + " " + monthlyNumber(100 * c.weight / leadResult.active.reduce((n,x) => n+x.weight,0)) + "%").join(" · ") : "Not enough eligible activity to score yet.");
+          host.appendChild(note);
+        }
         table(label + " — trial score", ["Trial rank", "Name", "Official rank", "Movement", "Trial / 100", "Status", "Recorded shifts", "Technician-shifts", ...TRIAL_CATEGORIES.map(c => c.label + " score")],
-          result.rows.map(item => [format(item.rank), item.name, format(officialRanks.get(item.key)), change(item), format(item.score), !item.confirmed ? "Provisional (<5 shifts or missing roster)" : item.score == null ? "No scored activity" : "Eligible", item.shifts, item.exposure, ...TRIAL_CATEGORIES.map(c => format(item.confirmed ? item.parts[c.key] : null))]));
+          rows.map(item => [rankLabel(item, item.rank), item.name, rankLabel(item, officialRank(item)), change(item), format(item.score), !item.confirmed ? "Provisional (<5 shifts or missing roster)" : item.score == null ? "No scored activity" : "Eligible", item.shifts, item.exposure, ...TRIAL_CATEGORIES.map(c => format(item.confirmed ? item.parts[c.key] : null))]));
         table(label + " — trial work rates", ["Name", "Total points", "Medals earned", ...TRIAL_CATEGORIES.map(c => c.rateLabel)],
-          result.rows.map(item => [item.name, monthlyNumber(item.points), monthlyNumber(item.work.medals), ...TRIAL_CATEGORIES.map(c => monthlyNumber(item.rate[c.key]))]));
+          rows.map(item => [item.name, monthlyNumber(item.points), monthlyNumber(item.work.medals), ...TRIAL_CATEGORIES.map(c => monthlyNumber(item.rate[c.key]))]));
       });
     }
 
@@ -20436,11 +20484,17 @@
       }
       const ranked = monthlyRankTechnicians(current.technicians);
       const ranks = new Map(ranked.map(person => [person.key, person.rank]));
-      const technicians = current.technicians.slice().sort((a, b) =>
+      const leadRanks = new Map(monthlyRankLeads(current.technicians).map(person => [person.key, person.rank]));
+      const leadNote = document.createElement("p");
+      leadNote.textContent = "Leads appear at the bottom, outside technician rankings. Parentheses show their rank among Tolay, Karla, Zack, and Esme. — means not enough data (3 qualifying shifts for official rank; 5 recorded shifts for trial rank). Lead trial scores use a separate comparison group.";
+      host.appendChild(leadNote);
+      const technicians = includeRankingLeads(current.technicians, false).sort((a, b) =>
+        Number(isRankingLead(a)) - Number(isRankingLead(b)) ||
+        (isRankingLead(a) && isRankingLead(b) ? (leadRanks.get(a.key) ?? Infinity) - (leadRanks.get(b.key) ?? Infinity) : 0) ||
         (ranks.get(a.key) ?? Infinity) - (ranks.get(b.key) ?? Infinity) ||
         (b.points / (b.shiftCount || 1)) - (a.points / (a.shiftCount || 1)) || a.name.localeCompare(b.name));
       table("All technicians", ["Rank", "Technician", "Shift", "Total points", "Avg points / shift", "Qualifying shifts", "PMs", "Escalations", "Super escalations", "Error proofing", ...MONTHLY_MEDAL_TIERS.map(tier => tier.name + " medals")],
-        technicians.map(person => [ranks.get(person.key) ?? "Unranked", person.name, monthlyTechnicianShiftLabel(person), monthlyNumber(person.points), monthlyAveragePoints(person), person.shiftCount, monthlyNumber(person.pmCount), monthlyNumber(person.escalationCount), monthlyNumber(person.superEscalationCount), monthlyNumber(person.errorProofingCount), ...person.medals]));
+        technicians.map(person => [isRankingLead(person) ? leadRankingLabel(leadRanks.get(person.key)) : (ranks.get(person.key) ?? "Unranked"), person.name, monthlyTechnicianShiftLabel(person), monthlyNumber(person.points), monthlyAveragePoints(person), person.shiftCount, monthlyNumber(person.pmCount), monthlyNumber(person.escalationCount), monthlyNumber(person.superEscalationCount), monthlyNumber(person.errorProofingCount), ...person.medals]));
       table("All shifts", ["Rank", "Shift", "Total points", "Avg points / shift", "Qualifying shifts", "Completion", "Perfect shifts", "PMs", "Escalations", "Super escalations", "Error proofing"],
         monthlyRankShifts(current.shifts).map(shift => [shift.rank ?? "Unranked", shift.shift, monthlyNumber(shift.points), monthlyAveragePoints(shift), shift.shiftCount, shift.completionAvailable ? monthlyNumber(100 * shift.completionEarned / shift.completionAvailable) + "%" : "—", shift.perfectShiftCount, monthlyNumber(shift.pmCount), monthlyNumber(shift.escalationCount), monthlyNumber(shift.superEscalationCount), monthlyNumber(shift.errorProofingCount)]));
       renderBalancedTrial(current, records || [], host, table);
@@ -21639,9 +21693,9 @@
       const appProperties = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>' +
         '<Properties xmlns="http://schemas.openxmlformats.org/officeDocument/2006/extended-properties" ' +
         'xmlns:vt="http://schemas.openxmlformats.org/officeDocument/2006/docPropsVTypes">' +
-        '<Application>Visionary 3.0.57</Application><DocSecurity>0</DocSecurity><ScaleCrop>false</ScaleCrop>' +
+        '<Application>Visionary 3.0.58</Application><DocSecurity>0</DocSecurity><ScaleCrop>false</ScaleCrop>' +
         '<Company></Company><LinksUpToDate>false</LinksUpToDate><SharedDoc>false</SharedDoc><HyperlinksChanged>false</HyperlinksChanged>' +
-        '<AppVersion>3.0.57</AppVersion></Properties>';
+        '<AppVersion>3.0.58</AppVersion></Properties>';
 
       const zip = xlsxZipStoredFiles([
         { name: "[Content_Types].xml", contents: contentTypes },
