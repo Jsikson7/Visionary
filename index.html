@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="description" content="A mobile-friendly collection of vision production guides, troubleshooting history, and copy-ready reporting tools.">
-  <meta name="visionary-app-version" content="3.0.64">
+  <meta name="visionary-app-version" content="3.0.65">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
@@ -6960,7 +6960,7 @@
             <span class="form-tile-arrow" aria-hidden="true">›</span>
           </button>
         </div>
-        <p class="last-updated">Version 3.0.64 · Last updated: <time datetime="2026-09-23">September 23, 2026</time></p>
+        <p class="last-updated">Version 3.0.65 · Last updated: <time datetime="2026-09-23">September 23, 2026</time></p>
         <div class="version-history-link-wrap">
           <button id="open-version-history" class="version-history-link" type="button">View version history</button>
         </div>
@@ -7102,7 +7102,7 @@
             <div class="daily-cloud-copy">
               <strong id="daily-cloud-title">Shared shift synchronization</strong>
               <span id="daily-cloud-status" role="status" aria-live="polite">Sign in with Google to share Daily Tasks across phones.</span>
-              <small>Safe Sync v6.2 · App <span id="daily-app-version">3.0.64</span><span id="daily-version-health" class="daily-version-health" hidden></span></small>
+              <small>Safe Sync v6.2 · App <span id="daily-app-version">3.0.65</span><span id="daily-version-health" class="daily-version-health" hidden></span></small>
             </div>
           </div>
           <div class="daily-cloud-actions">
@@ -7858,7 +7858,8 @@
 
       <section class="panel" aria-label="Release history">
         <div class="version-history-list">
-          <article class="version-card version-card-current"><div class="version-card-heading"><h2>Version 3.0.64</h2><time datetime="2026-09-23">September 23, 2026</time></div><p class="version-summary-intro">Collapsed PKG Update comments behind Add comment controls and simplified the Lead Align heading. Saved comments remain available through Edit comment and remain in copied reports.</p></article>
+          <article class="version-card version-card-current"><div class="version-card-heading"><h2>Version 3.0.65</h2><time datetime="2026-09-23">September 23, 2026</time></div><p class="version-summary-intro">Top 3 NG comments now appear in parentheses on their own line below the corresponding NG rate or Major NG value in previews and copied reports.</p></article>
+          <article class="version-card"><div class="version-card-heading"><h2>Version 3.0.64</h2><time datetime="2026-09-23">September 23, 2026</time></div><p class="version-summary-intro">Collapsed PKG Update comments behind Add comment controls and simplified the Lead Align heading. Saved comments remain available through Edit comment and remain in copied reports.</p></article>
           <article class="version-card"><div class="version-card-heading"><h2>Version 3.0.63</h2><time datetime="2026-09-23">September 23, 2026</time></div><p class="version-summary-intro">Collapsed optional NG rate and Major NG comments behind Add comment controls in all Top 3 NG entries. Entered comments remain in the copied report when collapsed.</p></article>
           <article class="version-card"><div class="version-card-heading"><h2>Version 3.0.62</h2><time datetime="2026-09-23">September 23, 2026</time></div><p class="version-summary-intro">Added PH to MI2 PKG IQ Checks and aligned preview results beneath their vision headers. Compact copied text and line selection are retained.</p></article>
           <article class="version-card"><div class="version-card-heading"><h2>Version 3.0.61</h2><time datetime="2026-09-23">September 23, 2026</time></div><p class="version-summary-intro">Updated the v3.0.59 PKG IQ tool with compact plain-text reports, line selection, MI1 PH checks, and the X-R heading.</p></article>
@@ -9263,8 +9264,8 @@
         "Open Full Screen": "전체 화면으로 열기",
         "If the embedded form does not appear or feels cramped, use Open Full Screen.": "포함된 양식이 표시되지 않거나 화면이 좁으면 전체 화면으로 열기를 사용하세요.",
         "Loading Microsoft Form…": "Microsoft 양식을 불러오는 중…",
-        "Version 3.0.64 · Last updated:": "버전 3.0.64 · 마지막 업데이트:",
-        "Version 3.0.64": "버전 3.0.64",
+        "Version 3.0.65 · Last updated:": "버전 3.0.65 · 마지막 업데이트:",
+        "Version 3.0.65": "버전 3.0.65",
         "Version 3.0.52 · Last updated:": "버전 3.0.52 · 마지막 업데이트:",
         "Version 3.0.52": "버전 3.0.52",
         "Ranking data audit": "순위 데이터 감사",
@@ -10324,9 +10325,11 @@
           var majorComment = top3Value("top3-major-ng-comment-" + index);
           lines.push(
             index + ". " + top3Value("top3-vision-" + index) + " " + top3Value("top3-line-" + index),
-            reportText("• NG rate: ", "• NG 비율: ") + top3Value("top3-ng-rate-" + index) + (rateComment ? " " + rateComment : ""),
-            reportText("• Major NG: ", "• 주요 NG: ") + top3Value("top3-major-ng-" + index) + (majorComment ? " " + majorComment : "")
+            reportText("• NG rate: ", "• NG 비율: ") + top3Value("top3-ng-rate-" + index)
           );
+          if (rateComment) lines.push("(" + rateComment + ")");
+          lines.push(reportText("• Major NG: ", "• 주요 NG: ") + top3Value("top3-major-ng-" + index));
+          if (majorComment) lines.push("(" + majorComment + ")");
           if (index < 3) lines.push("");
         }
         top3Preview.value = lines.join("\n");
@@ -18848,7 +18851,7 @@
     const provider = new GoogleAuthProvider();
     provider.setCustomParameters({ prompt: "select_account" });
     const SYNC_PROTOCOL_VERSION = 6;
-    const APP_VERSION = String(document.querySelector('meta[name="visionary-app-version"]')?.content || "3.0.64");
+    const APP_VERSION = String(document.querySelector('meta[name="visionary-app-version"]')?.content || "3.0.65");
     const HOSTED_APP_ROOT = "https://jsikson7.github.io/Visionary/";
     const HOSTED_APP_URL = HOSTED_APP_ROOT + "?v=" + APP_VERSION.replace(/\D/g, "");
     const isDirectFilePage = !["http:", "https:"].includes(window.location.protocol);
@@ -21789,9 +21792,9 @@
       const appProperties = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>' +
         '<Properties xmlns="http://schemas.openxmlformats.org/officeDocument/2006/extended-properties" ' +
         'xmlns:vt="http://schemas.openxmlformats.org/officeDocument/2006/docPropsVTypes">' +
-        '<Application>Visionary 3.0.64</Application><DocSecurity>0</DocSecurity><ScaleCrop>false</ScaleCrop>' +
+        '<Application>Visionary 3.0.65</Application><DocSecurity>0</DocSecurity><ScaleCrop>false</ScaleCrop>' +
         '<Company></Company><LinksUpToDate>false</LinksUpToDate><SharedDoc>false</SharedDoc><HyperlinksChanged>false</HyperlinksChanged>' +
-        '<AppVersion>3.0.64</AppVersion></Properties>';
+        '<AppVersion>3.0.65</AppVersion></Properties>';
 
       const zip = xlsxZipStoredFiles([
         { name: "[Content_Types].xml", contents: contentTypes },
