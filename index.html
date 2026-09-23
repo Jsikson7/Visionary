@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="description" content="A mobile-friendly collection of vision production guides, troubleshooting history, and copy-ready reporting tools.">
-  <meta name="visionary-app-version" content="3.0.59">
+  <meta name="visionary-app-version" content="3.0.62">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
@@ -6566,7 +6566,21 @@
 
     #pkg-iq-sections .iq-section { overflow-x: auto; }
     #pkg-iq-sections .iq-grid { grid-template-columns: 44px repeat(var(--pkg-iq-columns), minmax(40px, 1fr)); gap: 5px; }
-    #pkg-iq-preview { margin: 0; white-space: pre; overflow-x: auto; font-family: "SFMono-Regular", Consolas, monospace; font-size: .8rem; line-height: 1.8; }
+    #pkg-iq-lines { border: 1px solid var(--line); border-radius: 12px; margin: 0 0 16px; padding: 12px; }
+    #pkg-iq-line-options { display: flex; gap: 16px; flex-wrap: wrap; }
+    #pkg-iq-line-options label { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; }
+    #pkg-iq-line-options input { width: 20px; height: 20px; margin: 0; }
+    #pkg-iq-preview { margin: 0; white-space: normal; overflow-x: auto; font-size: .8rem; line-height: 1.8; }
+    #pkg-iq-preview .pkg-iq-preview-title { font-weight: 750; margin-bottom: 4px; }
+    #pkg-iq-preview table { width: 100%; border-collapse: collapse; table-layout: fixed; min-width: 320px; margin-top: 12px; }
+    #pkg-iq-preview th, #pkg-iq-preview td { text-align: center; padding: 7px 2px; white-space: nowrap; border: 0; }
+    #pkg-iq-preview th { font-size: .7rem; border-bottom: 1px solid var(--line); }
+    #pkg-iq-preview th:first-child, #pkg-iq-preview td:first-child { width: 42px; text-align: left; }
+    #pkg-iq-preview td { font-size: 1rem; }
+    #pkg-iq-preview td:first-child { font-size: .8rem; }
+    #pkg-iq-preview tr.pkg-iq-line-start td { padding-top: 18px; }
+    #pkg-iq-copy-text-details { margin-top: 12px; }
+    #pkg-iq-copy-text { width: 100%; margin-top: 8px; font-family: monospace; white-space: pre; overflow: auto; }
   </style>
 <style id="bmpd-trends-style">
 #bmpd-trends-view[hidden]{display:none!important}
@@ -6936,7 +6950,7 @@
             <span class="form-tile-arrow" aria-hidden="true">›</span>
           </button>
         </div>
-        <p class="last-updated">Version 3.0.59 · Last updated: <time datetime="2026-09-23">September 23, 2026</time></p>
+        <p class="last-updated">Version 3.0.62 · Last updated: <time datetime="2026-09-23">September 23, 2026</time></p>
         <div class="version-history-link-wrap">
           <button id="open-version-history" class="version-history-link" type="button">View version history</button>
         </div>
@@ -7078,7 +7092,7 @@
             <div class="daily-cloud-copy">
               <strong id="daily-cloud-title">Shared shift synchronization</strong>
               <span id="daily-cloud-status" role="status" aria-live="polite">Sign in with Google to share Daily Tasks across phones.</span>
-              <small>Safe Sync v6.2 · App <span id="daily-app-version">3.0.59</span><span id="daily-version-health" class="daily-version-health" hidden></span></small>
+              <small>Safe Sync v6.2 · App <span id="daily-app-version">3.0.62</span><span id="daily-version-health" class="daily-version-health" hidden></span></small>
             </div>
           </div>
           <div class="daily-cloud-actions">
@@ -7834,7 +7848,9 @@
 
       <section class="panel" aria-label="Release history">
         <div class="version-history-list">
-          <article class="version-card version-card-current"><div class="version-card-heading"><h2>Version 3.0.59</h2><time datetime="2026-09-23">September 23, 2026</time></div><p class="version-summary-intro">Added PKG IQ Checks to Copy/Paste with MI1/MI2 machine lists, MI1 X-ray checks, tap-to-toggle results, building-specific drafts, and copy-ready reports.</p></article>
+          <article class="version-card version-card-current"><div class="version-card-heading"><h2>Version 3.0.62</h2><time datetime="2026-09-23">September 23, 2026</time></div><p class="version-summary-intro">Added PH to MI2 PKG IQ Checks and aligned preview results beneath their vision headers. Compact copied text and line selection are retained.</p></article>
+          <article class="version-card"><div class="version-card-heading"><h2>Version 3.0.61</h2><time datetime="2026-09-23">September 23, 2026</time></div><p class="version-summary-intro">Updated the v3.0.59 PKG IQ tool with compact plain-text reports, line selection, MI1 PH checks, and the X-R heading.</p></article>
+          <article class="version-card"><div class="version-card-heading"><h2>Version 3.0.59</h2><time datetime="2026-09-23">September 23, 2026</time></div><p class="version-summary-intro">Added PKG IQ Checks to Copy/Paste with MI1/MI2 machine lists, MI1 X-ray checks, tap-to-toggle results, building-specific drafts, and copy-ready reports.</p></article>
           <article class="version-card"><div class="version-card-heading"><h2>Version 3.0.58</h2><time datetime="2026-09-23">September 23, 2026</time></div><p class="version-summary-intro">Separated Tolay, Karla, Zack, and Esme from technician rankings and Top 3 cards. Admin tables show leads at the bottom with their separate lead rank in parentheses, including the balanced trial.</p></article>
           <article class="version-card"><div class="version-card-heading"><h2>Version 3.0.57</h2><time datetime="2026-09-23">September 23, 2026</time></div><p class="version-summary-intro">Updated the Admin trial to Core work 20%, Escalations 20%, Avg PPS 20%, and Medals, Error proofing, Super escalations, and PMs at 10% each.</p></article>
           <article class="version-card"><div class="version-card-heading"><h2>Version 3.0.56</h2><time datetime="2026-09-23">September 23, 2026</time></div><p class="version-summary-intro">Added an Admin-only balanced ranking trial with weighted activity categories, split task credit, five-shift eligibility, and official-versus-trial movement. Official ranking calculations remain unchanged.</p></article>
@@ -8700,14 +8716,16 @@
             <div class="field"><label for="pkg-iq-building">Building</label><select id="pkg-iq-building"><option value="MI1">MI1</option><option value="MI2" selected>MI2</option></select></div>
             <div class="field"><label for="pkg-iq-date">Check date</label><input id="pkg-iq-date" type="date" required></div>
             <div class="field"><label for="pkg-iq-time">Check time</label><input id="pkg-iq-time" type="time" step="60" required></div>
-            <p class="iq-instructions">Tap a checkpoint to switch between ✅ OK and ❌ Not OK. LA = Lead Align · W(-)/W(+) = Welding · L = Lead Vision · PA = Pouch Align.</p>
+            <p class="iq-instructions">Tap a checkpoint to switch between ✅ OK and ❌ Not OK. LA = Lead Align · W(-)/W(+) = Welding · L = Lead Vision · PA = Pouch Align · PH = Pinhole · X-R = X-ray (MI1).</p>
           </div>
+          <fieldset id="pkg-iq-lines"><legend>Lines to display and copy</legend><div id="pkg-iq-line-options"></div></fieldset>
           <div id="pkg-iq-sections" class="iq-sections"></div>
           <div class="iq-toolbar"><button id="pkg-iq-all-ok" class="button button-secondary" type="button">Mark all OK</button></div>
         </form>
         <aside class="panel preview-panel iq-preview-panel" aria-label="PKG IQ Checks chat preview">
-          <div class="panel-heading"><div><h2>Chat preview</h2><p>This is exactly what will be copied.</p></div></div>
-          <div class="preview-wrap"><pre id="pkg-iq-preview" class="iq-preview" aria-live="polite"></pre></div>
+          <div class="panel-heading"><div><h2>Chat preview</h2><p>Aligned preview of your results. Copy uses your compact text format.</p></div></div>
+          <div class="preview-wrap"><div id="pkg-iq-preview" class="iq-preview" aria-live="polite"></div></div>
+          <details id="pkg-iq-copy-text-details"><summary>View copy text</summary><textarea id="pkg-iq-copy-text" readonly rows="10" aria-label="Exact PKG IQ text to copy" spellcheck="false"></textarea></details>
           <div class="actions"><button id="pkg-iq-copy" class="button button-primary" type="button">Copy IQ check</button></div>
           <p id="pkg-iq-status" class="status" role="status" aria-live="polite"></p>
           <p id="pkg-iq-draft-note" class="privacy-note">Separate building drafts are saved in this browser and can be restored for up to 12 hours after the last change.</p>
@@ -9233,8 +9251,8 @@
         "Open Full Screen": "전체 화면으로 열기",
         "If the embedded form does not appear or feels cramped, use Open Full Screen.": "포함된 양식이 표시되지 않거나 화면이 좁으면 전체 화면으로 열기를 사용하세요.",
         "Loading Microsoft Form…": "Microsoft 양식을 불러오는 중…",
-        "Version 3.0.59 · Last updated:": "버전 3.0.59 · 마지막 업데이트:",
-        "Version 3.0.59": "버전 3.0.59",
+        "Version 3.0.62 · Last updated:": "버전 3.0.62 · 마지막 업데이트:",
+        "Version 3.0.62": "버전 3.0.62",
         "Version 3.0.52 · Last updated:": "버전 3.0.52 · 마지막 업데이트:",
         "Version 3.0.52": "버전 3.0.52",
         "Ranking data audit": "순위 데이터 감사",
@@ -18790,7 +18808,7 @@
     const provider = new GoogleAuthProvider();
     provider.setCustomParameters({ prompt: "select_account" });
     const SYNC_PROTOCOL_VERSION = 6;
-    const APP_VERSION = String(document.querySelector('meta[name="visionary-app-version"]')?.content || "3.0.59");
+    const APP_VERSION = String(document.querySelector('meta[name="visionary-app-version"]')?.content || "3.0.62");
     const HOSTED_APP_ROOT = "https://jsikson7.github.io/Visionary/";
     const HOSTED_APP_URL = HOSTED_APP_ROOT + "?v=" + APP_VERSION.replace(/\D/g, "");
     const isDirectFilePage = !["http:", "https:"].includes(window.location.protocol);
@@ -21731,9 +21749,9 @@
       const appProperties = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>' +
         '<Properties xmlns="http://schemas.openxmlformats.org/officeDocument/2006/extended-properties" ' +
         'xmlns:vt="http://schemas.openxmlformats.org/officeDocument/2006/docPropsVTypes">' +
-        '<Application>Visionary 3.0.59</Application><DocSecurity>0</DocSecurity><ScaleCrop>false</ScaleCrop>' +
+        '<Application>Visionary 3.0.62</Application><DocSecurity>0</DocSecurity><ScaleCrop>false</ScaleCrop>' +
         '<Company></Company><LinksUpToDate>false</LinksUpToDate><SharedDoc>false</SharedDoc><HyperlinksChanged>false</HyperlinksChanged>' +
-        '<AppVersion>3.0.59</AppVersion></Properties>';
+        '<AppVersion>3.0.62</AppVersion></Properties>';
 
       const zip = xlsxZipStoredFiles([
         { name: "[Content_Types].xml", contents: contentTypes },
@@ -23204,7 +23222,7 @@ panel.querySelector('.cell-tracking-back').addEventListener('click',()=>taskTab.
 (function () {
   "use strict";
   const machines = { MI1: ["1-1","1-2","2-1","2-2"], MI2: ["3-1","3-2","4-1","4-2","5-1","5-2","5-3"] };
-  const columns = { MI1: ["LA","W(-)","W(+)","L","PA","X-ray"], MI2: ["LA","W(-)","W(+)","L","PA"] };
+  const columns = { MI1: ["LA","W(-)","W(+)","L","PA","PH","X-R"], MI2: ["LA","W(-)","W(+)","L","PA","PH"] };
   const $ = id => document.getElementById("pkg-iq-" + id);
   const key = "visionary-pkg-iq-drafts-v1", ttl = 12 * 60 * 60 * 1000;
   let building = "MI2", drafts = {};
@@ -23213,13 +23231,19 @@ panel.querySelector('.cell-tracking-back').addEventListener('click',()=>taskTab.
     const now = new Date();
     return { date: now.getFullYear()+"-"+pad(now.getMonth()+1)+"-"+pad(now.getDate()), time: pad(now.getHours())+":"+pad(now.getMinutes()), checks: {} };
   }
+  function selectedMachines(building, draft) {
+    return machines[building].filter(machine => draft.includedLines?.[machine.split("-")[0]] !== false);
+  }
   function report(building, draft) {
     const parts = draft.date.split("-");
     const lines = [building + " PKG Image Quality Check", (parts.length === 3 ? parts[1]+"/"+parts[2] : "") + " - " + draft.time,
-      "Line | " + columns[building].join(" | "), ""];
-    machines[building].forEach((machine,index,all) => {
+      "Line |" + columns[building].join("|") + "|", ""];
+    selectedMachines(building,draft).forEach((machine,index,all) => {
       if (index && machine.split("-")[0] !== all[index-1].split("-")[0]) lines.push("");
-      lines.push(machine + "  | " + columns[building].map(vision => draft.checks[machine+"|"+vision] === "ng" ? "❌" : "✅").join(" | "));
+      lines.push(machine + "   |" + columns[building].map(vision => {
+        const icon = draft.checks[machine+"|"+vision] === "ng" ? "❌" : "✅";
+        return vision === "W(-)" || vision === "W(+)" ? " "+icon+" " : vision === "L" ? " "+icon : icon;
+      }).join("|") + "|");
     });
     return lines.join("\n");
   }
@@ -23229,9 +23253,31 @@ panel.querySelector('.cell-tracking-back').addEventListener('click',()=>taskTab.
     catch (_) { $("draft-note").textContent = "Draft saving is unavailable in this browser. Copy your report before closing."; }
   }
   function preview() {
-    $("preview").textContent = report(building,drafts[building]);
+    const text = report(building,drafts[building]);
+    $("copy-text").value = text;
+    const lines = text.split("\n"), host = $("preview");
+    host.replaceChildren();
+    const title = document.createElement("div"), date = document.createElement("div");
+    title.className = "pkg-iq-preview-title"; title.textContent = lines[0]; date.textContent = lines[1];
+    host.appendChild(title); host.appendChild(date);
+    const table = document.createElement("table"); table.setAttribute("aria-label", building + " PKG image quality results");
+    const head = document.createElement("thead"), header = document.createElement("tr");
+    const cells = line => line.split("|").slice(0,-1).map(value => value.trim());
+    cells(lines[2]).forEach(value => { const th = document.createElement("th"); th.scope = "col"; th.textContent = value; header.appendChild(th); });
+    head.appendChild(header); table.appendChild(head);
+    const body = document.createElement("tbody"); let previousLine = "";
+    lines.slice(3).filter(line => line.trim()).forEach(line => {
+      const values = cells(line), row = document.createElement("tr"), group = values[0].split("-")[0];
+      if (previousLine && group !== previousLine) row.className = "pkg-iq-line-start";
+      previousLine = group;
+      values.forEach(value => { const td = document.createElement("td"); td.textContent = value; row.appendChild(td); });
+      body.appendChild(row);
+    });
+    table.appendChild(body); host.appendChild(table);
     $("heading").textContent = building + " PKG Image Quality Check";
-    $("status").textContent = "";
+    const none = selectedMachines(building,drafts[building]).length === 0;
+    $("copy").disabled = none;
+    $("status").textContent = none ? "Select at least one line to display and copy." : "";
   }
   function state(button, machine, vision) {
     const ng = drafts[building].checks[machine+"|"+vision] === "ng";
@@ -23243,10 +23289,23 @@ panel.querySelector('.cell-tracking-back').addEventListener('click',()=>taskTab.
   function render() {
     if (!drafts[building] || (drafts[building].savedAt && Date.now()-drafts[building].savedAt >= ttl)) drafts[building] = fresh();
     const draft = drafts[building];
+    if (!draft.includedLines || typeof draft.includedLines !== "object") draft.includedLines = {};
+    // Preserve saved X-ray checks from v3.0.59 under the new report heading.
+    if (building === "MI1") machines.MI1.forEach(machine => {
+      if (draft.checks[machine+"|X-R"] == null && draft.checks[machine+"|X-ray"] != null) draft.checks[machine+"|X-R"] = draft.checks[machine+"|X-ray"];
+    });
     $("building").value = building; $("date").value = draft.date; $("time").value = draft.time;
     $("sections").replaceChildren();
     const lines = [...new Set(machines[building].map(machine => machine.split("-")[0]))];
+    $("line-options").replaceChildren();
     lines.forEach(line => {
+      const label = document.createElement("label"), input = document.createElement("input"), text = document.createElement("span");
+      input.type = "checkbox"; input.checked = draft.includedLines[line] !== false;
+      input.setAttribute("aria-label", "Include line " + line);
+      text.textContent = "Line " + line; label.appendChild(input); label.appendChild(text); $("line-options").appendChild(label);
+      input.addEventListener("change", () => { draft.includedLines[line] = input.checked; save(); render(); });
+    });
+    lines.filter(line => draft.includedLines[line] !== false).forEach(line => {
       const section = document.createElement("section"); section.className = "iq-section";
       const heading = document.createElement("div"); heading.className = "iq-section-heading";
       const title = document.createElement("h3"); title.textContent = "Line " + line; heading.appendChild(title); section.appendChild(heading);
@@ -23278,15 +23337,16 @@ panel.querySelector('.cell-tracking-back').addEventListener('click',()=>taskTab.
   $("building").addEventListener("change",() => { building = $("building").value; render(); save(); });
   ["date","time"].forEach(field => $(field).addEventListener("input",() => { drafts[building][field] = $(field).value; save(); preview(); }));
   $("all-ok").addEventListener("click",() => {
-    if (!window.confirm("Mark every " + building + " PKG checkpoint as OK?")) return;
-    drafts[building].checks = {}; save(); render();
+    if (!window.confirm("Mark all displayed " + building + " PKG checkpoints as OK?")) return;
+    selectedMachines(building,drafts[building]).forEach(machine => columns[building].forEach(vision => { drafts[building].checks[machine+"|"+vision] = "ok"; }));
+    save(); render();
   });
   $("reset").addEventListener("click",() => {
     if (!window.confirm("Clear this " + building + " PKG IQ check and start over?")) return;
     drafts[building] = fresh(); save(); render();
   });
   $("copy").addEventListener("click",async () => {
-    if (!$("form").reportValidity()) return;
+    if (!$("form").reportValidity() || !selectedMachines(building,drafts[building]).length) return;
     const value = report(building,drafts[building]);
     try {
       if (!navigator.clipboard || !window.isSecureContext) throw new Error("fallback");
@@ -23297,7 +23357,11 @@ panel.querySelector('.cell-tracking-back').addEventListener('click',()=>taskTab.
       source.style.cssText = "position:fixed;top:0;left:0;opacity:0;"; document.body.appendChild(source); source.focus(); source.select(); source.setSelectionRange(0,value.length);
       let copied = false;
       try { copied = document.execCommand("copy"); } catch (_) {} finally { source.remove(); }
-      $("status").textContent = copied ? "PKG IQ check copied." : "Copy was blocked. Select and copy the report from the preview.";
+      if (!copied) {
+        $("copy-text-details").open = true;
+        $("copy-text").focus(); $("copy-text").select();
+      }
+      $("status").textContent = copied ? "PKG IQ check copied." : "Copy was blocked. Copy the selected text under View copy text.";
     }
   });
   render();
