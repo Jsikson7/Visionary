@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="description" content="A mobile-friendly collection of vision production guides, troubleshooting history, and copy-ready reporting tools.">
-  <meta name="visionary-app-version" content="3.0.66">
+  <meta name="visionary-app-version" content="3.0.68">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
@@ -66,7 +66,7 @@
           name: "Visionary Tool",
           short_name: "Visionary",
           description: "Mobile production guides, troubleshooting, and copy-ready reporting tools.",
-          start_url: scopeUrl.href + "?v=342",
+          start_url: scopeUrl.href + "?v=344",
           scope: scopeUrl.href,
           display: "standalone",
           orientation: "portrait-primary",
@@ -6593,22 +6593,20 @@
     #pkg-iq-copy-text { width: 100%; margin-top: 8px; font-family: monospace; white-space: pre; overflow: auto; }
   </style>
 <style id="weekly-bmpd-style">
-/* BM/PD lookup: compact navigation, with no decorative page headers. */
-#weekly-bmpd-view[data-view="search"]>.hero{position:static;min-height:0;padding:6px 0;margin:0 0 8px;background:none;border:0;box-shadow:none;border-radius:0;display:flex;flex-direction:row;align-items:center;flex-wrap:nowrap;justify-content:space-between;gap:8px}
-#weekly-bmpd-view[data-view="search"]>.hero:before,#weekly-bmpd-view[data-view="search"]>.hero:after,#weekly-bmpd-view[data-view="search"]>.hero>div:first-child{display:none!important}
-#weekly-bmpd-view[data-view="search"]>.hero>.language-bar{display:none!important}
-#weekly-bmpd-view[data-view="search"] #header-actions{position:static;inset:auto;transform:none;width:auto;flex:0 0 auto;margin:0;padding:0}
-#weekly-bmpd-view[data-view="search"] .button,#weekly-bmpd-view[data-view="search"] #header-actions button{font-size:14px;line-height:1.2;padding:10px 12px;min-height:44px;width:auto;border-radius:10px}
-#weekly-bmpd-view[data-view="search"] .weekly-report-actions{gap:8px;margin:0 0 8px}
+/* BM/PD Search keeps the same themed hero treatment as the rest of the app. */
+#weekly-bmpd-view[data-view="search"]>.hero{margin-bottom:12px}
+#weekly-bmpd-view[data-view="search"]>.hero>div:first-child{display:block}
+#weekly-bmpd-view[data-view="search"] .weekly-report-actions{gap:8px;margin:0 0 10px;padding:10px 12px;border:1px solid var(--line);border-radius:12px;background:var(--paper);box-shadow:0 5px 16px var(--focus-ring)}
+#weekly-bmpd-view[data-view="search"] .weekly-report-actions .button{min-height:44px;padding:9px 12px;font-size:.8rem;border-radius:9px}
 #weekly-bmpd-view[data-view="search"] #weekly-bmpd-status{flex-basis:100%;font-size:13px}
 #weekly-bmpd-view[data-view="search"] #weekly-bmpd-status:empty{display:none}
-#weekly-bmpd-view[data-view="search"] #weekly-bmpd-frame{margin-top:0;height:calc(100dvh - 140px);min-height:450px;border-radius:12px}
+#weekly-bmpd-view[data-view="search"] #weekly-bmpd-frame{margin-top:0;height:calc(100dvh - 250px);min-height:520px;border-radius:12px;background:var(--paper);box-shadow:var(--shadow)}
 
 #open-bmpd-log-search[hidden]{display:none!important}
 #weekly-bmpd-view[hidden],#open-weekly-bmpd[hidden],#app-shell:not([data-auth-role="Admin"]) #weekly-bmpd-view:not([data-view="search"]),#app-shell:not([data-auth-role="Admin"]) #open-weekly-bmpd{display:none!important}
 #weekly-bmpd-frame{display:block;width:100%;height:82vh;min-height:640px;border:1px solid var(--line);border-radius:16px;background:var(--page);margin-top:18px}
 #weekly-bmpd-view .hero{gap:16px;align-items:center}.weekly-report-actions{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin:18px 0}.weekly-report-actions span{color:var(--muted);font-size:14px}
-@media(max-width:700px){#weekly-bmpd-frame{height:78vh;min-height:480px;border-radius:10px}}
+@media(max-width:700px){#weekly-bmpd-frame{height:78vh;min-height:480px;border-radius:10px}#weekly-bmpd-view[data-view="search"] .weekly-report-actions{margin-right:12px;margin-left:12px}#weekly-bmpd-view[data-view="search"] #weekly-bmpd-frame{height:calc(100dvh - 285px);min-height:480px;border-right:0;border-left:0;border-radius:0;box-shadow:none}}
 </style>
 <style id="bmpd-trends-style">
 #bmpd-trends-view[hidden]{display:none!important}
@@ -6984,7 +6982,7 @@
             <span class="form-tile-arrow" aria-hidden="true">›</span>
           </button>
         </div>
-        <p class="last-updated">Version 3.0.66 · Last updated: <time datetime="2026-09-23">September 23, 2026</time></p>
+        <p class="last-updated">Version 3.0.68 · Last updated: <time datetime="2026-09-24">September 24, 2026</time></p>
         <div class="version-history-link-wrap">
           <button id="open-version-history" class="version-history-link" type="button">View version history</button>
         </div>
@@ -7132,7 +7130,7 @@
             <div class="daily-cloud-copy">
               <strong id="daily-cloud-title">Shared shift synchronization</strong>
               <span id="daily-cloud-status" role="status" aria-live="polite">Sign in with Google to share Daily Tasks across phones.</span>
-              <small>Safe Sync v6.2 · App <span id="daily-app-version">3.0.66</span><span id="daily-version-health" class="daily-version-health" hidden></span></small>
+              <small>Safe Sync v6.2 · App <span id="daily-app-version">3.0.68</span><span id="daily-version-health" class="daily-version-health" hidden></span></small>
             </div>
           </div>
           <div class="daily-cloud-actions">
@@ -7156,7 +7154,18 @@
           </div>
 
           <form id="daily-shift-form" class="daily-shift-form" autocomplete="off">
-            <div class="daily-shift-details">
+            <details id="daily-shift-setup-card" class="daily-setup-card" open>
+              <summary class="daily-section-summary-row">
+                <span class="daily-step-number" aria-hidden="true">1</span>
+                <span class="daily-section-summary-copy">
+                  <strong>Shift setup</strong>
+                  <small>Date, shift, technicians, and error proofing</small>
+                </span>
+                <span id="daily-shift-setup-status" class="daily-section-state">Required</span>
+                <span class="daily-disclosure-chevron" aria-hidden="true">⌄</span>
+              </summary>
+              <div class="daily-setup-body">
+                <div class="daily-shift-details">
               <div class="field">
                 <label for="daily-shift-date">Date</label>
                 <input id="daily-shift-date" type="date" required aria-required="true">
@@ -7191,17 +7200,29 @@
                   <option value="B">NGM Error Proofing B</option>
                 </select>
               </div>
-            </div>
+                </div>
 
-            <p id="daily-shift-setup-alert" class="daily-shift-setup-alert" role="status" aria-live="polite">Select Date, Shift, and NGM Error Proofing A or B to unlock the numbered tasks.</p>
-
-            <section class="daily-task-scoreboard" aria-labelledby="daily-shift-score-title">
-              <div class="daily-allocation-score-heading">
-                <h3 id="daily-shift-score-title">Shift points and contribution</h3>
-                <span>Updates automatically</span>
+                <p id="daily-shift-setup-alert" class="daily-shift-setup-alert" role="status" aria-live="polite">Select Date, Shift, and NGM Error Proofing A or B to unlock the numbered tasks.</p>
               </div>
+            </details>
+
+            <details class="daily-task-scoreboard">
+              <summary class="daily-section-summary-row daily-score-summary-row">
+                <span class="daily-step-number" aria-hidden="true">2</span>
+                <span class="daily-section-summary-copy">
+                  <strong id="daily-shift-score-title">Shift score</strong>
+                  <small>Completion and contribution details</small>
+                </span>
+                <strong id="daily-shift-overall-percent" class="daily-section-percent">0%</strong>
+                <span class="daily-disclosure-chevron" aria-hidden="true">⌄</span>
+              </summary>
+              <div class="daily-scoreboard-body">
+                <div class="daily-allocation-score-heading">
+                  <h3>Shift points and contribution</h3>
+                  <span>Updates automatically</span>
+                </div>
               <article class="daily-shift-overall-card">
-                <div class="daily-shift-overall-heading"><span>Total shift completion</span><strong id="daily-shift-overall-percent">0%</strong></div>
+                <div class="daily-shift-overall-heading"><span>Total shift completion</span></div>
                 <p><span id="daily-shift-overall-earned">0</span> / <span id="daily-shift-overall-available">0</span> pts earned · <span id="daily-shift-overall-missed">0</span> pts missed</p>
                 <div id="daily-shift-overall-progress" class="daily-task-progress" role="progressbar" aria-label="Total shift completion" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div id="daily-shift-overall-progress-fill" class="daily-task-progress-fill"></div></div>
                 <p class="daily-task-score-note">Total shift completion reflects required daily tasks.</p>
@@ -7233,8 +7254,18 @@
                 <article class="daily-contribution-card"><span id="daily-contribution-a2-name">Allocation 2</span><strong id="daily-contribution-a2-percent">0%</strong><small><span id="daily-contribution-a2-points">0</span> pts</small></article>
                 <article class="daily-contribution-card"><span id="daily-contribution-a3-name">Allocation 3</span><strong id="daily-contribution-a3-percent">0%</strong><small><span id="daily-contribution-a3-points">0</span> pts</small></article>
               </div>
-              <p class="daily-task-score-note">Check a task, then choose Completed By. Escalations and Super Escalations can credit multiple technicians and divide their points evenly. Allocation completion rates follow the assigned A1, A2, and A3 work.</p>
-            </section>
+                <p class="daily-task-score-note">Check a task, then choose Completed By. Escalations and Super Escalations can credit multiple technicians and divide their points evenly. Allocation completion rates follow the assigned A1, A2, and A3 work.</p>
+              </div>
+            </details>
+
+            <div class="daily-work-heading">
+              <span class="daily-step-number" aria-hidden="true">3</span>
+              <div>
+                <h2>Daily tasks</h2>
+                <p>Open a section to view and complete work.</p>
+              </div>
+              <span class="daily-work-count">Task sections</span>
+            </div>
 
             <section id="daily-task-quick-summary" class="daily-task-quick-summary" aria-label="Current shift progress">
               <div><span>Shift completion</span><strong id="daily-task-quick-percent">0%</strong></div>
@@ -7242,19 +7273,25 @@
               <span id="daily-task-quick-points">0 / 0 pts</span>
             </section>
 
-            <div class="daily-checklist-controls" aria-label="Numbered task display controls">
-              <button id="daily-expand-all" class="button button-secondary" type="button">Expand all</button>
-              <button id="daily-collapse-all" class="button button-secondary" type="button">Collapse all</button>
-              <label class="daily-incomplete-toggle"><input id="daily-incomplete-only" type="checkbox"> Incomplete only</label>
-              <label class="daily-my-tasks-filter-label" for="daily-my-tasks-filter">My tasks
-                <select id="daily-my-tasks-filter">
-                  <option value="all">All tasks</option>
-                  <option value="1">Allocation 1</option>
-                  <option value="2">Allocation 2</option>
-                  <option value="3">Allocation 3</option>
-                </select>
-              </label>
-              <button id="daily-quick-reference-toggle" class="button button-secondary" type="button">Quick reference</button>
+            <div class="daily-task-toolbar">
+              <div class="daily-task-toolbar-heading">
+                <strong>Task view</strong>
+                <span>Filter and organize the checklist.</span>
+              </div>
+              <div class="daily-checklist-controls" aria-label="Numbered task display controls">
+                <label class="daily-my-tasks-filter-label" for="daily-my-tasks-filter">My tasks
+                  <select id="daily-my-tasks-filter">
+                    <option value="all">All tasks</option>
+                    <option value="1">Allocation 1</option>
+                    <option value="2">Allocation 2</option>
+                    <option value="3">Allocation 3</option>
+                  </select>
+                </label>
+                <label class="daily-incomplete-toggle"><input id="daily-incomplete-only" type="checkbox"> Incomplete only</label>
+                <button id="daily-expand-all" class="button button-secondary" type="button">Expand all</button>
+                <button id="daily-collapse-all" class="button button-secondary" type="button">Collapse all</button>
+                <button id="daily-quick-reference-toggle" class="button button-secondary" type="button">Quick reference</button>
+              </div>
             </div>
             <div id="daily-quick-reference-panel" class="daily-quick-reference-panel" hidden>
               <input id="daily-quick-reference-input" type="search" placeholder="Search machine, ROI, symptom, or fix…" autocomplete="off">
@@ -7485,21 +7522,25 @@
           </form>
         </section>
 
-        <aside class="panel preview-panel" aria-labelledby="daily-shift-preview-title">
-          <div class="panel-heading">
-            <div>
-              <h2 id="daily-shift-preview-title">Shift report preview</h2>
-              <p>A compact scorecard designed for screenshots and copy/paste.</p>
+        <details class="panel preview-panel daily-preview-disclosure">
+          <summary class="daily-preview-summary">
+            <span class="daily-preview-summary-icon" aria-hidden="true">▤</span>
+            <span>
+              <strong id="daily-shift-preview-title">Shift report preview</strong>
+              <small>Open the live scorecard only when you need it.</small>
+            </span>
+            <span class="daily-disclosure-chevron" aria-hidden="true">⌄</span>
+          </summary>
+          <div class="daily-preview-body">
+            <div class="preview-wrap">
+              <div id="daily-shift-preview" class="preview daily-shift-preview daily-shift-preview-rich" role="region" tabindex="0" aria-live="polite" aria-label="Shift report preview"></div>
             </div>
+            <div class="actions">
+              <button id="daily-shift-generate" class="button button-primary" type="button">Generate shift report</button>
+            </div>
+            <p id="daily-shift-report-status" class="status" role="status" aria-live="polite"></p>
           </div>
-          <div class="preview-wrap">
-            <div id="daily-shift-preview" class="preview daily-shift-preview daily-shift-preview-rich" role="region" tabindex="0" aria-live="polite" aria-label="Shift report preview"></div>
-          </div>
-          <div class="actions">
-            <button id="daily-shift-generate" class="button button-primary" type="button">Generate shift report</button>
-          </div>
-          <p id="daily-shift-report-status" class="status" role="status" aria-live="polite"></p>
-        </aside>
+        </details>
       </div>
 
       <div id="daily-report-modal" class="daily-report-modal" hidden>
@@ -7914,7 +7955,16 @@
 
       <section class="panel" aria-label="Release history">
         <div class="version-history-list">
-          <article class="version-card version-card-current"><div class="version-card-heading"><h2>Version 3.0.66</h2><time datetime="2026-09-23">September 23, 2026</time></div><p class="version-summary-intro">Top 3 NG entries now show Line before Vision in the form, preview, and copied report.</p></article>
+          <article class="version-card version-card-current"><div class="version-card-heading"><h2>Version 3.0.68</h2><time datetime="2026-09-24">September 24, 2026</time></div>
+            <p class="version-summary-intro">BM/PD Log Search now matches the active app theme and uses a simpler filter bar.</p><ul class="version-summary-list">
+            <li><strong>Consistent themed header</strong>The search page keeps the same hero colors, title treatment, settings placement, and theme artwork as the rest of the app.</li>
+            <li><strong>Focused search controls</strong>Removed the minimum and maximum downtime fields while retaining keyword, date range, sort order, refresh, and CSV import tools.</li></ul></article>
+          <article class="version-card"><div class="version-card-heading"><h2>Version 3.0.67</h2><time datetime="2026-09-24">September 24, 2026</time></div>
+            <p class="version-summary-intro">Refined MI2 Daily Tasks into a cleaner, task-first workspace.</p><ul class="version-summary-list">
+            <li><strong>Clear three-step flow</strong>Shift setup, score details, and active tasks now have a stronger visual hierarchy with compact collapsible sections.</li>
+            <li><strong>Less on-screen clutter</strong>The score breakdown and live report preview stay tucked away until opened, while the essential shift progress remains visible.</li>
+            <li><strong>Faster task navigation</strong>A simplified filter toolbar, calmer section cards, and responsive spacing make the checklist easier to scan and use on phones and desktops.</li></ul></article>
+          <article class="version-card"><div class="version-card-heading"><h2>Version 3.0.66</h2><time datetime="2026-09-23">September 23, 2026</time></div><p class="version-summary-intro">Top 3 NG entries now show Line before Vision in the form, preview, and copied report.</p></article>
           <article class="version-card"><div class="version-card-heading"><h2>Version 3.0.65</h2><time datetime="2026-09-23">September 23, 2026</time></div><p class="version-summary-intro">Top 3 NG comments now appear in parentheses on their own line below the corresponding NG rate or Major NG value in previews and copied reports.</p></article>
           <article class="version-card"><div class="version-card-heading"><h2>Version 3.0.64</h2><time datetime="2026-09-23">September 23, 2026</time></div><p class="version-summary-intro">Collapsed PKG Update comments behind Add comment controls and simplified the Lead Align heading. Saved comments remain available through Edit comment and remain in copied reports.</p></article>
           <article class="version-card"><div class="version-card-heading"><h2>Version 3.0.63</h2><time datetime="2026-09-23">September 23, 2026</time></div><p class="version-summary-intro">Collapsed optional NG rate and Major NG comments behind Add comment controls in all Top 3 NG entries. Entered comments remain in the copied report when collapsed.</p></article>
@@ -9340,14 +9390,26 @@ window.VisionaryIQRequirements = Object.freeze({
         "Choose the shift and Technician, then check off work as it is completed.": "근무조와 기술자를 선택한 다음 완료된 작업을 체크하세요.",
         "Track assigned work throughout the shift and calculate points automatically.": "교대 근무 중 배정된 작업을 기록하고 점수를 자동 계산합니다.",
         "Shift details": "교대 세부 정보",
+        "Shift setup": "교대 설정",
+        "Date, shift, technicians, and error proofing": "날짜, 교대조, 기술자 및 오류 방지",
+        "Required": "필수",
+        "Ready": "준비 완료",
         "The standard checklist and point defaults come from the Daily Checks workbook.": "표준 체크리스트와 기본 점수는 Daily Checks 통합 문서를 기준으로 합니다.",
         "Shift points and contribution": "교대 점수 및 기여도",
+        "Shift score": "교대 점수",
+        "Completion and contribution details": "완료율 및 기여도 세부 정보",
         "Updates automatically": "자동으로 업데이트됩니다",
         "Total shift completion": "전체 교대 완료율",
         "Cell Tracking Reading Rate checks stay tracked and synchronized but are excluded from Total shift completion.": "Cell Tracking 인식률 점검은 계속 기록되고 동기화되지만 전체 교대 완료율에서는 제외됩니다.",
         "Allocation completion rates": "배정별 완료율",
         "Share of completed work": "완료 작업 기여 비율",
+        "Daily tasks": "일일 작업",
+        "Open a section to view and complete work.": "섹션을 열어 작업을 확인하고 완료하세요.",
+        "Task sections": "작업 섹션",
+        "Task view": "작업 보기",
+        "Filter and organize the checklist.": "체크리스트를 필터링하고 정리합니다.",
         "Shift report preview": "교대 보고서 미리보기",
+        "Open the live scorecard only when you need it.": "필요할 때만 실시간 점수표를 여세요.",
         "Review total points, missed work, and each Technician's contribution.": "총점, 미완료 작업 및 각 기술자의 기여도를 검토합니다.",
         "Generate shift report": "교대 보고서 생성",
         "Generated Shift Report": "생성된 교대 보고서",
@@ -9446,6 +9508,10 @@ window.VisionaryIQRequirements = Object.freeze({
         "Open Full Screen": "전체 화면으로 열기",
         "If the embedded form does not appear or feels cramped, use Open Full Screen.": "포함된 양식이 표시되지 않거나 화면이 좁으면 전체 화면으로 열기를 사용하세요.",
         "Loading Microsoft Form…": "Microsoft 양식을 불러오는 중…",
+        "Version 3.0.68 · Last updated:": "버전 3.0.68 · 마지막 업데이트:",
+        "Version 3.0.68": "버전 3.0.68",
+        "Version 3.0.67 · Last updated:": "버전 3.0.67 · 마지막 업데이트:",
+        "Version 3.0.67": "버전 3.0.67",
         "Version 3.0.66 · Last updated:": "버전 3.0.66 · 마지막 업데이트:",
         "Version 3.0.66": "버전 3.0.66",
         "Version 3.0.52 · Last updated:": "버전 3.0.52 · 마지막 업데이트:",
@@ -12189,8 +12255,25 @@ function normalizeWeeklyRows(values) {
         var report = JSON.parse(document.getElementById('weekly-bmpd-document').textContent), palette = weeklyReportTheme();
         report=report.replace('__BMPD_INITIAL_DATA__',function(){return JSON.stringify(weeklyReportRows||[]).replace(/</g,'\\u003c');}).replace('__BMPD_INITIAL_SOURCE__',function(){return JSON.stringify(weeklyReportSource).replace(/</g,'\\u003c');});
         report = report.replace('<body>', '<body data-view="'+(viewMode === 'search' ? 'search' : 'report')+'">');
+        if (viewMode === 'search') {
+          report = report
+            .replace(/function downtimeBounds\(\)\{[\s\S]*?\n\}/, 'function downtimeBounds(){return {min:null,max:null};}')
+            .replace(/<label>Min downtime \(min\)<input id="minDowntime"[\s\S]*?<\/label><label>Max downtime \(min\)<input id="maxDowntime"[\s\S]*?<\/label>/, '')
+            .replace("['minDowntime','maxDowntime','sortOrder'].forEach", "['sortOrder'].forEach");
+        }
         var css = Object.keys(palette.theme).map(function(key){return key+':'+palette.theme[key]+';';}).join('');
-        return report.replace('</head>', '<style>:root{'+css+'color-scheme:'+palette.scheme+'}</style></head>');
+        var searchCss = viewMode === 'search' ? '<style>'
+          + 'body[data-view="search"]{background:var(--bg);color:var(--text)}'
+          + 'body[data-view="search"] main{padding:12px;max-width:1100px}'
+          + 'body[data-view="search"] .range-panel,body[data-view="search"] .issues{border:1px solid var(--line);border-radius:12px;background:var(--surface);box-shadow:0 8px 22px rgba(0,0,0,.07)}'
+          + 'body[data-view="search"] .range-fields{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}'
+          + 'body[data-view="search"] .range-fields button{border:1px solid var(--header);background:linear-gradient(135deg,var(--header),var(--headerEnd));color:var(--headerText);font-weight:750}'
+          + 'body[data-view="search"] .log-search input,body[data-view="search"] .range-fields input,body[data-view="search"] .range-fields select{border-color:var(--controlLine);background:var(--input);color:var(--text)}'
+          + 'body[data-view="search"] .event-note{background:var(--soft)}'
+          + '@media(min-width:760px){body[data-view="search"] .range-fields{grid-template-columns:repeat(4,minmax(0,1fr))}}'
+          + '@media(max-width:520px){body[data-view="search"] main{padding:8px}body[data-view="search"] .panel{padding:13px}body[data-view="search"] .range-fields{grid-template-columns:1fr}body[data-view="search"] .range-fields button{width:100%}}'
+          + '</style>' : '';
+        return report.replace('</head>', '<style>:root{'+css+'color-scheme:'+palette.scheme+'}</style>'+searchCss+'</head>');
       }
       function sendWeeklyReportState(includeData) {
         if (!weeklyReportAllowed() || weeklyBmpdView.hidden || !weeklyBmpdFrame.hasAttribute('srcdoc')) return;
@@ -19169,7 +19252,7 @@ function normalizeWeeklyRows(values) {
     const provider = new GoogleAuthProvider();
     provider.setCustomParameters({ prompt: "select_account" });
     const SYNC_PROTOCOL_VERSION = 6;
-    const APP_VERSION = String(document.querySelector('meta[name="visionary-app-version"]')?.content || "3.0.66");
+    const APP_VERSION = String(document.querySelector('meta[name="visionary-app-version"]')?.content || "3.0.68");
     const HOSTED_APP_ROOT = "https://jsikson7.github.io/Visionary/";
     const HOSTED_APP_URL = HOSTED_APP_ROOT + "?v=" + APP_VERSION.replace(/\D/g, "");
     const isDirectFilePage = !["http:", "https:"].includes(window.location.protocol);
@@ -22110,9 +22193,9 @@ function normalizeWeeklyRows(values) {
       const appProperties = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>' +
         '<Properties xmlns="http://schemas.openxmlformats.org/officeDocument/2006/extended-properties" ' +
         'xmlns:vt="http://schemas.openxmlformats.org/officeDocument/2006/docPropsVTypes">' +
-        '<Application>Visionary 3.0.66</Application><DocSecurity>0</DocSecurity><ScaleCrop>false</ScaleCrop>' +
+        '<Application>Visionary 3.0.68</Application><DocSecurity>0</DocSecurity><ScaleCrop>false</ScaleCrop>' +
         '<Company></Company><LinksUpToDate>false</LinksUpToDate><SharedDoc>false</SharedDoc><HyperlinksChanged>false</HyperlinksChanged>' +
-        '<AppVersion>3.0.66</AppVersion></Properties>';
+        '<AppVersion>3.0.68</AppVersion></Properties>';
 
       const zip = xlsxZipStoredFiles([
         { name: "[Content_Types].xml", contents: contentTypes },
@@ -23730,6 +23813,681 @@ panel.querySelector('.cell-tracking-back').addEventListener('click',()=>taskTab.
   });
   render();
 }());
+</script>
+
+<style id="daily-task-focus-layout">
+/* Version 3.0.67: task-first Daily Tasks layout. */
+#daily-tasks-view {
+  --daily-card-radius: 16px;
+  --daily-soft-shadow: 0 8px 24px color-mix(in srgb, var(--ink) 7%, transparent);
+}
+
+#daily-tasks-view > .bmpd-nav {
+  display: flex !important;
+  width: 100%;
+  gap: 4px !important;
+  margin: 0 !important;
+  padding: 5px 12px !important;
+  overflow-x: auto !important;
+  overscroll-behavior-inline: contain;
+  scrollbar-width: none;
+  border: 0 !important;
+  border-bottom: 1px solid var(--line) !important;
+  border-radius: 0 !important;
+  background: color-mix(in srgb, var(--paper) 96%, transparent) !important;
+}
+
+#daily-tasks-view > .bmpd-nav::-webkit-scrollbar {
+  display: none;
+}
+
+#daily-tasks-view > .bmpd-nav .button {
+  width: auto !important;
+  min-width: max-content !important;
+  min-height: 44px !important;
+  flex: 0 0 auto !important;
+  padding: 9px 13px !important;
+  border: 0 !important;
+  border-radius: 9px !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  color: var(--muted) !important;
+  font-size: 0.8rem !important;
+  font-weight: 800;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+#daily-tasks-view > .bmpd-nav [aria-selected="true"] {
+  background: var(--cream) !important;
+  color: var(--matcha-900) !important;
+  box-shadow: inset 0 0 0 1px var(--control-line), 0 2px 6px var(--focus-ring) !important;
+}
+
+#daily-tasks-view #daily-cloud-panel {
+  border-bottom: 1px solid var(--line);
+  background: var(--paper);
+}
+
+#daily-tasks-view .daily-task-workspace {
+  display: block;
+  width: min(100%, 980px);
+  margin: 14px auto 32px;
+  padding: 0 12px;
+}
+
+#daily-tasks-view .daily-task-workspace > .form-panel,
+#daily-tasks-view .daily-task-workspace > .preview-panel {
+  border: 1px solid var(--line);
+  border-radius: var(--daily-card-radius);
+  box-shadow: var(--daily-soft-shadow);
+}
+
+#daily-tasks-view .daily-task-workspace > .form-panel > .panel-heading {
+  display: none;
+}
+
+#daily-tasks-view .daily-shift-form {
+  gap: 12px;
+  padding: 12px;
+  background: transparent;
+}
+
+#daily-tasks-view .daily-setup-card,
+#daily-tasks-view .daily-task-scoreboard {
+  display: block;
+  overflow: hidden;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: var(--daily-card-radius);
+  background: var(--paper);
+  box-shadow: none;
+}
+
+#daily-tasks-view .daily-section-summary-row,
+#daily-tasks-view .daily-preview-summary {
+  list-style: none;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+#daily-tasks-view .daily-section-summary-row::-webkit-details-marker,
+#daily-tasks-view .daily-preview-summary::-webkit-details-marker {
+  display: none;
+}
+
+#daily-tasks-view .daily-section-summary-row {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: 10px;
+  min-height: 68px;
+  padding: 11px 12px;
+  background: color-mix(in srgb, var(--section-heading-1) 68%, var(--paper));
+}
+
+#daily-tasks-view details[open] > .daily-section-summary-row,
+#daily-tasks-view .daily-preview-disclosure[open] > .daily-preview-summary {
+  border-bottom: 1px solid var(--line);
+}
+
+#daily-tasks-view .daily-section-summary-row:hover,
+#daily-tasks-view .daily-preview-summary:hover {
+  background: color-mix(in srgb, var(--matcha-100) 72%, var(--paper));
+}
+
+#daily-tasks-view .daily-section-summary-row:focus-visible,
+#daily-tasks-view .daily-preview-summary:focus-visible {
+  outline: 3px solid var(--matcha-600);
+  outline-offset: -3px;
+}
+
+#daily-tasks-view .daily-step-number,
+#daily-tasks-view .daily-preview-summary-icon {
+  display: grid;
+  width: 34px;
+  height: 34px;
+  flex: 0 0 auto;
+  place-items: center;
+  border-radius: 10px;
+  background: var(--matcha-700);
+  color: #fff;
+  font-size: 0.78rem;
+  font-weight: 900;
+  line-height: 1;
+}
+
+#daily-tasks-view .daily-section-summary-copy {
+  display: grid;
+  min-width: 0;
+  gap: 2px;
+}
+
+#daily-tasks-view .daily-section-summary-copy strong,
+#daily-tasks-view .daily-preview-summary strong {
+  color: var(--ink);
+  font-size: 0.92rem;
+  font-weight: 880;
+  line-height: 1.25;
+}
+
+#daily-tasks-view .daily-section-summary-copy small,
+#daily-tasks-view .daily-preview-summary small {
+  color: var(--muted);
+  font-size: 0.68rem;
+  font-weight: 650;
+  line-height: 1.35;
+}
+
+#daily-tasks-view .daily-section-state {
+  display: inline-flex;
+  min-height: 26px;
+  align-items: center;
+  padding: 4px 8px;
+  border: 1px solid color-mix(in srgb, var(--danger) 36%, var(--line));
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--danger) 7%, var(--paper));
+  color: var(--danger);
+  font-size: 0.66rem;
+  font-weight: 850;
+  white-space: nowrap;
+}
+
+#daily-tasks-view .daily-setup-card[data-ready="true"] .daily-section-state {
+  border-color: color-mix(in srgb, var(--success) 42%, var(--line));
+  background: color-mix(in srgb, var(--success) 8%, var(--paper));
+  color: var(--success);
+}
+
+#daily-tasks-view .daily-section-percent {
+  color: var(--matcha-700);
+  font-size: 1.14rem;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+
+#daily-tasks-view .daily-disclosure-chevron {
+  display: inline-grid;
+  width: 28px;
+  height: 28px;
+  place-items: center;
+  color: var(--matcha-700);
+  font-size: 1rem;
+  font-weight: 900;
+  line-height: 1;
+  transition: transform 160ms ease;
+}
+
+#daily-tasks-view details[open] > summary .daily-disclosure-chevron {
+  transform: rotate(180deg);
+}
+
+#daily-tasks-view .daily-setup-body,
+#daily-tasks-view .daily-scoreboard-body {
+  padding: 12px;
+}
+
+#daily-tasks-view .daily-setup-body {
+  background: var(--cream);
+}
+
+#daily-tasks-view .daily-scoreboard-body {
+  display: grid;
+  gap: 10px;
+  background: color-mix(in srgb, var(--section-tone-2) 50%, var(--cream));
+}
+
+#daily-tasks-view .daily-shift-details {
+  gap: 12px;
+}
+
+#daily-tasks-view .daily-technician-roster {
+  padding: 11px;
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--section-tone-2) 58%, var(--paper));
+}
+
+#daily-tasks-view .daily-technician-roster-copy {
+  max-width: 68ch;
+}
+
+#daily-tasks-view .daily-shift-setup-alert {
+  margin-top: 12px;
+}
+
+#daily-tasks-view .daily-allocation-score-heading {
+  padding: 0 1px;
+}
+
+#daily-tasks-view .daily-shift-overall-card {
+  padding: 12px;
+  background: var(--paper);
+}
+
+#daily-tasks-view .daily-work-heading {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 2px 1px;
+}
+
+#daily-tasks-view .daily-work-heading h2 {
+  margin: 0;
+  color: var(--ink);
+  font-size: 1.03rem;
+  line-height: 1.25;
+}
+
+#daily-tasks-view .daily-work-heading p {
+  margin: 2px 0 0;
+  color: var(--muted);
+  font-size: 0.7rem;
+  line-height: 1.35;
+}
+
+#daily-tasks-view .daily-work-count {
+  color: var(--muted);
+  font-size: 0.68rem;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+#daily-tasks-view .daily-task-quick-summary {
+  top: 8px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-areas:
+    "main count"
+    "main points";
+  gap: 2px 12px;
+  min-height: 58px;
+  padding: 9px 11px;
+  border: 1px solid color-mix(in srgb, var(--matcha-600) 42%, var(--line));
+  border-left: 4px solid var(--matcha-700);
+  border-radius: 13px;
+  background: color-mix(in srgb, var(--paper) 96%, transparent);
+  box-shadow: 0 8px 20px color-mix(in srgb, var(--ink) 10%, transparent);
+}
+
+#daily-tasks-view .daily-task-quick-summary > div {
+  grid-area: main;
+  display: flex;
+  align-items: baseline;
+  gap: 7px;
+}
+
+#daily-tasks-view #daily-task-quick-count {
+  grid-area: count;
+  text-align: right;
+}
+
+#daily-tasks-view #daily-task-quick-points {
+  grid-area: points;
+  text-align: right;
+}
+
+#daily-tasks-view .daily-task-quick-summary strong {
+  font-size: 1.12rem;
+  font-variant-numeric: tabular-nums;
+}
+
+#daily-tasks-view .daily-task-toolbar {
+  display: grid;
+  gap: 10px;
+  padding: 11px;
+  border: 1px solid var(--line);
+  border-radius: 13px;
+  background: var(--cream);
+}
+
+#daily-tasks-view .daily-task-toolbar-heading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+#daily-tasks-view .daily-task-toolbar-heading strong {
+  color: var(--ink);
+  font-size: 0.82rem;
+}
+
+#daily-tasks-view .daily-task-toolbar-heading span {
+  color: var(--muted);
+  font-size: 0.66rem;
+  text-align: right;
+}
+
+#daily-tasks-view .daily-checklist-controls {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 7px;
+}
+
+#daily-tasks-view .daily-my-tasks-filter-label,
+#daily-tasks-view .daily-incomplete-toggle {
+  grid-column: 1 / -1;
+  margin: 0;
+  border-radius: 9px;
+  background: var(--paper);
+}
+
+#daily-tasks-view .daily-my-tasks-filter-label {
+  min-height: 44px;
+  padding: 6px 7px 6px 10px;
+  border: 1px solid var(--control-line);
+}
+
+#daily-tasks-view .daily-my-tasks-filter-label select {
+  max-width: 68%;
+  min-height: 36px;
+  border-radius: 7px;
+}
+
+#daily-tasks-view .daily-incomplete-toggle {
+  justify-content: flex-start;
+  min-height: 44px;
+  padding: 8px 10px;
+}
+
+#daily-tasks-view .daily-checklist-controls .button {
+  min-height: 44px;
+  border-radius: 9px;
+  font-size: 0.69rem;
+}
+
+#daily-tasks-view #daily-quick-reference-toggle {
+  grid-column: 1 / -1;
+}
+
+#daily-tasks-view .daily-quick-reference-panel {
+  margin: 0;
+  border-radius: 13px;
+}
+
+#daily-tasks-view .daily-checklist {
+  gap: 10px;
+}
+
+#daily-tasks-view .daily-checklist-group,
+#daily-tasks-view .daily-checklist-group:nth-child(3n + 2),
+#daily-tasks-view .daily-checklist-group:nth-child(3n) {
+  --daily-group-tone: var(--paper);
+  --daily-group-heading: color-mix(in srgb, var(--section-heading-1) 58%, var(--paper));
+  --daily-group-accent: var(--matcha-600);
+  border-color: var(--line);
+  border-radius: 14px;
+  background: var(--paper);
+  box-shadow: 0 3px 10px color-mix(in srgb, var(--ink) 4%, transparent);
+}
+
+#daily-tasks-view .daily-checklist-group[data-section-complete="true"] {
+  --daily-group-accent: var(--success);
+  border-color: color-mix(in srgb, var(--success) 30%, var(--line));
+}
+
+#daily-tasks-view .daily-checklist-group[data-section-missing="true"] {
+  --daily-group-accent: var(--danger);
+}
+
+#daily-tasks-view .daily-checklist-toggle {
+  min-height: 62px;
+  padding: 9px 11px;
+  border-left-width: 4px;
+}
+
+#daily-tasks-view .daily-checklist-toggle-title {
+  font-size: 0.9rem;
+}
+
+#daily-tasks-view .daily-point-badge {
+  min-height: 22px;
+  padding: 3px 7px;
+  font-size: 0.62rem;
+}
+
+#daily-tasks-view .daily-check-items,
+#daily-tasks-view .daily-error-proof-group,
+#daily-tasks-view .daily-dynamic-entries {
+  gap: 7px;
+  padding: 10px;
+}
+
+#daily-tasks-view :is(.daily-check-item, .daily-allocation-check) {
+  min-height: 52px;
+  border-radius: 9px;
+}
+
+#daily-tasks-view .daily-fixed-card[data-compact="true"] {
+  min-height: 56px;
+  padding: 7px 8px;
+}
+
+#daily-tasks-view .daily-allocation-check-row {
+  gap: 7px;
+  padding: 9px;
+  border-radius: 9px;
+}
+
+#daily-tasks-view .daily-task-technician-field {
+  padding: 7px 8px;
+}
+
+#daily-tasks-view .daily-shift-footer-actions {
+  gap: 8px;
+  padding-top: 2px;
+}
+
+#daily-tasks-view .daily-preview-disclosure {
+  position: static;
+  margin-top: 12px;
+  overflow: hidden;
+  background: var(--cream);
+}
+
+#daily-tasks-view .daily-preview-summary {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 10px;
+  min-height: 68px;
+  padding: 11px 12px;
+  background: color-mix(in srgb, var(--section-heading-1) 58%, var(--paper));
+}
+
+#daily-tasks-view .daily-preview-summary > span:nth-child(2) {
+  display: grid;
+  min-width: 0;
+  gap: 2px;
+}
+
+#daily-tasks-view .daily-preview-summary-icon {
+  background: var(--section-heading-2);
+  color: var(--matcha-700);
+  font-size: 1rem;
+}
+
+#daily-tasks-view .daily-preview-body {
+  background: var(--paper);
+}
+
+#daily-tasks-view .daily-preview-body .preview-wrap {
+  padding: 10px;
+}
+
+#daily-tasks-view .daily-shift-preview {
+  min-height: 360px;
+  max-height: none;
+}
+
+#daily-tasks-view .daily-preview-body .actions {
+  padding: 0 10px 10px;
+}
+
+#daily-tasks-view .daily-preview-body .status:empty {
+  display: none;
+}
+
+@media (min-width: 520px) {
+  #daily-tasks-view .daily-technician-roster-grid,
+  #daily-tasks-view .daily-ot-support-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  #daily-tasks-view .daily-contribution-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  #daily-tasks-view .daily-task-quick-summary {
+    grid-template-columns: minmax(0, 1fr) auto auto;
+    grid-template-areas: "main count points";
+    min-height: 54px;
+    align-items: center;
+  }
+}
+
+@media (min-width: 720px) {
+  #daily-tasks-view > .bmpd-nav {
+    justify-content: center;
+    padding-right: 20px !important;
+    padding-left: 20px !important;
+  }
+
+  #daily-tasks-view .daily-task-workspace {
+    margin-top: 20px;
+    padding: 0 18px;
+  }
+
+  #daily-tasks-view .daily-shift-form {
+    gap: 14px;
+    padding: 18px;
+  }
+
+  #daily-tasks-view .daily-section-summary-row,
+  #daily-tasks-view .daily-preview-summary {
+    padding: 13px 15px;
+  }
+
+  #daily-tasks-view .daily-setup-body,
+  #daily-tasks-view .daily-scoreboard-body {
+    padding: 16px;
+  }
+
+  #daily-tasks-view .daily-checklist-controls {
+    grid-template-columns: minmax(210px, 1.35fr) repeat(4, minmax(110px, 0.65fr));
+    align-items: stretch;
+  }
+
+  #daily-tasks-view .daily-my-tasks-filter-label,
+  #daily-tasks-view .daily-incomplete-toggle,
+  #daily-tasks-view #daily-quick-reference-toggle {
+    grid-column: auto;
+  }
+
+  #daily-tasks-view .daily-my-tasks-filter-label {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+
+  #daily-tasks-view .daily-my-tasks-filter-label select {
+    max-width: none;
+  }
+
+  #daily-tasks-view .daily-incomplete-toggle {
+    justify-content: center;
+  }
+
+  #daily-tasks-view .daily-preview-body .preview-wrap {
+    padding: 16px;
+  }
+
+  #daily-tasks-view .daily-preview-body .actions {
+    padding: 0 16px 16px;
+  }
+}
+
+@media (max-width: 390px) {
+  #daily-tasks-view .daily-task-workspace {
+    padding-right: 8px;
+    padding-left: 8px;
+  }
+
+  #daily-tasks-view .daily-shift-form {
+    padding: 9px;
+  }
+
+  #daily-tasks-view .daily-section-summary-row {
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    gap: 8px;
+  }
+
+  #daily-tasks-view .daily-section-summary-row .daily-disclosure-chevron {
+    display: none;
+  }
+
+  #daily-tasks-view .daily-section-summary-copy small {
+    display: none;
+  }
+
+  #daily-tasks-view .daily-work-count {
+    display: none;
+  }
+
+  #daily-tasks-view .daily-task-toolbar-heading span {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #daily-tasks-view .daily-disclosure-chevron {
+    transition: none;
+  }
+}
+</style>
+
+<script id="daily-task-focus-controller">
+(() => {
+  "use strict";
+  const setup = document.getElementById("daily-shift-setup-card");
+  const status = document.getElementById("daily-shift-setup-status");
+  const checklist = document.getElementById("daily-shift-checklist");
+  const date = document.getElementById("daily-shift-date");
+  const shift = document.getElementById("daily-shift-shift");
+  const errorProof = document.getElementById("daily-shift-error-proof");
+  if (!setup || !status || !checklist || !date || !shift || !errorProof) return;
+
+  function isReady() {
+    return Boolean(date.value && shift.value && errorProof.value && checklist.getAttribute("data-setup-ready") === "true");
+  }
+
+  function updateSetupSummary() {
+    const ready = isReady();
+    setup.setAttribute("data-ready", ready ? "true" : "false");
+    status.textContent = ready ? "Ready" : "Required";
+  }
+
+  [date, shift, errorProof].forEach((control) => {
+    control.addEventListener("input", updateSetupSummary);
+    control.addEventListener("change", updateSetupSummary);
+  });
+
+  new MutationObserver(updateSetupSummary).observe(checklist, {
+    attributes: true,
+    attributeFilter: ["data-setup-ready"]
+  });
+
+  ["daily-shift-generate", "daily-shift-generate-bottom"].forEach((id) => {
+    const button = document.getElementById(id);
+    if (!button) return;
+    button.addEventListener("click", () => {
+      if (!isReady()) setup.open = true;
+    }, true);
+  });
+
+  updateSetupSummary();
+  window.setTimeout(updateSetupSummary, 0);
+  window.setTimeout(updateSetupSummary, 500);
+})();
 </script>
 
 </body>
