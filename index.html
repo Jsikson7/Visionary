@@ -1,15 +1,15 @@
 <!doctype html>
-<html lang="en" data-theme="matcha">
+<html lang="en" data-theme="halloween">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="description" content="A mobile-friendly collection of vision production guides, troubleshooting history, and copy-ready reporting tools.">
-  <meta name="visionary-app-version" content="3.0.69">
+  <meta name="visionary-app-version" content="3.0.70">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
   <meta name="color-scheme" content="light dark">
-  <meta name="theme-color" content="#30492d">
+  <meta name="theme-color" content="#160b20">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-title" content="Visionary Tool">
   <link id="app-touch-icon" rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=17">
@@ -66,7 +66,7 @@
           name: "Visionary Tool",
           short_name: "Visionary",
           description: "Mobile production guides, troubleshooting, and copy-ready reporting tools.",
-          start_url: scopeUrl.href + "?v=345",
+          start_url: scopeUrl.href + "?v=3070",
           scope: scopeUrl.href,
           display: "standalone",
           orientation: "portrait-primary",
@@ -81,11 +81,11 @@
         document.documentElement.setAttribute("data-app-icon-theme", themeName);
       };
 
-      var initialIconTheme = "matcha";
+      var initialIconTheme = "halloween";
       try {
-        initialIconTheme = window.localStorage.getItem("copy-paste-preferred-theme-v1") || "matcha";
+        initialIconTheme = window.localStorage.getItem("copy-paste-preferred-theme-v1") || "halloween";
       } catch (error) {
-        // Matcha remains the default when storage is unavailable.
+        // Halloween remains the default when storage is unavailable.
       }
       window.applyVisionaryThemeIcon(initialIconTheme);
     }());
@@ -281,6 +281,58 @@
       --section-heading-1: #efe9f8;
       --section-heading-2: #e5dcf1;
       --section-heading-3: #ddd2eb;
+    }
+
+    html[data-theme="halloween"] {
+      color-scheme: dark;
+      --matcha-950: #0f0816;
+      --matcha-900: #160b20;
+      --matcha-700: #e47422;
+      --matcha-600: #bc551d;
+      --matcha-200: #6d4a7d;
+      --matcha-100: #33213e;
+      --cream: #17101e;
+      --paper: #1d1426;
+      --page: #0b0710;
+      --ink: #fff4dc;
+      --muted: #c8b5cf;
+      --line: #4a3758;
+      --danger: #ff8582;
+      --success: #f4a64b;
+      --shadow: 0 14px 38px rgba(0, 0, 0, 0.42);
+      --hero-end: #351747;
+      --hero-accent: #ffd078;
+      --hero-copy: #fff1d2;
+      --page-glow: rgba(228, 116, 34, 0.14);
+      --page-wash: rgba(109, 74, 125, 0.14);
+      --label: #eadbea;
+      --control-line: #634a72;
+      --input-bg: #100a16;
+      --focus-ring: rgba(244, 166, 75, 0.26);
+      --placeholder: #9f8ba8;
+      --readonly-line: #594367;
+      --readonly-bg: #281b31;
+      --column-label: #cbb7d2;
+      --row-bg: #261a2e;
+      --row-ink: #ffbe6a;
+      --danger-line: #7e444f;
+      --danger-hover: #32161e;
+      --add-line: #b7622c;
+      --preview-line: #553f63;
+      --preview-bg: #0f0a15;
+      --preview-ink: #fff4dc;
+      --secondary-ink: #eadbea;
+      --white-button: #211629;
+      --section-tone-1: #17101e;
+      --section-tone-2: #21132a;
+      --section-tone-3: #241725;
+      --section-heading-1: #32203c;
+      --section-heading-2: #3a2235;
+      --section-heading-3: #412324;
+    }
+
+    html[data-theme="halloween"] input[readonly] {
+      color: var(--ink);
     }
 
     html[data-theme="pokemon"] {
@@ -798,7 +850,8 @@
     html[data-theme="sakura"] .sakura-theme-art,
     html[data-theme="cyberpunk"] .cyberpunk-theme-art,
     html[data-theme="astronaut"] .astronaut-theme-art,
-    html[data-theme="lavender"] .lavender-theme-art {
+    html[data-theme="lavender"] .lavender-theme-art,
+    html[data-theme="halloween"] .halloween-theme-art {
       display: block;
     }
 
@@ -1027,6 +1080,61 @@
       opacity: 0.18;
     }
 
+    .halloween-art-moon {
+      top: 38px;
+      right: -54px;
+      width: clamp(310px, 37vw, 510px);
+      height: auto;
+    }
+
+    .halloween-art-hill {
+      bottom: -34px;
+      left: -48px;
+      width: clamp(270px, 31vw, 430px);
+      height: auto;
+    }
+
+    .halloween-art-line,
+    .halloween-art-pane {
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      vector-effect: non-scaling-stroke;
+    }
+
+    .halloween-art-line {
+      stroke: var(--matcha-200);
+      stroke-width: 4;
+      opacity: 0.34;
+    }
+
+    .halloween-art-pane {
+      stroke: var(--hero-accent);
+      stroke-width: 2.2;
+      opacity: 0.24;
+    }
+
+    .halloween-art-moon-fill {
+      fill: var(--hero-accent);
+      stroke: var(--matcha-700);
+      stroke-width: 3;
+      opacity: 0.18;
+      vector-effect: non-scaling-stroke;
+    }
+
+    .halloween-art-pumpkin {
+      fill: var(--matcha-700);
+      stroke: var(--hero-accent);
+      stroke-width: 2;
+      opacity: 0.3;
+      vector-effect: non-scaling-stroke;
+    }
+
+    .halloween-art-star {
+      fill: var(--hero-accent);
+      opacity: 0.38;
+    }
+
     .login-view,
     .page-shell {
       position: relative;
@@ -1037,7 +1145,8 @@
     html[data-theme="sakura"] .login-view,
     html[data-theme="cyberpunk"] .login-view,
     html[data-theme="astronaut"] .login-view,
-    html[data-theme="lavender"] .login-view {
+    html[data-theme="lavender"] .login-view,
+    html[data-theme="halloween"] .login-view {
       background: radial-gradient(circle at top, var(--page-glow), transparent 48%);
     }
 
@@ -1085,6 +1194,16 @@
     html[data-theme="lavender"] .login-card-heading {
       background-image:
         url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 420 180'%3E%3Cg fill='none' stroke='%23eadffc' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath stroke-width='2.5' opacity='.48' d='M244 180C250 130 270 86 294 30M287 180C292 133 312 88 337 38M330 180C334 139 353 104 382 66'/%3E%3Cg fill='%23dfd5ef' fill-opacity='.24' stroke-width='1.4' opacity='.8'%3E%3Cellipse cx='283' cy='50' rx='8' ry='14' transform='rotate(-35 283 50)'/%3E%3Cellipse cx='302' cy='58' rx='8' ry='14' transform='rotate(35 302 58)'/%3E%3Cellipse cx='270' cy='76' rx='8' ry='14' transform='rotate(-38 270 76)'/%3E%3Cellipse cx='289' cy='85' rx='8' ry='14' transform='rotate(35 289 85)'/%3E%3Cellipse cx='326' cy='59' rx='8' ry='14' transform='rotate(-35 326 59)'/%3E%3Cellipse cx='346' cy='68' rx='8' ry='14' transform='rotate(35 346 68)'/%3E%3Cellipse cx='314' cy='87' rx='8' ry='14' transform='rotate(-38 314 87)'/%3E%3Cellipse cx='334' cy='96' rx='8' ry='14' transform='rotate(35 334 96)'/%3E%3Cellipse cx='371' cy='85' rx='8' ry='14' transform='rotate(-35 371 85)'/%3E%3Cellipse cx='391' cy='94' rx='8' ry='14' transform='rotate(35 391 94)'/%3E%3Cellipse cx='359' cy='113' rx='8' ry='14' transform='rotate(-38 359 113)'/%3E%3Cellipse cx='379' cy='121' rx='8' ry='14' transform='rotate(35 379 121)'/%3E%3C/g%3E%3C/g%3E%3Cg fill='%23eadffc' opacity='.38'%3E%3Ccircle cx='231' cy='67' r='3'/%3E%3Ccircle cx='351' cy='35' r='2.5'/%3E%3Ccircle cx='404' cy='143' r='3'/%3E%3C/g%3E%3C/svg%3E"),
+        linear-gradient(135deg, var(--matcha-950), var(--hero-end));
+      background-position: right center, center;
+      background-repeat: no-repeat;
+      background-size: 390px 100%, auto;
+    }
+
+    html[data-theme="halloween"] .hero,
+    html[data-theme="halloween"] .login-card-heading {
+      background-image:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 420 180'%3E%3Cg fill='none' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='335' cy='89' r='69' fill='%23ffd078' fill-opacity='.13' stroke='%23ffd078' stroke-width='2.2' opacity='.76'/%3E%3Cg stroke='%23ffd078' stroke-width='1.4' opacity='.34'%3E%3Cpath d='M335 20V158M266 89H404M286 41L384 137M286 137L384 41M278 63L394 116M278 116L394 63'/%3E%3C/g%3E%3Cpath d='M220 164C263 123 289 119 320 134C347 147 366 143 420 103' stroke='%23e47422' stroke-width='4' opacity='.58'/%3E%3Cpath d='M297 134C322 118 345 101 356 80C364 65 364 54 361 44' stroke='%236d4a7d' stroke-width='5' opacity='.72'/%3E%3C/g%3E%3Cg fill='%23ffd078' opacity='.6'%3E%3Cpath d='M229 50L233 59L242 63L233 67L229 76L225 67L216 63L225 59Z'/%3E%3Cpath d='M396 25L399 32L406 35L399 38L396 45L393 38L386 35L393 32Z'/%3E%3C/g%3E%3Cg fill='%23e47422' fill-opacity='.42' stroke='%23ffd078' stroke-width='1.2'%3E%3Cellipse cx='388' cy='132' rx='13' ry='11'/%3E%3Cellipse cx='413' cy='119' rx='10' ry='9'/%3E%3C/g%3E%3C/svg%3E"),
         linear-gradient(135deg, var(--matcha-950), var(--hero-end));
       background-position: right center, center;
       background-repeat: no-repeat;
@@ -1152,6 +1271,18 @@
         width: 285px;
       }
 
+      .halloween-art-moon {
+        top: 80px;
+        right: -132px;
+        width: 340px;
+      }
+
+      .halloween-art-hill {
+        bottom: -20px;
+        left: -114px;
+        width: 305px;
+      }
+
       html[data-theme="matcha"] .hero,
       html[data-theme="matcha"] .login-card-heading,
       html[data-theme="sakura"] .hero,
@@ -1161,7 +1292,9 @@
       html[data-theme="astronaut"] .hero,
       html[data-theme="astronaut"] .login-card-heading,
       html[data-theme="lavender"] .hero,
-      html[data-theme="lavender"] .login-card-heading {
+      html[data-theme="lavender"] .login-card-heading,
+      html[data-theme="halloween"] .hero,
+      html[data-theme="halloween"] .login-card-heading {
         background-size: 300px 100%, auto;
       }
     }
@@ -6501,6 +6634,15 @@
     .daily-club-spark { position:absolute; width:4px; height:4px; border-radius:50%; color:#d7ad48; background:currentColor; box-shadow:0 0 5px currentColor; animation:daily-club-burst 1.65s ease-out both; }
     .daily-club-spark:nth-child(3n) { color:#72b9ef; }
     .daily-club-spark:nth-child(3n + 1) { color:#df87c9; }
+    html[data-theme="halloween"] #daily-club-dialog { border-color:#e47422; box-shadow:0 22px 70px rgba(0,0,0,.62), 0 0 42px rgba(228,116,34,.12); }
+    html[data-theme="halloween"] #daily-club-dialog::backdrop { background:rgba(7,3,10,.84); }
+    html[data-theme="halloween"] #daily-club-dialog .daily-club-ribbon { color:#fff1d2; border-color:#e47422; background:linear-gradient(135deg,#321b3c,#3b1b22); }
+    html[data-theme="halloween"] .daily-club-confetti { background:#e47422; }
+    html[data-theme="halloween"] .daily-club-confetti:nth-child(even) { background:#ffd078; }
+    html[data-theme="halloween"] .daily-club-confetti:nth-child(3n) { background:#7b4389; }
+    html[data-theme="halloween"] .daily-club-spark { color:#ffd078; }
+    html[data-theme="halloween"] .daily-club-spark:nth-child(3n) { color:#e47422; }
+    html[data-theme="halloween"] .daily-club-spark:nth-child(3n + 1) { color:#9d62ad; }
     @keyframes daily-club-fall { 0% { opacity:0; } 8%,85% { opacity:1; } 100% { transform:translate(var(--drift),var(--fall)) rotate(600deg); opacity:0; } }
     @keyframes daily-club-burst { 0% { transform:translate(0,35px) scale(.3); opacity:0; } 12% { transform:translate(0,0); opacity:1; } 70% { opacity:.9; } 100% { transform:translate(var(--ray-x),var(--ray-y)) scale(.2); opacity:0; } }
     @media(prefers-reduced-motion:reduce) { #daily-club-dialog .daily-club-effects { display:none; } }
@@ -6852,6 +6994,30 @@
     <circle class="lavender-art-dot" cx="55" cy="226" r="6"/><circle class="lavender-art-dot" cx="317" cy="137" r="5"/><circle class="lavender-art-dot" cx="307" cy="276" r="7"/>
   </svg>
 
+  <svg class="theme-background-art halloween-theme-art halloween-art-moon" viewBox="0 0 420 340" aria-hidden="true" focusable="false">
+    <circle class="halloween-art-moon-fill" cx="276" cy="145" r="112"/>
+    <g class="halloween-art-pane">
+      <path d="M276 33V257M164 145H388M197 66L355 224M197 224L355 66M178 103L374 187M178 187L374 103"/>
+      <path d="M215 47L228 243M337 49L324 243M177 126L375 164M177 164L375 126"/>
+    </g>
+    <path class="halloween-art-line" d="M119 326C166 278 196 260 235 266C272 272 302 257 323 225C338 202 342 177 333 157C319 129 286 131 277 151C267 174 289 190 306 179C318 170 315 154 306 149"/>
+    <path class="halloween-art-line" d="M315 228L325 326M334 218L353 326M291 251L291 326M269 264L260 326M246 267L230 326"/>
+    <path class="halloween-art-pane" d="M128 318C177 302 212 299 252 305C300 312 345 300 402 267M352 115V67L369 48L386 67V117M359 73H379M365 73V112M375 73V112"/>
+    <path class="halloween-art-star" d="M108 71L114 85L128 91L114 97L108 111L102 97L88 91L102 85ZM396 178L400 187L409 191L400 195L396 204L392 195L383 191L392 187Z"/>
+  </svg>
+
+  <svg class="theme-background-art halloween-theme-art halloween-art-hill" viewBox="0 0 380 330" aria-hidden="true" focusable="false">
+    <path class="halloween-art-line" d="M-8 307C47 269 88 237 127 198C165 160 201 141 247 145C291 149 326 131 389 80M-2 328C76 304 127 290 194 292C259 294 310 276 386 230"/>
+    <path class="halloween-art-pane" d="M70 274V224M96 253V204M123 225V178M49 281L131 218M58 246L137 190M262 285V229M291 273V211M322 255V192M245 278L332 218M255 247L339 199"/>
+    <g class="halloween-art-pumpkin">
+      <path d="M83 231C63 229 52 245 55 266C58 290 74 303 94 301C115 299 128 283 126 261C124 239 106 226 83 231Z"/>
+      <path d="M88 228C87 218 93 211 102 208M70 256L80 247L87 257L98 247L109 260L99 275L84 278L71 268Z"/>
+      <path d="M279 224C261 222 249 236 251 256C253 278 269 290 287 288C307 286 319 271 317 251C315 232 299 220 279 224Z"/>
+      <path d="M283 221C282 213 287 206 296 203M266 247L275 239L282 248L292 239L303 251L294 264L280 267L267 258Z"/>
+    </g>
+    <path class="halloween-art-star" d="M176 72L181 84L193 89L181 94L176 106L171 94L159 89L171 84ZM336 112L340 121L349 125L340 129L336 138L332 129L323 125L332 121Z"/>
+  </svg>
+
   <section id="login-view" class="login-view" aria-labelledby="login-title">
     <div class="login-card">
       <div class="login-card-heading">
@@ -6890,6 +7056,7 @@
           <div class="theme-control">
             <label for="theme-select">Choose theme</label>
             <select id="theme-select" aria-label="Choose color theme">
+              <option value="halloween" selected>🎃 Halloween</option>
               <option value="matcha">🍵 Matcha</option>
               <option value="sakura">🌸 Sakura</option>
               <option value="cyberpunk">⚡ Cyberpunk</option>
@@ -6992,7 +7159,7 @@
             <span class="form-tile-arrow" aria-hidden="true">›</span>
           </button>
         </div>
-        <p class="last-updated">Version 3.0.69 · Last updated: <time datetime="2026-09-24">September 24, 2026</time></p>
+        <p class="last-updated">Version 3.0.70 · Last updated: <time datetime="2026-09-25">September 25, 2026</time></p>
         <div class="version-history-link-wrap">
           <button id="open-version-history" class="version-history-link" type="button">View version history</button>
         </div>
@@ -7140,7 +7307,7 @@
             <div class="daily-cloud-copy">
               <strong id="daily-cloud-title">Shared shift synchronization</strong>
               <span id="daily-cloud-status" role="status" aria-live="polite">Sign in with Google to share Daily Tasks across phones.</span>
-              <small>Safe Sync v6.2 · App <span id="daily-app-version">3.0.69</span><span id="daily-version-health" class="daily-version-health" hidden></span></small>
+              <small>Safe Sync v6.2 · App <span id="daily-app-version">3.0.70</span><span id="daily-version-health" class="daily-version-health" hidden></span></small>
             </div>
           </div>
           <div class="daily-cloud-actions">
@@ -7965,7 +8132,12 @@
 
       <section class="panel" aria-label="Release history">
         <div class="version-history-list">
-          <article class="version-card version-card-current"><div class="version-card-heading"><h2>Version 3.0.69</h2><time datetime="2026-09-24">September 24, 2026</time></div>
+          <article class="version-card version-card-current"><div class="version-card-heading"><h2>Version 3.0.70</h2><time datetime="2026-09-25">September 25, 2026</time></div>
+            <p class="version-summary-intro">Added the Halloween theme with a dark stained-glass look and a themed award outfit.</p><ul class="version-summary-list">
+            <li><strong>Halloween theme</strong>Deep plum panels, warm moonlight, pumpkin-orange accents, crooked hills, and original stained-glass artwork now carry across app headers, controls, Daily Tasks, BM/PD Log Search, and PM Log.</li>
+            <li><strong>Themed award character</strong>The existing mascot keeps its face, helmet, goggles, antenna, pose, and trophy while gaining a pinstripe tailcoat, bat-wing bow tie, stitched cuffs, spiral trim, and pumpkin buttons whenever Halloween is active.</li>
+            <li><strong>Readable dark interface</strong>Task cards and form controls stay calm and high-contrast so the decorative theme does not add clutter to the working areas.</li></ul></article>
+          <article class="version-card"><div class="version-card-heading"><h2>Version 3.0.69</h2><time datetime="2026-09-24">September 24, 2026</time></div>
             <p class="version-summary-intro">PM records now use a separate shared history and can no longer enter the BM/PD downtime log.</p><ul class="version-summary-list">
             <li><strong>Separated submission paths</strong>PM submissions are saved with their Daily Tasks shift while the existing Google endpoint is reserved for BM/PD submissions.</li>
             <li><strong>Searchable PM history</strong>The PM Log includes a collapsible date-range and keyword search across completed PM records.</li>
@@ -9370,6 +9542,7 @@ window.VisionaryIQRequirements = Object.freeze({
       var lnsStatus = document.getElementById("lns-copy-status");
       var lnsDraftNote = document.getElementById("lns-draft-note");
       var themeColors = {
+        halloween: "#160b20",
         matcha: "#30492d",
         sakura: "#7c344f",
         cyberpunk: "#160631",
@@ -9390,6 +9563,7 @@ window.VisionaryIQRequirements = Object.freeze({
         "Sign in": "로그인",
         "Choose theme": "테마 선택",
         "Choose color theme": "색상 테마 선택",
+        "🎃 Halloween": "🎃 핼러윈",
         "Log out": "로그아웃",
         "Language": "언어",
         "Choose a section": "섹션 선택",
@@ -9523,7 +9697,8 @@ window.VisionaryIQRequirements = Object.freeze({
         "Open Full Screen": "전체 화면으로 열기",
         "If the embedded form does not appear or feels cramped, use Open Full Screen.": "포함된 양식이 표시되지 않거나 화면이 좁으면 전체 화면으로 열기를 사용하세요.",
         "Loading Microsoft Form…": "Microsoft 양식을 불러오는 중…",
-        "Version 3.0.69 · Last updated:": "버전 3.0.69 · 마지막 업데이트:",
+        "Version 3.0.70 · Last updated:": "버전 3.0.70 · 마지막 업데이트:",
+        "Version 3.0.70": "버전 3.0.70",
         "Version 3.0.69": "버전 3.0.69",
         "Version 3.0.68 · Last updated:": "버전 3.0.68 · 마지막 업데이트:",
         "Version 3.0.68": "버전 3.0.68",
@@ -13298,6 +13473,11 @@ function normalizeWeeklyRows(values) {
           window.applyVisionaryThemeIcon(safeTheme);
         }
         savePreferredTheme(safeTheme);
+        if (typeof drawClubCharacter === "function" && clubDialog && clubDialog.open && clubCurrent) {
+          drawClubCharacter(clubCurrent);
+          var clubShare = clubDialog.querySelector('[data-club-share]');
+          if (clubShare && !clubShare.hidden) drawClubImage();
+        }
         queueDraftSave();
       }
 
@@ -13854,7 +14034,7 @@ function normalizeWeeklyRows(values) {
         reviewDate.value = localDateValue(new Date());
         startTime.value = times.start;
         endTime.value = times.end;
-        if (resetTheme) applyTheme(readSavedTheme() || "matcha");
+        if (resetTheme) applyTheme(readSavedTheme() || "halloween");
         renderSections();
         updateReport();
       }
@@ -17875,11 +18055,100 @@ function normalizeWeeklyRows(values) {
         drawClubImage(); clubDialog.querySelector('[data-club-copy]').focus();
       }
       function clubCharacterSource(item) { var extra=!item.team && item.tier.sprite >= 4, source=extra?clubExtraSprite:clubSprite;if(!source.getAttribute('src'))source.src=extra?clubExtraSpriteUrl:clubSpriteUrl;return source; }
+      function paintHalloweenClubOutfit(ctx, x, y, size) {
+        if (document.documentElement.getAttribute('data-theme') !== 'halloween') return;
+        var scale = size / 627;
+        ctx.save();
+        ctx.translate(x, y);
+        ctx.scale(scale, scale);
+        ctx.lineJoin = 'round';
+        ctx.lineCap = 'round';
+
+        // Tailored sleeves leave the mascot's hands, face, helmet, and trophy untouched.
+        ctx.fillStyle = '#211126';
+        ctx.strokeStyle = '#08050d';
+        ctx.lineWidth = 8;
+        ctx.beginPath();
+        ctx.moveTo(173, 354);
+        ctx.bezierCurveTo(198, 374, 226, 397, 254, 421);
+        ctx.lineTo(229, 456);
+        ctx.bezierCurveTo(197, 432, 166, 405, 140, 379);
+        ctx.closePath();
+        ctx.fill(); ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(398, 408);
+        ctx.bezierCurveTo(438, 402, 470, 387, 497, 375);
+        ctx.lineTo(520, 410);
+        ctx.bezierCurveTo(483, 425, 451, 441, 417, 457);
+        ctx.closePath();
+        ctx.fill(); ctx.stroke();
+
+        // Purple stitched cuffs.
+        ctx.fillStyle = '#5b2d68';
+        ctx.lineWidth = 6;
+        ctx.beginPath(); ctx.moveTo(213, 405); ctx.lineTo(254, 423); ctx.lineTo(232, 456); ctx.lineTo(196, 431); ctx.closePath(); ctx.fill(); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(466, 389); ctx.lineTo(501, 374); ctx.lineTo(523, 410); ctx.lineTo(486, 426); ctx.closePath(); ctx.fill(); ctx.stroke();
+        ctx.strokeStyle = '#d48a55'; ctx.lineWidth = 3;
+        [[207,420,237,438],[483,391,505,408]].forEach(function (line) { ctx.beginPath(); ctx.moveTo(line[0],line[1]); ctx.lineTo(line[2],line[3]); ctx.stroke(); });
+
+        // Deep-plum pinstripe tailcoat fitted to the existing rounded body.
+        ctx.fillStyle = '#1a101f';
+        ctx.strokeStyle = '#08050d';
+        ctx.lineWidth = 9;
+        ctx.beginPath();
+        ctx.moveTo(242, 420);
+        ctx.bezierCurveTo(272, 403, 294, 401, 315, 407);
+        ctx.bezierCurveTo(344, 400, 373, 406, 401, 423);
+        ctx.lineTo(394, 501);
+        ctx.bezierCurveTo(385, 520, 369, 531, 348, 535);
+        ctx.lineTo(319, 507);
+        ctx.lineTo(287, 538);
+        ctx.bezierCurveTo(264, 532, 247, 521, 235, 503);
+        ctx.lineTo(231, 438);
+        ctx.closePath();
+        ctx.fill(); ctx.stroke();
+
+        // Sculpted lapels and a warm plum vest keep the clothing readable at small sizes.
+        ctx.fillStyle = '#4d285d';
+        ctx.lineWidth = 5;
+        ctx.beginPath(); ctx.moveTo(250,416); ctx.lineTo(315,451); ctx.lineTo(289,481); ctx.lineTo(236,435); ctx.closePath(); ctx.fill(); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(387,416); ctx.lineTo(318,451); ctx.lineTo(346,481); ctx.lineTo(400,435); ctx.closePath(); ctx.fill(); ctx.stroke();
+        ctx.fillStyle = '#2b1732';
+        ctx.beginPath(); ctx.moveTo(289,446); ctx.lineTo(348,446); ctx.lineTo(353,518); ctx.lineTo(319,506); ctx.lineTo(285,521); ctx.closePath(); ctx.fill(); ctx.stroke();
+
+        // Fine violet pinstripes and crooked orange trim reference the stained-glass theme.
+        ctx.strokeStyle = '#7b4389';
+        ctx.lineWidth = 3;
+        [[262,433,266,509],[286,442,291,519],[350,440,345,518],[374,431,369,509]].forEach(function (line) { ctx.beginPath(); ctx.moveTo(line[0],line[1]); ctx.lineTo(line[2],line[3]); ctx.stroke(); });
+        ctx.strokeStyle = '#e47422';
+        ctx.lineWidth = 4;
+        ctx.beginPath(); ctx.moveTo(248,493); ctx.bezierCurveTo(267,486,278,496,269,507); ctx.bezierCurveTo(260,518,247,511,253,503); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(371,493); ctx.bezierCurveTo(389,487,396,498,387,508); ctx.bezierCurveTo(378,517,367,510,373,502); ctx.stroke();
+
+        // Bat-wing bow tie and pumpkin buttons.
+        ctx.fillStyle = '#140b19';
+        ctx.strokeStyle = '#08050d';
+        ctx.lineWidth = 6;
+        ctx.beginPath(); ctx.moveTo(318,426); ctx.lineTo(288,407); ctx.lineTo(275,422); ctx.lineTo(286,435); ctx.lineTo(275,447); ctx.lineTo(316,438); ctx.closePath(); ctx.fill(); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(320,426); ctx.lineTo(352,406); ctx.lineTo(365,421); ctx.lineTo(354,435); ctx.lineTo(365,447); ctx.lineTo(321,438); ctx.closePath(); ctx.fill(); ctx.stroke();
+        ctx.fillStyle = '#e47422';
+        ctx.beginPath(); ctx.arc(319,431,10,0,Math.PI*2); ctx.fill(); ctx.stroke();
+        [463,487,511].forEach(function (buttonY) {
+          ctx.fillStyle = '#e47422'; ctx.strokeStyle = '#08050d'; ctx.lineWidth = 4;
+          ctx.beginPath(); ctx.arc(319,buttonY,9,0,Math.PI*2); ctx.fill(); ctx.stroke();
+          ctx.strokeStyle = '#ffd078'; ctx.lineWidth = 2;
+          ctx.beginPath(); ctx.moveTo(315,buttonY-4); ctx.lineTo(315,buttonY+4); ctx.moveTo(323,buttonY-4); ctx.lineTo(323,buttonY+4); ctx.stroke();
+        });
+        ctx.restore();
+      }
       function paintClubCharacter(ctx, item, x, y, size) {
         var frame = item.team ? 3 : item.tier.sprite;
         var source = clubCharacterSource(item);
         var w = source.naturalWidth / 2, h = source.naturalHeight / (frame >= 4 ? 1 : 2);
-        if (w && h) ctx.drawImage(source, frame % 2 * w, frame >= 4 ? 0 : Math.floor(frame / 2) * h, w, h, x, y, size, size);
+        if (w && h) {
+          ctx.drawImage(source, frame % 2 * w, frame >= 4 ? 0 : Math.floor(frame / 2) * h, w, h, x, y, size, size);
+          paintHalloweenClubOutfit(ctx, x, y, size);
+        }
       }
       function drawClubCharacter(item) {
         var canvas = clubDialog.querySelector('[data-club-character]'), ctx = canvas.getContext('2d');
@@ -17895,28 +18164,32 @@ function normalizeWeeklyRows(values) {
         canvas.height = Math.max(780, item.team ? 580 + rows * 66 : 780);
         var ctx = canvas.getContext('2d'), height = canvas.height;
         var tier = item.team ? {color:'#99700c',paper:'#fff7dc',club:'Perfect Shift'} : item.tier;
-        ctx.fillStyle = '#fafbf5'; ctx.fillRect(0,0,1200,height); ctx.strokeStyle = tier.color; ctx.lineWidth=3; ctx.strokeRect(22,22,1156,height-44);
+        var halloween = document.documentElement.getAttribute('data-theme') === 'halloween';
+        var cardColors = halloween
+          ? { background:'#100a16', frame:'#e47422', title:'#fff4dc', muted:'#c8b5cf' }
+          : { background:'#fafbf5', frame:tier.color, title:'#293b29', muted:'#596653' };
+        ctx.fillStyle = cardColors.background; ctx.fillRect(0,0,1200,height); ctx.strokeStyle = cardColors.frame; ctx.lineWidth=3; ctx.strokeRect(22,22,1156,height-44);
         function line(text,size,y,color,x,maxWidth) {
           ctx.fillStyle=color; ctx.textAlign='left';
           do { ctx.font='500 '+size+'px Arial'; if(ctx.measureText(text).width<=maxWidth)break; size--; } while(size>16);
           ctx.fillText(text,x,y,maxWidth);
         }
-        line('DAILY TASKS',28,100,'#596653',60,650);
-        line(tier.club,64,204,'#293b29',60,640);
+        line('DAILY TASKS',28,100,cardColors.muted,60,650);
+        line(tier.club,64,204,cardColors.title,60,640);
         if(item.team) {
           line('100%',76,300,tier.color,60,640);
-          line('All required tasks completed',27,348,'#293b29',60,640);
-          line(item.shift,30,410,'#293b29',60,640);
-          line('Achieved together by',26,465,'#596653',60,640);
-          item.names.forEach(function(name,i){line(name,32,522+Math.floor(i/2)*66,'#293b29',60+(i%2)*320,295);});
+          line('All required tasks completed',27,348,cardColors.title,60,640);
+          line(item.shift,30,410,cardColors.title,60,640);
+          line('Achieved together by',26,465,cardColors.muted,60,640);
+          item.names.forEach(function(name,i){line(name,32,522+Math.floor(i/2)*66,cardColors.title,60+(i%2)*320,295);});
         } else {
           line(tier.metal+' trophy',28,250,tier.color,60,640);
-          line(item.name,48,356,'#293b29',60,640);
-          line(item.points.toLocaleString()+' points',48,436,'#293b29',60,640);
-          line('Your hard work deserves a moment.',26,514,'#596653',60,640);
+          line(item.name,48,356,cardColors.title,60,640);
+          line(item.points.toLocaleString()+' points',48,436,cardColors.title,60,640);
+          line('Your hard work deserves a moment.',26,514,cardColors.muted,60,640);
         }
         paintClubCharacter(ctx,item,710,Math.max(100,(height-450)/2),450);
-        line(item.date+' · '+item.shift,25,height - 60, '#596653',60,1050);
+        line(item.date+' · '+item.shift,25,height - 60,cardColors.muted,60,1050);
         canvas.setAttribute('aria-label',tier.club+', '+(item.team?item.names.join(', '):item.name+', '+item.points+' points')+', '+item.date+', '+item.shift);
         var source = clubCharacterSource(item);
         if (!source.complete) source.addEventListener('load',function(){if(clubCurrent===item)drawClubImage();},{once:true});
@@ -19252,7 +19525,7 @@ function normalizeWeeklyRows(values) {
     const provider = new GoogleAuthProvider();
     provider.setCustomParameters({ prompt: "select_account" });
     const SYNC_PROTOCOL_VERSION = 6;
-    const APP_VERSION = String(document.querySelector('meta[name="visionary-app-version"]')?.content || "3.0.69");
+    const APP_VERSION = String(document.querySelector('meta[name="visionary-app-version"]')?.content || "3.0.70");
     const HOSTED_APP_ROOT = "https://jsikson7.github.io/Visionary/";
     const HOSTED_APP_URL = HOSTED_APP_ROOT + "?v=" + APP_VERSION.replace(/\D/g, "");
     const isDirectFilePage = !["http:", "https:"].includes(window.location.protocol);
@@ -22258,9 +22531,9 @@ function normalizeWeeklyRows(values) {
       const appProperties = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>' +
         '<Properties xmlns="http://schemas.openxmlformats.org/officeDocument/2006/extended-properties" ' +
         'xmlns:vt="http://schemas.openxmlformats.org/officeDocument/2006/docPropsVTypes">' +
-        '<Application>Visionary 3.0.69</Application><DocSecurity>0</DocSecurity><ScaleCrop>false</ScaleCrop>' +
+        '<Application>Visionary 3.0.70</Application><DocSecurity>0</DocSecurity><ScaleCrop>false</ScaleCrop>' +
         '<Company></Company><LinksUpToDate>false</LinksUpToDate><SharedDoc>false</SharedDoc><HyperlinksChanged>false</HyperlinksChanged>' +
-        '<AppVersion>3.0.69</AppVersion></Properties>';
+        '<AppVersion>3.0.70</AppVersion></Properties>';
 
       const zip = xlsxZipStoredFiles([
         { name: "[Content_Types].xml", contents: contentTypes },
