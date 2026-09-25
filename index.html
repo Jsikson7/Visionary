@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="description" content="A mobile-friendly collection of vision production guides, troubleshooting history, and copy-ready reporting tools.">
-  <meta name="visionary-app-version" content="3.0.68">
+  <meta name="visionary-app-version" content="3.0.69">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
@@ -66,7 +66,7 @@
           name: "Visionary Tool",
           short_name: "Visionary",
           description: "Mobile production guides, troubleshooting, and copy-ready reporting tools.",
-          start_url: scopeUrl.href + "?v=344",
+          start_url: scopeUrl.href + "?v=345",
           scope: scopeUrl.href,
           display: "standalone",
           orientation: "portrait-primary",
@@ -6673,6 +6673,16 @@
 @media(max-width:380px){#pm-log-panel form{padding:14px}#pm-log-panel .bm-time{flex-wrap:wrap}}
 
 #pm-log-panel .pm-now{margin-top:8px}#pm-log-panel .pm-footer-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}#pm-log-panel .pm-timestamp-note{font-size:.875rem;color:var(--muted);line-height:1.5;margin:0 0 18px}#pm-log-panel select{min-height:46px;border:1px solid var(--line);border-radius:8px;padding:10px}#pm-log-panel select:disabled{background:var(--paper);opacity:.65}#pm-log-panel input[type=date],#pm-log-panel input[type=time]{min-height:46px;padding:10px;width:100%}#pm-log-panel .bm-submit:disabled{cursor:default}#pm-save-confirmation{max-width:460px;width:calc(100% - 32px);border:1px solid var(--line);border-radius:16px;background:var(--paper);color:var(--ink);padding:28px;box-shadow:var(--shadow)}#pm-save-confirmation::backdrop{background:#0009}#pm-save-confirmation h2{margin-top:0}#pm-save-confirmation p{line-height:1.6;white-space:pre-wrap;overflow-wrap:anywhere}#pm-save-confirmation button{width:100%;margin-top:12px}
+#pm-log-panel .pm-history{border-top:1px solid var(--line);background:var(--paper);border-radius:0 0 var(--radius) var(--radius)}
+#pm-log-panel .pm-history>summary{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:64px;padding:16px 24px;cursor:pointer;list-style:none;color:var(--matcha-900)}
+#pm-log-panel .pm-history>summary::-webkit-details-marker{display:none}#pm-log-panel .pm-history>summary::after{content:'View';flex-shrink:0;font-size:.8rem;font-weight:750;color:var(--matcha-700)}#pm-log-panel .pm-history[open]>summary::after{content:'Hide'}
+#pm-log-panel .pm-history>summary strong,#pm-log-panel .pm-history>summary small{display:block}#pm-log-panel .pm-history>summary small{margin-top:4px;color:var(--muted);font-weight:400;line-height:1.4}
+#pm-log-panel .pm-history-body{padding:0 24px 24px}#pm-log-panel .pm-history-filters{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;padding-top:18px;border-top:1px solid var(--line)}
+#pm-log-panel .pm-history-filters .pm-history-search{grid-column:1/-1}#pm-log-panel .pm-history-filters input{width:100%;min-height:44px;padding:10px;border:1px solid var(--line);border-radius:8px;background:var(--paper);color:var(--ink)}#pm-log-panel .pm-history-filters button{grid-column:1/-1;min-height:44px}
+#pm-log-panel .pm-history-status{min-height:22px;margin:14px 0;color:var(--muted);font-size:.875rem;line-height:1.5}#pm-log-panel .pm-history-list{display:grid;gap:10px}
+#pm-log-panel .pm-history-card{padding:15px;border:1px solid var(--line);border-radius:10px;background:var(--cream)}#pm-log-panel .pm-history-card h4{margin:0;color:var(--ink);font-size:.98rem;line-height:1.45}#pm-log-panel .pm-history-card>p{margin:6px 0 0;color:var(--muted);font-size:.85rem;line-height:1.5;overflow-wrap:anywhere}
+#pm-log-panel .pm-history-details{display:grid;grid-template-columns:auto 1fr;gap:5px 12px;margin:12px 0 0;font-size:.84rem;line-height:1.45}#pm-log-panel .pm-history-details dt{font-weight:700;color:var(--label)}#pm-log-panel .pm-history-details dd{margin:0;overflow-wrap:anywhere}#pm-log-panel .pm-history-empty{margin:0;padding:16px;border-radius:9px;background:var(--soft);color:var(--muted);font-size:.9rem}
+@media(max-width:540px){#pm-log-panel .pm-history>summary{padding:15px 18px}#pm-log-panel .pm-history-body{padding:0 18px 18px}#pm-log-panel .pm-history-filters{grid-template-columns:minmax(0,1fr)}#pm-log-panel .pm-history-filters .pm-history-search,#pm-log-panel .pm-history-filters button{grid-column:1}}
 </style>
 <script id="shift-edit-policy">
 (()=>{
@@ -6982,7 +6992,7 @@
             <span class="form-tile-arrow" aria-hidden="true">›</span>
           </button>
         </div>
-        <p class="last-updated">Version 3.0.68 · Last updated: <time datetime="2026-09-24">September 24, 2026</time></p>
+        <p class="last-updated">Version 3.0.69 · Last updated: <time datetime="2026-09-24">September 24, 2026</time></p>
         <div class="version-history-link-wrap">
           <button id="open-version-history" class="version-history-link" type="button">View version history</button>
         </div>
@@ -7130,7 +7140,7 @@
             <div class="daily-cloud-copy">
               <strong id="daily-cloud-title">Shared shift synchronization</strong>
               <span id="daily-cloud-status" role="status" aria-live="polite">Sign in with Google to share Daily Tasks across phones.</span>
-              <small>Safe Sync v6.2 · App <span id="daily-app-version">3.0.68</span><span id="daily-version-health" class="daily-version-health" hidden></span></small>
+              <small>Safe Sync v6.2 · App <span id="daily-app-version">3.0.69</span><span id="daily-version-health" class="daily-version-health" hidden></span></small>
             </div>
           </div>
           <div class="daily-cloud-actions">
@@ -7955,7 +7965,12 @@
 
       <section class="panel" aria-label="Release history">
         <div class="version-history-list">
-          <article class="version-card version-card-current"><div class="version-card-heading"><h2>Version 3.0.68</h2><time datetime="2026-09-24">September 24, 2026</time></div>
+          <article class="version-card version-card-current"><div class="version-card-heading"><h2>Version 3.0.69</h2><time datetime="2026-09-24">September 24, 2026</time></div>
+            <p class="version-summary-intro">PM records now use a separate shared history and can no longer enter the BM/PD downtime log.</p><ul class="version-summary-list">
+            <li><strong>Separated submission paths</strong>PM submissions are saved with their Daily Tasks shift while the existing Google endpoint is reserved for BM/PD submissions.</li>
+            <li><strong>Searchable PM history</strong>The PM Log includes a collapsible date-range and keyword search across completed PM records.</li>
+            <li><strong>Clear save confirmation</strong>The success message confirms that PM history and shift points were updated without using the BM/PD log.</li></ul></article>
+          <article class="version-card"><div class="version-card-heading"><h2>Version 3.0.68</h2><time datetime="2026-09-24">September 24, 2026</time></div>
             <p class="version-summary-intro">BM/PD Log Search now matches the active app theme and uses a simpler filter bar.</p><ul class="version-summary-list">
             <li><strong>Consistent themed header</strong>The search page keeps the same hero colors, title treatment, settings placement, and theme artwork as the rest of the app.</li>
             <li><strong>Focused search controls</strong>Removed the minimum and maximum downtime fields while retaining keyword, date range, sort order, refresh, and CSV import tools.</li></ul></article>
@@ -9508,6 +9523,8 @@ window.VisionaryIQRequirements = Object.freeze({
         "Open Full Screen": "전체 화면으로 열기",
         "If the embedded form does not appear or feels cramped, use Open Full Screen.": "포함된 양식이 표시되지 않거나 화면이 좁으면 전체 화면으로 열기를 사용하세요.",
         "Loading Microsoft Form…": "Microsoft 양식을 불러오는 중…",
+        "Version 3.0.69 · Last updated:": "버전 3.0.69 · 마지막 업데이트:",
+        "Version 3.0.69": "버전 3.0.69",
         "Version 3.0.68 · Last updated:": "버전 3.0.68 · 마지막 업데이트:",
         "Version 3.0.68": "버전 3.0.68",
         "Version 3.0.67 · Last updated:": "버전 3.0.67 · 마지막 업데이트:",
@@ -18622,8 +18639,8 @@ function normalizeWeeklyRows(values) {
         },
         savePmCompletion: function (id,data,report,expectedShift) {
           var context=this.getPmContext(data.picKey);
-          if(context.shiftId!==expectedShift)throw new Error('PM Log saved to Google, but the active shift changed. Return to the original shift and select Add to PM completed.');
-          if(context.pic!==data.pic)throw new Error('PM Log saved to Google, but the PIC roster entry changed. Restore the original PIC and select Add to PM completed.');
+          if(context.shiftId!==expectedShift)throw new Error('This PM belongs to a different shift. Return to the original shift and save the PM again.');
+          if(context.pic!==data.pic)throw new Error('The PIC roster entry changed. Restore the original PIC and save the PM again.');
           var existing=Array.prototype.find.call(pmEntries.querySelectorAll('[data-daily-dynamic-id]'),function(entry){return entry.getAttribute('data-daily-dynamic-id')===id;});
           if(!existing){
             createDynamicEntry('pm',{id:id,saved:true,scoringRulesVersion:DAILY_SCORING_RULES_VERSION,source:'pm-log',complete:true,process:['LAMI','STK'].indexOf(data.process)>=0?'LNS':data.process,machine:data.machine,vision:data.vision,completedBy:data.picKey,completedByList:[data.picKey],comment:report});
@@ -19232,27 +19249,10 @@ function normalizeWeeklyRows(values) {
       finally { clearTimeout(timer); }
     };
 
-    const PM_LOG_WEB_APP_URL='https://script.google.com/macros/s/AKfycbzWo7Wf7DfiqhIFmEUZh7m3ZsdmWBYdgk9p3EGBhLzMG_D8g6HBNhJAjYiKh_r1YisXrg/exec';
-    window.PMGoogleSave=async function(data){
-      if(!['https:','http:'].includes(location.protocol))throw new Error('Open the hosted app to upload a PM Log. The downloaded copy supports filling and copying the log.');
-      const controller=new AbortController(),timeout=setTimeout(()=>controller.abort(),30000);
-      try{
-        const response=await fetch(PM_LOG_WEB_APP_URL,{method:'POST',headers:{'Content-Type':'text/plain;charset=UTF-8'},body:JSON.stringify(data),signal:controller.signal});
-        const text=await response.text();let payload;
-        try{payload=JSON.parse(text);}catch{throw new Error('The PM Log save could not be verified. Check the spreadsheet before submitting again to avoid a duplicate.');}
-        const confirmed=response.ok&&(payload?.ok===true||payload?.success===true||payload?.saved===true||String(payload?.result||payload?.status||'').toLowerCase()==='success');
-        if(!confirmed)throw new Error(payload?.error||payload?.message||'Google did not confirm a saved PM Log row. Your entries are retained.');
-        return {timestamp:String(payload.timestamp||payload.savedAt||payload.submittedAt||new Date().toISOString()),range:payload.range||'',row:payload.row||''};
-      }catch(error){
-        if(error.name==='AbortError')throw new Error('Google timed out. Your entries are retained. Check the PM Log spreadsheet before retrying.');
-        throw error;
-      }finally{clearTimeout(timeout);}
-    };
-
     const provider = new GoogleAuthProvider();
     provider.setCustomParameters({ prompt: "select_account" });
     const SYNC_PROTOCOL_VERSION = 6;
-    const APP_VERSION = String(document.querySelector('meta[name="visionary-app-version"]')?.content || "3.0.68");
+    const APP_VERSION = String(document.querySelector('meta[name="visionary-app-version"]')?.content || "3.0.69");
     const HOSTED_APP_ROOT = "https://jsikson7.github.io/Visionary/";
     const HOSTED_APP_URL = HOSTED_APP_ROOT + "?v=" + APP_VERSION.replace(/\D/g, "");
     const isDirectFilePage = !["http:", "https:"].includes(window.location.protocol);
@@ -19628,6 +19628,71 @@ function normalizeWeeklyRows(values) {
         handoffNote: normalized.handoffNote
       };
     }
+
+    function pmReportFields(report) {
+      const fields = {};
+      String(report || "").split(/\r?\n/).forEach((line) => {
+        const separator = line.indexOf(":");
+        if (separator < 1) return;
+        const key = line.slice(0, separator).trim().toLowerCase().replace(/\s+/g, " ");
+        if (key) fields[key] = line.slice(separator + 1).trim();
+      });
+      return fields;
+    }
+
+    function pmHistoryRowsForState(state, sourceId) {
+      if (!state || !/^\d{4}-\d{2}-\d{2}$/.test(state.date || "") || !/^(B1|B2|G1|G2)$/.test(state.shift || "")) return [];
+      return (Array.isArray(state.pms) ? state.pms : []).filter((entry) => entry && entry.saved && entry.complete).map((entry, index) => {
+        const fields = pmReportFields(entry.comment);
+        const id = String(entry.id || "legacy-pm-" + index);
+        return {
+          key: state.date + "_" + state.shift + "|" + id,
+          id,
+          shiftId: String(sourceId || state.date + "_" + state.shift),
+          date: fields["pm date"] || state.date,
+          shift: state.shift,
+          timestamp: fields.timestamp || fields.completed || "",
+          completed: fields.completed || "",
+          building: fields.building || "",
+          process: fields.process || String(entry.process || ""),
+          machine: fields.machine || String(entry.machine || ""),
+          vision: fields.vision || String(entry.vision || ""),
+          cause: fields["source of cause"] || "",
+          downtime: fields.downtime || "",
+          pic: fields.pic || String(entry.completedBy || ""),
+          comments: fields.comments || "",
+          source: String(entry.source || "manual") === "pm-log" ? "PM Log" : "Legacy PM"
+        };
+      });
+    }
+
+    function pmHistorySortValue(record) {
+      const parsed = Date.parse(record.timestamp || record.completed || "");
+      if (Number.isFinite(parsed)) return parsed;
+      const dateOnly = Date.parse((record.date || "") + "T00:00:00");
+      return Number.isFinite(dateOnly) ? dateOnly : 0;
+    }
+
+    async function listPmHistory(options) {
+      if (!currentUser || !accessAllowed) throw new Error("Sign in to shared Daily Tasks to view PM history.");
+      const settings = options || {};
+      const start = String(settings.start || "");
+      const end = String(settings.end || "");
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(start) || !/^\d{4}-\d{2}-\d{2}$/.test(end) || start > end) throw new Error("Choose a valid PM history date range.");
+      const snapshot = await getDocs(query(collection(db, "shifts"), where("date", ">=", start), where("date", "<=", end)));
+      const records = new Map();
+      snapshot.forEach((shiftDocument) => {
+        pmHistoryRowsForState(stateFromCloud(shiftDocument.data()), shiftDocument.id).forEach((record) => records.set(record.key, record));
+      });
+      const active = currentState();
+      if (active && active.date >= start && active.date <= end) {
+        pmHistoryRowsForState(active, shiftKeyFor(active)).forEach((record) => records.set(record.key, record));
+      }
+      return Array.from(records.values()).sort((left, right) => pmHistorySortValue(right) - pmHistorySortValue(left) || right.key.localeCompare(left.key));
+    }
+
+    window.VisionaryPMLog = { list: listPmHistory };
+    window.dispatchEvent(new Event("visionary-pm-history-ready"));
 
     function stableValue(value) {
       if (Array.isArray(value)) return value.map(stableValue);
@@ -22193,9 +22258,9 @@ function normalizeWeeklyRows(values) {
       const appProperties = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>' +
         '<Properties xmlns="http://schemas.openxmlformats.org/officeDocument/2006/extended-properties" ' +
         'xmlns:vt="http://schemas.openxmlformats.org/officeDocument/2006/docPropsVTypes">' +
-        '<Application>Visionary 3.0.68</Application><DocSecurity>0</DocSecurity><ScaleCrop>false</ScaleCrop>' +
+        '<Application>Visionary 3.0.69</Application><DocSecurity>0</DocSecurity><ScaleCrop>false</ScaleCrop>' +
         '<Company></Company><LinksUpToDate>false</LinksUpToDate><SharedDoc>false</SharedDoc><HyperlinksChanged>false</HyperlinksChanged>' +
-        '<AppVersion>3.0.68</AppVersion></Properties>';
+        '<AppVersion>3.0.69</AppVersion></Properties>';
 
       const zip = xlsxZipStoredFiles([
         { name: "[Content_Types].xml", contents: contentTypes },
@@ -23486,8 +23551,9 @@ const rules=JSON.parse(document.getElementById('pm-selection-rules').textContent
 const defs=JSON.parse(document.getElementById('pm-reference-options').textContent),view=document.getElementById('daily-tasks-view'),nav=view.querySelector('.bmpd-nav'),workspace=view.querySelector('.daily-task-workspace'),bm=document.getElementById('bmpd-log-panel');
 const tab=document.createElement('button');tab.id='pm-log-tab';tab.type='button';tab.className='button button-secondary';tab.textContent='PM Log';tab.setAttribute('role','tab');tab.setAttribute('aria-controls','pm-log-panel');tab.setAttribute('aria-selected','false');nav.append(tab);
 const panel=document.createElement('section');panel.id='pm-log-panel';panel.hidden=true;panel.setAttribute('role','tabpanel');panel.setAttribute('aria-labelledby',tab.id);bm.after(panel);
-panel.innerHTML='<div class="bm-header"><h2>PM Log</h2><p>Preventive maintenance record</p></div><form><div class="bm-fields"></div><p class="pm-timestamp-note">Timestamp is recorded automatically when you submit.</p><button type="submit" class="button button-primary bm-submit">Submit PM Log</button><p class="bm-status" role="status" aria-live="polite"></p><div class="pm-footer-actions"><button type="button" class="button button-secondary" data-pm-copy>Copy log</button><button type="button" class="button button-secondary" data-pm-new hidden>New PM Log</button><button type="button" class="button button-secondary" data-pm-back>Back to Daily Tasks</button></div><details data-pm-copy-fallback hidden><summary>Log text</summary><textarea readonly aria-label="PM log text"></textarea></details></form>';
-const form=panel.querySelector('form'),fields=panel.querySelector('.bm-fields'),status=panel.querySelector('.bm-status'),submit=panel.querySelector('.bm-submit'),controls={},newButton=panel.querySelector('[data-pm-new]');
+panel.innerHTML='<div class="bm-header"><h2>PM Log</h2><p>Preventive maintenance records kept separate from BM/PD</p></div><form><div class="bm-fields"></div><p class="pm-timestamp-note">Timestamp is recorded automatically. The PM is saved with the shared Daily Tasks shift and never sent to the BM/PD log.</p><button type="submit" class="button button-primary bm-submit">Submit PM Log</button><p class="bm-status" role="status" aria-live="polite"></p><div class="pm-footer-actions"><button type="button" class="button button-secondary" data-pm-copy>Copy log</button><button type="button" class="button button-secondary" data-pm-new hidden>New PM Log</button><button type="button" class="button button-secondary" data-pm-back>Back to Daily Tasks</button></div><details data-pm-copy-fallback hidden><summary>Log text</summary><textarea readonly aria-label="PM log text"></textarea></details></form><details class="pm-history" data-pm-history><summary><span><strong>Separate PM History</strong><small>Search completed PM records without opening the BM/PD log.</small></span></summary><div class="pm-history-body"><div class="pm-history-filters"><label>From<input type="date" data-pm-history-start></label><label>To<input type="date" data-pm-history-end></label><label class="pm-history-search">Search PM history<input type="search" data-pm-history-search placeholder="PIC, machine, vision, cause, or comments"></label><button type="button" class="button button-secondary" data-pm-history-refresh>Refresh PM History</button></div><p class="pm-history-status" data-pm-history-status role="status" aria-live="polite">Open this section to load PM history.</p><div class="pm-history-list" data-pm-history-list></div></div></details>';
+const form=panel.querySelector('form'),fields=panel.querySelector('.bm-fields'),status=panel.querySelector('.bm-status'),submit=panel.querySelector('.bm-submit'),controls={},newButton=panel.querySelector('[data-pm-new]'),historyPanel=panel.querySelector('[data-pm-history]'),historyStart=panel.querySelector('[data-pm-history-start]'),historyEnd=panel.querySelector('[data-pm-history-end]'),historySearch=panel.querySelector('[data-pm-history-search]'),historyRefresh=panel.querySelector('[data-pm-history-refresh]'),historyStatus=panel.querySelector('[data-pm-history-status]'),historyList=panel.querySelector('[data-pm-history-list]');
+let historyRows=[],historyLoaded=false;
 const sections={};[['equipment','Equipment details'],['completion','Completion details']].forEach(([key,label])=>{const fieldset=document.createElement('fieldset');fieldset.className='bm-section';const legend=document.createElement('legend');legend.textContent=label;const grid=document.createElement('div');grid.className='bm-grid';fieldset.append(legend,grid);fields.append(fieldset);sections[key]=grid;});
 const labels={building:'Building',process:'Process',machine:'Machine',vision:'Vision Type',cause:'Source of Cause',pmDate:'PM Date',hour:'Hour (00–23)',minute:'Minute',downtime:'Downtime',pic:'PIC',comments:'Comments'};
 Object.entries(labels).forEach(([key,label])=>{const group=document.createElement('div');group.className='bm-field';if(['pic','comments'].includes(key))group.classList.add('bm-wide');const caption=document.createElement('label');caption.htmlFor='pm-'+key;caption.textContent=label+(key==='comments'?' (optional)':' *');const input=document.createElement((defs[key]||['hour','minute','pic'].includes(key))?'select':key==='comments'?'textarea':'input');input.id=caption.htmlFor;input.name=key;input.required=key!=='comments';if(input.tagName==='INPUT')input.type=key==='pmDate'?'date':'text';if(['downtime','pic','comments'].includes(key))input.maxLength=key==='comments'?10000:250;if(key==='downtime')input.placeholder='Enter downtime, e.g. 10 min';if(key==='comments')input.placeholder='Enter maintenance notes';controls[key]=input;group.append(caption,input);if(key==='minute'){const now=document.createElement('button');now.className='button button-secondary pm-now';now.type='button';now.textContent='Now';now.onclick=setNow;group.append(now);}sections[defs[key]?'equipment':'completion'].append(group);});
@@ -23501,6 +23567,29 @@ window.addEventListener('visionary-daily-local-change',refreshPIC);window.addEve
 function setupTime(){for(const [key,count] of [['hour',24],['minute',60]]){controls[key].replaceChildren();for(let i=0;i<count;i++){const value=String(i).padStart(2,'0');controls[key].add(new Option(value,value));}}}
 function localDate(){const now=new Date();now.setMinutes(now.getMinutes()-now.getTimezoneOffset());return now.toISOString().slice(0,10);}
 function defaultDate(){return document.getElementById('daily-shift-date')?.value||localDate();}
+function offsetDate(value,days){const date=new Date(value+'T12:00:00');date.setDate(date.getDate()+days);date.setMinutes(date.getMinutes()-date.getTimezoneOffset());return date.toISOString().slice(0,10);}
+function displayPmTimestamp(value){if(!value)return '';const parsed=new Date(value);return Number.isNaN(parsed.getTime())?String(value).replace('T',' '):parsed.toLocaleString([], {year:'numeric',month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'});}
+function addHistoryDetail(list,label,value){if(!value)return;const term=document.createElement('dt'),detail=document.createElement('dd');term.textContent=label;detail.textContent=value;list.append(term,detail);}
+function renderPmHistory(){
+  const keyword=historySearch.value.trim().toLowerCase();
+  const filtered=historyRows.filter(row=>!keyword||Object.values(row).some(value=>String(value||'').toLowerCase().includes(keyword)));
+  historyList.replaceChildren();
+  if(!filtered.length){const empty=document.createElement('p');empty.className='pm-history-empty';empty.textContent=historyRows.length?'No PM records match that search.':'No completed PM records were found in this date range.';historyList.append(empty);}
+  filtered.forEach(row=>{const card=document.createElement('article');card.className='pm-history-card';const title=document.createElement('h4');title.textContent=[row.date,row.shift,row.machine,row.vision].filter(Boolean).join(' · ')||'PM record';const meta=document.createElement('p');meta.textContent=[row.pic,row.source,displayPmTimestamp(row.timestamp)].filter(Boolean).join(' · ');const details=document.createElement('dl');details.className='pm-history-details';addHistoryDetail(details,'Building',row.building);addHistoryDetail(details,'Process',row.process);addHistoryDetail(details,'Cause',row.cause);addHistoryDetail(details,'Downtime',row.downtime);addHistoryDetail(details,'Comments',row.comments);card.append(title,meta);if(details.children.length)card.append(details);historyList.append(card);});
+  historyStatus.textContent=filtered.length+' of '+historyRows.length+' PM record'+(historyRows.length===1?'':'s')+' shown · '+historyStart.value+' to '+historyEnd.value;
+}
+async function loadPmHistory(){
+  if(!window.VisionaryPMLog?.list){historyStatus.textContent='PM history is still loading. Try Refresh PM History in a moment.';return;}
+  historyRefresh.disabled=true;historyStatus.textContent='Loading separate PM history…';
+  try{historyRows=await window.VisionaryPMLog.list({start:historyStart.value,end:historyEnd.value});historyLoaded=true;renderPmHistory();}
+  catch(error){historyLoaded=false;historyList.replaceChildren();historyStatus.textContent=error.message||'PM history could not be loaded.';}
+  finally{historyRefresh.disabled=false;}
+}
+historyEnd.value=localDate();historyStart.value=offsetDate(historyEnd.value,-30);
+historyPanel.addEventListener('toggle',()=>{if(historyPanel.open&&!historyLoaded)loadPmHistory();});
+historyRefresh.onclick=loadPmHistory;historySearch.addEventListener('input',renderPmHistory);
+window.addEventListener('visionary-pm-history-ready',()=>{if(historyPanel.open&&!historyLoaded)loadPmHistory();});
+window.addEventListener('visionary-pm-log-saved',()=>{historyLoaded=false;if(historyPanel.open)loadPmHistory();});
 function setNow(){const now=new Date();controls.hour.value=String(now.getHours()).padStart(2,'0');controls.minute.value=String(now.getMinutes()).padStart(2,'0');}
 function fill(key,items,enabled=true){const select=controls[key],old=select.value;select.replaceChildren(new Option('Select '+labels[key],''));items.forEach(item=>select.add(new Option(item.value,item.value)));select.value=items.some(x=>x.value===old)?old:'';select.disabled=!enabled;}
 function machineChoices(building,process){if(!building||!process)return [];const list=(['PKG','EOL'].includes(process)?rules.pkgMachines[building]:rules.machines[building])||[];return ['LAMI','STK'].includes(process)?[...list,'Rework']:[...list];}
@@ -23511,24 +23600,24 @@ form.addEventListener('input',()=>{edited=true;});form.addEventListener('change'
 function reset(){form.reset();fill('building',defs.building);fill('process',defs.process);fill('cause',defs.cause);updateMachines();updateVisions();updateOther();otherInput.value='';setupTime();refreshPIC();controls.pmDate.value=defaultDate();setNow();edited=false;fields.querySelectorAll('fieldset').forEach(f=>f.disabled=false);submit.disabled=false;submit.textContent='Submit PM Log';newButton.hidden=true;status.textContent='';panel.querySelector('[data-pm-copy-fallback]').hidden=true;}
 const tasks=document.getElementById('bmpd-task-tab'),bmTab=document.getElementById('bmpd-log-tab');[tasks,bmTab].forEach(b=>b.addEventListener('click',()=>{panel.hidden=true;tab.setAttribute('aria-selected','false');}));
 tab.onclick=()=>{refreshPIC();if(!edited&&!lastTimestamp){controls.pmDate.value=defaultDate();setNow();}tasks.click();workspace.hidden=true;bm.hidden=true;panel.hidden=false;tasks.setAttribute('aria-selected','false');bmTab.setAttribute('aria-selected','false');tab.setAttribute('aria-selected','true');};panel.querySelector('[data-pm-back]').onclick=()=>tasks.click();
-const dialog=document.createElement('dialog');dialog.id='pm-save-confirmation';dialog.innerHTML='<h2>✓ PM Log Submitted</h2><p><strong>Google Sheets: Confirmed</strong></p><p>The PM log was saved successfully. It was also added to 11. PM’s completed and the shift points were recorded.</p><p data-pm-receipt style="white-space:pre-line"></p><button type="button" class="button button-primary">OK</button>';document.body.append(dialog);dialog.querySelector('button').onclick=()=>dialog.close();
+const dialog=document.createElement('dialog');dialog.id='pm-save-confirmation';dialog.innerHTML='<h2>✓ PM Log Saved</h2><p><strong>Separate PM History: Added</strong></p><p>The PM was saved with this Daily Tasks shift and was not sent to the BM/PD log. Confirm the shared-sync status says Saved or Live before closing the app.</p><p data-pm-receipt style="white-space:pre-line"></p><button type="button" class="button button-primary">OK</button>';document.body.append(dialog);dialog.querySelector('button').onclick=()=>dialog.close();
 function record(){const data=Object.fromEntries(Object.entries(controls).map(([k,input])=>[k,input.value.trim()]));data.completed=data.pmDate+'T'+data.hour+':'+data.minute;data.picKey=data.pic;data.pic=controls.pic.selectedOptions[0]?.textContent.replace(/ \([^)]*\)$/,'')||'';data.causeOther=otherInput.value.trim();return data;}
 function valid(data){for(const key of Object.keys(defs)){if(key==='machine')continue;if(!defs[key].some(x=>x.value===data[key]))throw Error('Choose a valid '+labels[key]+'.');}if(!machineChoices(data.building,data.process).includes(data.machine)||!(rules.visions[data.process]||[]).includes(data.vision))throw Error('Choose a machine and vision that match the selected building and process.');if(data.cause==='Other'&&!data.causeOther)throw Error('Describe the other source of cause.');if(!data.picKey||!data.downtime||!data.pmDate||!/^([01]\d|2[0-3]):[0-5]\d$/.test(data.hour+':'+data.minute))throw Error('Enter PM Date, Completed Time, Downtime, and PIC.');return data;}
 function savedReport(data,timestamp){return ['PM Log','Timestamp: '+timestamp,'Building: '+data.building,'Process: '+data.process,'Machine: '+data.machine,'Vision: '+data.vision,'Source of Cause: '+data.cause,'Completed: '+data.completed.replace('T',' '),'Downtime: '+data.downtime,'PIC: '+data.pic,'Comments: '+data.comments].join('\n');}
 form.onsubmit=async e=>{e.preventDefault();if(busy)return;if(!pending&&!form.reportValidity())return;try{
   const daily=window.VisionaryDailyTasks;if(!daily?.getPmContext||!daily.savePmCompletion)throw Error('Daily Tasks has not loaded. Reopen the app before submitting.');
   if(!pending){const data=valid(record()),context=daily.getPmContext(data.picKey);if(data.pmDate!==context.date)throw Error('Select the matching Daily Tasks date and shift so this PM receives points on the correct shift.');if(data.pic!==context.pic)throw Error('The shift roster changed. Reopen PM Log and select the PIC again.');data.pic=context.pic;if(data.cause==='Other')data.cause='Other: '+data.causeOther;
-    if(!window.PMGoogleSave)throw Error('Open the hosted app to save this PM Log.');pending={data,shiftId:context.shiftId,id:'pm-log-'+(crypto.randomUUID?crypto.randomUUID():Date.now()+'-'+Math.random().toString(36).slice(2)),receipt:null};
+    pending={data,shiftId:context.shiftId,id:'pm-log-'+(crypto.randomUUID?crypto.randomUUID():Date.now()+'-'+Math.random().toString(36).slice(2)),timestamp:new Date().toISOString()};
   }
-  busy=true;submit.disabled=true;fields.querySelectorAll('fieldset').forEach(f=>f.disabled=true);submit.textContent=pending.receipt?'Adding PM points…':'Submitting…';
-  if(!pending.receipt){status.textContent='Saving PM Log to Google…';pending.receipt=await window.PMGoogleSave(pending.data);}
-  lastTimestamp=pending.receipt.timestamp;
+  busy=true;submit.disabled=true;fields.querySelectorAll('fieldset').forEach(f=>f.disabled=true);submit.textContent='Saving PM record…';status.textContent='Adding PM to the separate shared history…';
+  lastTimestamp=pending.timestamp;
   daily.savePmCompletion(pending.id,pending.data,savedReport(pending.data,lastTimestamp),pending.shiftId);
-  status.textContent='PM Log saved and added to 11. PM’s completed. Timestamp: '+lastTimestamp;submit.textContent='Submitted';newButton.hidden=false;
-  const confirmation='Google Sheets: Confirmed\nPM Completed: Added\nShift points: Recorded\n\n'+pending.data.pic+' · '+pending.data.machine+' · '+pending.data.vision+'\nTimestamp: '+lastTimestamp;
+  status.textContent='PM saved separately and added to 11. PM’s completed. Check the shared-sync status before closing. Timestamp: '+lastTimestamp;submit.textContent='Saved';newButton.hidden=false;
+  const confirmation='Separate PM History: Added\nBM/PD Log: Not used\nPM Completed: Added\nShift points: Recorded\n\n'+pending.data.pic+' · '+pending.data.machine+' · '+pending.data.vision+'\nTimestamp: '+lastTimestamp;
   dialog.querySelector('[data-pm-receipt]').textContent=confirmation;
-  if(typeof dialog.showModal==='function')dialog.showModal();else window.alert('PM LOG SUBMITTED\n\n'+confirmation);
-}catch(error){status.textContent=error.message;submit.disabled=false;if(pending?.receipt){submit.textContent='Add to PM completed';}else{pending=null;submit.textContent='Submit PM Log';fields.querySelectorAll('fieldset').forEach(f=>f.disabled=false);}}finally{busy=false;}};
+  window.dispatchEvent(new CustomEvent('visionary-pm-log-saved',{detail:{id:pending.id,shiftId:pending.shiftId}}));
+  if(typeof dialog.showModal==='function')dialog.showModal();else window.alert('PM LOG SAVED\n\n'+confirmation);
+}catch(error){status.textContent=error.message;submit.disabled=false;if(pending){submit.textContent='Save PM record';}else{submit.textContent='Submit PM Log';fields.querySelectorAll('fieldset').forEach(f=>f.disabled=false);}}finally{busy=false;}};
 
 newButton.onclick=()=>{if(busy)return;lastTimestamp='';pending=null;reset();controls.building.focus();};
 panel.querySelector('[data-pm-copy]').onclick=async()=>{const data=record(),text=['PM Log','Timestamp: '+(lastTimestamp||'Not submitted'),...Object.entries(labels).map(([k,v])=>v+': '+(k==='cause'&&data.cause==='Other'?'Other: '+data.causeOther:data[k]))].join('\n');try{await navigator.clipboard.writeText(text);status.textContent='PM Log copied.';}catch{const box=panel.querySelector('[data-pm-copy-fallback]');box.hidden=false;box.open=true;box.querySelector('textarea').value=text;box.querySelector('textarea').focus();box.querySelector('textarea').select();}};
