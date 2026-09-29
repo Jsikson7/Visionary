@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="description" content="A mobile-friendly collection of vision production guides, troubleshooting history, and copy-ready reporting tools.">
-  <meta name="visionary-app-version" content="3.0.71">
+  <meta name="visionary-app-version" content="3.0.76">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
@@ -7159,7 +7159,7 @@
             <span class="form-tile-arrow" aria-hidden="true">›</span>
           </button>
         </div>
-        <p class="last-updated">Version 3.0.71 · Last updated: <time datetime="2026-09-25">September 25, 2026</time></p>
+        <p class="last-updated">Version 3.0.76 · Last updated: <time datetime="2026-09-29">September 29, 2026</time></p>
         <div class="version-history-link-wrap">
           <button id="open-version-history" class="version-history-link" type="button">View version history</button>
         </div>
@@ -7307,7 +7307,7 @@
             <div class="daily-cloud-copy">
               <strong id="daily-cloud-title">Shared shift synchronization</strong>
               <span id="daily-cloud-status" role="status" aria-live="polite">Sign in with Google to share Daily Tasks across phones.</span>
-              <small>Safe Sync v6.2 · App <span id="daily-app-version">3.0.71</span><span id="daily-version-health" class="daily-version-health" hidden></span></small>
+              <small>Safe Sync v6.2 · App <span id="daily-app-version">3.0.76</span><span id="daily-version-health" class="daily-version-health" hidden></span></small>
             </div>
           </div>
           <div class="daily-cloud-actions">
@@ -7815,20 +7815,20 @@
               </div>
               <button id="monthly-performance-refresh" class="button button-primary" type="submit">Refresh rankings</button>
             </div>
-            <p class="monthly-performance-default-note">Technician rankings use the official monthly ranking period through today. Admin can choose a date range for their own view.</p>
+            <p class="monthly-performance-default-note">Technician rankings use the official final monthly ranking period. Admin can choose a custom date range for their own view.</p>
           </form>
-          <p id="monthly-ranking-period-note" class="monthly-ranking-period-note" hidden>September 2026 Power Rankings officially begin September 5 because MI2 Daily Tasks was still rolling out earlier in the month.</p>
+          <p id="monthly-ranking-period-note" class="monthly-ranking-period-note" hidden>Final September 2026 Power Rankings cover September 5 through September 28.</p>
           <p id="monthly-performance-status" class="status" role="status" aria-live="polite"></p>
           <div id="monthly-performance-output" hidden>
             <p id="monthly-performance-range" class="monthly-performance-range"></p>
             <section class="leaderboard-ranking-block" aria-labelledby="monthly-technician-title">
               <div class="monthly-ranking-heading">
                 <div>
-                  <h3 id="monthly-technician-title" class="reports-section-heading">Top 4 technicians</h3>
+                  <h3 id="monthly-technician-title" class="reports-section-heading">Top 3 technicians</h3>
                   <p class="monthly-ranking-subtitle">Ranked by Avg PPS · Only shifts with at least 70% completion count. Minimum 3 qualifying shifts in the selected range.</p>
                 </div>
                 <div class="monthly-ranking-actions">
-                  <button id="monthly-technician-save-png" class="button button-secondary" type="button" disabled>Save PNG</button>
+                  <button id="monthly-technician-save-png" class="button button-secondary" type="button" disabled>Save Top 3 PNG</button>
                 </div>
               </div>
               <div id="monthly-technician-leaders" class="monthly-ranking-grid monthly-technician-grid"></div>
@@ -7840,7 +7840,7 @@
                   <p class="monthly-ranking-subtitle">Ranked by Avg PPS · Only shifts with at least 70% completion count. Completion rate breaks ties. Minimum 3 qualifying shifts.</p>
                 </div>
                 <div class="monthly-ranking-actions">
-                  <button id="monthly-shift-save-png" class="button button-secondary" type="button" disabled>Save PNG</button>
+                  <button id="monthly-shift-save-png" class="button button-secondary" type="button" disabled>Save Top Shift PNG</button>
                 </div>
               </div>
               <div id="monthly-shift-leaders" class="monthly-ranking-grid monthly-shift-grid"></div>
@@ -8132,7 +8132,32 @@
 
       <section class="panel" aria-label="Release history">
         <div class="version-history-list">
-          <article class="version-card version-card-current"><div class="version-card-heading"><h2>Version 3.0.71</h2><time datetime="2026-09-25">September 25, 2026</time></div>
+          <article class="version-card version-card-current"><div class="version-card-heading"><h2>Version 3.0.76</h2><time datetime="2026-09-29">September 29, 2026</time></div>
+            <p class="version-summary-intro">Expanded team recognition and clarified overall technician order.</p><ul class="version-summary-list">
+            <li><strong>Shift lead recognized</strong>The winning shift's lead now appears above the technician names in the card and saved PNG.</li>
+            <li><strong>Overall rank order</strong>Winning-shift technicians are listed from best to last overall, with rank numbers shown when qualified.</li>
+            <li><strong>Top three reading order</strong>The technician celebration artwork now runs left-to-right as #1, #2, then #3.</li></ul></article>
+          <article class="version-card"><div class="version-card-heading"><h2>Version 3.0.75</h2><time datetime="2026-09-29">September 29, 2026</time></div>
+            <p class="version-summary-intro">Added the winning technicians to the Top Shift result.</p><ul class="version-summary-list">
+            <li><strong>Team recognition</strong>The top-shift card and saved PNG now name the technicians recorded on the winning shift.</li>
+            <li><strong>Readable name layout</strong>The artwork gives the team a dedicated full-width section and wraps longer rosters across two lines.</li>
+            <li><strong>Ranking logic unchanged</strong>Names are drawn from qualifying September shift records without changing scores, eligibility, or tie handling.</li></ul></article>
+          <article class="version-card"><div class="version-card-heading"><h2>Version 3.0.74</h2><time datetime="2026-09-29">September 29, 2026</time></div>
+            <p class="version-summary-intro">Refitted the Chuseok hanbok artwork to the mascot's proportions.</p><ul class="version-summary-list">
+            <li><strong>Natural sleeve alignment</strong>The mascot's original white arms now serve as the hanbok sleeves, so every award pose stays clean and connected.</li>
+            <li><strong>Tailored celebration outfit</strong>The teal jeogori, cream collar, gold goreum, and burgundy lower panels now follow the mascot's shoulders and rounded torso.</li>
+            <li><strong>Results unchanged</strong>The September 5–28 period, top-three display, ranking calculations, and all live values are preserved.</li></ul></article>
+          <article class="version-card"><div class="version-card-heading"><h2>Version 3.0.73</h2><time datetime="2026-09-29">September 29, 2026</time></div>
+            <p class="version-summary-intro">Replaced the September champion artwork with a Chuseok celebration theme.</p><ul class="version-summary-list">
+            <li><strong>Chuseok harvest setting</strong>The saved ranking PNGs now use a luminous harvest moon, Korean cloud motifs, mountain silhouettes, rice stalks, songpyeon, and hanok-inspired ornamental framing.</li>
+            <li><strong>Celebratory hanbok outfit</strong>The award mascot keeps its familiar face, helmet, goggles, pose, and trophy while wearing a teal, cream, burgundy, and gold hanbok-inspired outfit.</li>
+            <li><strong>September results preserved</strong>The September 5–28 period, top-three display, ranking calculations, and all live result values are unchanged.</li></ul></article>
+          <article class="version-card"><div class="version-card-heading"><h2>Version 3.0.72</h2><time datetime="2026-09-29">September 29, 2026</time></div>
+            <p class="version-summary-intro">Finalized the September Power Rankings and added detailed champion artwork.</p><ul class="version-summary-list">
+            <li><strong>Final September period</strong>The official September results now cover September 5 through September 28, while Admin can still review a custom range.</li>
+            <li><strong>Top three restored</strong>The technician ranking screen and saved technician artwork now feature positions one through three.</li>
+            <li><strong>Champion PNGs</strong>The technician export is a detailed portrait featuring the top three, and the shift export spotlights only the winning shift with its complete results.</li></ul></article>
+          <article class="version-card"><div class="version-card-heading"><h2>Version 3.0.71</h2><time datetime="2026-09-25">September 25, 2026</time></div>
             <p class="version-summary-intro">Power Rankings now displays the top four technicians.</p><ul class="version-summary-list">
             <li><strong>Fourth-place visibility</strong>The technician ranking screen and saved technician ranking image now include positions one through four.</li>
             <li><strong>Ranking logic preserved</strong>This changes only the number of displayed technician leaders; scoring, eligibility, ordering, and tie handling remain unchanged.</li></ul></article>
@@ -9683,12 +9708,14 @@ window.VisionaryIQRequirements = Object.freeze({
         "Guides": "가이드",
         "Open Work Instructions and Troubleshooting.": "작업 지침과 문제 해결을 엽니다.",
         "Power Rankings": "파워 랭킹",
-        "Top 4 technicians": "상위 4명의 기술자",
-        "Technician rankings use the official monthly ranking period through today. Admin can choose a date range for their own view.": "기술자 순위는 공식 월간 순위 기간부터 오늘까지의 데이터를 사용합니다. 관리자는 직접 날짜 범위를 선택할 수 있습니다.",
-        "September 2026 Power Rankings officially begin September 5 because MI2 Daily Tasks was still rolling out earlier in the month.": "2026년 9월 파워 랭킹은 월초에 MI2 일일 작업 도구가 도입 중이었기 때문에 공식적으로 9월 5일부터 시작합니다.",
+        "Top 3 technicians": "상위 3명의 기술자",
+        "Technician rankings use the official final monthly ranking period. Admin can choose a custom date range for their own view.": "기술자 순위는 공식 최종 월간 순위 기간을 사용합니다. 관리자는 직접 날짜 범위를 선택할 수 있습니다.",
+        "Final September 2026 Power Rankings cover September 5 through September 28.": "2026년 9월 최종 파워 랭킹은 9월 5일부터 9월 28일까지입니다.",
         "Performance rankings": "성과 순위",
         "Refresh rankings": "순위 새로 고침",
         "Save PNG": "PNG 저장",
+        "Save Top 3 PNG": "상위 3명 PNG 저장",
+        "Save Top Shift PNG": "최고 교대조 PNG 저장",
         "Top shifts": "상위 교대조",
         "Choose shift first": "먼저 교대조 선택",
         "Choose name": "이름 선택",
@@ -9702,6 +9729,10 @@ window.VisionaryIQRequirements = Object.freeze({
         "Open Full Screen": "전체 화면으로 열기",
         "If the embedded form does not appear or feels cramped, use Open Full Screen.": "포함된 양식이 표시되지 않거나 화면이 좁으면 전체 화면으로 열기를 사용하세요.",
         "Loading Microsoft Form…": "Microsoft 양식을 불러오는 중…",
+        "Version 3.0.76 · Last updated:": "버전 3.0.76 · 마지막 업데이트:",
+        "Version 3.0.76": "버전 3.0.76",
+        "Version 3.0.72 · Last updated:": "버전 3.0.72 · 마지막 업데이트:",
+        "Version 3.0.72": "버전 3.0.72",
         "Version 3.0.71 · Last updated:": "버전 3.0.71 · 마지막 업데이트:",
         "Version 3.0.71": "버전 3.0.71",
         "Version 3.0.70": "버전 3.0.70",
@@ -18061,8 +18092,8 @@ function normalizeWeeklyRows(values) {
         drawClubImage(); clubDialog.querySelector('[data-club-copy]').focus();
       }
       function clubCharacterSource(item) { var extra=!item.team && item.tier.sprite >= 4, source=extra?clubExtraSprite:clubSprite;if(!source.getAttribute('src'))source.src=extra?clubExtraSpriteUrl:clubSpriteUrl;return source; }
-      function paintHalloweenClubOutfit(ctx, x, y, size) {
-        if (document.documentElement.getAttribute('data-theme') !== 'halloween') return;
+      function paintHalloweenClubOutfit(ctx, x, y, size, forceHalloween) {
+        if (!forceHalloween && document.documentElement.getAttribute('data-theme') !== 'halloween') return;
         var scale = size / 627;
         ctx.save();
         ctx.translate(x, y);
@@ -18147,15 +18178,75 @@ function normalizeWeeklyRows(values) {
         });
         ctx.restore();
       }
-      function paintClubCharacter(ctx, item, x, y, size) {
+      function paintChuseokClubOutfit(ctx, x, y, size) {
+        var scale = size / 627;
+        ctx.save();
+        ctx.translate(x, y);
+        ctx.scale(scale, scale);
+        ctx.lineJoin = 'round';
+        ctx.lineCap = 'round';
+
+        // The mascot's own white arms act as natural hanbok sleeves. This fitted
+        // jeogori stays anchored to the shared torso across every award pose.
+        ctx.fillStyle = '#2f716f';
+        ctx.strokeStyle = '#14233b';
+        ctx.lineWidth = 9;
+        ctx.beginPath();
+        ctx.moveTo(246,407); ctx.bezierCurveTo(267,397,288,397,319,409); ctx.bezierCurveTo(349,397,371,400,390,412);
+        ctx.bezierCurveTo(399,435,400,464,392,489); ctx.bezierCurveTo(374,500,353,505,332,502);
+        ctx.bezierCurveTo(327,493,323,486,319,482); ctx.bezierCurveTo(314,487,309,494,304,503);
+        ctx.bezierCurveTo(282,505,261,499,244,489); ctx.bezierCurveTo(237,463,238,433,246,407);
+        ctx.closePath(); ctx.fill(); ctx.stroke();
+
+        // Compact burgundy lower panels leave the mascot's feet visible.
+        ctx.fillStyle = '#79374d';
+        ctx.lineWidth = 8;
+        ctx.beginPath(); ctx.moveTo(247,470); ctx.bezierCurveTo(269,482,293,487,319,484); ctx.lineTo(319,521); ctx.bezierCurveTo(293,523,272,517,255,504); ctx.closePath(); ctx.fill(); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(319,484); ctx.bezierCurveTo(345,487,369,482,391,470); ctx.lineTo(383,504); ctx.bezierCurveTo(367,517,345,523,319,521); ctx.closePath(); ctx.fill(); ctx.stroke();
+
+        // A shallow crossed collar follows the neckline instead of floating over it.
+        ctx.fillStyle = '#fff4d7';
+        ctx.lineWidth = 5;
+        ctx.beginPath(); ctx.moveTo(253,404); ctx.bezierCurveTo(275,398,295,401,319,414); ctx.lineTo(319,439); ctx.lineTo(298,457); ctx.lineTo(245,421); ctx.closePath(); ctx.fill(); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(385,406); ctx.bezierCurveTo(363,399,343,402,319,414); ctx.lineTo(319,439); ctx.lineTo(341,457); ctx.lineTo(393,423); ctx.closePath(); ctx.fill(); ctx.stroke();
+        ctx.strokeStyle = '#efc35b'; ctx.lineWidth = 5;
+        ctx.beginPath(); ctx.moveTo(246,474); ctx.bezierCurveTo(286,488,351,488,392,473); ctx.stroke();
+        ctx.strokeStyle = '#efc35b'; ctx.lineWidth = 4;
+        ctx.beginPath(); ctx.moveTo(256,411); ctx.lineTo(319,445); ctx.lineTo(382,413); ctx.stroke();
+        ctx.fillStyle = '#efc35b'; ctx.strokeStyle = '#14233b'; ctx.lineWidth = 4;
+        ctx.beginPath(); ctx.arc(319,442,10,0,Math.PI*2); ctx.fill(); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(315,449); ctx.bezierCurveTo(300,461,291,477,290,497); ctx.lineTo(305,488); ctx.bezierCurveTo(307,471,313,458,322,450); ctx.closePath(); ctx.fill(); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(323,449); ctx.bezierCurveTo(338,462,346,478,348,497); ctx.lineTo(333,488); ctx.bezierCurveTo(331,472,325,459,316,450); ctx.closePath(); ctx.fill(); ctx.stroke();
+
+        // Small cloud embroidery references abundance and the harvest moon.
+        ctx.strokeStyle = '#f8d783'; ctx.lineWidth = 4; ctx.fillStyle = 'transparent';
+        ctx.beginPath(); ctx.moveTo(257,462); ctx.bezierCurveTo(264,452,274,453,279,461); ctx.bezierCurveTo(286,456,294,462,291,470); ctx.lineTo(254,470); ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(348,462); ctx.bezierCurveTo(355,452,366,453,371,461); ctx.bezierCurveTo(378,456,386,462,383,470); ctx.lineTo(346,470); ctx.stroke();
+
+        // Short shoulder seams visually join the jacket to the existing sleeves.
+        ctx.strokeStyle = '#9e4056'; ctx.lineWidth = 6;
+        ctx.beginPath(); ctx.moveTo(247,414); ctx.bezierCurveTo(239,425,235,438,234,451); ctx.moveTo(390,416); ctx.bezierCurveTo(400,428,405,441,406,454); ctx.stroke();
+        ctx.restore();
+      }
+      function paintClubCharacterBase(ctx, item, x, y, size) {
         var frame = item.team ? 3 : item.tier.sprite;
         var source = clubCharacterSource(item);
         var w = source.naturalWidth / 2, h = source.naturalHeight / (frame >= 4 ? 1 : 2);
-        if (w && h) {
-          ctx.drawImage(source, frame % 2 * w, frame >= 4 ? 0 : Math.floor(frame / 2) * h, w, h, x, y, size, size);
-          paintHalloweenClubOutfit(ctx, x, y, size);
-        }
+        if (!w || !h) return false;
+        ctx.drawImage(source, frame % 2 * w, frame >= 4 ? 0 : Math.floor(frame / 2) * h, w, h, x, y, size, size);
+        return true;
       }
+      function paintClubCharacter(ctx, item, x, y, size, forceHalloween) {
+        if (paintClubCharacterBase(ctx, item, x, y, size)) paintHalloweenClubOutfit(ctx, x, y, size, forceHalloween);
+      }
+      function paintChuseokClubCharacter(ctx, item, x, y, size) {
+        if (paintClubCharacterBase(ctx, item, x, y, size)) paintChuseokClubOutfit(ctx, x, y, size);
+      }
+      window.VisionaryClubArt = {
+        source: clubCharacterSource,
+        paint: paintClubCharacter,
+        paintChuseok: paintChuseokClubCharacter
+      };
       function drawClubCharacter(item) {
         var canvas = clubDialog.querySelector('[data-club-character]'), ctx = canvas.getContext('2d');
         ctx.clearRect(0,0,360,360);
@@ -19531,7 +19622,7 @@ function normalizeWeeklyRows(values) {
     const provider = new GoogleAuthProvider();
     provider.setCustomParameters({ prompt: "select_account" });
     const SYNC_PROTOCOL_VERSION = 6;
-    const APP_VERSION = String(document.querySelector('meta[name="visionary-app-version"]')?.content || "3.0.71");
+    const APP_VERSION = String(document.querySelector('meta[name="visionary-app-version"]')?.content || "3.0.76");
     const HOSTED_APP_ROOT = "https://jsikson7.github.io/Visionary/";
     const HOSTED_APP_URL = HOSTED_APP_ROOT + "?v=" + APP_VERSION.replace(/\D/g, "");
     const isDirectFilePage = !["http:", "https:"].includes(window.location.protocol);
@@ -20926,10 +21017,16 @@ function normalizeWeeklyRows(values) {
     }
 
     const SEPTEMBER_2026_RANKING_START = "2026-09-05";
+    const SEPTEMBER_2026_RANKING_END = "2026-09-28";
 
     function monthlyOfficialDefaultStart(today) {
       const monthStart = today.slice(0, 7) + "-01";
       return today.slice(0, 7) === "2026-09" ? SEPTEMBER_2026_RANKING_START : monthStart;
+    }
+
+    function monthlyOfficialDefaultEnd(today) {
+      if (today.slice(0, 7) !== "2026-09") return today;
+      return today < SEPTEMBER_2026_RANKING_END ? today : SEPTEMBER_2026_RANKING_END;
     }
 
     function updateMonthlyRankingPeriodNote(bounds) {
@@ -20942,7 +21039,7 @@ function normalizeWeeklyRows(values) {
       const today = localDateValue(new Date());
       const defaultStart = monthlyOfficialDefaultStart(today);
       const start = isLocalLeaderboardAdmin() ? String(monthlyPerformanceStart.value || "") : defaultStart;
-      const selectedEnd = isLocalLeaderboardAdmin() ? String(monthlyPerformanceEnd.value || "") : today;
+      const selectedEnd = isLocalLeaderboardAdmin() ? String(monthlyPerformanceEnd.value || "") : monthlyOfficialDefaultEnd(today);
       if (!/^\d{4}-\d{2}-\d{2}$/.test(start) || !/^\d{4}-\d{2}-\d{2}$/.test(selectedEnd)) return null;
       const cutoff = selectedEnd > today ? today : selectedEnd;
       return {
@@ -21009,6 +21106,7 @@ function normalizeWeeklyRows(values) {
           escalationCount: 0,
           superEscalationCount: 0,
           errorProofingCount: 0,
+          isLead: false,
           trial: { core: 0, proof: 0, escalation: 0, super: 0, pm: 0 },
           shifts: []
         };
@@ -21020,6 +21118,7 @@ function normalizeWeeklyRows(values) {
         existing.escalationCount += Number(breakdown.escalations) || 0;
         existing.superEscalationCount += Number(breakdown.superEscalations) || 0;
         existing.errorProofingCount += Number(breakdown.errorProofing) || 0;
+        existing.isLead = existing.isLead || option.key === "Lead";
         if (state.shift && existing.shifts.indexOf(state.shift) === -1) existing.shifts.push(state.shift);
         people.set(key, existing);
       });
@@ -21071,7 +21170,8 @@ function normalizeWeeklyRows(values) {
         escalationCount: 0,
         superEscalationCount: 0,
         errorProofingCount: 0,
-        perfectShiftCount: 0
+        perfectShiftCount: 0,
+        technicianCounts: Object.create(null)
       }));
 
       records.filter((record) => record.date <= cutoff && monthlyRecordQualifies(record)).forEach((record) => {
@@ -21086,6 +21186,7 @@ function normalizeWeeklyRows(values) {
             escalationCount: 0,
             superEscalationCount: 0,
             errorProofingCount: 0,
+            isLead: false,
             shiftCounts: Object.create(null)
           };
           technician.shiftCount += 1;
@@ -21094,6 +21195,7 @@ function normalizeWeeklyRows(values) {
           technician.escalationCount += Number(person.escalationCount) || 0;
           technician.superEscalationCount += Number(person.superEscalationCount) || 0;
           technician.errorProofingCount += Number(person.errorProofingCount) || 0;
+          technician.isLead = technician.isLead || Boolean(person.isLead);
           (person.shifts || [record.shift]).forEach((shiftCode) => {
             if (shiftCode) technician.shiftCounts[shiftCode] = (technician.shiftCounts[shiftCode] || 0) + 1;
           });
@@ -21113,6 +21215,15 @@ function normalizeWeeklyRows(values) {
         shift.superEscalationCount += record.superEscalationCount;
         shift.errorProofingCount += record.errorProofingCount;
         shift.perfectShiftCount += record.perfect ? 1 : 0;
+        record.people.forEach((person) => {
+          const key = String(person && person.key || "").trim();
+          const name = String(person && person.name || "").replace(/\s+/g, " ").trim();
+          if (!key || !name) return;
+          const existing = shift.technicianCounts[key] || { key: key, name: name, count: 0, isLead: false };
+          existing.count += 1;
+          existing.isLead = existing.isLead || Boolean(person.isLead);
+          shift.technicianCounts[key] = existing;
+        });
       });
 
       return {
@@ -21126,7 +21237,7 @@ function normalizeWeeklyRows(values) {
     const RANKING_LEAD_NAMES = ["Tolay", "Karla", "Zack", "Esme"];
     function isRankingLead(person) {
       const name = String(person && person.name || "").trim().toLowerCase();
-      return RANKING_LEAD_NAMES.some(lead => lead.toLowerCase() === name) || name === "tolayc";
+      return Boolean(person && person.isLead) || RANKING_LEAD_NAMES.some(lead => lead.toLowerCase() === name) || name === "tolayc";
     }
 
     function monthlyRankPeople(people) {
@@ -21182,6 +21293,58 @@ function normalizeWeeklyRows(values) {
         .sort((left, right) => left.shift.localeCompare(right.shift))
         .map((shift) => Object.assign({}, shift, { rank: null, requiredShifts: requiredShifts }));
       return active.concat(inactive);
+    }
+
+    function monthlyShiftPeople(shift) {
+      return Object.keys(shift && shift.technicianCounts || {}).map((key) => shift.technicianCounts[key]);
+    }
+
+    function monthlyShiftLeadNames(shift) {
+      return monthlyShiftPeople(shift)
+        .filter((person) => person.isLead || isRankingLead(person))
+        .sort((left, right) => (Number(right.count) || 0) - (Number(left.count) || 0) || left.name.localeCompare(right.name))
+        .map((person) => person.name);
+    }
+
+    function monthlyShiftTechnicianNames(shift, technicianRanks, includeRanks) {
+      return monthlyShiftPeople(shift)
+        .filter((person) => !person.isLead && !isRankingLead(person))
+        .sort((left, right) => {
+          const leftRank = technicianRanks instanceof Map ? technicianRanks.get(left.key) : null;
+          const rightRank = technicianRanks instanceof Map ? technicianRanks.get(right.key) : null;
+          return (leftRank == null ? Infinity : leftRank) - (rightRank == null ? Infinity : rightRank) ||
+            (Number(right.count) || 0) - (Number(left.count) || 0) || left.name.localeCompare(right.name);
+        })
+        .map((person) => {
+          const rank = technicianRanks instanceof Map ? technicianRanks.get(person.key) : null;
+          return includeRanks && rank != null ? "#" + rank + " " + person.name : person.name;
+        });
+    }
+
+    function monthlyShiftTechnicianLines(shift, technicianRanks) {
+      const names = monthlyShiftTechnicianNames(shift, technicianRanks, true);
+      if (!names.length) return ["No technician names recorded"];
+      const maxCharacters = 46;
+      const maxLines = 2;
+      const lines = [];
+      let current = "";
+      let included = 0;
+      for (let index = 0; index < names.length; index += 1) {
+        const candidate = current ? current + " · " + names[index] : names[index];
+        if (current && candidate.length > maxCharacters) {
+          lines.push(current);
+          if (lines.length >= maxLines) break;
+          current = names[index];
+          included = index + 1;
+        } else {
+          current = candidate;
+          included = index + 1;
+        }
+      }
+      if (current && lines.length < maxLines) lines.push(current);
+      const omitted = names.length - included;
+      if (omitted > 0) lines[lines.length - 1] += " · +" + omitted + " more";
+      return lines;
     }
 
     const TRIAL_CATEGORIES = [
@@ -21511,7 +21674,7 @@ function normalizeWeeklyRows(values) {
 
     function renderMonthlyTechnicians(technicians, streaks) {
       monthlyTechnicianLeaders.innerHTML = "";
-      const leaders = technicians.slice(0, 4);
+      const leaders = technicians.slice(0, 3);
       if (!leaders.length) {
         const empty = document.createElement("p");
         empty.className = "monthly-empty-state";
@@ -21556,7 +21719,7 @@ function normalizeWeeklyRows(values) {
       });
     }
 
-    function renderMonthlyShifts(shifts, streaks) {
+    function renderMonthlyShifts(shifts, streaks, technicianRanks) {
       monthlyShiftLeaders.innerHTML = "";
       shifts.forEach((shift) => {
         const card = document.createElement("article");
@@ -21577,17 +21740,26 @@ function normalizeWeeklyRows(values) {
           monthlyRankingMetric("SE", "Super escalations", String(shift.superEscalationCount)),
           monthlyRankingMetric("EP", "Error proofing", String(shift.errorProofingCount))
         );
-        card.append(
-          monthlyRankingCardTop(
-            shift.rank,
-            shift.shift + " Shift",
-            "",
-            streaks.get(shift.key),
-            monthlyAveragePoints(shift),
-            shift.shiftCount > 0
-          ),
-          metrics
-        );
+        card.append(monthlyRankingCardTop(
+          shift.rank,
+          shift.shift + " Shift",
+          "",
+          streaks.get(shift.key),
+          monthlyAveragePoints(shift),
+          shift.shiftCount > 0
+        ));
+        if (shift.rank === 1) {
+          const leads = document.createElement("p");
+          leads.className = "monthly-ranking-subtitle";
+          const leadNames = monthlyShiftLeadNames(shift);
+          leads.textContent = "Lead: " + (leadNames.length ? leadNames.join(" · ") : "No name recorded");
+          const technicians = document.createElement("p");
+          technicians.className = "monthly-ranking-subtitle";
+          const technicianNames = monthlyShiftTechnicianNames(shift, technicianRanks, true);
+          technicians.textContent = "Technicians · best to last overall: " + (technicianNames.length ? technicianNames.join(" · ") : "No names recorded");
+          card.append(leads, technicians);
+        }
+        card.appendChild(metrics);
         if (shift.rank == null) {
           const eligibility = document.createElement("p");
           eligibility.className = "monthly-ranking-subtitle";
@@ -21675,7 +21847,7 @@ function normalizeWeeklyRows(values) {
       const parts = [];
       monthlySvgRect(parts, 0, 0, width, height, "#f2f4e8", 0);
       monthlySvgText(parts, padding, 58, technicianExport ? "POWER RANKINGS · AVG PPS · MINIMUM 3 SHIFTS" : "POWER RANKINGS · AVG PPS · COMPLETION TIEBREAK · MINIMUM 3 SHIFTS", 20, 800, "#5f7d43");
-      monthlySvgText(parts, padding, 103, technicianExport ? "Top 4 Technicians" : "Top Shifts", 38, 800, "#293225");
+      monthlySvgText(parts, padding, 103, technicianExport ? "Top 3 Technicians" : "Top Shifts", 38, 800, "#293225");
       monthlySvgText(
         parts,
         width - padding,
@@ -21744,11 +21916,156 @@ function normalizeWeeklyRows(values) {
       };
     }
 
+    function monthlyChampionDefs(parts) {
+      parts.push(
+        '<defs>' +
+        '<linearGradient id="champion-night" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#08162d"/><stop offset=".52" stop-color="#173454"/><stop offset="1" stop-color="#355d64"/></linearGradient>' +
+        '<radialGradient id="champion-moon" cx="42%" cy="36%"><stop offset="0" stop-color="#fffdf1"/><stop offset=".68" stop-color="#ffe8a1"/><stop offset="1" stop-color="#e2ad52"/></radialGradient>' +
+        '<linearGradient id="champion-glass" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1b3955" stop-opacity=".97"/><stop offset="1" stop-color="#0b203a" stop-opacity=".98"/></linearGradient>' +
+        '<linearGradient id="champion-gold" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff0ad"/><stop offset=".45" stop-color="#efc35b"/><stop offset="1" stop-color="#a96c2e"/></linearGradient>' +
+        '<filter id="champion-glow"><feGaussianBlur stdDeviation="12" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>' +
+        '<filter id="champion-shadow"><feDropShadow dx="0" dy="12" stdDeviation="14" flood-color="#06101f" flood-opacity=".58"/></filter>' +
+        '</defs>'
+      );
+    }
+
+    function monthlyChampionBackground(parts) {
+      parts.push('<rect width="1080" height="1350" fill="url(#champion-night)"/>');
+      parts.push('<circle cx="823" cy="218" r="166" fill="url(#champion-moon)" opacity=".98" filter="url(#champion-glow)"/>');
+      parts.push('<path d="M0 1052C128 958 250 986 374 901C499 816 613 902 742 820C858 746 956 764 1080 687V1350H0Z" fill="#142e4a" stroke="#5f8d88" stroke-width="6"/>');
+      parts.push('<path d="M-30 1221C170 1101 314 1137 472 1041C644 938 792 1040 1110 884V1350H-30Z" fill="#091b31" stroke="#d4a950" stroke-width="5" opacity=".98"/>');
+      parts.push('<path d="M89 168C103 146 129 147 139 164C152 150 177 154 183 174C202 172 217 185 216 201H82C77 186 80 176 89 168ZM826 405C840 384 866 384 877 402C890 388 914 391 922 411C941 409 956 422 955 438H818C814 423 817 413 826 405Z" fill="none" stroke="#a9c9c3" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" opacity=".85"/>');
+      parts.push('<path d="M49 260H1031M91 260L123 235L155 260L187 235L219 260M861 260L893 235L925 260L957 235L989 260" fill="none" stroke="#d4a950" stroke-width="5" stroke-linejoin="round"/>');
+      parts.push('<path d="M48 1092C67 1034 83 988 106 947M65 1050L39 1017M76 1019L112 985M88 985L61 953M103 952L136 920M1032 1094C1014 1035 998 990 975 948M1016 1051L1041 1018M1005 1020L970 986M994 986L1020 954M979 953L947 921" fill="none" stroke="#d9b65d" stroke-width="7" stroke-linecap="round"/>');
+      parts.push('<g fill="#f4dfad" stroke="#789c8f" stroke-width="3"><path d="M78 1266C92 1235 126 1235 140 1266C122 1284 96 1284 78 1266Z"/><path d="M133 1268C148 1238 181 1238 196 1268C178 1286 151 1286 133 1268Z"/><path d="M884 1268C899 1238 932 1238 947 1268C929 1286 902 1286 884 1268Z"/><path d="M940 1266C954 1235 988 1235 1002 1266C984 1284 958 1284 940 1266Z"/></g>');
+      parts.push('<path d="M40 86L64 62L88 86L64 110ZM992 86L1016 62L1040 86L1016 110Z" fill="#b55266" stroke="#efc35b" stroke-width="4"/>');
+      parts.push('<circle cx="64" cy="86" r="9" fill="#4f8d86"/><circle cx="1016" cy="86" r="9" fill="#4f8d86"/>');
+      parts.push('<rect x="24" y="24" width="1032" height="1302" rx="32" fill="none" stroke="#d4a950" stroke-width="4"/>');
+      parts.push('<rect x="38" y="38" width="1004" height="1274" rx="25" fill="none" stroke="#4f8d86" stroke-width="2"/>');
+      parts.push('<path d="M38 1194H1042M208 38V110M872 38V110" stroke="#7caaa3" stroke-width="3" opacity=".68"/>');
+    }
+
+    function monthlyChampionMetric(parts, x, y, width, label, value, accent) {
+      parts.push('<rect x="' + x + '" y="' + y + '" width="' + width + '" height="76" rx="16" fill="#07182c" fill-opacity=".78" stroke="#4f7f7b" stroke-width="2"/>');
+      monthlySvgText(parts, x + 16, y + 27, label.toUpperCase(), 14, 800, "#cbdad9");
+      monthlySvgText(parts, x + width - 16, y + 55, value, 27, 800, accent || "#fff7df", "end");
+    }
+
+    function monthlyChampionArtItem(rank, team) {
+      return team
+        ? { team: true, tier: { sprite: 3 } }
+        : { team: false, tier: { sprite: rank === 1 ? 2 : rank === 2 ? 1 : 0 } };
+    }
+
+    function monthlyBuildChampionSvg(kind) {
+      if (!monthlyRankingExportData) throw new Error("Load Power Rankings before saving an image.");
+      const technicianExport = kind === "technicians";
+      const technicians = monthlyRankingExportData.technicians.slice(0, 3);
+      const winningShift = monthlyRankingExportData.shifts.find((item) => item.rank === 1);
+      if (technicianExport ? !technicians.length : !winningShift) {
+        throw new Error("There is no ranking data to save for this date range.");
+      }
+
+      const width = 1080;
+      const height = 1350;
+      const parts = [];
+      const paintItems = [];
+      const foregroundItems = [];
+      monthlyChampionDefs(parts);
+      monthlyChampionBackground(parts);
+      monthlySvgText(parts, 540, 88, "CHUSEOK · FINAL SEPTEMBER RESULTS", 19, 800, "#efc35b", "middle");
+      monthlySvgText(parts, 540, 154, technicianExport ? "TOP 3 TECHNICIANS" : "TOP SHIFT", 58, 900, "#fff7df", "middle");
+      monthlySvgText(
+        parts,
+        540,
+        197,
+        monthlyReadableDate(monthlyRankingExportData.bounds.start, { month: "short", day: "numeric" }) + " – " +
+          monthlyReadableDate(monthlyRankingExportData.bounds.cutoff, { month: "short", day: "numeric", year: "numeric" }),
+        22,
+        700,
+        "#cbdad9",
+        "middle"
+      );
+
+      if (technicianExport) {
+        const placements = {
+          1: { x: 46, cardY: 462, cardH: 690, characterY: 220, characterSize: 324, accent: "#ffd078", border: "#f4bd55" },
+          2: { x: 378, cardY: 510, cardH: 642, characterY: 278, characterSize: 270, accent: "#d9e5ef", border: "#aebdca" },
+          3: { x: 710, cardY: 510, cardH: 642, characterY: 278, characterSize: 270, accent: "#e7a06d", border: "#bd7446" }
+        };
+        technicians.forEach((technician) => {
+          const place = placements[technician.rank] || placements[3];
+          const cardWidth = 324;
+          const shiftLabel = monthlyTechnicianShiftLabel(technician) || "Multiple shifts";
+          const medal = monthlyExportMedals(technician);
+          const streak = monthlyRankingExportData.technicianStreaks.get(technician.key);
+          parts.push('<rect x="' + place.x + '" y="' + place.cardY + '" width="' + cardWidth + '" height="' + place.cardH + '" rx="30" fill="url(#champion-glass)" stroke="' + place.border + '" stroke-width="4" filter="url(#champion-shadow)"/>');
+          monthlySvgText(parts, place.x + cardWidth / 2, place.cardY + 113, technician.name, 31, 900, "#fff7df", "middle");
+          monthlySvgText(parts, place.x + cardWidth / 2, place.cardY + 143, shiftLabel, 16, 800, place.accent, "middle");
+          monthlySvgText(parts, place.x + cardWidth / 2, place.cardY + 214, monthlyAveragePoints(technician), 54, 900, place.accent, "middle");
+          monthlySvgText(parts, place.x + cardWidth / 2, place.cardY + 242, "AVG POINTS PER SHIFT", 13, 800, "#cbdad9", "middle");
+          monthlyChampionMetric(parts, place.x + 18, place.cardY + 274, 138, "Total pts", monthlyNumber(technician.points), place.accent);
+          monthlyChampionMetric(parts, place.x + 168, place.cardY + 274, 138, "Shifts", String(technician.shiftCount), place.accent);
+          monthlyChampionMetric(parts, place.x + 18, place.cardY + 362, 138, "PMs", String(technician.pmCount), place.accent);
+          monthlyChampionMetric(parts, place.x + 168, place.cardY + 362, 138, "Escalations", String(technician.escalationCount), place.accent);
+          monthlyChampionMetric(parts, place.x + 18, place.cardY + 450, 138, "Super esc.", String(technician.superEscalationCount), place.accent);
+          monthlyChampionMetric(parts, place.x + 168, place.cardY + 450, 138, "Error proof", String(technician.errorProofingCount), place.accent);
+          monthlySvgText(parts, place.x + cardWidth / 2, place.cardY + 565, medal.total + " achievement medal" + (medal.total === 1 ? "" : "s"), 17, 800, "#fff7df", "middle");
+          monthlySvgText(parts, place.x + cardWidth / 2, place.cardY + 596, monthlyExportStreak(technician.rank, streak, true), 15, 700, "#cbdad9", "middle");
+          paintItems.push({ item: monthlyChampionArtItem(technician.rank, false), x: place.x + (cardWidth - place.characterSize) / 2, y: place.characterY, size: place.characterSize });
+          foregroundItems.push({ rank: technician.rank, x: place.x + cardWidth / 2, y: place.cardY + 23, accent: place.accent, border: place.border });
+        });
+        monthlySvgText(parts, 540, 1219, "Ranked by average points per qualifying shift · Minimum 3 shifts", 18, 700, "#cbdad9", "middle");
+      } else {
+        const completion = winningShift.completionAvailable
+          ? Math.round((winningShift.completionEarned / winningShift.completionAvailable) * 100) + "%"
+          : "—";
+        const streak = monthlyRankingExportData.shiftStreaks.get(winningShift.key);
+        parts.push('<rect x="62" y="286" width="956" height="876" rx="38" fill="url(#champion-glass)" stroke="#f4bd55" stroke-width="5" filter="url(#champion-shadow)"/>');
+        parts.push('<path d="M111 340H488" stroke="#4f8d86" stroke-width="3"/><path d="M111 350H410" stroke="#b55266" stroke-width="2"/>');
+        monthlySvgText(parts, 112, 392, "#1 · CHUSEOK CHAMPION", 22, 900, "#efc35b");
+        monthlySvgText(parts, 112, 515, winningShift.shift + " SHIFT", 82, 900, "#fff7df");
+        monthlySvgText(parts, 112, 612, monthlyAveragePoints(winningShift), 76, 900, "#ffd078");
+        monthlySvgText(parts, 116, 650, "AVG POINTS PER SHIFT", 18, 800, "#cbdad9");
+        monthlySvgText(parts, 112, 702, monthlyExportStreak(1, streak, true), 18, 700, "#efc35b");
+        const metricWidth = 214;
+        const metricGap = 18;
+        const metricX = 94;
+        const shiftLabels = ["Shifts", "Total points", "Completed", "Perfect shifts", "PMs", "Escalations", "Super esc.", "Error proof"];
+        const shiftValues = [winningShift.shiftCount, monthlyNumber(winningShift.points), completion, winningShift.perfectShiftCount, winningShift.pmCount, winningShift.escalationCount, winningShift.superEscalationCount, winningShift.errorProofingCount];
+        shiftLabels.forEach((label, index) => {
+          const column = index % 4;
+          const row = Math.floor(index / 4);
+          monthlyChampionMetric(parts, metricX + column * (metricWidth + metricGap), 820 + row * 96, metricWidth, label, String(shiftValues[index]), "#ffd078");
+        });
+        const leadNames = monthlyShiftLeadNames(winningShift);
+        const technicianLines = monthlyShiftTechnicianLines(winningShift, monthlyRankingExportData.technicianRanks);
+        monthlySvgText(parts, 540, 1028, "SHIFT LEAD", 13, 900, "#efc35b", "middle");
+        monthlySvgText(parts, 540, 1055, leadNames.length ? leadNames.join(" · ") : "No lead name recorded", 20, 800, "#fff7df", "middle");
+        monthlySvgText(parts, 540, 1085, "TECHNICIANS · BEST TO LAST OVERALL", 13, 900, "#efc35b", "middle");
+        technicianLines.forEach((line, index) => {
+          monthlySvgText(parts, 540, 1120 + index * 25, line, 20, 800, "#fff7df", "middle");
+        });
+        paintItems.push({ item: monthlyChampionArtItem(1, true), x: 570, y: 292, size: 410 });
+        monthlySvgText(parts, 540, 1219, "Ranked by average points per qualifying shift · Completion breaks ties", 18, 700, "#cbdad9", "middle");
+      }
+
+      parts.push('<rect x="310" y="1252" width="460" height="45" rx="22" fill="#07182c" stroke="#4f8d86" stroke-width="2"/>');
+      monthlySvgText(parts, 540, 1282, "Chuseok harvest celebration · Visionary Tool", 16, 800, "#efc35b", "middle");
+      return {
+        width: width,
+        height: height,
+        paintItems: paintItems,
+        foregroundItems: foregroundItems,
+        svg: '<svg xmlns="http://www.w3.org/2000/svg" width="' + width + '" height="' + height + '" viewBox="0 0 ' + width + " " + height + '">' + parts.join("") + "</svg>"
+      };
+    }
+
     function monthlySvgToPngFile(layout, filename) {
       return new Promise((resolve, reject) => {
         const svgUrl = URL.createObjectURL(new Blob([layout.svg], { type: "image/svg+xml;charset=utf-8" }));
         const image = new Image();
-        image.onload = () => {
+        image.onload = async () => {
           try {
             const canvas = document.createElement("canvas");
             canvas.width = layout.width;
@@ -21757,6 +22074,40 @@ function normalizeWeeklyRows(values) {
             if (!context) throw new Error("Image export is unavailable in this browser.");
             context.drawImage(image, 0, 0, layout.width, layout.height);
             URL.revokeObjectURL(svgUrl);
+            if (layout.paintItems && layout.paintItems.length) {
+              const art = window.VisionaryClubArt;
+              if (!art || typeof art.source !== "function" || typeof art.paintChuseok !== "function") {
+                throw new Error("The award character artwork did not load.");
+              }
+              const sources = layout.paintItems.map((entry) => art.source(entry.item));
+              await Promise.all(sources.map((source) => {
+                if (source.complete && source.naturalWidth) return Promise.resolve();
+                if (typeof source.decode === "function") return source.decode();
+                return new Promise((ready, failed) => {
+                  source.addEventListener("load", ready, { once: true });
+                  source.addEventListener("error", failed, { once: true });
+                });
+              }));
+              layout.paintItems.forEach((entry) => art.paintChuseok(context, entry.item, entry.x, entry.y, entry.size));
+            }
+            if (layout.foregroundItems && layout.foregroundItems.length) {
+              layout.foregroundItems.forEach((entry) => {
+                context.save();
+                context.beginPath();
+                context.arc(entry.x, entry.y, 43, 0, Math.PI * 2);
+                context.fillStyle = "#07182c";
+                context.fill();
+                context.lineWidth = 4;
+                context.strokeStyle = entry.border;
+                context.stroke();
+                context.fillStyle = entry.accent;
+                context.font = "900 31px Arial";
+                context.textAlign = "center";
+                context.textBaseline = "middle";
+                context.fillText("#" + entry.rank, entry.x, entry.y + 2);
+                context.restore();
+              });
+            }
             canvas.toBlob((blob) => {
               if (!blob) {
                 reject(new Error("The PNG could not be created."));
@@ -21778,13 +22129,13 @@ function normalizeWeeklyRows(values) {
     }
 
     function monthlyRankingFilename(kind) {
-      const label = kind === "technicians" ? "Technicians" : "Shifts";
+      const label = kind === "technicians" ? "Top-3-Technicians" : "Top-Shift";
       const bounds = monthlyRankingExportData && monthlyRankingExportData.bounds;
       return "Power-Rankings-" + label + "-" + (bounds ? bounds.start + "-to-" + bounds.cutoff : localDateValue(new Date())) + ".png";
     }
 
     function buildMonthlyRankingPng(kind) {
-      return monthlySvgToPngFile(monthlyBuildRankingSvg(kind), monthlyRankingFilename(kind));
+      return monthlySvgToPngFile(monthlyBuildChampionSvg(kind), monthlyRankingFilename(kind));
     }
 
     function resetMonthlyRankingExports() {
@@ -21800,7 +22151,7 @@ function normalizeWeeklyRows(values) {
       const buildId = ++monthlyRankingExportBuildId;
       const targets = [
         { kind: "technicians", button: monthlyTechnicianSavePng, available: monthlyRankingExportData.technicians.length > 0 },
-        { kind: "shifts", button: monthlyShiftSavePng, available: monthlyRankingExportData.shifts.some((shift) => shift.shiftCount > 0) }
+        { kind: "shifts", button: monthlyShiftSavePng, available: monthlyRankingExportData.shifts.some((shift) => shift.rank === 1) }
       ];
       targets.forEach((target) => {
         if (!target.button || !target.available) return;
@@ -21846,7 +22197,7 @@ function normalizeWeeklyRows(values) {
           try {
             await navigator.share({
               files: [file],
-              title: kind === "technicians" ? "Power Rankings – Top Technicians" : "Power Rankings – Top Shifts"
+              title: kind === "technicians" ? "Power Rankings – Top 3 Technicians" : "Power Rankings – Top Shift"
             });
             setMonthlyPerformanceStatus("PNG is ready in your phone's share and save options.");
           } catch (error) {
@@ -21915,19 +22266,21 @@ function normalizeWeeklyRows(values) {
         const rankedTechnicians = monthlyRankTechnicians(current.technicians);
         const rankedShifts = monthlyRankShifts(current.shifts);
         const streaks = monthlyPositionStreakMaps(records, bounds.start, bounds.cutoff);
+        const technicianRanks = new Map(rankedTechnicians.map((technician) => [technician.key, technician.rank]));
 
         renderMonthlyTechnicians(rankedTechnicians, streaks.technicians);
-        renderMonthlyShifts(rankedShifts, streaks.shifts);
+        renderMonthlyShifts(rankedShifts, streaks.shifts, technicianRanks);
         renderMonthlyRankingAudit(auditRows);
         monthlyPerformanceRange.textContent =
           monthlyReadableDate(bounds.start) + " – " + monthlyReadableDate(bounds.cutoff) +
-          (isLocalLeaderboardAdmin() ? " · Selected date range" : " · Current month") +
+          (isLocalLeaderboardAdmin() ? " · Selected date range" : " · Official final period") +
           " · 70% minimum completion";
         monthlyPerformanceOutput.hidden = false;
         monthlyRankingExportData = {
           bounds: bounds,
-          technicians: rankedTechnicians.slice(0, 4),
+          technicians: rankedTechnicians.slice(0, 3),
           shifts: rankedShifts,
+          technicianRanks: technicianRanks,
           technicianStreaks: streaks.technicians,
           shiftStreaks: streaks.shifts
         };
@@ -22537,9 +22890,9 @@ function normalizeWeeklyRows(values) {
       const appProperties = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>' +
         '<Properties xmlns="http://schemas.openxmlformats.org/officeDocument/2006/extended-properties" ' +
         'xmlns:vt="http://schemas.openxmlformats.org/officeDocument/2006/docPropsVTypes">' +
-        '<Application>Visionary 3.0.71</Application><DocSecurity>0</DocSecurity><ScaleCrop>false</ScaleCrop>' +
+        '<Application>Visionary 3.0.76</Application><DocSecurity>0</DocSecurity><ScaleCrop>false</ScaleCrop>' +
         '<Company></Company><LinksUpToDate>false</LinksUpToDate><SharedDoc>false</SharedDoc><HyperlinksChanged>false</HyperlinksChanged>' +
-        '<AppVersion>3.0.71</AppVersion></Properties>';
+        '<AppVersion>3.0.76</AppVersion></Properties>';
 
       const zip = xlsxZipStoredFiles([
         { name: "[Content_Types].xml", contents: contentTypes },
@@ -22728,7 +23081,7 @@ function normalizeWeeklyRows(values) {
     if (monthlyPerformanceForm) {
       const leaderboardToday = localDateValue(new Date());
       monthlyPerformanceStart.value = monthlyOfficialDefaultStart(leaderboardToday);
-      monthlyPerformanceEnd.value = leaderboardToday;
+      monthlyPerformanceEnd.value = monthlyOfficialDefaultEnd(leaderboardToday);
       updateMonthlyRankingPeriodNote(monthlySelectedBounds());
       monthlyPerformanceForm.addEventListener("submit", generateMonthlyPerformance);
       [monthlyPerformanceStart, monthlyPerformanceEnd].forEach((control) => control.addEventListener("change", () => {
