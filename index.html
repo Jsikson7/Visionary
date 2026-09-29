@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="description" content="A mobile-friendly collection of vision production guides, troubleshooting history, and copy-ready reporting tools.">
-  <meta name="visionary-app-version" content="3.0.76">
+  <meta name="visionary-app-version" content="3.0.77">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
@@ -7159,7 +7159,7 @@
             <span class="form-tile-arrow" aria-hidden="true">›</span>
           </button>
         </div>
-        <p class="last-updated">Version 3.0.76 · Last updated: <time datetime="2026-09-29">September 29, 2026</time></p>
+        <p class="last-updated">Version 3.0.77 · Last updated: <time datetime="2026-09-29">September 29, 2026</time></p>
         <div class="version-history-link-wrap">
           <button id="open-version-history" class="version-history-link" type="button">View version history</button>
         </div>
@@ -7307,7 +7307,7 @@
             <div class="daily-cloud-copy">
               <strong id="daily-cloud-title">Shared shift synchronization</strong>
               <span id="daily-cloud-status" role="status" aria-live="polite">Sign in with Google to share Daily Tasks across phones.</span>
-              <small>Safe Sync v6.2 · App <span id="daily-app-version">3.0.76</span><span id="daily-version-health" class="daily-version-health" hidden></span></small>
+              <small>Safe Sync v6.2 · App <span id="daily-app-version">3.0.77</span><span id="daily-version-health" class="daily-version-health" hidden></span></small>
             </div>
           </div>
           <div class="daily-cloud-actions">
@@ -8132,10 +8132,14 @@
 
       <section class="panel" aria-label="Release history">
         <div class="version-history-list">
-          <article class="version-card version-card-current"><div class="version-card-heading"><h2>Version 3.0.76</h2><time datetime="2026-09-29">September 29, 2026</time></div>
+          <article class="version-card version-card-current"><div class="version-card-heading"><h2>Version 3.0.77</h2><time datetime="2026-09-29">September 29, 2026</time></div>
+            <p class="version-summary-intro">Simplified the Top Shift technician heading.</p><ul class="version-summary-list">
+            <li><strong>Cleaner label</strong>The award now says only “Technicians” above the ranked names.</li>
+            <li><strong>Order preserved</strong>Technician names remain arranged from the strongest overall rank downward.</li></ul></article>
+          <article class="version-card"><div class="version-card-heading"><h2>Version 3.0.76</h2><time datetime="2026-09-29">September 29, 2026</time></div>
             <p class="version-summary-intro">Expanded team recognition and clarified overall technician order.</p><ul class="version-summary-list">
             <li><strong>Shift lead recognized</strong>The winning shift's lead now appears above the technician names in the card and saved PNG.</li>
-            <li><strong>Overall rank order</strong>Winning-shift technicians are listed from best to last overall, with rank numbers shown when qualified.</li>
+            <li><strong>Overall rank order</strong>Winning-shift technicians are listed in ascending overall rank, with rank numbers shown when qualified.</li>
             <li><strong>Top three reading order</strong>The technician celebration artwork now runs left-to-right as #1, #2, then #3.</li></ul></article>
           <article class="version-card"><div class="version-card-heading"><h2>Version 3.0.75</h2><time datetime="2026-09-29">September 29, 2026</time></div>
             <p class="version-summary-intro">Added the winning technicians to the Top Shift result.</p><ul class="version-summary-list">
@@ -9729,8 +9733,8 @@ window.VisionaryIQRequirements = Object.freeze({
         "Open Full Screen": "전체 화면으로 열기",
         "If the embedded form does not appear or feels cramped, use Open Full Screen.": "포함된 양식이 표시되지 않거나 화면이 좁으면 전체 화면으로 열기를 사용하세요.",
         "Loading Microsoft Form…": "Microsoft 양식을 불러오는 중…",
-        "Version 3.0.76 · Last updated:": "버전 3.0.76 · 마지막 업데이트:",
-        "Version 3.0.76": "버전 3.0.76",
+        "Version 3.0.77 · Last updated:": "버전 3.0.77 · 마지막 업데이트:",
+        "Version 3.0.77": "버전 3.0.77",
         "Version 3.0.72 · Last updated:": "버전 3.0.72 · 마지막 업데이트:",
         "Version 3.0.72": "버전 3.0.72",
         "Version 3.0.71 · Last updated:": "버전 3.0.71 · 마지막 업데이트:",
@@ -19622,7 +19626,7 @@ function normalizeWeeklyRows(values) {
     const provider = new GoogleAuthProvider();
     provider.setCustomParameters({ prompt: "select_account" });
     const SYNC_PROTOCOL_VERSION = 6;
-    const APP_VERSION = String(document.querySelector('meta[name="visionary-app-version"]')?.content || "3.0.76");
+    const APP_VERSION = String(document.querySelector('meta[name="visionary-app-version"]')?.content || "3.0.77");
     const HOSTED_APP_ROOT = "https://jsikson7.github.io/Visionary/";
     const HOSTED_APP_URL = HOSTED_APP_ROOT + "?v=" + APP_VERSION.replace(/\D/g, "");
     const isDirectFilePage = !["http:", "https:"].includes(window.location.protocol);
@@ -21756,7 +21760,7 @@ function normalizeWeeklyRows(values) {
           const technicians = document.createElement("p");
           technicians.className = "monthly-ranking-subtitle";
           const technicianNames = monthlyShiftTechnicianNames(shift, technicianRanks, true);
-          technicians.textContent = "Technicians · best to last overall: " + (technicianNames.length ? technicianNames.join(" · ") : "No names recorded");
+          technicians.textContent = "Technicians: " + (technicianNames.length ? technicianNames.join(" · ") : "No names recorded");
           card.append(leads, technicians);
         }
         card.appendChild(metrics);
@@ -22042,7 +22046,7 @@ function normalizeWeeklyRows(values) {
         const technicianLines = monthlyShiftTechnicianLines(winningShift, monthlyRankingExportData.technicianRanks);
         monthlySvgText(parts, 540, 1028, "SHIFT LEAD", 13, 900, "#efc35b", "middle");
         monthlySvgText(parts, 540, 1055, leadNames.length ? leadNames.join(" · ") : "No lead name recorded", 20, 800, "#fff7df", "middle");
-        monthlySvgText(parts, 540, 1085, "TECHNICIANS · BEST TO LAST OVERALL", 13, 900, "#efc35b", "middle");
+        monthlySvgText(parts, 540, 1085, "TECHNICIANS", 13, 900, "#efc35b", "middle");
         technicianLines.forEach((line, index) => {
           monthlySvgText(parts, 540, 1120 + index * 25, line, 20, 800, "#fff7df", "middle");
         });
@@ -22890,9 +22894,9 @@ function normalizeWeeklyRows(values) {
       const appProperties = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>' +
         '<Properties xmlns="http://schemas.openxmlformats.org/officeDocument/2006/extended-properties" ' +
         'xmlns:vt="http://schemas.openxmlformats.org/officeDocument/2006/docPropsVTypes">' +
-        '<Application>Visionary 3.0.76</Application><DocSecurity>0</DocSecurity><ScaleCrop>false</ScaleCrop>' +
+        '<Application>Visionary 3.0.77</Application><DocSecurity>0</DocSecurity><ScaleCrop>false</ScaleCrop>' +
         '<Company></Company><LinksUpToDate>false</LinksUpToDate><SharedDoc>false</SharedDoc><HyperlinksChanged>false</HyperlinksChanged>' +
-        '<AppVersion>3.0.76</AppVersion></Properties>';
+        '<AppVersion>3.0.77</AppVersion></Properties>';
 
       const zip = xlsxZipStoredFiles([
         { name: "[Content_Types].xml", contents: contentTypes },
