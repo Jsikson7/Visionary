@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="description" content="A mobile-friendly collection of vision production guides, troubleshooting history, and copy-ready reporting tools.">
-  <meta name="visionary-app-version" content="3.0.82">
+  <meta name="visionary-app-version" content="3.0.83">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
@@ -7159,7 +7159,7 @@
             <span class="form-tile-arrow" aria-hidden="true">›</span>
           </button>
         </div>
-        <p class="last-updated">Version 3.0.82 · Last updated: <time datetime="2026-09-30">September 30, 2026</time></p>
+        <p class="last-updated">Version 3.0.83 · Last updated: <time datetime="2026-10-01">October 1, 2026</time></p>
         <div class="version-history-link-wrap">
           <button id="open-version-history" class="version-history-link" type="button">View version history</button>
         </div>
@@ -7307,7 +7307,7 @@
             <div class="daily-cloud-copy">
               <strong id="daily-cloud-title">Shared shift synchronization</strong>
               <span id="daily-cloud-status" role="status" aria-live="polite">Sign in with Google to share Daily Tasks across phones.</span>
-              <small>Safe Sync v6.2 · App <span id="daily-app-version">3.0.82</span><span id="daily-version-health" class="daily-version-health" hidden></span></small>
+              <small>Safe Sync v6.2 · App <span id="daily-app-version">3.0.83</span><span id="daily-version-health" class="daily-version-health" hidden></span></small>
             </div>
           </div>
           <div class="daily-cloud-actions">
@@ -8145,7 +8145,8 @@
 
       <section class="panel" aria-label="Release history">
         <div class="version-history-list">
-          <article class="version-card version-card-current"><div class="version-card-heading"><h2>Version 3.0.82</h2><time datetime="2026-09-30">September 30, 2026</time></div><p class="version-summary-intro">Inventory Day now supports four separate technician selections, worth 800 points per completed entry and 3,200 points total. Duplicate names cannot earn multiple Inventory Day credits. The original technician entry is preserved. Available only for G1 on October 1, 2026.</p></article>
+          <article class="version-card version-card-current"><div class="version-card-heading"><h2>Version 3.0.83</h2><time datetime="2026-10-01">October 1, 2026</time></div><p class="version-summary-intro">Daily Tasks medals now show only achievements earned during the selected shift’s calendar month. Counts start fresh each month without deleting saved history. Viewing an older shift shows medals for its month. Medal thresholds, individual shift points, lead stars and Firebase saving are unchanged.</p></article>
+          <article class="version-card"><div class="version-card-heading"><h2>Version 3.0.82</h2><time datetime="2026-09-30">September 30, 2026</time></div><p class="version-summary-intro">Inventory Day now supports four separate technician selections, worth 800 points per completed entry and 3,200 points total. Duplicate names cannot earn multiple Inventory Day credits. The original technician entry is preserved. Available only for G1 on October 1, 2026.</p></article>
           <article class="version-card"><div class="version-card-heading"><h2>Version 3.0.81</h2><time datetime="2026-09-30">September 30, 2026</time></div><p class="version-summary-intro">Added Inventory Day for the October 1, 2026 G1 shift only. Completion with a selected shift technician earns 800 points through the existing task scoring and saving system. Other dates and shifts are unaffected.</p></article>
           <article class="version-card"><div class="version-card-heading"><h2>Version 3.0.80</h2><time datetime="2026-09-30">September 30, 2026</time></div><p class="version-summary-intro">The Daily Tasks shift report preview stays open on the right on desktop and follows the checklist as you scroll. Long reports scroll within the preview, with Generate shift report available below. Mobile keeps its collapsible preview. Ranking calculations, task points and sync behavior are unchanged.</p></article>
           <article class="version-card"><div class="version-card-heading"><h2>Version 3.0.79</h2><time datetime="2026-09-30">September 30, 2026</time></div><p class="version-summary-intro">Official balanced Power Rankings for October 1–30, 2026.</p><ul class="version-summary-list"><li>Core work, Escalations and Average PPS: 20% each. Medals, Error proofing, Super escalations and PMs: 10% each.</li><li>One calculation for technician cards, shifts, Admin details, rank streaks and PNG exports. Five recorded shifts required; shared credit, percentile normalization and tied ranks preserved.</li><li>Leads remain outside technician rankings and compare separately in Admin details. Their work counts toward shifts.</li><li>Removed the embedded celebration movie. Task records, point values, medals and Firebase sync are unchanged.</li></ul></article>
@@ -9756,8 +9757,8 @@ window.VisionaryIQRequirements = Object.freeze({
         "If the embedded form does not appear or feels cramped, use Open Full Screen.": "포함된 양식이 표시되지 않거나 화면이 좁으면 전체 화면으로 열기를 사용하세요.",
         "Loading Microsoft Form…": "Microsoft 양식을 불러오는 중…",
         "Replay celebration": "축하 영상 다시 보기",
-        "Version 3.0.82 · Last updated:": "버전 3.0.82 · 마지막 업데이트:",
-        "Version 3.0.82": "버전 3.0.82",
+        "Version 3.0.83 · Last updated:": "버전 3.0.83 · 마지막 업데이트:",
+        "Version 3.0.83": "버전 3.0.83",
         "Version 3.0.77 · Last updated:": "버전 3.0.77 · 마지막 업데이트:",
         "Version 3.0.77": "버전 3.0.77",
         "Version 3.0.72 · Last updated:": "버전 3.0.72 · 마지막 업데이트:",
@@ -16795,12 +16796,24 @@ function normalizeWeeklyRows(values) {
         });
         return counts;
       }
+      function honorDisplayMonth() {
+        return /^\d{4}-\d{2}-\d{2}$/.test(dateInput.value || '') ? dateInput.value.slice(0, 7) : '';
+      }
+      function honorDisplayMonthLabel() {
+        var month = honorDisplayMonth();
+        if (!month) return 'the selected shift month';
+        var parts = month.split('-').map(Number);
+        return new Intl.DateTimeFormat(undefined, { month: 'long', year: 'numeric' }).format(new Date(parts[0], parts[1] - 1, 1));
+      }
       function refreshHonorCounts(result) {
         var shifts = new Map(), states = new Map(), catalog = honorTaskCatalog();
+        var displayMonth = honorDisplayMonth();
         honorHistory.forEach(function (state) {
           var key = honorShiftKey(state);
           if (key) {
-            shifts.set(key, honorPointsForState(state, catalog));
+            if (displayMonth && String(state.date || '').slice(0, 7) === displayMonth) {
+              shifts.set(key, honorPointsForState(state, catalog));
+            }
             states.set(key, state);
           }
         });
@@ -16813,7 +16826,7 @@ function normalizeWeeklyRows(values) {
         });
         var currentKey = honorShiftKey({date:dateInput.value, shift:shiftSelect.value});
         if (currentKey) {
-          shifts.set(currentKey, current);
+          if (displayMonth) shifts.set(currentKey, current);
           if (typeof draftState === 'function') states.set(currentKey, draftState());
         }
         honorCounts = tallyHonorShifts(shifts);
@@ -16830,7 +16843,7 @@ function normalizeWeeklyRows(values) {
           badge.setAttribute('data-honor-tier', tier.metal.toLowerCase());
           badge.style.setProperty('--honor-ink', tier.color); badge.style.setProperty('--honor-paper', tier.paper);
           badge.textContent = String(count);
-          var description = tier.metal + ': ' + count + ' shift' + (count === 1 ? '' : 's') + ' at ' + tier.minimum.toLocaleString() + '+ points. ' + honorHistoryStatus;
+          var description = tier.metal + ': ' + count + ' shift' + (count === 1 ? '' : 's') + ' at ' + tier.minimum.toLocaleString() + '+ points in ' + honorDisplayMonthLabel() + '. ' + honorHistoryStatus;
           badge.title = description; badge.setAttribute('role','img'); badge.setAttribute('aria-label', description);
           group.appendChild(badge);
         });
@@ -16890,7 +16903,7 @@ function normalizeWeeklyRows(values) {
         var topName = preview.querySelector('.daily-report-top-name');
         if (topName) renderTopContributorAchievements(topName, topContributorSummary(metrics()));
         var note = document.getElementById('daily-honor-note');
-        if (note) note.textContent = 'Medals show individual point tiers. Gold stars count Perfect Shifts led by Esme (B1), Karla (B2), or Tolay (G2). ' + honorHistoryStatus;
+        if (note) note.textContent = 'Medals earned in ' + honorDisplayMonthLabel() + ' only; counts restart each month. Saved history is retained. Gold stars count Perfect Shifts led by Esme (B1), Karla (B2), or Tolay (G2). ' + honorHistoryStatus;
       }
       function setHonorHistory(changes, status, reset) {
         if (reset) honorHistory.clear();
@@ -19692,7 +19705,7 @@ function normalizeWeeklyRows(values) {
     const provider = new GoogleAuthProvider();
     provider.setCustomParameters({ prompt: "select_account" });
     const SYNC_PROTOCOL_VERSION = 6;
-    const APP_VERSION = String(document.querySelector('meta[name="visionary-app-version"]')?.content || "3.0.82");
+    const APP_VERSION = String(document.querySelector('meta[name="visionary-app-version"]')?.content || "3.0.83");
     const HOSTED_APP_ROOT = "https://jsikson7.github.io/Visionary/";
     const HOSTED_APP_URL = HOSTED_APP_ROOT + "?v=" + APP_VERSION.replace(/\D/g, "");
     const isDirectFilePage = !["http:", "https:"].includes(window.location.protocol);
@@ -22904,9 +22917,9 @@ function normalizeWeeklyRows(values) {
       const appProperties = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>' +
         '<Properties xmlns="http://schemas.openxmlformats.org/officeDocument/2006/extended-properties" ' +
         'xmlns:vt="http://schemas.openxmlformats.org/officeDocument/2006/docPropsVTypes">' +
-        '<Application>Visionary 3.0.82</Application><DocSecurity>0</DocSecurity><ScaleCrop>false</ScaleCrop>' +
+        '<Application>Visionary 3.0.83</Application><DocSecurity>0</DocSecurity><ScaleCrop>false</ScaleCrop>' +
         '<Company></Company><LinksUpToDate>false</LinksUpToDate><SharedDoc>false</SharedDoc><HyperlinksChanged>false</HyperlinksChanged>' +
-        '<AppVersion>3.0.82</AppVersion></Properties>';
+        '<AppVersion>3.0.83</AppVersion></Properties>';
 
       const zip = xlsxZipStoredFiles([
         { name: "[Content_Types].xml", contents: contentTypes },
