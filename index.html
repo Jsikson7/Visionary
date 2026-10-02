@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="description" content="A mobile-friendly collection of vision production guides, troubleshooting history, and copy-ready reporting tools.">
-  <meta name="visionary-app-version" content="3.0.83">
+  <meta name="visionary-app-version" content="3.0.84">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
@@ -7159,7 +7159,7 @@
             <span class="form-tile-arrow" aria-hidden="true">›</span>
           </button>
         </div>
-        <p class="last-updated">Version 3.0.83 · Last updated: <time datetime="2026-10-01">October 1, 2026</time></p>
+        <p class="last-updated">Version 3.0.84 · Last updated: <time datetime="2026-10-02">October 2, 2026</time></p>
         <div class="version-history-link-wrap">
           <button id="open-version-history" class="version-history-link" type="button">View version history</button>
         </div>
@@ -7307,7 +7307,7 @@
             <div class="daily-cloud-copy">
               <strong id="daily-cloud-title">Shared shift synchronization</strong>
               <span id="daily-cloud-status" role="status" aria-live="polite">Sign in with Google to share Daily Tasks across phones.</span>
-              <small>Safe Sync v6.2 · App <span id="daily-app-version">3.0.83</span><span id="daily-version-health" class="daily-version-health" hidden></span></small>
+              <small>Safe Sync v6.2 · App <span id="daily-app-version">3.0.84</span><span id="daily-version-health" class="daily-version-health" hidden></span></small>
             </div>
           </div>
           <div class="daily-cloud-actions">
@@ -7740,12 +7740,14 @@
             </div>
             <div class="daily-report-actions">
               <button id="daily-report-print" class="button button-primary" type="button">Print / Save PDF</button>
-              <button id="daily-report-email" class="button button-secondary" type="button">Email report</button>
+              <button id="daily-report-outlook" class="button button-primary" type="button">Copy for Outlook</button>
+              <button id="daily-report-email-download" class="button button-secondary" type="button">Download email report</button>
+              <button id="daily-report-email" class="button button-secondary" type="button">Share PNG</button>
               <button id="daily-report-download-desktop" class="button button-secondary" type="button">Download desktop image</button>
               <button id="daily-report-copy" class="button button-secondary" type="button">Copy report text</button>
             </div>
             <p id="daily-generated-report-status" class="status" role="status" aria-live="polite"></p>
-            <p class="daily-report-share-hint">Email report opens the share window with the wide PNG attached—choose your email app. If attachments are unavailable, the PNG downloads and an email draft opens.</p>
+            <p class="daily-report-share-hint">On your work PC: open the saved shift, generate the report, choose Copy for Outlook, then paste into the email body using Keep Source Formatting. To transfer between devices, use Download email report and open that file on your work PC. No screenshot is needed. Share PNG remains available as an attachment.</p>
           </div>
           <div id="daily-generated-report" class="preview daily-shift-preview daily-shift-preview-rich daily-generated-report" aria-label="Generated shift report"></div>
         </section>
@@ -8145,7 +8147,8 @@
 
       <section class="panel" aria-label="Release history">
         <div class="version-history-list">
-          <article class="version-card version-card-current"><div class="version-card-heading"><h2>Version 3.0.83</h2><time datetime="2026-10-01">October 1, 2026</time></div><p class="version-summary-intro">Daily Tasks medals now show only achievements earned during the selected shift’s calendar month. Counts start fresh each month without deleting saved history. Viewing an older shift shows medals for its month. Medal thresholds, individual shift points, lead stars and Firebase saving are unchanged.</p></article>
+          <article class="version-card version-card-current"><div class="version-card-heading"><h2>Version 3.0.84</h2><time datetime="2026-10-02">October 2, 2026</time></div><p class="version-summary-intro">Fixed locked shift reports excluding disabled task checkboxes from scoring. Read-only controls now retain their saved work credit. Added Copy for Outlook and a downloadable email report with readable text and tables, without screenshots. Existing shift records and Firebase saving are unchanged.</p></article>
+          <article class="version-card"><div class="version-card-heading"><h2>Version 3.0.83</h2><time datetime="2026-10-01">October 1, 2026</time></div><p class="version-summary-intro">Daily Tasks medals now show only achievements earned during the selected shift’s calendar month. Counts start fresh each month without deleting saved history. Viewing an older shift shows medals for its month. Medal thresholds, individual shift points, lead stars and Firebase saving are unchanged.</p></article>
           <article class="version-card"><div class="version-card-heading"><h2>Version 3.0.82</h2><time datetime="2026-09-30">September 30, 2026</time></div><p class="version-summary-intro">Inventory Day now supports four separate technician selections, worth 800 points per completed entry and 3,200 points total. Duplicate names cannot earn multiple Inventory Day credits. The original technician entry is preserved. Available only for G1 on October 1, 2026.</p></article>
           <article class="version-card"><div class="version-card-heading"><h2>Version 3.0.81</h2><time datetime="2026-09-30">September 30, 2026</time></div><p class="version-summary-intro">Added Inventory Day for the October 1, 2026 G1 shift only. Completion with a selected shift technician earns 800 points through the existing task scoring and saving system. Other dates and shifts are unaffected.</p></article>
           <article class="version-card"><div class="version-card-heading"><h2>Version 3.0.80</h2><time datetime="2026-09-30">September 30, 2026</time></div><p class="version-summary-intro">The Daily Tasks shift report preview stays open on the right on desktop and follows the checklist as you scroll. Long reports scroll within the preview, with Generate shift report available below. Mobile keeps its collapsible preview. Ranking calculations, task points and sync behavior are unchanged.</p></article>
@@ -9757,8 +9760,8 @@ window.VisionaryIQRequirements = Object.freeze({
         "If the embedded form does not appear or feels cramped, use Open Full Screen.": "포함된 양식이 표시되지 않거나 화면이 좁으면 전체 화면으로 열기를 사용하세요.",
         "Loading Microsoft Form…": "Microsoft 양식을 불러오는 중…",
         "Replay celebration": "축하 영상 다시 보기",
-        "Version 3.0.83 · Last updated:": "버전 3.0.83 · 마지막 업데이트:",
-        "Version 3.0.83": "버전 3.0.83",
+        "Version 3.0.84 · Last updated:": "버전 3.0.84 · 마지막 업데이트:",
+        "Version 3.0.84": "버전 3.0.84",
         "Version 3.0.77 · Last updated:": "버전 3.0.77 · 마지막 업데이트:",
         "Version 3.0.77": "버전 3.0.77",
         "Version 3.0.72 · Last updated:": "버전 3.0.72 · 마지막 업데이트:",
@@ -16269,7 +16272,8 @@ function normalizeWeeklyRows(values) {
 
       function activeFixedCheckboxes() {
         return Array.prototype.filter.call(form.querySelectorAll("[data-daily-fixed]"), function (checkbox) {
-          if (checkbox.getAttribute("data-task-active") === "false" || checkbox.disabled) return false;
+          // A read-only shift disables controls, but its saved work still counts.
+          if (checkbox.getAttribute("data-task-active") === "false") return false;
           if (checkbox.hasAttribute("data-required-date") && (checkbox.getAttribute("data-required-date") !== dateInput.value || checkbox.getAttribute("data-custom-shifts") !== shiftSelect.value)) return false;
           var allowedShifts = (checkbox.getAttribute("data-custom-shifts") || "").split(",").filter(Boolean);
           if (allowedShifts.length && shiftSelect.value && allowedShifts.indexOf(shiftSelect.value) === -1) return false;
@@ -18836,11 +18840,83 @@ function normalizeWeeklyRows(values) {
         }
       }
 
+      var preparedOutlookReport = null;
+      function buildOutlookReport(result) {
+        var escape = function (value) { return String(value == null ? '' : value).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); };
+        var subject = 'MI2 Shift Report - ' + (shiftSelect.value || '') + ' - ' + dateInput.value;
+        var html = '<div style="font-family:Arial,sans-serif;font-size:14px;line-height:1.5;color:#17251c;background:#ffffff;max-width:720px;text-align:left">' +
+          '<h1 style="font-size:22px;margin:0 0 12px">' + escape(subject) + '</h1>';
+        function table(rows) {
+          return '<table role="presentation" cellpadding="8" cellspacing="0" width="100%" style="width:100%;border-collapse:collapse;font-family:Arial,sans-serif;font-size:14px;table-layout:fixed">' + rows.map(function (row) {
+            return '<tr><td width="55%" style="border:1px solid #cbd5cc;vertical-align:top;word-wrap:break-word">' + escape(row[0]) + '</td><td style="border:1px solid #cbd5cc;vertical-align:top;word-wrap:break-word">' + escape(row[1]) + '</td></tr>';
+          }).join('') + '</table>';
+        }
+        html += table([['Completion', result.percent + '%'], ['Points', displayPoints(result.earned) + ' / ' + displayPoints(result.available)], ['Missed points', displayPoints(result.missedPoints)]]);
+        html += '<h2 style="font-size:18px;margin:20px 0 8px">Work contribution</h2>';
+        html += table(result.contributorOrder.map(function (person) { return [person.label, displayPoints(result.contributors[person.key].points) + ' pts']; }));
+        function section(title, lines) {
+          html += '<h2 style="font-size:18px;margin:20px 0 8px">' + escape(title) + '</h2>';
+          (lines.length ? lines : ['None recorded.']).forEach(function (line) {
+            html += '<p style="font-size:14px;line-height:1.5;margin:0 0 10px;word-wrap:break-word">' + escape(line).replace(/\n/g, '<br>') + '</p>';
+          });
+        }
+        section('Missed work', result.missed.map(function (item) { return item.label + ' — ' + displayPoints(item.points) + ' pts (' + item.reason + ')'; }));
+        var inventory = checklistLines('Inventory Day');
+        if (inventory.length) section('Inventory Day', inventory);
+        section('PM entries', dynamicSummaryLines(pmEntries));
+        section('Escalation entries', dynamicSummaryLines(escalationEntries));
+        section('Super escalation entries', dynamicSummaryLines(superEscalationEntries));
+        section('Error proofing', checklistLines('NGM Error Proofing ' + errorProofSelect.value));
+        if (handoffNoteInput.value.trim()) section('Shift handoff note', [handoffNoteInput.value.trim()]);
+        html += '</div>';
+        return { html: html, text: buildShiftReport(result), subject: subject, filename: 'Shift-Report-' + dateInput.value + '-' + shiftSelect.value + '-email.html' };
+      }
+      function copyOutlookReport() {
+        if (!preparedOutlookReport) return;
+        var report = preparedOutlookReport;
+        function copied() { setReportStatus(generatedReportStatus, 'Report copied. Paste into Outlook using Keep Source Formatting.'); }
+        function fallback() {
+          var helper = document.createElement('div');
+          helper.contentEditable = 'true'; helper.innerHTML = report.html;
+          helper.style.cssText = 'position:fixed;left:-10000px;top:0;width:720px;background:white';
+          document.body.appendChild(helper);
+          var selection = window.getSelection(), range = document.createRange();
+          range.selectNodeContents(helper); selection.removeAllRanges(); selection.addRange(range);
+          var ok = false;
+          try { ok = document.execCommand('copy'); } catch (error) {}
+          selection.removeAllRanges(); helper.remove();
+          if (ok) copied();
+          else setReportStatus(generatedReportStatus, 'Copy was blocked. Download the email report, open it, and use its Copy for Outlook button.');
+        }
+        if (navigator.clipboard && navigator.clipboard.write && typeof ClipboardItem !== 'undefined') {
+          navigator.clipboard.write([new ClipboardItem({ 'text/html': new Blob([report.html], { type: 'text/html' }), 'text/plain': new Blob([report.text], { type: 'text/plain' }) })]).then(copied).catch(fallback);
+        } else fallback();
+      }
+      function downloadOutlookReport() {
+        if (!preparedOutlookReport) return;
+        var report = preparedOutlookReport;
+        function offlineCopy() {
+          var report = document.getElementById('email-report');
+          var range = document.createRange(); range.selectNodeContents(report);
+          var selection = window.getSelection(); selection.removeAllRanges(); selection.addRange(range);
+          var copied = false;
+          try { copied = document.execCommand('copy'); } catch (error) {}
+          document.getElementById('copy-status').textContent = copied ? 'Copied. Paste into Outlook using Keep Source Formatting.' : 'Report selected. Press Ctrl+C, then paste into Outlook.';
+        }
+        var html = '<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Shift report for email</title><style>body{font-family:Arial,sans-serif;margin:24px auto;padding:0 16px;max-width:760px}button{font-size:16px;padding:12px}@media print{#email-tools{display:none}}</style></head><body>' +
+          '<div id="email-tools"><button id="copy-email" type="button">Copy for Outlook</button><p id="copy-status">Copy this report and paste it into your Outlook message. You can also print this page to PDF.</p></div><div id="email-report">' + report.html + '</div><scr' + 'ipt>document.getElementById("copy-email").onclick=' + offlineCopy.toString() + ';</scr' + 'ipt></body></html>';
+        var url = URL.createObjectURL(new Blob([html], { type: 'text/html;charset=utf-8' }));
+        var link = document.createElement('a'); link.href = url; link.download = report.filename; link.click();
+        window.setTimeout(function () { URL.revokeObjectURL(url); }, 30000);
+        setReportStatus(generatedReportStatus, 'Email report downloaded. Open it on your work PC and choose Copy for Outlook. If email blocks HTML attachments, open this saved shift directly in the app on your work PC.');
+      }
+
       function openShiftReport(event) {
         reportReturnFocus = event && event.currentTarget ? event.currentTarget : generateButton;
         if (!validateShiftSetup()) return;
         var result = updateDailyShift({ skipSave: true });
         generatedReportStatus.textContent = "";
+        preparedOutlookReport = buildOutlookReport(result);
         prepareShiftReportImages(result);
         generatedReport.innerHTML = "";
         var isDesktopViewport = window.innerWidth >= 900;
@@ -19035,6 +19111,8 @@ function normalizeWeeklyRows(values) {
       reportEmailButton.addEventListener("click", emailShiftReport);
       reportDownloadDesktopButton.addEventListener("click", downloadShiftReportDesktop);
       reportCopyButton.addEventListener("click", function () { copyReportText(generatedReportStatus); });
+      document.getElementById('daily-report-outlook').addEventListener('click', copyOutlookReport);
+      document.getElementById('daily-report-email-download').addEventListener('click', downloadOutlookReport);
       reportModal.addEventListener("click", function (event) {
         if (event.target === reportModal) closeShiftReport();
       });
@@ -19705,7 +19783,7 @@ function normalizeWeeklyRows(values) {
     const provider = new GoogleAuthProvider();
     provider.setCustomParameters({ prompt: "select_account" });
     const SYNC_PROTOCOL_VERSION = 6;
-    const APP_VERSION = String(document.querySelector('meta[name="visionary-app-version"]')?.content || "3.0.83");
+    const APP_VERSION = String(document.querySelector('meta[name="visionary-app-version"]')?.content || "3.0.84");
     const HOSTED_APP_ROOT = "https://jsikson7.github.io/Visionary/";
     const HOSTED_APP_URL = HOSTED_APP_ROOT + "?v=" + APP_VERSION.replace(/\D/g, "");
     const isDirectFilePage = !["http:", "https:"].includes(window.location.protocol);
@@ -22917,9 +22995,9 @@ function normalizeWeeklyRows(values) {
       const appProperties = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>' +
         '<Properties xmlns="http://schemas.openxmlformats.org/officeDocument/2006/extended-properties" ' +
         'xmlns:vt="http://schemas.openxmlformats.org/officeDocument/2006/docPropsVTypes">' +
-        '<Application>Visionary 3.0.83</Application><DocSecurity>0</DocSecurity><ScaleCrop>false</ScaleCrop>' +
+        '<Application>Visionary 3.0.84</Application><DocSecurity>0</DocSecurity><ScaleCrop>false</ScaleCrop>' +
         '<Company></Company><LinksUpToDate>false</LinksUpToDate><SharedDoc>false</SharedDoc><HyperlinksChanged>false</HyperlinksChanged>' +
-        '<AppVersion>3.0.83</AppVersion></Properties>';
+        '<AppVersion>3.0.84</AppVersion></Properties>';
 
       const zip = xlsxZipStoredFiles([
         { name: "[Content_Types].xml", contents: contentTypes },
