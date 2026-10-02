@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="description" content="A mobile-friendly collection of vision production guides, troubleshooting history, and copy-ready reporting tools.">
-  <meta name="visionary-app-version" content="3.0.85">
+  <meta name="visionary-app-version" content="3.0.86">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
@@ -7159,7 +7159,7 @@
             <span class="form-tile-arrow" aria-hidden="true">›</span>
           </button>
         </div>
-        <p class="last-updated">Version 3.0.85 · Last updated: <time datetime="2026-10-02">October 2, 2026</time></p>
+        <p class="last-updated">Version 3.0.86 · Last updated: <time datetime="2026-10-02">October 2, 2026</time></p>
         <div class="version-history-link-wrap">
           <button id="open-version-history" class="version-history-link" type="button">View version history</button>
         </div>
@@ -7307,7 +7307,7 @@
             <div class="daily-cloud-copy">
               <strong id="daily-cloud-title">Shared shift synchronization</strong>
               <span id="daily-cloud-status" role="status" aria-live="polite">Sign in with Google to share Daily Tasks across phones.</span>
-              <small>Safe Sync v6.2 · App <span id="daily-app-version">3.0.85</span><span id="daily-version-health" class="daily-version-health" hidden></span></small>
+              <small>Safe Sync v6.2 · App <span id="daily-app-version">3.0.86</span><span id="daily-version-health" class="daily-version-health" hidden></span></small>
             </div>
           </div>
           <div class="daily-cloud-actions">
@@ -8143,7 +8143,8 @@
 
       <section class="panel" aria-label="Release history">
         <div class="version-history-list">
-          <article class="version-card version-card-current"><div class="version-card-heading"><h2>Version 3.0.85</h2><time datetime="2026-10-02">October 2, 2026</time></div><p class="version-summary-intro">Simplified generated shift reports to Email report and Download PDF. A readable single-column preview replaces the scaled-down image. PDF pages retain 12-point body text and add pages for long reports. Email shares the PDF, with download and email-draft fallback where file sharing is unavailable.</p></article>
+          <article class="version-card version-card-current"><div class="version-card-heading"><h2>Version 3.0.86</h2><time datetime="2026-10-02">October 2, 2026</time></div><p class="version-summary-intro">Restored the original themed shift report preview. PDF reports now use the selected theme, report header, metric cards, top contributor and section styling while retaining readable text across multiple pages. Email report and Download PDF remain the only report actions.</p></article>
+          <article class="version-card"><div class="version-card-heading"><h2>Version 3.0.85</h2><time datetime="2026-10-02">October 2, 2026</time></div><p class="version-summary-intro">Simplified generated shift reports to Email report and Download PDF. A readable single-column preview replaces the scaled-down image. PDF pages retain 12-point body text and add pages for long reports. Email shares the PDF, with download and email-draft fallback where file sharing is unavailable.</p></article>
           <article class="version-card"><div class="version-card-heading"><h2>Version 3.0.84</h2><time datetime="2026-10-02">October 2, 2026</time></div><p class="version-summary-intro">Fixed locked shift reports excluding disabled task checkboxes from scoring. Read-only controls now retain their saved work credit. Added Copy for Outlook and a downloadable email report with readable text and tables, without screenshots. Existing shift records and Firebase saving are unchanged.</p></article>
           <article class="version-card"><div class="version-card-heading"><h2>Version 3.0.83</h2><time datetime="2026-10-01">October 1, 2026</time></div><p class="version-summary-intro">Daily Tasks medals now show only achievements earned during the selected shift’s calendar month. Counts start fresh each month without deleting saved history. Viewing an older shift shows medals for its month. Medal thresholds, individual shift points, lead stars and Firebase saving are unchanged.</p></article>
           <article class="version-card"><div class="version-card-heading"><h2>Version 3.0.82</h2><time datetime="2026-09-30">September 30, 2026</time></div><p class="version-summary-intro">Inventory Day now supports four separate technician selections, worth 800 points per completed entry and 3,200 points total. Duplicate names cannot earn multiple Inventory Day credits. The original technician entry is preserved. Available only for G1 on October 1, 2026.</p></article>
@@ -9757,8 +9758,8 @@ window.VisionaryIQRequirements = Object.freeze({
         "If the embedded form does not appear or feels cramped, use Open Full Screen.": "포함된 양식이 표시되지 않거나 화면이 좁으면 전체 화면으로 열기를 사용하세요.",
         "Loading Microsoft Form…": "Microsoft 양식을 불러오는 중…",
         "Replay celebration": "축하 영상 다시 보기",
-        "Version 3.0.85 · Last updated:": "버전 3.0.85 · 마지막 업데이트:",
-        "Version 3.0.85": "버전 3.0.85",
+        "Version 3.0.86 · Last updated:": "버전 3.0.86 · 마지막 업데이트:",
+        "Version 3.0.86": "버전 3.0.86",
         "Version 3.0.77 · Last updated:": "버전 3.0.77 · 마지막 업데이트:",
         "Version 3.0.77": "버전 3.0.77",
         "Version 3.0.72 · Last updated:": "버전 3.0.72 · 마지막 업데이트:",
@@ -18877,20 +18878,52 @@ function normalizeWeeklyRows(values) {
           return { text: text, heading: node.tagName === 'H1' ? 1 : node.tagName === 'H2' ? 2 : 0 };
         });
       }
-      async function createReadableReportPdf(blocks, filename, title) {
+      async function createReadableReportPdf(blocks, filename, title, design) {
         // Letter pages at 144 DPI: 12-point body text stays 12 points on every page.
         var width = 1224, height = 1584, margin = 96, bottom = 1472;
         var pages = [], canvas, ctx, y;
+        design = design || {};
+        var colors = design.colors || { paper:'#ffffff', cream:'#f7f8ef', ink:'#1d271b', muted:'#5f6c54', dark:'#1f2f1c', heroEnd:'#243822', heroCopy:'#dce6d4', accent:'#3f6b3a', line:'#d8ddca' };
+        function box(x, top, w, h, fill, stroke) {
+          ctx.beginPath(); ctx.roundRect(x, top, w, h, 16); ctx.fillStyle = fill; ctx.fill();
+          if (stroke) { ctx.strokeStyle = stroke; ctx.lineWidth = 2; ctx.stroke(); }
+        }
         function newPage() {
           canvas = document.createElement('canvas'); canvas.width = width; canvas.height = height;
           ctx = canvas.getContext('2d');
           if (!ctx) throw new Error('PDF drawing is unavailable on this device.');
-          ctx.fillStyle = '#ffffff'; ctx.fillRect(0, 0, width, height);
-          ctx.fillStyle = '#526153'; ctx.font = '20px Arial'; ctx.fillText('VISIONARY TOOL - SHIFT REPORT', margin, 52);
-          ctx.fillStyle = '#1c2c21'; y = margin;
+          ctx.fillStyle = colors.paper; ctx.fillRect(0, 0, width, height);
+          var gradient = ctx.createLinearGradient(margin, 0, width - margin, 170);
+          gradient.addColorStop(0, colors.dark); gradient.addColorStop(1, colors.heroEnd);
+          box(margin, 50, width - margin * 2, 130, gradient);
+          ctx.fillStyle = colors.heroCopy; ctx.font = 'bold 18px Arial'; ctx.fillText('VISIONARY TOOL', margin + 24, 80);
+          ctx.fillStyle = '#ffffff'; ctx.font = 'bold 38px Arial'; ctx.fillText('Shift Report', margin + 24, 124);
+          ctx.fillStyle = colors.heroCopy; ctx.font = '22px Arial'; ctx.fillText(design.period || title || '', margin + 24, 157);
+          y = 208;
+          if (!pages.length && design.metrics) {
+            var gap = 16, w = (width - margin * 2 - gap * 2) / 3;
+            design.metrics.forEach(function (metric, index) {
+              var x = margin + index * (w + gap);
+              box(x, y, w, 110, colors.cream, colors.line);
+              ctx.fillStyle = colors.muted; ctx.font = 'bold 20px Arial'; ctx.fillText(metric.label, x + 18, y + 34);
+              ctx.fillStyle = colors.accent; ctx.font = 'bold 30px Arial'; ctx.fillText(metric.value, x + 18, y + 80);
+            });
+            y += 136;
+            if (design.top) {
+              ctx.font = 'bold 28px Arial';
+              var nameLines = wrap(design.top.label, width - margin * 2 - 48);
+              var cardHeight = 104 + nameLines.length * 34;
+              box(margin, y, width - margin * 2, cardHeight, colors.cream, colors.accent);
+              ctx.fillStyle = colors.muted; ctx.font = 'bold 20px Arial'; ctx.fillText('TOP CONTRIBUTOR', margin + 24, y + 32);
+              ctx.fillStyle = colors.ink; ctx.font = 'bold 28px Arial';
+              nameLines.forEach(function (line, index) { ctx.fillText(line, margin + 24, y + 72 + index * 34); });
+              ctx.fillStyle = colors.accent; ctx.font = '24px Arial'; ctx.fillText(design.top.points + ' pts' + (design.top.medal ? '  |  ' + design.top.medal : ''), margin + 24, y + cardHeight - 22);
+              y += cardHeight + 26;
+            }
+          }
         }
         async function finishPage() {
-          ctx.fillStyle = '#526153'; ctx.font = '20px Arial';
+          ctx.fillStyle = colors.muted; ctx.font = '20px Arial';
           ctx.fillText('Page ' + (pages.length + 1), margin, height - 48);
           var blob = await new Promise(function (resolve) { canvas.toBlob(resolve, 'image/jpeg', 0.94); });
           if (!blob) throw new Error('Unable to create a PDF page.');
@@ -18922,15 +18955,18 @@ function normalizeWeeklyRows(values) {
           if (block.heading && y + leading * 3 > bottom) { await finishPage(); newPage(); }
           ctx.font = (block.heading ? 'bold ' : '') + size + 'px Arial';
           var lines = wrap(block.text, width - margin * 2);
-          var blockHeight = lines.length * leading + (block.heading ? 12 : 18);
-          if (!block.heading && blockHeight <= bottom - margin && y + blockHeight > bottom) { await finishPage(); newPage(); }
+          var blockHeight = lines.length * leading + (block.heading ? 24 : 18);
+          if (!block.heading && blockHeight <= bottom - 208 && y + blockHeight > bottom) { await finishPage(); newPage(); }
+          if (block.heading) {
+            box(margin - 12, y - 4, width - margin * 2 + 24, lines.length * leading + 14, colors.cream, colors.line);
+          }
           for (var line of lines) {
             if (y + leading > bottom) { await finishPage(); newPage(); }
             ctx.font = (block.heading ? 'bold ' : '') + size + 'px Arial';
-            ctx.fillStyle = block.heading ? '#244d32' : '#17251c';
+            ctx.fillStyle = block.heading ? colors.accent : colors.ink;
             ctx.fillText(line, margin, y + size); y += leading;
           }
-          y += block.heading ? 12 : 18;
+          y += block.heading ? 24 : 18;
         }
         await finishPage();
         // Self-contained PDF writer: each page is a crisp, fixed-size rendered page.
@@ -18962,7 +18998,7 @@ function normalizeWeeklyRows(values) {
         var id = ++reportPdfBuildId;
         preparedReportPdf = null; reportPrintButton.disabled = true; reportEmailButton.disabled = true;
         setReportStatus(generatedReportStatus, 'Preparing readable PDF…');
-        createReadableReportPdf(reportPdfBlocks(report), report.filename.replace('-email.html', '.pdf'), report.subject).then(function (file) {
+        createReadableReportPdf(reportPdfBlocks(report).slice(4), report.filename.replace('-email.html', '.pdf'), report.subject, report.design).then(function (file) {
           if (id !== reportPdfBuildId) return;
           preparedReportPdf = file; reportPrintButton.disabled = false; reportEmailButton.disabled = false;
           setReportStatus(generatedReportStatus, 'PDF ready. Email it to your work address or download it.');
@@ -18995,8 +19031,23 @@ function normalizeWeeklyRows(values) {
         var result = updateDailyShift({ skipSave: true });
         generatedReportStatus.textContent = "";
         preparedOutlookReport = buildOutlookReport(result);
+        var top = topContributorSummary(result);
+        var tier = top.points >= 1000 ? achievementTier(top.points) : null;
+        preparedOutlookReport.design = {
+          colors: resolveReportThemeColors(),
+          period: shortDate(dateInput.value) + ' · ' + shiftSelect.value + ' Shift',
+          metrics: [{label:'COMPLETION',value:result.percent + '%'}, {label:'POINTS',value:displayPoints(result.earned) + ' / ' + displayPoints(result.available)}, {label:'MISSED',value:displayPoints(result.missedPoints) + ' pts'}],
+          top: {label:top.label,points:displayPoints(top.points),medal:tier ? tier.metal : ''}
+        };
         prepareReadablePdf(preparedOutlookReport);
-        generatedReport.innerHTML = preparedOutlookReport.html;
+        generatedReport.innerHTML = '';
+        if (window.innerWidth >= 900) {
+          generatedReport.innerHTML = buildShiftReportSvgLayoutDesktop(result).svg;
+          var svg = generatedReport.querySelector('svg');
+          if (svg) { svg.style.width = '100%'; svg.style.height = 'auto'; svg.style.display = 'block'; }
+        } else {
+          Array.prototype.forEach.call(preview.childNodes, function (node) { generatedReport.appendChild(node.cloneNode(true)); });
+        }
         reportModal.hidden = false;
         reportModal.scrollTop = 0;
         document.body.classList.add("daily-report-open");
@@ -19760,7 +19811,7 @@ function normalizeWeeklyRows(values) {
     const provider = new GoogleAuthProvider();
     provider.setCustomParameters({ prompt: "select_account" });
     const SYNC_PROTOCOL_VERSION = 6;
-    const APP_VERSION = String(document.querySelector('meta[name="visionary-app-version"]')?.content || "3.0.85");
+    const APP_VERSION = String(document.querySelector('meta[name="visionary-app-version"]')?.content || "3.0.86");
     const HOSTED_APP_ROOT = "https://jsikson7.github.io/Visionary/";
     const HOSTED_APP_URL = HOSTED_APP_ROOT + "?v=" + APP_VERSION.replace(/\D/g, "");
     const isDirectFilePage = !["http:", "https:"].includes(window.location.protocol);
@@ -22972,9 +23023,9 @@ function normalizeWeeklyRows(values) {
       const appProperties = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>' +
         '<Properties xmlns="http://schemas.openxmlformats.org/officeDocument/2006/extended-properties" ' +
         'xmlns:vt="http://schemas.openxmlformats.org/officeDocument/2006/docPropsVTypes">' +
-        '<Application>Visionary 3.0.85</Application><DocSecurity>0</DocSecurity><ScaleCrop>false</ScaleCrop>' +
+        '<Application>Visionary 3.0.86</Application><DocSecurity>0</DocSecurity><ScaleCrop>false</ScaleCrop>' +
         '<Company></Company><LinksUpToDate>false</LinksUpToDate><SharedDoc>false</SharedDoc><HyperlinksChanged>false</HyperlinksChanged>' +
-        '<AppVersion>3.0.85</AppVersion></Properties>';
+        '<AppVersion>3.0.86</AppVersion></Properties>';
 
       const zip = xlsxZipStoredFiles([
         { name: "[Content_Types].xml", contents: contentTypes },
@@ -25387,13 +25438,8 @@ panel.querySelector('.cell-tracking-back').addEventListener('click',()=>taskTab.
 })();
 </script>
 
-<style id="readable-report-preview">
-#daily-generated-report { max-width: 800px; margin: 0 auto; padding: 24px; background: #fff; color: #17251c; max-height: none; overflow: visible; }
-#daily-generated-report p, #daily-generated-report td { font-size: 16px !important; line-height: 1.6 !important; }
-#daily-generated-report h1 { font-size: 24px !important; }
-#daily-generated-report h2 { font-size: 20px !important; }
-#daily-report-modal .daily-report-actions { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 10px; }
-@media(max-width:600px){#daily-generated-report{padding:16px 10px;}}
+<style id="themed-report-actions">
+#daily-report-modal .daily-report-actions { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }
 </style>
 </body>
 </html>
