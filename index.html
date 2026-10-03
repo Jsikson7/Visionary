@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="description" content="A mobile-friendly collection of vision production guides, troubleshooting history, and copy-ready reporting tools.">
-  <meta name="visionary-app-version" content="3.0.87">
+  <meta name="visionary-app-version" content="3.0.88">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
@@ -7159,7 +7159,7 @@
             <span class="form-tile-arrow" aria-hidden="true">›</span>
           </button>
         </div>
-        <p class="last-updated">Version 3.0.87 · Last updated: <time datetime="2026-10-02">October 2, 2026</time></p>
+        <p class="last-updated">Version 3.0.88 · Last updated: <time datetime="2026-10-03">October 3, 2026</time></p>
         <div class="version-history-link-wrap">
           <button id="open-version-history" class="version-history-link" type="button">View version history</button>
         </div>
@@ -7307,7 +7307,7 @@
             <div class="daily-cloud-copy">
               <strong id="daily-cloud-title">Shared shift synchronization</strong>
               <span id="daily-cloud-status" role="status" aria-live="polite">Sign in with Google to share Daily Tasks across phones.</span>
-              <small>Safe Sync v6.2 · App <span id="daily-app-version">3.0.87</span><span id="daily-version-health" class="daily-version-health" hidden></span></small>
+              <small>Safe Sync v6.2 · App <span id="daily-app-version">3.0.88</span><span id="daily-version-health" class="daily-version-health" hidden></span></small>
             </div>
           </div>
           <div class="daily-cloud-actions">
@@ -7743,7 +7743,7 @@
               <button id="daily-report-print" class="button button-secondary" type="button">Download PDF</button>
             </div>
             <p id="daily-generated-report-status" class="status" role="status" aria-live="polite"></p>
-            <p class="daily-report-share-hint">Email report downloads an Outlook email draft with the themed cards in the message and the PDF attached. Open it, enter your work email address, and send. Download PDF saves only the report.</p>
+            <p class="daily-report-share-hint">Email report opens sharing with the desktop PDF attached. Choose Outlook or your email app and enter your work email address. If file sharing is unavailable, attach the downloaded PDF to the email draft. Both buttons use the same desktop layout, with additional pages for long reports.</p>
           </div>
           <div id="daily-generated-report" class="preview daily-shift-preview daily-shift-preview-rich daily-generated-report" aria-label="Generated shift report"></div>
         </section>
@@ -8143,7 +8143,7 @@
 
       <section class="panel" aria-label="Release history">
         <div class="version-history-list">
-          <article class="version-card version-card-current"><div class="version-card-heading"><h2>Version 3.0.87</h2><time datetime="2026-10-02">October 2, 2026</time></div><p class="version-summary-intro">Restored the card-based report structure across preview, email and PDF: themed metric header, Top Contributor, Work Contribution, Summary Totals and individual entry cards. Outlook email drafts include formatted HTML and the PDF attachment. Landscape PDFs keep readable 11-point text, two-column entry cards and additional pages.</p></article>
+          <article class="version-card version-card-current"><div class="version-card-heading"><h2>Version 3.0.88</h2><time datetime="2026-10-03">October 3, 2026</time></div><p class="version-summary-intro">Email report now opens native file sharing on supported phones instead of downloading an Outlook draft. Email and Download PDF use the same original desktop layout, theme, three summary cards and activity grids on every device. Long reports continue across landscape A3 pages. Browsers without file sharing open an email draft and download the PDF for manual attachment.</p></article>
           <article class="version-card"><div class="version-card-heading"><h2>Version 3.0.86</h2><time datetime="2026-10-02">October 2, 2026</time></div><p class="version-summary-intro">Restored the original themed shift report preview. PDF reports now use the selected theme, report header, metric cards, top contributor and section styling while retaining readable text across multiple pages. Email report and Download PDF remain the only report actions.</p></article>
           <article class="version-card"><div class="version-card-heading"><h2>Version 3.0.85</h2><time datetime="2026-10-02">October 2, 2026</time></div><p class="version-summary-intro">Simplified generated shift reports to Email report and Download PDF. A readable single-column preview replaces the scaled-down image. PDF pages retain 12-point body text and add pages for long reports. Email shares the PDF, with download and email-draft fallback where file sharing is unavailable.</p></article>
           <article class="version-card"><div class="version-card-heading"><h2>Version 3.0.84</h2><time datetime="2026-10-02">October 2, 2026</time></div><p class="version-summary-intro">Fixed locked shift reports excluding disabled task checkboxes from scoring. Read-only controls now retain their saved work credit. Added Copy for Outlook and a downloadable email report with readable text and tables, without screenshots. Existing shift records and Firebase saving are unchanged.</p></article>
@@ -9759,8 +9759,8 @@ window.VisionaryIQRequirements = Object.freeze({
         "If the embedded form does not appear or feels cramped, use Open Full Screen.": "포함된 양식이 표시되지 않거나 화면이 좁으면 전체 화면으로 열기를 사용하세요.",
         "Loading Microsoft Form…": "Microsoft 양식을 불러오는 중…",
         "Replay celebration": "축하 영상 다시 보기",
-        "Version 3.0.87 · Last updated:": "버전 3.0.87 · 마지막 업데이트:",
-        "Version 3.0.87": "버전 3.0.87",
+        "Version 3.0.88 · Last updated:": "버전 3.0.88 · 마지막 업데이트:",
+        "Version 3.0.88": "버전 3.0.88",
         "Version 3.0.77 · Last updated:": "버전 3.0.77 · 마지막 업데이트:",
         "Version 3.0.77": "버전 3.0.77",
         "Version 3.0.72 · Last updated:": "버전 3.0.72 · 마지막 업데이트:",
@@ -17705,12 +17705,19 @@ function normalizeWeeklyRows(values) {
         return { svg: svg, width: width, height: totalHeight };
       }
 
-      function buildShiftReportSvgLayoutDesktop(result) {
+      function buildShiftReportSvgLayoutDesktop(result, paged) {
         var colors = resolveReportThemeColors();
         var width = 1440;
         var pad = 36;
         var contentWidth = width - pad * 2;
         var parts = [];
+        var pageHeight = 1020, pageHeader = '', lastPage = 0;
+        function fitRow(y, height) {
+          if (!paged || y + height <= (lastPage + 1) * pageHeight - 36) return y;
+          lastPage += 1;
+          parts.push('<g transform="translate(0 ' + (lastPage * pageHeight) + ')">' + pageHeader + '</g>');
+          return lastPage * pageHeight + 126;
+        }
 
         function addRect(x, y, w, h, fill, radius, stroke) {
           parts.push(
@@ -17758,12 +17765,34 @@ function normalizeWeeklyRows(values) {
             };
           });
 
+          // Split exceptionally long cards into bounded continuation rows.
+          if (paged) {
+            var bounded = [];
+            for (var group = 0; group < layouts.length; group += columns) {
+              var batch = layouts.slice(group, group + columns);
+              var count = Math.max.apply(null, batch.map(function (item) { return Math.ceil(item.wrapped.length / 40); }));
+              for (var segment = 0; segment < count; segment++) {
+                for (var col = 0; col < columns; col++) {
+                  var linesPart = batch[col] ? batch[col].wrapped.slice(segment * 40, (segment + 1) * 40) : [];
+                  bounded.push({wrapped: linesPart, height: linesPart.length * lineHeight + 16});
+                }
+              }
+            }
+            layouts = bounded;
+          }
           for (var start = 0; start < layouts.length; start += columns) {
             var rowLayouts = layouts.slice(start, start + columns);
             var rowHeight = rowLayouts.reduce(function (largest, item) {
               return Math.max(largest, item.height);
             }, 0);
+            if (paged) {
+              // Remove an orphan section heading before moving its first row.
+              if (start === 0 && y + rowHeight > (lastPage + 1) * pageHeight - 36) parts.splice(parts.length - 2, 2);
+              var fitted = fitRow(y, rowHeight);
+              if (fitted !== y) y = sectionHeading(x, fitted, w, title + (start ? " (continued)" : ""));
+            }
             rowLayouts.forEach(function (layout, columnIndex) {
+              if (!layout.wrapped.length) return;
               var cardX = x + columnIndex * (cardWidth + gridGap);
               addRect(cardX, y, cardWidth, rowHeight, colors.cream, 8, colors.line);
               layout.wrapped.forEach(function (wrappedLine, lineIndex) {
@@ -17797,6 +17826,7 @@ function normalizeWeeklyRows(values) {
           addText(x + metricWidth / 2, metricY + 25, metric.label, { size: 9.5, weight: 800, fill: colors.heroCopy, anchor: "middle" });
           addText(x + metricWidth / 2, metricY + 48, metric.value, { size: 16, weight: 800, fill: colors.heroAccent, anchor: "middle" });
         });
+        pageHeader = parts.join("");
         var bodyY = headerHeight + 22;
 
         // Summary-first row: the three overview panels align before activity details.
@@ -17903,10 +17933,16 @@ function normalizeWeeklyRows(values) {
         );
 
         // The handoff note is the final, high-contrast item for the incoming shift.
-        var handoffY = Math.max(ngmBottom, ngmY) + 16;
+        var extrasY = Math.max(ngmBottom, ngmY) + 16;
+        var inventoryLines = checklistLines('Inventory Day');
+        if (inventoryLines.length) extrasY = cardGrid(pad, extrasY, contentWidth, 'Inventory Day', inventoryLines, 4);
+        if (result.missed.length) extrasY = cardGrid(pad, extrasY, contentWidth, 'Missed Work', result.missed.map(function (item) { return item.label + ' · ' + displayPoints(item.points) + ' pts · ' + item.reason; }), 3);
+        var handoffY = extrasY + 16;
         var handoffBottom = handoffY;
         var handoffNote = handoffNoteInput.value.trim();
-        if (handoffNote) {
+        if (handoffNote && paged) {
+          handoffBottom = cardGrid(pad, handoffY, contentWidth, 'SHIFT HANDOFF NOTE', [handoffNote], 1);
+        } else if (handoffNote) {
           var handoffMaxChars = Math.max(40, Math.floor((contentWidth - 52) / 7.8));
           var handoffLines = wrapPlainTextLine(handoffNote, handoffMaxChars);
           var handoffLineHeight = 21;
@@ -17925,18 +17961,20 @@ function normalizeWeeklyRows(values) {
 
         // Footer (full width)
         var footerHeight = 40;
+        if (!paged) {
         addRect(0, contentBottom, width, footerHeight, colors.cream);
         addLine(0, contentBottom, width, contentBottom, colors.line, 1);
         addText(width / 2, contentBottom + 25, "Generated by Visionary Tool", { size: 10.5, weight: 600, fill: colors.muted, anchor: "middle" });
 
-        var totalHeight = Math.ceil(contentBottom + footerHeight);
+        }
+        var totalHeight = paged ? (lastPage + 1) * pageHeight : Math.ceil(contentBottom + footerHeight);
         var svg =
           '<svg xmlns="http://www.w3.org/2000/svg" width="' + width + '" height="' + totalHeight + '" viewBox="0 0 ' + width + ' ' + totalHeight + '">' +
           '<rect x="0" y="0" width="' + width + '" height="' + totalHeight + '" fill="' + colors.paper + '"/>' +
           parts.join("") +
           '</svg>';
 
-        return { svg: svg, width: width, height: totalHeight };
+        return { svg: svg, width: width, height: totalHeight, pageHeight: pageHeight, paper: colors.paper };
       }
 
       function svgLayoutToPngFile(layout, filename) {
@@ -18887,43 +18925,24 @@ function normalizeWeeklyRows(values) {
       }
       var preparedReportPdf = null;
       var reportPdfBuildId = 0;
-      async function createReadableReportPdf(model, filename) {
-        var width=1584,height=1224,margin=64,bottom=1140,pages=[],canvas,ctx,y;
-        var colors=model.colors;
-        function box(x,top,w,h,fill,stroke){ctx.beginPath();ctx.roundRect(x,top,w,h,12);ctx.fillStyle=fill;ctx.fill();if(stroke){ctx.strokeStyle=stroke;ctx.lineWidth=2;ctx.stroke();}}
-        function text(value,x,top,size,bold,color){ctx.font=(bold?'bold ':'')+size+'px Arial';ctx.fillStyle=color||colors.ink;ctx.fillText(String(value),x,top+size);}
-        function newPage(){
-          canvas=document.createElement('canvas');canvas.width=width;canvas.height=height;ctx=canvas.getContext('2d');if(!ctx)throw new Error('PDF drawing unavailable.');
-          ctx.fillStyle=colors.paper;ctx.fillRect(0,0,width,height);box(margin,40,width-margin*2,134,colors.dark);
-          text('VISIONARY TOOL',margin+20,55,18,true,colors.heroCopy);text('Shift Report',margin+20,82,36,true,'#ffffff');text(model.period,margin+20,131,20,false,colors.heroCopy);
-          var metricW=282;model.metrics.forEach(function(m,i){var x=width-margin-3*(metricW+12)+i*(metricW+12);box(x,62,metricW,90,colors.accent,colors.heroCopy);text(m[0].toUpperCase(),x+16,72,18,true,colors.heroCopy);text(m[1],x+16,106,28,true,'#ffffff');});y=198;
+      async function createReadableReportPdf(layout, filename) {
+        // Always use the original desktop renderer, independent of device width.
+        var width = 2880, height = 2040, pages = [];
+        var contents = layout.svg.slice(layout.svg.indexOf('>') + 1, layout.svg.lastIndexOf('</svg>'));
+        for (var page = 0; page < layout.height / layout.pageHeight; page++) {
+          var svg = '<svg xmlns="http://www.w3.org/2000/svg" width="2880" height="2040" viewBox="0 ' + (page * layout.pageHeight) + ' 1440 1020">' + contents + '</svg>';
+          var url = URL.createObjectURL(new Blob([svg], {type:'image/svg+xml;charset=utf-8'}));
+          try {
+            var img = await new Promise(function(resolve,reject) { var image = new Image(); image.onload = function(){resolve(image);}; image.onerror = function(){reject(new Error('Desktop report could not be rendered.'));}; image.src = url; });
+            var canvas = document.createElement('canvas'); canvas.width=width; canvas.height=height;
+            var ctx=canvas.getContext('2d'); if(!ctx)throw new Error('PDF drawing unavailable.');
+            ctx.fillStyle=layout.paper; ctx.fillRect(0,0,width,height); ctx.drawImage(img,0,0,width,height);
+            ctx.font='22px Arial'; ctx.fillStyle='#555'; ctx.fillText('Page '+(page+1)+' / '+(layout.height/layout.pageHeight),72,height-22);
+            var blob=await new Promise(function(resolve){canvas.toBlob(resolve,'image/jpeg',0.96);});
+            if(!blob)throw new Error('PDF page could not be created.');
+            pages.push(new Uint8Array(await blob.arrayBuffer()));
+          } finally { URL.revokeObjectURL(url); }
         }
-        async function finishPage(){text('Page '+(pages.length+1),margin,height-44,18,false,colors.muted);var blob=await new Promise(function(resolve){canvas.toBlob(resolve,'image/jpeg',0.94);});if(!blob)throw new Error('PDF page could not be created.');pages.push(new Uint8Array(await blob.arrayBuffer()));}
-        function wrap(value,maxWidth){ctx.font='22px Arial';var out=[];String(value).split(/\r?\n/).forEach(function(paragraph){var line='';paragraph.split(/\s+/).forEach(function(word){if(!word)return;if(line&&ctx.measureText(line+word).width>maxWidth){out.push(line.trimEnd());line='';}for(var ch of word){if(ctx.measureText(line+ch).width>maxWidth&&line){out.push(line);line='';}line+=ch;}line+=' ';});out.push(line.trimEnd());});return out;}
-        async function cardGrid(title,entries,columns){
-          var gap=18,w=(width-margin*2-gap*(columns-1))/columns,leading=30;
-          function heading(continued){text(title+(continued?' (continued)':''),margin,y,25,true,colors.ink);ctx.strokeStyle=colors.accent;ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(margin,y+37);ctx.lineTo(width-margin,y+37);ctx.stroke();y+=52;}
-          if(y+180>bottom){await finishPage();newPage();}heading(false);
-          for(var i=0;i<entries.length;i+=columns){
-            var row=entries.slice(i,i+columns).map(function(entry){return {lines:wrap(entry,w-32),offset:0};});
-            var continued=false;
-            while(row.some(function(c){return c.offset<c.lines.length;})){
-              var available=Math.floor((bottom-y-32)/leading);
-              if(available<3){await finishPage();newPage();heading(true);available=Math.floor((bottom-y-32)/leading);}
-              var maxLines=Math.max.apply(null,row.map(function(c){return c.lines.length-c.offset;}));
-              // Move a complete row together when it fits on a fresh page.
-              if(maxLines>available&&maxLines<=Math.floor((bottom-250-32)/leading)&&!continued){await finishPage();newPage();heading(true);available=Math.floor((bottom-y-32)/leading);}
-              var taken=Math.min(maxLines,available),h=taken*leading+32;
-              row.forEach(function(c,col){if(c.offset>=c.lines.length)return;var x=margin+col*(w+gap);box(x,y,w,h,colors.cream,colors.line);c.lines.slice(c.offset,c.offset+taken).forEach(function(line,n){text(line,x+16,y+12+n*leading,22,false,colors.ink);});c.offset+=taken;});
-              y+=h+16;continued=true;
-            }
-          }
-          y+=12;
-        }
-        newPage();
-        await cardGrid('Shift Overview',model.overview.map(function(c){return c.title+'\n\n'+c.rows.map(function(row){return row[0]+'\n'+row[1];}).join('\n\n');}),3);
-        for(var section of model.sections)await cardGrid(section.title,section.entries,2);
-        await finishPage();
         // Self-contained PDF writer: each page is a crisp, fixed-size rendered page.
         var encode = function (value) { return new TextEncoder().encode(value); };
         var chunks = [], offsets = [0], length = 0;
@@ -18935,9 +18954,9 @@ function normalizeWeeklyRows(values) {
         object(2, [encode('<< /Type /Pages /Count ' + pages.length + ' /Kids [' + ids.map(function (id) { return id + ' 0 R'; }).join(' ') + '] >>')]);
         pages.forEach(function (bytes, index) {
           var id = ids[index];
-          object(id, [encode('<< /Type /Page /Parent 2 0 R /MediaBox [0 0 792 612] /Resources << /XObject << /Image ' + (id + 1) + ' 0 R >> >> /Contents ' + (id + 2) + ' 0 R >>')]);
-          object(id + 1, [encode('<< /Type /XObject /Subtype /Image /Width 1584 /Height 1224 /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length ' + bytes.length + ' >>\nstream\n'), bytes, encode('\nendstream')]);
-          var commands = 'q 792 0 0 612 0 0 cm /Image Do Q\n';
+          object(id, [encode('<< /Type /Page /Parent 2 0 R /MediaBox [0 0 1190.55 843.31] /Resources << /XObject << /Image ' + (id + 1) + ' 0 R >> >> /Contents ' + (id + 2) + ' 0 R >>')]);
+          object(id + 1, [encode('<< /Type /XObject /Subtype /Image /Width 2880 /Height 2040 /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length ' + bytes.length + ' >>\nstream\n'), bytes, encode('\nendstream')]);
+          var commands = 'q 1190.55 0 0 843.31 0 0 cm /Image Do Q\n';
           object(id + 2, [encode('<< /Length ' + encode(commands).length + ' >>\nstream\n' + commands + 'endstream')]);
         });
         var xref = length, count = 3 + pages.length * 3;
@@ -18953,7 +18972,7 @@ function normalizeWeeklyRows(values) {
         var id = ++reportPdfBuildId;
         preparedReportPdf = null; reportPrintButton.disabled = true; reportEmailButton.disabled = true;
         setReportStatus(generatedReportStatus, 'Preparing readable PDF…');
-        createReadableReportPdf(report.model, report.filename).then(function (file) {
+        createReadableReportPdf(report.desktop, report.filename).then(function (file) {
           if (id !== reportPdfBuildId) return;
           preparedReportPdf = file; reportPrintButton.disabled = false; reportEmailButton.disabled = false;
           setReportStatus(generatedReportStatus, 'PDF ready. Email it to your work address or download it.');
@@ -18961,25 +18980,26 @@ function normalizeWeeklyRows(values) {
           if (id === reportPdfBuildId) setReportStatus(generatedReportStatus, 'PDF could not be prepared: ' + error.message + '. Close and reopen the report to retry.');
         });
       }
-      async function emailShiftReport() {
+      function emailShiftReport() {
         if (!preparedReportPdf || !preparedOutlookReport) return;
-        var report=preparedOutlookReport,pdf=preparedReportPdf;
-        reportEmailButton.disabled=true;
+        var report = preparedOutlookReport, pdf = preparedReportPdf;
+        function fallback() {
+          downloadReportImageFile(pdf);
+          setReportStatus(generatedReportStatus, 'This browser cannot attach files through sharing. The desktop PDF was downloaded. Attach it to the email draft that opens, then enter your work email address.');
+          window.location.href = 'mailto:?subject=' + encodeURIComponent(report.subject) + '&body=' + encodeURIComponent('Shift report: ' + report.subject + '\n\nPlease attach the downloaded ' + pdf.name + ' before sending.');
+        }
+        function failed(error) {
+          reportEmailButton.disabled = !preparedReportPdf;
+          setReportStatus(generatedReportStatus, error && error.name === 'AbortError' ? 'Sharing closed. Tap Email report to try again, or Download PDF.' : 'Sharing could not open. Open this app in Safari or Chrome and try again, or use Download PDF and attach it in your email app.');
+        }
         try {
-          function base64(bytes){var binary='';for(var i=0;i<bytes.length;i+=32768)binary+=String.fromCharCode.apply(null,bytes.subarray(i,i+32768));return btoa(binary);}
-          function encoded(text){return base64(new TextEncoder().encode(text));}
-          function fold(text){return text.match(/.{1,76}/g).join('\r\n');}
-          var boundary='visionary_'+Date.now().toString(36);
-          var html='<!doctype html><html><head><meta charset="utf-8"></head><body style="margin:0;padding:12px">'+report.html+'</body></html>';
-          var message=['X-Unsent: 1','MIME-Version: 1.0','Subject: =?UTF-8?B?'+encoded(report.subject)+'?=',
-            'Content-Type: multipart/mixed; boundary="'+boundary+'"','','--'+boundary,
-            'Content-Type: text/html; charset=UTF-8','Content-Transfer-Encoding: base64','',fold(encoded(html)),
-            '--'+boundary,'Content-Type: application/pdf; name="'+pdf.name+'"','Content-Disposition: attachment; filename="'+pdf.name+'"','Content-Transfer-Encoding: base64','',fold(base64(new Uint8Array(await pdf.arrayBuffer()))),'--'+boundary+'--',''].join('\r\n');
-          var file=new File([message],pdf.name.replace(/\.pdf$/,'.eml'),{type:'message/rfc822'});
-          downloadReportImageFile(file);
-          setReportStatus(generatedReportStatus,'Email draft downloaded with the themed report in its body and the PDF attached. Open the .eml file in Outlook, enter your work email address, and send. If it opens as a received message, choose Forward.');
-        } catch(error) {setReportStatus(generatedReportStatus,'Could not create the email draft: '+error.message+'. Download PDF is still available.');}
-        finally {reportEmailButton.disabled=!preparedReportPdf;}
+          if (!navigator.share || !navigator.canShare || !navigator.canShare({files:[pdf]})) { fallback(); return; }
+          // The file is prepared before the tap: no await may precede navigator.share.
+          reportEmailButton.disabled = true;
+          var sharing = navigator.share({files:[pdf],title:report.subject,text:report.subject});
+          setReportStatus(generatedReportStatus, 'Choose Outlook or your email app, enter your work email address, and send the attached desktop PDF.');
+          Promise.resolve(sharing).then(function(){reportEmailButton.disabled = !preparedReportPdf;}, failed);
+        } catch(error) { failed(error); }
       }
 
       function openShiftReport(event) {
@@ -18988,8 +19008,9 @@ function normalizeWeeklyRows(values) {
         var result = updateDailyShift({ skipSave: true });
         generatedReportStatus.textContent = "";
         preparedOutlookReport = buildOutlookReport(result);
+        preparedOutlookReport.desktop = buildShiftReportSvgLayoutDesktop(result, true);
         prepareReadablePdf(preparedOutlookReport);
-        generatedReport.innerHTML = preparedOutlookReport.html;
+        generatedReport.innerHTML = '<div style="overflow:auto"><div style="min-width:1100px">' + buildShiftReportSvgLayoutDesktop(result).svg.replace('<svg ', '<svg style="display:block;width:100%;height:auto" ') + '</div></div>';
         reportModal.hidden = false;
         reportModal.scrollTop = 0;
         document.body.classList.add("daily-report-open");
@@ -19753,7 +19774,7 @@ function normalizeWeeklyRows(values) {
     const provider = new GoogleAuthProvider();
     provider.setCustomParameters({ prompt: "select_account" });
     const SYNC_PROTOCOL_VERSION = 6;
-    const APP_VERSION = String(document.querySelector('meta[name="visionary-app-version"]')?.content || "3.0.87");
+    const APP_VERSION = String(document.querySelector('meta[name="visionary-app-version"]')?.content || "3.0.88");
     const HOSTED_APP_ROOT = "https://jsikson7.github.io/Visionary/";
     const HOSTED_APP_URL = HOSTED_APP_ROOT + "?v=" + APP_VERSION.replace(/\D/g, "");
     const isDirectFilePage = !["http:", "https:"].includes(window.location.protocol);
@@ -22965,9 +22986,9 @@ function normalizeWeeklyRows(values) {
       const appProperties = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>' +
         '<Properties xmlns="http://schemas.openxmlformats.org/officeDocument/2006/extended-properties" ' +
         'xmlns:vt="http://schemas.openxmlformats.org/officeDocument/2006/docPropsVTypes">' +
-        '<Application>Visionary 3.0.87</Application><DocSecurity>0</DocSecurity><ScaleCrop>false</ScaleCrop>' +
+        '<Application>Visionary 3.0.88</Application><DocSecurity>0</DocSecurity><ScaleCrop>false</ScaleCrop>' +
         '<Company></Company><LinksUpToDate>false</LinksUpToDate><SharedDoc>false</SharedDoc><HyperlinksChanged>false</HyperlinksChanged>' +
-        '<AppVersion>3.0.87</AppVersion></Properties>';
+        '<AppVersion>3.0.88</AppVersion></Properties>';
 
       const zip = xlsxZipStoredFiles([
         { name: "[Content_Types].xml", contents: contentTypes },
