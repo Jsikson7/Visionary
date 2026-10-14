@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="description" content="A mobile-friendly collection of vision production guides, troubleshooting history, and copy-ready reporting tools.">
-  <meta name="visionary-app-version" content="3.0.89">
+  <meta name="visionary-app-version" content="3.0.91">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
@@ -7030,7 +7030,7 @@
           <label for="login-username">Account</label>
           <select id="login-username" autocomplete="username" required>
             <option value="Technician" selected>Technician</option>
-            <option value="Admin">Admin</option>
+            <option value="Admin">Supervisor</option>
           </select>
         </div>
         <div class="field">
@@ -7154,13 +7154,13 @@
           <button id="open-local-admin" class="form-tile" type="button" hidden>
             <span class="form-tile-icon" aria-hidden="true">⚙</span>
             <span class="form-tile-copy">
-              <strong>Admin</strong>
+              <strong>Supervisor</strong>
               <small>Customize Daily Tasks and export an updated standalone HTML.</small>
             </span>
             <span class="form-tile-arrow" aria-hidden="true">›</span>
           </button>
         </div>
-        <p class="last-updated">Version 3.0.89 · Last updated: <time datetime="2026-10-14">October 14, 2026</time></p>
+        <p class="last-updated">Version 3.0.91 · Last updated: <time datetime="2026-10-14">October 14, 2026</time></p>
         <div class="version-history-link-wrap">
           <button id="open-version-history" class="version-history-link" type="button">View version history</button>
         </div>
@@ -7173,13 +7173,13 @@
 @media(max-width:500px){#supervisor-tasks-view .sv-capture{flex-wrap:wrap}#supervisor-tasks-view .sv-capture input{flex-basis:100%}#supervisor-tasks-view .sv-card{padding:16px}}
 </style>
 <section id="supervisor-tasks-view" class="app-view" hidden aria-labelledby="sv-title">
-<header class="hero"><div><p class="eyebrow">Admin workspace</p><h1 id="sv-title">Supervisor Tasks</h1><p class="hero-copy">Capture it. Finish it. Hand it over.</p></div><a href="#" class="button button-secondary">Back to Main Menu</a></header>
-<div class="sv-shell"><section class="panel"><div class="sv-row sv-bar"><div class="sv-row"><strong>Working as</strong><button type="button" class="button button-secondary" data-sv-person="James">James</button><button type="button" class="button button-secondary" data-sv-person="Sergio">Sergio</button></div><span class="sv-small" id="sv-today"></span></div><p id="sv-sync" class="sv-status sv-small" role="status" aria-live="polite"></p><div class="sv-row"><button id="sv-retry" type="button" class="button button-secondary">Retry sync</button><button id="sv-signin" type="button" class="button button-secondary">Connect Google</button><button id="sv-export" type="button" class="button button-secondary">Export task backup</button></div><hr><form id="sv-add"><div class="sv-capture"><input id="sv-task-title" aria-label="What needs to be done?" placeholder="What do you need to get done?" maxlength="240" required><button class="button" type="submit">＋ Add task</button></div><p class="sv-small">Assigned to you and due today. Unfinished tasks stay visible.</p><details id="sv-options"><summary>Optional task details</summary><div class="sv-options"><label>Due date<input type="date" id="sv-due" required></label><label>Assigned by<input id="sv-by" maxlength="80" placeholder="Optional"></label><label>Priority<select id="sv-priority"><option>Normal</option><option>Urgent</option></select></label><label>Date assigned<input type="date" id="sv-assigned" required></label></div><label>Details / next step<textarea id="sv-details" maxlength="2000"></textarea></label></details></form><p id="sv-feedback" role="status" aria-live="polite"></p></section>
+<header class="hero"><div><p class="eyebrow">Supervisor workspace</p><h1 id="sv-title">Supervisor Tasks</h1><p class="hero-copy">Capture it. Finish it. Hand it over.</p></div><a href="#" class="button button-secondary">Main menu</a></header>
+<div class="sv-shell"><section class="panel"><div class="sv-row sv-bar"><div class="sv-row"><strong>Working as</strong><button type="button" class="button button-secondary" data-sv-person="James">James</button><button type="button" class="button button-secondary" data-sv-person="Sergio">Sergio</button></div><span class="sv-small" id="sv-today"></span></div><div class="sv-row"><button id="sv-retry" type="button" class="button button-secondary">Retry sync</button><button id="sv-signin" type="button" class="button button-secondary">Connect Google</button><button id="sv-export" type="button" class="button button-secondary">Export backup</button></div><details id="sv-sync-details"><summary>Sync details</summary><p id="sv-sync" class="sv-status sv-small" role="status" aria-live="polite"></p></details><hr><form id="sv-add"><div class="sv-capture"><input id="sv-task-title" aria-label="What needs to be done?" placeholder="Add a task…" maxlength="240" required><button class="button" type="submit">＋ Add</button></div><p class="sv-small">Assigned to you and due today. Unfinished tasks stay visible.</p><details id="sv-options"><summary>Optional task details</summary><div class="sv-options"><label>Due date<input type="date" id="sv-due" required></label><label>Assigned by<input id="sv-by" maxlength="80" placeholder="Optional"></label><label>Priority<select id="sv-priority"><option>Normal</option><option>Urgent</option></select></label><label>Date assigned<input type="date" id="sv-assigned" required></label></div><label>Details / next step<textarea id="sv-details" maxlength="2000"></textarea></label></details></form><p id="sv-feedback" role="status" aria-live="polite"></p></section>
 <nav class="sv-tabs" aria-label="Supervisor task filters"><button class="button button-secondary" data-sv-filter="mine" type="button">My tasks</button><button class="button button-secondary" data-sv-filter="handoffs" type="button">Handoffs</button><button class="button button-secondary" data-sv-filter="completed" type="button">Completed</button></nav><div class="sv-row sv-bar"><h2 id="sv-heading"></h2><label class="sv-small">Search tasks<input type="search" id="sv-search" placeholder="Task or note"></label></div><p class="sv-small">Overdue first, then due date and priority. Handoffs keep their original deadline.</p><div class="sv-list" id="sv-list"></div></div>
 </section>
 
     <section id="weekly-bmpd-view" class="app-view" aria-labelledby="weekly-bmpd-title" hidden>
-      <header class="hero"><div><p class="eyebrow">Admin reports</p><h1 id="weekly-bmpd-title">BM/PD Reports</h1><p class="hero-copy">Select a downtime total to inspect the contributing issues and actions.</p></div><a href="#" class="button button-secondary">Back to Main Menu</a></header>
+      <header class="hero"><div><p class="eyebrow">Supervisor reports</p><h1 id="weekly-bmpd-title">BM/PD Reports</h1><p class="hero-copy">Select a downtime total to inspect the contributing issues and actions.</p></div><a href="#" class="button button-secondary">Back to Main Menu</a></header>
       <div class="weekly-report-actions"><button id="weekly-bmpd-refresh" class="button button-secondary" type="button">Refresh from Google</button><label class="button button-secondary">Import sheet CSV<input id="weekly-bmpd-import" type="file" accept=".csv,text/csv" hidden></label><span id="weekly-bmpd-status" role="status" aria-live="polite">Full log snapshot loaded · September 24, 2026</span></div>
       <iframe id="weekly-bmpd-frame" title="Interactive BM/PD report" sandbox="allow-scripts allow-popups allow-popups-to-escape-sandbox" referrerpolicy="no-referrer"></iframe>
     </section>
@@ -7319,7 +7319,7 @@
             <div class="daily-cloud-copy">
               <strong id="daily-cloud-title">Shared shift synchronization</strong>
               <span id="daily-cloud-status" role="status" aria-live="polite">Sign in with Google to share Daily Tasks across phones.</span>
-              <small>Safe Sync v6.2 · App <span id="daily-app-version">3.0.89</span><span id="daily-version-health" class="daily-version-health" hidden></span></small>
+              <small>Safe Sync v6.2 · App <span id="daily-app-version">3.0.91</span><span id="daily-version-health" class="daily-version-health" hidden></span></small>
             </div>
           </div>
           <div class="daily-cloud-actions">
@@ -8052,7 +8052,7 @@
       <header class="hero">
         <div>
           <p class="eyebrow">Local configuration</p>
-          <h1 id="local-admin-title">Admin</h1>
+          <h1 id="local-admin-title">Supervisor</h1>
           <p class="hero-copy">Customize future Daily Tasks and export a new standalone HTML.</p>
         </div>
         <button id="local-admin-back" class="button button-secondary top-action-button" type="button">Back</button>
@@ -8060,10 +8060,10 @@
 
       <div class="local-admin-shell">
         <section id="local-admin-gate" class="panel local-admin-gate" aria-labelledby="local-admin-gate-title">
-          <div class="panel-heading"><div><h2 id="local-admin-gate-title">Enter Admin PIN</h2><p>This local PIN prevents accidental settings changes.</p></div></div>
+          <div class="panel-heading"><div><h2 id="local-admin-gate-title">Enter Supervisor PIN</h2><p>This local PIN prevents accidental settings changes.</p></div></div>
           <form id="local-admin-pin-form" autocomplete="off">
             <div class="field">
-              <label for="local-admin-pin">Admin PIN</label>
+              <label for="local-admin-pin">Supervisor PIN</label>
               <input id="local-admin-pin" type="password" inputmode="numeric" pattern="[0-9]*" maxlength="4" autocomplete="off" required>
             </div>
             <div class="actions"><button class="button button-primary" type="submit">Unlock Task Manager</button></div>
@@ -8155,7 +8155,9 @@
 
       <section class="panel" aria-label="Release history">
         <div class="version-history-list">
-          <article class="version-card version-card-current"><div class="version-card-heading"><h2>Version 3.0.89</h2><time datetime="2026-10-14">October 14, 2026</time></div><p class="version-summary-intro">Added admin-only Supervisor Tasks with James/Sergio working-as selection, quick entry, due dates, priority, notes, completion history, and acknowledged handoffs. Unfinished tasks remain visible. Separate device backup and Firebase task sync with explicit pending/error states; shared access requires supervisorTasks server permissions.</p></article>
+          <article class="version-card version-card-current"><div class="version-card-heading"><h2>Version 3.0.91</h2><time datetime="2026-10-14">October 14, 2026</time></div><p class="version-summary-intro">Compact Supervisor Tasks layout aligned with Daily Tasks: smaller header and buttons, tighter task cards, inline quick entry, and two-column mobile task fields.</p></article>
+<article class="version-card"><div class="version-card-heading"><h2>Version 3.0.90</h2><time datetime="2026-10-14">October 14, 2026</time></div><p class="version-summary-intro">Renamed the visible Admin account to Supervisor while preserving its PIN and permissions. Moved the detailed synchronization description out from under Working as into a collapsed Sync details section.</p></article>
+<article class="version-card"><div class="version-card-heading"><h2>Version 3.0.89</h2><time datetime="2026-10-14">October 14, 2026</time></div><p class="version-summary-intro">Added admin-only Supervisor Tasks with James/Sergio working-as selection, quick entry, due dates, priority, notes, completion history, and acknowledged handoffs. Unfinished tasks remain visible. Separate device backup and Firebase task sync with explicit pending/error states; shared access requires supervisorTasks server permissions.</p></article>
 <article class="version-card"><div class="version-card-heading"><h2>Version 3.0.88</h2><time datetime="2026-10-03">October 3, 2026</time></div><p class="version-summary-intro">Email report now opens native file sharing on supported phones instead of downloading an Outlook draft. Email and Download PDF use the same original desktop layout, theme, three summary cards and activity grids on every device. Long reports continue across landscape A3 pages. Browsers without file sharing open an email draft and download the PDF for manual attachment.</p></article>
           <article class="version-card"><div class="version-card-heading"><h2>Version 3.0.86</h2><time datetime="2026-10-02">October 2, 2026</time></div><p class="version-summary-intro">Restored the original themed shift report preview. PDF reports now use the selected theme, report header, metric cards, top contributor and section styling while retaining readable text across multiple pages. Email report and Download PDF remain the only report actions.</p></article>
           <article class="version-card"><div class="version-card-heading"><h2>Version 3.0.85</h2><time datetime="2026-10-02">October 2, 2026</time></div><p class="version-summary-intro">Simplified generated shift reports to Email report and Download PDF. A readable single-column preview replaces the scaled-down image. PDF pages retain 12-point body text and add pages for long reports. Email shares the PDF, with download and email-draft fallback where file sharing is unavailable.</p></article>
@@ -9772,8 +9774,8 @@ window.VisionaryIQRequirements = Object.freeze({
         "If the embedded form does not appear or feels cramped, use Open Full Screen.": "포함된 양식이 표시되지 않거나 화면이 좁으면 전체 화면으로 열기를 사용하세요.",
         "Loading Microsoft Form…": "Microsoft 양식을 불러오는 중…",
         "Replay celebration": "축하 영상 다시 보기",
-        "Version 3.0.89 · Last updated:": "버전 3.0.89 · 마지막 업데이트:",
-        "Version 3.0.89": "버전 3.0.89",
+        "Version 3.0.91 · Last updated:": "버전 3.0.91 · 마지막 업데이트:",
+        "Version 3.0.91": "버전 3.0.91",
         "Version 3.0.77 · Last updated:": "버전 3.0.77 · 마지막 업데이트:",
         "Version 3.0.77": "버전 3.0.77",
         "Version 3.0.72 · Last updated:": "버전 3.0.72 · 마지막 업데이트:",
@@ -10390,7 +10392,7 @@ window.VisionaryIQRequirements = Object.freeze({
           "Reports - Visionary Tool": "보고서 - Visionary Tool",
           "BM/PD Trends - Visionary Tool": "BM/PD 추세 - Visionary Tool",
           "Live Dashboard - Visionary Tool": "라이브 대시보드 - Visionary Tool",
-          "Admin - Visionary Tool": "관리자 - Visionary Tool"
+          "Supervisor - Visionary Tool": "관리자 - Visionary Tool"
         };
         return titleMap[englishTitle] || englishTitle;
       }
@@ -10665,7 +10667,7 @@ window.VisionaryIQRequirements = Object.freeze({
 
       function updateLoginCredentialField() {
         var adminSelected = loginUsername.value === "Admin";
-        loginPasswordLabel.textContent = adminSelected ? "Admin PIN" : "Password";
+        loginPasswordLabel.textContent = adminSelected ? "Supervisor PIN" : "Password";
         loginPassword.inputMode = adminSelected ? "numeric" : "text";
         loginPassword.maxLength = adminSelected ? 4 : 64;
         loginPassword.setAttribute("autocomplete", adminSelected ? "one-time-code" : "current-password");
@@ -12604,7 +12606,7 @@ function normalizeWeeklyRows(values) {
           weeklyBmpdView.querySelector('.hero>a').textContent=searchView?'← Back':'Back to Main Menu';
           document.getElementById('weekly-bmpd-refresh').textContent=searchView?'Refresh':'Refresh from Google';
           if(searchView)document.getElementById('weekly-bmpd-status').textContent='';
-          weeklyBmpdView.querySelector(".eyebrow").textContent = searchView ? "Log lookup" : "Admin reports";
+          weeklyBmpdView.querySelector(".eyebrow").textContent = searchView ? "Log lookup" : "Supervisor reports";
           document.getElementById("weekly-bmpd-title").textContent = searchView ? "BM/PD Log Search" : "BM/PD Reports";
           weeklyBmpdView.querySelector(".hero-copy").textContent = searchView ? "Find logged issues, causes, actions, machines, and PIC names by keyword and date." : "Select a downtime total to inspect the contributing issues and actions.";
           weeklyBmpdFrame.title = searchView ? "BM/PD log search" : "Interactive BM/PD report";
@@ -12686,7 +12688,7 @@ function normalizeWeeklyRows(values) {
         else if (showWeeklyBmpd) document.title = localizedPageTitle(window.location.hash === "#bmpd-log-search" ? "BM/PD Log Search - Visionary Tool" : "BM/PD Reports - Visionary Tool");
         else if (showBmpdTrends) document.title = localizedPageTitle("BM/PD Trends - Visionary Tool");
         else if (showReports) document.title = localizedPageTitle("Reports - Visionary Tool");
-        else if (showLocalAdmin) document.title = localizedPageTitle("Admin - Visionary Tool");
+        else if (showLocalAdmin) document.title = localizedPageTitle("Supervisor - Visionary Tool");
         else if (showPkgForm) document.title = localizedPageTitle("PKG DL Update");
         else if (showPkgIqForm) document.title = localizedPageTitle("PKG IQ Checks");
         else if (showLnsForm) document.title = localizedPageTitle("LNS IQ Check");
@@ -14162,7 +14164,7 @@ function normalizeWeeklyRows(values) {
           loginPassword.value = "";
           return;
         }
-        setUiElementText(loginStatus, selectedRole === "Admin" ? "Incorrect Admin PIN." : "Incorrect Technician password.");
+        setUiElementText(loginStatus, selectedRole === "Admin" ? "Incorrect Supervisor PIN." : "Incorrect Technician password.");
         loginPassword.select();
       });
       loginUsername.addEventListener("change", updateLoginCredentialField);
@@ -19833,7 +19835,7 @@ function normalizeWeeklyRows(values) {
     const provider = new GoogleAuthProvider();
     provider.setCustomParameters({ prompt: "select_account" });
     const SYNC_PROTOCOL_VERSION = 6;
-    const APP_VERSION = String(document.querySelector('meta[name="visionary-app-version"]')?.content || "3.0.89");
+    const APP_VERSION = String(document.querySelector('meta[name="visionary-app-version"]')?.content || "3.0.91");
     const HOSTED_APP_ROOT = "https://jsikson7.github.io/Visionary/";
     const HOSTED_APP_URL = HOSTED_APP_ROOT + "?v=" + APP_VERSION.replace(/\D/g, "");
     const isDirectFilePage = !["http:", "https:"].includes(window.location.protocol);
@@ -23045,9 +23047,9 @@ function normalizeWeeklyRows(values) {
       const appProperties = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>' +
         '<Properties xmlns="http://schemas.openxmlformats.org/officeDocument/2006/extended-properties" ' +
         'xmlns:vt="http://schemas.openxmlformats.org/officeDocument/2006/docPropsVTypes">' +
-        '<Application>Visionary 3.0.89</Application><DocSecurity>0</DocSecurity><ScaleCrop>false</ScaleCrop>' +
+        '<Application>Visionary 3.0.91</Application><DocSecurity>0</DocSecurity><ScaleCrop>false</ScaleCrop>' +
         '<Company></Company><LinksUpToDate>false</LinksUpToDate><SharedDoc>false</SharedDoc><HyperlinksChanged>false</HyperlinksChanged>' +
-        '<AppVersion>3.0.89</AppVersion></Properties>';
+        '<AppVersion>3.0.91</AppVersion></Properties>';
 
       const zip = xlsxZipStoredFiles([
         { name: "[Content_Types].xml", contents: contentTypes },
@@ -24525,7 +24527,7 @@ panel.querySelector('.cell-tracking-back').addEventListener('click',()=>taskTab.
   function editableControl(el){return el.matches('input,select,textarea,button')&&!el.matches(allowed)&&!el.closest('.daily-task-scoreboard')&&!el.matches('[aria-expanded]');}
   function refresh(){
     const locked=policy.locked(),end=policy.deadline(policy.current());
-    const text=locked?policy.message:(end===null?'':(document.getElementById('app-shell').dataset.authRole==='Admin'?'Admin access: shift editing is available.':'Technician editing closes '+new Date(end).toLocaleString('en-US',{timeZone:'America/Detroit',month:'short',day:'numeric',hour:'numeric',minute:'2-digit',timeZoneName:'short'})+'.'));
+    const text=locked?policy.message:(end===null?'':(document.getElementById('app-shell').dataset.authRole==='Admin'?'Supervisor access: shift editing is available.':'Technician editing closes '+new Date(end).toLocaleString('en-US',{timeZone:'America/Detroit',month:'short',day:'numeric',hour:'numeric',minute:'2-digit',timeZoneName:'short'})+'.'));
     if(notice.textContent!==text)notice.textContent=text;notice.hidden=!text;
     if(locked){form.querySelectorAll('input,select,textarea,button').forEach(el=>{if(editableControl(el)){if(!preserved.has(el))preserved.set(el,el.disabled);if(!el.disabled)el.disabled=true;}});}
     else {preserved.forEach((disabled,el)=>{el.disabled=disabled;});preserved.clear();}
@@ -25497,5 +25499,56 @@ window.VisionarySupervisorModel={apply};
 })();
 
 </script>
+<style id="supervisor-compact-layout">
+/* Match the compact Daily Tasks workspace; scoped to supervisor tasks only. */
+#supervisor-tasks-view{font-size:14px}
+#supervisor-tasks-view > .hero{display:grid;grid-template-columns:auto minmax(0,1fr);grid-template-areas:"back tools" "title title";gap:10px 12px;align-items:center;padding:calc(12px + env(safe-area-inset-top)) 14px 14px;margin:0}
+#supervisor-tasks-view > .hero::before,#supervisor-tasks-view > .hero::after{display:none}
+#supervisor-tasks-view > .hero > div:first-child{grid-area:title;min-width:0}
+#supervisor-tasks-view > .hero .eyebrow,#supervisor-tasks-view > .hero .hero-copy{display:none}
+#supervisor-tasks-view > .hero h1{font-size:1.5rem;line-height:1.2;letter-spacing:-.025em}
+#supervisor-tasks-view > .hero > a{grid-area:back;align-self:center;justify-self:start;text-decoration:none}
+#supervisor-tasks-view #header-actions{grid-area:tools;position:static;inset:auto;width:auto;min-width:0;justify-content:flex-end;margin:0;transform:none}
+#supervisor-tasks-view #header-actions .button{font-size:12px;min-height:40px;padding:7px 10px}
+#supervisor-tasks-view .sv-shell{width:min(100%,980px);max-width:980px;padding:0 12px;margin:12px auto 24px;min-width:0}
+#supervisor-tasks-view .sv-shell > .panel{padding:12px;border:1px solid var(--line);border-radius:12px;margin:0;background:var(--paper)}
+#supervisor-tasks-view .sv-row{gap:6px 8px}
+#supervisor-tasks-view .sv-bar{gap:8px}
+#supervisor-tasks-view .sv-bar strong{font-size:13px}
+#supervisor-tasks-view button,#supervisor-tasks-view .button{min-height:38px;padding:7px 10px;font-size:12px;line-height:1.25;border-radius:8px;letter-spacing:0}
+#supervisor-tasks-view .sv-capture{display:flex;flex-wrap:nowrap;gap:7px}
+#supervisor-tasks-view .sv-capture input{flex:1 1 0%;width:0;min-width:0}
+#supervisor-tasks-view .sv-capture button{flex:0 0 auto;white-space:nowrap}
+#supervisor-tasks-view input,#supervisor-tasks-view select{min-height:40px;padding:7px 9px;font-size:16px;min-width:0;box-sizing:border-box}
+#supervisor-tasks-view select{padding-right:24px}
+#supervisor-tasks-view label{min-width:0;font-size:12px;line-height:1.4}
+#supervisor-tasks-view label > input,#supervisor-tasks-view label > select{margin-top:4px}
+#supervisor-tasks-view textarea{min-height:72px;padding:8px 9px;margin:5px 0;font-size:16px}
+#supervisor-tasks-view .sv-options{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:5px;margin-bottom:10px}
+#supervisor-tasks-view summary{font-size:12px;min-height:36px;padding:8px 0;line-height:1.4}
+#supervisor-tasks-view .sv-small{font-size:12px;line-height:1.45}
+#supervisor-tasks-view p{margin:7px 0}
+#supervisor-tasks-view hr{margin:10px 0}
+#supervisor-tasks-view #sv-feedback:empty{display:none}
+#supervisor-tasks-view #sv-sync-details{margin-top:5px}
+#supervisor-tasks-view .sv-tabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin:12px 0 8px}
+#supervisor-tasks-view .sv-tabs button{min-width:0;padding:7px 5px}
+#supervisor-tasks-view h2{font-size:16px;line-height:1.3;margin:8px 0}
+#supervisor-tasks-view .sv-list{grid-template-columns:repeat(auto-fit,minmax(min(100%,310px),1fr));gap:10px}
+#supervisor-tasks-view .sv-card{padding:12px;border-radius:11px}
+#supervisor-tasks-view .sv-note{padding:9px;margin:8px 0;border-radius:8px;font-size:13px;line-height:1.45}
+#supervisor-tasks-view .sv-tag{padding:3px 6px;font-size:11px}
+#supervisor-tasks-view .sv-actions{gap:6px;margin-top:10px}
+#supervisor-tasks-view .sv-actions button{font-size:12px;padding:7px 9px}
+#supervisor-tasks-view .sv-history,#supervisor-tasks-view .sv-editor{margin-top:8px}
+#supervisor-tasks-view .sv-editor{padding-top:8px}
+#supervisor-tasks-view .sv-history p{padding:7px 0}
+#supervisor-tasks-view .sv-empty{padding:14px}
+#supervisor-tasks-view .sv-shell > .sv-bar > label{width:min(100%,230px)}
+@media(pointer:coarse){#supervisor-tasks-view button,#supervisor-tasks-view .button,#supervisor-tasks-view summary{min-height:44px}}
+@media(min-width:760px){#supervisor-tasks-view > .hero{grid-template-columns:auto minmax(0,1fr) auto;grid-template-areas:"back title tools";padding:16px 24px;gap:16px}#supervisor-tasks-view .sv-options{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media(max-width:359px){#supervisor-tasks-view .sv-shell{padding:0 8px}#supervisor-tasks-view .sv-shell>.panel{padding:10px}#supervisor-tasks-view .sv-card{padding:10px}#supervisor-tasks-view .sv-bar > .sv-row{gap:5px}}
+
+</style>
 </body>
 </html>
