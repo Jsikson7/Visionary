@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="description" content="A mobile-friendly collection of vision production guides, troubleshooting history, and copy-ready reporting tools.">
-  <meta name="visionary-app-version" content="3.0.88">
+  <meta name="visionary-app-version" content="3.0.89">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
@@ -7150,6 +7150,7 @@
             </span>
             <span class="form-tile-arrow" aria-hidden="true">›</span>
           </button>
+<button id="open-supervisor-tasks" class="form-tile" type="button" hidden><span class="form-tile-icon" aria-hidden="true">✓</span><span class="form-tile-copy"><strong>Supervisor Tasks</strong><small>Your daily tasks and handoffs</small></span><span class="form-tile-arrow" aria-hidden="true">›</span></button>
           <button id="open-local-admin" class="form-tile" type="button" hidden>
             <span class="form-tile-icon" aria-hidden="true">⚙</span>
             <span class="form-tile-copy">
@@ -7159,12 +7160,23 @@
             <span class="form-tile-arrow" aria-hidden="true">›</span>
           </button>
         </div>
-        <p class="last-updated">Version 3.0.88 · Last updated: <time datetime="2026-10-03">October 3, 2026</time></p>
+        <p class="last-updated">Version 3.0.89 · Last updated: <time datetime="2026-10-14">October 14, 2026</time></p>
         <div class="version-history-link-wrap">
           <button id="open-version-history" class="version-history-link" type="button">View version history</button>
         </div>
       </section>
     </section>
+
+<style id="supervisor-task-style">
+#app-shell:not([data-auth-role="Admin"]) #open-supervisor-tasks,#app-shell:not([data-auth-role="Admin"]) #supervisor-tasks-view,#supervisor-tasks-view[hidden]{display:none!important}
+#supervisor-tasks-view .sv-shell{max-width:1100px;margin:0 auto}#supervisor-tasks-view .sv-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}#supervisor-tasks-view .sv-bar{justify-content:space-between}#supervisor-tasks-view .sv-capture{display:flex;gap:10px;align-items:center}#supervisor-tasks-view .sv-capture input{flex:1;min-width:0}#supervisor-tasks-view .sv-options{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin-top:14px}#supervisor-tasks-view label{display:block}#supervisor-tasks-view .sv-tabs{display:flex;flex-wrap:wrap;gap:8px;margin:20px 0}#supervisor-tasks-view [aria-pressed="true"]{background:var(--matcha-100);color:var(--matcha-900);border-color:var(--matcha-600)}#supervisor-tasks-view .sv-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:16px;align-items:start}#supervisor-tasks-view .sv-card{padding:20px;background:var(--paper);border:1px solid var(--line);border-radius:16px;min-width:0;overflow-wrap:anywhere}#supervisor-tasks-view h2{font-size:20px;margin:12px 0}#supervisor-tasks-view .sv-small{font-size:13px;color:var(--muted)}#supervisor-tasks-view .sv-note{background:var(--cream);border-radius:10px;padding:12px;margin:12px 0;white-space:pre-wrap}#supervisor-tasks-view .sv-tag{border:1px solid var(--line);border-radius:7px;padding:4px 8px;font-size:12px}#supervisor-tasks-view .sv-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}#supervisor-tasks-view button{min-height:44px}#supervisor-tasks-view textarea{width:100%;min-height:100px;font-size:16px;margin:10px 0}#supervisor-tasks-view .sv-editor{margin-top:14px;padding-top:14px;border-top:1px solid var(--line)}#supervisor-tasks-view .sv-history{margin-top:14px}#supervisor-tasks-view .sv-history p{white-space:pre-wrap;border-top:1px solid var(--line);padding:10px 0}#supervisor-tasks-view .sv-status{margin:12px 0;white-space:pre-wrap}#supervisor-tasks-view .sv-error{color:var(--ink);border-left:4px solid var(--matcha-600);padding-left:12px}#supervisor-tasks-view input,#supervisor-tasks-view select{max-width:100%;font-size:16px}#supervisor-tasks-view summary{cursor:pointer;padding:10px 0}#supervisor-tasks-view .sv-empty{padding:24px}
+@media(max-width:500px){#supervisor-tasks-view .sv-capture{flex-wrap:wrap}#supervisor-tasks-view .sv-capture input{flex-basis:100%}#supervisor-tasks-view .sv-card{padding:16px}}
+</style>
+<section id="supervisor-tasks-view" class="app-view" hidden aria-labelledby="sv-title">
+<header class="hero"><div><p class="eyebrow">Admin workspace</p><h1 id="sv-title">Supervisor Tasks</h1><p class="hero-copy">Capture it. Finish it. Hand it over.</p></div><a href="#" class="button button-secondary">Back to Main Menu</a></header>
+<div class="sv-shell"><section class="panel"><div class="sv-row sv-bar"><div class="sv-row"><strong>Working as</strong><button type="button" class="button button-secondary" data-sv-person="James">James</button><button type="button" class="button button-secondary" data-sv-person="Sergio">Sergio</button></div><span class="sv-small" id="sv-today"></span></div><p id="sv-sync" class="sv-status sv-small" role="status" aria-live="polite"></p><div class="sv-row"><button id="sv-retry" type="button" class="button button-secondary">Retry sync</button><button id="sv-signin" type="button" class="button button-secondary">Connect Google</button><button id="sv-export" type="button" class="button button-secondary">Export task backup</button></div><hr><form id="sv-add"><div class="sv-capture"><input id="sv-task-title" aria-label="What needs to be done?" placeholder="What do you need to get done?" maxlength="240" required><button class="button" type="submit">＋ Add task</button></div><p class="sv-small">Assigned to you and due today. Unfinished tasks stay visible.</p><details id="sv-options"><summary>Optional task details</summary><div class="sv-options"><label>Due date<input type="date" id="sv-due" required></label><label>Assigned by<input id="sv-by" maxlength="80" placeholder="Optional"></label><label>Priority<select id="sv-priority"><option>Normal</option><option>Urgent</option></select></label><label>Date assigned<input type="date" id="sv-assigned" required></label></div><label>Details / next step<textarea id="sv-details" maxlength="2000"></textarea></label></details></form><p id="sv-feedback" role="status" aria-live="polite"></p></section>
+<nav class="sv-tabs" aria-label="Supervisor task filters"><button class="button button-secondary" data-sv-filter="mine" type="button">My tasks</button><button class="button button-secondary" data-sv-filter="handoffs" type="button">Handoffs</button><button class="button button-secondary" data-sv-filter="completed" type="button">Completed</button></nav><div class="sv-row sv-bar"><h2 id="sv-heading"></h2><label class="sv-small">Search tasks<input type="search" id="sv-search" placeholder="Task or note"></label></div><p class="sv-small">Overdue first, then due date and priority. Handoffs keep their original deadline.</p><div class="sv-list" id="sv-list"></div></div>
+</section>
 
     <section id="weekly-bmpd-view" class="app-view" aria-labelledby="weekly-bmpd-title" hidden>
       <header class="hero"><div><p class="eyebrow">Admin reports</p><h1 id="weekly-bmpd-title">BM/PD Reports</h1><p class="hero-copy">Select a downtime total to inspect the contributing issues and actions.</p></div><a href="#" class="button button-secondary">Back to Main Menu</a></header>
@@ -7307,7 +7319,7 @@
             <div class="daily-cloud-copy">
               <strong id="daily-cloud-title">Shared shift synchronization</strong>
               <span id="daily-cloud-status" role="status" aria-live="polite">Sign in with Google to share Daily Tasks across phones.</span>
-              <small>Safe Sync v6.2 · App <span id="daily-app-version">3.0.88</span><span id="daily-version-health" class="daily-version-health" hidden></span></small>
+              <small>Safe Sync v6.2 · App <span id="daily-app-version">3.0.89</span><span id="daily-version-health" class="daily-version-health" hidden></span></small>
             </div>
           </div>
           <div class="daily-cloud-actions">
@@ -8143,7 +8155,8 @@
 
       <section class="panel" aria-label="Release history">
         <div class="version-history-list">
-          <article class="version-card version-card-current"><div class="version-card-heading"><h2>Version 3.0.88</h2><time datetime="2026-10-03">October 3, 2026</time></div><p class="version-summary-intro">Email report now opens native file sharing on supported phones instead of downloading an Outlook draft. Email and Download PDF use the same original desktop layout, theme, three summary cards and activity grids on every device. Long reports continue across landscape A3 pages. Browsers without file sharing open an email draft and download the PDF for manual attachment.</p></article>
+          <article class="version-card version-card-current"><div class="version-card-heading"><h2>Version 3.0.89</h2><time datetime="2026-10-14">October 14, 2026</time></div><p class="version-summary-intro">Added admin-only Supervisor Tasks with James/Sergio working-as selection, quick entry, due dates, priority, notes, completion history, and acknowledged handoffs. Unfinished tasks remain visible. Separate device backup and Firebase task sync with explicit pending/error states; shared access requires supervisorTasks server permissions.</p></article>
+<article class="version-card"><div class="version-card-heading"><h2>Version 3.0.88</h2><time datetime="2026-10-03">October 3, 2026</time></div><p class="version-summary-intro">Email report now opens native file sharing on supported phones instead of downloading an Outlook draft. Email and Download PDF use the same original desktop layout, theme, three summary cards and activity grids on every device. Long reports continue across landscape A3 pages. Browsers without file sharing open an email draft and download the PDF for manual attachment.</p></article>
           <article class="version-card"><div class="version-card-heading"><h2>Version 3.0.86</h2><time datetime="2026-10-02">October 2, 2026</time></div><p class="version-summary-intro">Restored the original themed shift report preview. PDF reports now use the selected theme, report header, metric cards, top contributor and section styling while retaining readable text across multiple pages. Email report and Download PDF remain the only report actions.</p></article>
           <article class="version-card"><div class="version-card-heading"><h2>Version 3.0.85</h2><time datetime="2026-10-02">October 2, 2026</time></div><p class="version-summary-intro">Simplified generated shift reports to Email report and Download PDF. A readable single-column preview replaces the scaled-down image. PDF pages retain 12-point body text and add pages for long reports. Email shares the PDF, with download and email-draft fallback where file sharing is unavailable.</p></article>
           <article class="version-card"><div class="version-card-heading"><h2>Version 3.0.84</h2><time datetime="2026-10-02">October 2, 2026</time></div><p class="version-summary-intro">Fixed locked shift reports excluding disabled task checkboxes from scoring. Read-only controls now retain their saved work credit. Added Copy for Outlook and a downloadable email report with readable text and tables, without screenshots. Existing shift records and Firebase saving are unchanged.</p></article>
@@ -9759,8 +9772,8 @@ window.VisionaryIQRequirements = Object.freeze({
         "If the embedded form does not appear or feels cramped, use Open Full Screen.": "포함된 양식이 표시되지 않거나 화면이 좁으면 전체 화면으로 열기를 사용하세요.",
         "Loading Microsoft Form…": "Microsoft 양식을 불러오는 중…",
         "Replay celebration": "축하 영상 다시 보기",
-        "Version 3.0.88 · Last updated:": "버전 3.0.88 · 마지막 업데이트:",
-        "Version 3.0.88": "버전 3.0.88",
+        "Version 3.0.89 · Last updated:": "버전 3.0.89 · 마지막 업데이트:",
+        "Version 3.0.89": "버전 3.0.89",
         "Version 3.0.77 · Last updated:": "버전 3.0.77 · 마지막 업데이트:",
         "Version 3.0.77": "버전 3.0.77",
         "Version 3.0.72 · Last updated:": "버전 3.0.72 · 마지막 업데이트:",
@@ -12617,9 +12630,11 @@ function normalizeWeeklyRows(values) {
 
       function showRequestedView() {
         if (appShell.hidden) return;
-        if (["#local-admin", "#version-history", "#live-dashboard", "#bmpd-trends", "#reports", "#weekly-bmpd"].indexOf(window.location.hash) !== -1 && currentAuthRole !== "Admin") {
+        if (["#supervisor-tasks", "#local-admin", "#version-history", "#live-dashboard", "#bmpd-trends", "#reports", "#weekly-bmpd"].indexOf(window.location.hash) !== -1 && currentAuthRole !== "Admin") {
           history.replaceState(null, "", window.location.pathname + window.location.search);
         }
+        var showSupervisorTasks = window.location.hash === "#supervisor-tasks" && currentAuthRole === "Admin";
+        document.getElementById("supervisor-tasks-view").hidden = !showSupervisorTasks;
         var showGuidesMenu = window.location.hash === "#guides";
         var showCopyMenu = window.location.hash === "#copy-paste";
         var showDailyTasks = window.location.hash === "#daily-tasks";
@@ -12640,7 +12655,7 @@ function normalizeWeeklyRows(values) {
         var showTroubleshooting = window.location.hash === "#troubleshooting";
         var showWorkInstructions = window.location.hash === "#work-instructions";
         var showVersionHistory = window.location.hash === "#version-history";
-        formsMenuView.hidden = showWeeklyBmpd || showPkgIqForm || showBmpdTrends || showGuidesMenu || showCopyMenu || showDailyTasks || showLiveDashboard || showLeaderboard || showReports || showLocalAdmin || showPkgForm || showLnsForm || showTop3Form || showCellRecognitionForm || showEscalationForm || showTroubleshooting || showWorkInstructions || showVersionHistory;
+        formsMenuView.hidden = showSupervisorTasks || showWeeklyBmpd || showPkgIqForm || showBmpdTrends || showGuidesMenu || showCopyMenu || showDailyTasks || showLiveDashboard || showLeaderboard || showReports || showLocalAdmin || showPkgForm || showLnsForm || showTop3Form || showCellRecognitionForm || showEscalationForm || showTroubleshooting || showWorkInstructions || showVersionHistory;
         guidesMenuView.hidden = !showGuidesMenu;
         copyMenuView.hidden = !showCopyMenu;
         dailyTasksView.hidden = !showDailyTasks;
@@ -12662,7 +12677,8 @@ function normalizeWeeklyRows(values) {
         if (headerActions && activeHeader && headerActions.parentElement !== activeHeader) {
           activeHeader.appendChild(headerActions);
         }
-        if (showGuidesMenu) document.title = localizedPageTitle("Guides - Visionary Tool");
+        if (showSupervisorTasks) document.title = "Supervisor Tasks - Visionary Tool";
+        else if (showGuidesMenu) document.title = localizedPageTitle("Guides - Visionary Tool");
         else if (showCopyMenu) document.title = localizedPageTitle("Copy/Paste - Visionary Tool");
         else if (showDailyTasks) document.title = localizedPageTitle("MI2 Daily Tasks - Visionary Tool");
         else if (showLiveDashboard) document.title = localizedPageTitle("Live Dashboard - Visionary Tool");
@@ -19734,6 +19750,49 @@ function normalizeWeeklyRows(values) {
     const db = initializeFirestore(app, {
       localCache: persistentLocalCache({ tabManager: persistentMultipleTabManager() })
     });
+    // Supervisor Tasks: separate collection, transaction conflict detection and confirmed saves.
+    window.VisionarySupervisorCloud = {
+      identity: () => auth.currentUser?.uid || '',
+      ready: () => location.protocol !== 'file:' && !!auth.currentUser,
+      signIn: async () => {
+        if (location.protocol === 'file:') throw new Error('Open the hosted app to connect Google.');
+        await signInWithPopup(auth, new GoogleAuthProvider());
+      },
+      watch: (onData, onError) => {
+        let stopped = false, stop = null;
+        // Same protected administrator probe used by the existing app.
+        const user = auth.currentUser;
+        getDocFromServer(doc(db, 'adminProbe', user.uid)).then(() => {
+          if (stopped || auth.currentUser?.uid !== user.uid) return;
+          stop = onSnapshot(collection(db, 'supervisorTasks'), {includeMetadataChanges:true}, snap => {
+            const rows = {};
+            snap.forEach(item => { const t=item.data(); if(t.schema===1 && t.task) rows[item.id]=t.task; });
+            onData(rows, snap.metadata.fromCache || snap.metadata.hasPendingWrites);
+          }, onError);
+        }).catch(e => {if(!stopped)onError(e);});
+        return () => {stopped=true;if(stop)stop();};
+      },
+      commit: async op => {
+        const user=auth.currentUser;
+        if(!user || document.getElementById('app-shell').hidden || document.getElementById('app-shell').dataset.authRole!=='Admin') throw new Error('Admin sign-in is required.');
+        const ref=doc(db,'supervisorTasks',op.taskId);
+        return runTransaction(db,async transaction => {
+          // Probe permission is verified for every write; Firestore rules must also protect this collection.
+          await transaction.get(doc(db,'adminProbe',user.uid));
+          const snap=await transaction.get(ref);
+          const task=snap.exists()?snap.data().task:null;
+          let updated;
+          try { updated=window.VisionarySupervisorModel.apply(task,op); }
+          catch(e){e.code='sv-conflict';throw e;}
+          if(auth.currentUser?.uid!==user.uid || document.getElementById('app-shell').hidden || document.getElementById('app-shell').dataset.authRole!=='Admin') throw new Error('Admin session ended.');
+          transaction.set(ref,{schema:1,task:updated,updatedAt:serverTimestamp(),updatedByUid:user.uid});
+          return updated;
+        });
+      }
+    };
+    onAuthStateChanged(auth, () => window.dispatchEvent(new Event('supervisor-cloud-ready')));
+    window.dispatchEvent(new Event('supervisor-cloud-ready'));
+
     // Request Sheets access only when the report's Refresh button is selected.
     // The access token remains in this closure and is never persisted.
     let bmpdToken = null, bmpdTokenExpires = 0;
@@ -19774,7 +19833,7 @@ function normalizeWeeklyRows(values) {
     const provider = new GoogleAuthProvider();
     provider.setCustomParameters({ prompt: "select_account" });
     const SYNC_PROTOCOL_VERSION = 6;
-    const APP_VERSION = String(document.querySelector('meta[name="visionary-app-version"]')?.content || "3.0.88");
+    const APP_VERSION = String(document.querySelector('meta[name="visionary-app-version"]')?.content || "3.0.89");
     const HOSTED_APP_ROOT = "https://jsikson7.github.io/Visionary/";
     const HOSTED_APP_URL = HOSTED_APP_ROOT + "?v=" + APP_VERSION.replace(/\D/g, "");
     const isDirectFilePage = !["http:", "https:"].includes(window.location.protocol);
@@ -22986,9 +23045,9 @@ function normalizeWeeklyRows(values) {
       const appProperties = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>' +
         '<Properties xmlns="http://schemas.openxmlformats.org/officeDocument/2006/extended-properties" ' +
         'xmlns:vt="http://schemas.openxmlformats.org/officeDocument/2006/docPropsVTypes">' +
-        '<Application>Visionary 3.0.88</Application><DocSecurity>0</DocSecurity><ScaleCrop>false</ScaleCrop>' +
+        '<Application>Visionary 3.0.89</Application><DocSecurity>0</DocSecurity><ScaleCrop>false</ScaleCrop>' +
         '<Company></Company><LinksUpToDate>false</LinksUpToDate><SharedDoc>false</SharedDoc><HyperlinksChanged>false</HyperlinksChanged>' +
-        '<AppVersion>3.0.88</AppVersion></Properties>';
+        '<AppVersion>3.0.89</AppVersion></Properties>';
 
       const zip = xlsxZipStoredFiles([
         { name: "[Content_Types].xml", contents: contentTypes },
@@ -25407,5 +25466,36 @@ panel.querySelector('.cell-tracking-back').addEventListener('click',()=>taskTab.
 
 #daily-report-modal .daily-report-actions { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }
 </style>
+<script id="supervisor-task-controller">
+/* Supervisor Tasks v1: isolated task journal; no shift or ranking data writes. */
+(()=>{'use strict';
+const root=document.getElementById('supervisor-tasks-view'),shell=document.getElementById('app-shell'),tile=document.getElementById('open-supervisor-tasks');
+const $=id=>document.getElementById(id),key='visionary-supervisor-tasks-v1',opPrefix=key+':op:',people=['James','Sergio'];
+let defaultDay='',person='James',filter='mine',base={},pending=[],unsub=null,connection='',busy=false,cloudText='Saved on this device only. Connect Google on the hosted app to share tasks.',confirmed=false,errorText='',editorOpen=false;
+const admin=()=>!shell.hidden&&shell.dataset.authRole==='Admin';
+const today=()=>{const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');};
+const uid=()=>globalThis.crypto?.randomUUID?.()||Date.now().toString(36)+'-'+Math.random().toString(36).slice(2);
+function load(){try{base=JSON.parse(localStorage.getItem(key+':cache')||'{}');pending=Object.keys(localStorage).filter(k=>k.startsWith(opPrefix)).map(k=>JSON.parse(localStorage.getItem(k))).sort((a,b)=>a.at.localeCompare(b.at)||a.id.localeCompare(b.id));person=localStorage.getItem(key+':person')||person;if(!people.includes(person))person='James';}catch(e){errorText='Device storage could not be read. Export a backup before closing this page.';}}
+function cache(){try{localStorage.setItem(key+':cache',JSON.stringify(base));}catch(e){errorText='Device backup is full or unavailable. Export your tasks before closing.';}}
+function apply(task,op){if(task?.events?.some(e=>e.id===op.id))return task;if(op.kind==='create'){if(task)throw Error('Task already exists.');return {...op.task,revision:1,events:[{id:op.id,at:op.at,by:op.by,action:'Created',note:op.note||''}]};}if(!task)throw Error('Task is no longer available.');if(task.revision!==op.revision)throw Error('This task changed on another device. Review the shared version before retrying.');if(task.owner!==op.by)throw Error('This task now belongs to '+task.owner+'.');if(task.done&&op.kind!=='reopen')throw Error('Reopen this completed task before updating it.');const next=JSON.parse(JSON.stringify(task));let action='Updated';if(op.kind==='handoff'){next.owner=op.to;next.handoff={from:op.by,to:op.to,at:op.at,received:false};action='Handed over to '+op.to;}else if(op.kind==='receive'){if(!next.handoff)throw Error('No handoff to receive.');next.handoff.received=true;next.handoff.receivedAt=op.at;action='Handoff received';}else if(op.kind==='complete'){next.done=true;next.completedAt=op.at;next.completedBy=op.by;action='Completed';}else if(op.kind==='reopen'){next.done=false;next.completedAt=null;next.completedBy=null;action='Reopened';}else if(op.kind==='edit'){Object.assign(next,op.patch);action='Details edited';}else if(op.kind==='note')action='Progress update';else throw Error('Unknown task action.');next.revision++;next.updatedAt=op.at;if(op.note)next.note=op.note;next.events.push({id:op.id,at:op.at,by:op.by,action,note:op.note||''});return next;}
+function all(){const result=JSON.parse(JSON.stringify(base));for(const op of pending){try{result[op.taskId]=apply(result[op.taskId],op);}catch(e){/* Conflicting changes stay in the journal for review. */}}return result;}
+function el(tag,cls,text){const n=document.createElement(tag);if(cls)n.className=cls;if(text!==undefined)n.textContent=text;return n;}
+function btn(text,fn){const b=el('button','button button-secondary',text);b.type='button';b.onclick=fn;return b;}
+function report(text){$('sv-feedback').textContent=text;}
+function enqueue(kind,task,extra={}){if(!admin())return;load();const state=all();const current=task&&state[task.id];const op={id:uid(),taskId:task?.id||uid(),kind,by:person,at:new Date().toISOString(),revision:task?.revision||0,...extra};if(kind==='create')op.task.id=op.taskId;try{apply(current,op);localStorage.setItem(opPrefix+op.id,JSON.stringify(op));pending.push(op);editorOpen=false;errorText='';report('Saved on this device. Waiting for shared sync.');render();flush();return true;}catch(e){report('Not saved: '+e.message);return false;}}
+async function flush(){if(busy||!admin()||!confirmed||!window.VisionarySupervisorCloud?.ready())return;busy=true;try{load();const blocked=new Set();for(const op of [...pending]){if(!admin()||!window.VisionarySupervisorCloud.ready())break;if(blocked.has(op.taskId))continue;try{const saved=await window.VisionarySupervisorCloud.commit(op);base[op.taskId]=saved;cache();localStorage.removeItem(opPrefix+op.id);pending=pending.filter(p=>p.id!==op.id);}catch(e){errorText=e.code==='permission-denied'?'Shared task access was denied. Firebase permissions for supervisorTasks must be enabled for authorized supervisors.':e.message;blocked.add(op.taskId);if(e.code!=='sv-conflict')break;}}}finally{busy=false;render();}}
+function connect(force=false){if(!admin()){unsub?.();unsub=null;connection='';confirmed=false;return;}const bridge=window.VisionarySupervisorCloud;const next=bridge?.identity()||'';if(!force&&connection===next&&unsub)return;unsub?.();unsub=null;connection=next;confirmed=false;if(!bridge?.ready()){cloudText=location.protocol==='file:'?'Saved on this device only. Open the hosted app and connect Google for shared tasks.':'Saved on this device only. Connect Google to share tasks.';render();return;}cloudText='Connecting to shared tasks…';unsub=bridge.watch((rows,fromCache)=>{const dirty=new Set(pending.map(o=>o.taskId));const merged={};for(const [id,t] of Object.entries(base))if(dirty.has(id))merged[id]=t;base={...merged,...rows};cache();confirmed=!fromCache;cloudText=fromCache?'Showing cached tasks. Waiting for the server.':'Shared tasks connected.';if(confirmed)errorText='';render();if(confirmed)flush();},e=>{confirmed=false;cloudText='Saved on this device only — tasks are NOT shared.';errorText=e.code==='permission-denied'?'Firebase permissions for the new supervisorTasks collection need to be configured for authorized supervisors. Existing shift sync is unaffected.':e.message;render();});render();}
+function editForm(card,t,kind){if(!admin()||editorOpen)return;editorOpen=true;const form=el('form','sv-editor');const label=el('label','',kind==='handoff'?'What is done, and what should '+(person==='James'?'Sergio':'James')+' do next?':kind==='complete'?'Completion note (optional)':'Progress / next step');const input=el('textarea');input.maxLength=2000;input.required=kind==='handoff'||kind==='note';label.append(input);form.append(label);if(kind==='edit'){form.replaceChildren();for(const [name,type,title] of [['title','text','Task'],['due','date','Due date'],['assigned','date','Date assigned'],['assignedBy','text','Assigned by']]){const l=el('label','',title),i=el('input');i.name=name;i.type=type;i.value=t[name]||'';i.required=name!=='assignedBy';i.maxLength=name==='title'?240:80;l.append(i);form.append(l);}const l=el('label','','Priority'),s=el('select');s.name='priority';['Normal','Urgent'].forEach(v=>{const o=el('option','',v);s.append(o);});s.value=t.priority;l.append(s);form.append(l);}const actions=el('div','sv-actions'),save=el('button','button',kind==='handoff'?'Send handoff':kind==='complete'?'✅ Complete':'Save');save.type='submit';actions.append(save,btn('Cancel',()=>{editorOpen=false;render();}));form.append(actions);form.onsubmit=e=>{e.preventDefault();const extra={note:input.value.trim()};if(input.required&&!extra.note)return;if(kind==='handoff')extra.to=person==='James'?'Sergio':'James';if(kind==='edit'){extra.patch=Object.fromEntries(new FormData(form));extra.patch.title=extra.patch.title.trim();if(!extra.patch.title)return;}if(enqueue(kind,t,extra)){editorOpen=false;render();}};card.append(form);(form.querySelector('input')||input).focus();}
+function render(){if(!admin())return;const tasks=Object.values(all());tile.querySelector('small').textContent=tasks.filter(t=>!t.done&&t.owner===person).length+' open for '+person+' · Daily tasks and handoffs';$('sv-today').textContent=new Date().toLocaleDateString(undefined,{weekday:'short',month:'short',day:'numeric'});root.querySelectorAll('[data-sv-person]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.svPerson===person)));root.querySelectorAll('[data-sv-filter]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.svFilter===filter)));$('sv-sync').textContent=cloudText+(pending.length?' '+pending.length+' change(s) saved on this device, not yet confirmed shared.':'')+(errorText?'\n'+errorText:'');$('sv-sync').classList.toggle('sv-error',!!errorText);$('sv-signin').hidden=!!window.VisionarySupervisorCloud?.ready();if(editorOpen)return;const query=$('sv-search').value.trim().toLowerCase();const shown=tasks.filter(t=>(filter==='completed'?t.done:filter==='handoffs'?!t.done&&t.handoff:!t.done&&t.owner===person)&&(!query||[t.title,t.note,t.assignedBy,...(t.events||[]).map(e=>e.note)].join(' ').toLowerCase().includes(query))).sort((a,b)=>filter==='completed'?String(b.completedAt).localeCompare(String(a.completedAt)):a.due.localeCompare(b.due)||(a.priority==='Urgent'?-1:0)-(b.priority==='Urgent'?-1:0)||a.createdAt.localeCompare(b.createdAt));$('sv-heading').textContent=(filter==='mine'?person+'’s tasks':filter==='handoffs'?'Shared handoffs':'Completed')+' · '+shown.length;const list=$('sv-list');list.replaceChildren();if(!shown.length)list.append(el('p','sv-empty',query?'No matching tasks.':filter==='mine'?'You’re caught up. Add your next task above.':'No tasks in this view yet.'));shown.forEach(t=>{const card=el('article','sv-card'),tags=el('div','sv-row');tags.append(el('span','sv-tag',!t.done&&t.due<today()?'Overdue · '+t.due:t.due===today()?'Due today':'Due '+t.due));if(t.priority==='Urgent')tags.append(el('span','sv-tag','Urgent'));const local=pending.filter(o=>o.taskId===t.id);if(local.length)tags.append(el('span','sv-tag','Device only · Sync pending'));card.append(tags,el('h2','',t.title),el('p','sv-small','Owner: '+t.owner+' · Assigned by: '+(t.assignedBy||'—')+' · Assigned: '+t.assigned),el('p','',t.done?'✅ Completed by '+t.completedBy+' · '+new Date(t.completedAt).toLocaleString():'❌ Not completed'));if(t.handoff&&!t.done)card.append(el('p','sv-small',t.handoff.from+' → '+t.handoff.to+' · '+(t.handoff.received?'Received':'Awaiting acknowledgment')));if(t.note)card.append(el('div','sv-note',t.note));const actions=el('div','sv-actions');if(t.owner===person){if(t.done)actions.append(btn('Reopen',()=>enqueue('reopen',t)));else{if(t.handoff&&!t.handoff.received)actions.append(btn('Mark received',()=>enqueue('receive',t)));actions.append(btn('✅ Complete',()=>editForm(card,t,'complete')),btn('Add note',()=>editForm(card,t,'note')),btn('Hand over to '+(person==='James'?'Sergio':'James'),()=>editForm(card,t,'handoff')),btn('Edit details',()=>editForm(card,t,'edit')));}}card.append(actions);const history=el('details','sv-history');history.append(el('summary','','History · '+t.events.length));[...t.events].reverse().forEach(e=>history.append(el('p','sv-small',new Date(e.at).toLocaleString()+' · '+e.by+' · '+e.action+(e.note?'\n'+e.note:''))));card.append(history);if(local.length&&errorText){const review=el('details');review.append(el('summary','','Review unsynced changes'));for(const o of local)review.append(el('p','sv-small',o.by+' · '+o.kind+' · '+o.at+(o.note?' · '+o.note:'')));review.append(btn('Discard device changes for this task',()=>{if(!confirm('Discard these unsynced changes and use the shared version? Export a task backup first if you need to keep them.'))return;local.forEach(o=>localStorage.removeItem(opPrefix+o.id));pending=pending.filter(o=>o.taskId!==t.id);errorText='';render();connect(true);}));card.append(review);}list.append(card);});}
+load();defaultDay=today();$('sv-due').value=$('sv-assigned').value=defaultDay;
+$('sv-add').onsubmit=e=>{e.preventDefault();if(!admin())return;const title=$('sv-task-title').value.trim();if(!title)return;const now=new Date().toISOString();if(enqueue('create',null,{task:{title,owner:person,assignedBy:$('sv-by').value.trim()||person,assigned:$('sv-assigned').value,due:$('sv-due').value,priority:$('sv-priority').value,note:$('sv-details').value.trim(),createdAt:now,updatedAt:now,done:false,handoff:null},note:$('sv-details').value.trim()})){$('sv-add').reset();$('sv-due').value=$('sv-assigned').value=today();$('sv-options').open=false;$('sv-task-title').focus();}};
+root.querySelectorAll('[data-sv-person]').forEach(b=>b.onclick=()=>{if(!admin())return;if(editorOpen&&!confirm('Discard the unsaved note or edit?'))return;editorOpen=false;person=b.dataset.svPerson;try{localStorage.setItem(key+':person',person);}catch(e){report('Supervisor choice could not be remembered.');}render();});root.querySelectorAll('[data-sv-filter]').forEach(b=>b.onclick=()=>{if(editorOpen&&!confirm('Discard the unsaved note or edit?'))return;editorOpen=false;filter=b.dataset.svFilter;render();});$('sv-search').oninput=render;
+$('sv-retry').onclick=()=>{if(admin()){errorText='';connect(true);}};$('sv-signin').onclick=()=>{if(!admin())return;if(window.VisionarySupervisorCloud)window.VisionarySupervisorCloud.signIn().catch(e=>report(e.message));else{location.hash='daily-tasks';report('Connect Google in MI2 Daily Tasks, then return here.');}};
+$('sv-export').onclick=()=>{if(!admin())return;const a=document.createElement('a'),url=URL.createObjectURL(new Blob([JSON.stringify({schema:1,exportedAt:new Date().toISOString(),tasks:all(),pending},null,2)],{type:'application/json'}));a.href=url;a.download='supervisor-tasks-'+today()+'.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);};
+tile.onclick=()=>{if(admin())location.hash='supervisor-tasks';};function access(){tile.hidden=!admin();if(!admin()){editorOpen=false;root.hidden=true;$('sv-list').replaceChildren();}else render();connect();}new MutationObserver(access).observe(shell,{attributes:true,attributeFilter:['data-auth-role','hidden']});window.addEventListener('supervisor-cloud-ready',()=>connect(true));window.addEventListener('online',()=>connect(true));window.addEventListener('storage',e=>{if(e.key?.startsWith(key)){load();render();flush();}});window.addEventListener('beforeunload',e=>{if(editorOpen){e.preventDefault();e.returnValue='';}});window.addEventListener('hashchange',()=>{if(location.hash!=='#supervisor-tasks')editorOpen=false;else render();});setInterval(()=>{const next=today();if(next!==defaultDay){for(const id of ['sv-due','sv-assigned'])if($(id).value===defaultDay)$(id).value=next;defaultDay=next;}if(admin()&&!root.hidden)render();},60000);access();
+window.VisionarySupervisorModel={apply};
+})();
+
+</script>
 </body>
 </html>
