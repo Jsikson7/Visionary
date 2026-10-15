@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="description" content="A mobile-friendly collection of vision production guides, troubleshooting history, and copy-ready reporting tools.">
-  <meta name="visionary-app-version" content="3.0.95">
+  <meta name="visionary-app-version" content="3.0.97">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
@@ -7160,7 +7160,7 @@
             <span class="form-tile-arrow" aria-hidden="true">›</span>
           </button>
         </div>
-        <p class="last-updated">Version 3.0.95 · Last updated: <time datetime="2026-10-14">October 14, 2026</time></p>
+        <p class="last-updated">Version 3.0.97 · Last updated: <time datetime="2026-10-14">October 14, 2026</time></p>
         <div class="version-history-link-wrap">
           <button id="open-version-history" class="version-history-link" type="button">View version history</button>
         </div>
@@ -7175,7 +7175,21 @@
 <section id="supervisor-tasks-view" class="app-view" hidden aria-labelledby="sv-title">
 <header class="hero"><div><p class="eyebrow">Supervisor workspace</p><h1 id="sv-title">Supervisor Tasks</h1><p class="hero-copy">Capture it. Finish it. Hand it over.</p></div><a href="#" class="button button-secondary">Main menu</a></header>
 <div class="sv-shell"><section class="panel"><div class="sv-row sv-bar"><div class="sv-row"><strong>Working as</strong><button type="button" class="button button-secondary" data-sv-person="James">James</button><button type="button" class="button button-secondary" data-sv-person="Sergio">Sergio</button></div><span class="sv-small" id="sv-today"></span></div><div class="sv-row"><button id="sv-retry" type="button" class="button button-secondary">Retry sync</button><button id="sv-signin" type="button" class="button button-secondary">Connect Google</button><button id="sv-export" type="button" class="button button-secondary">Export backup</button></div><details id="sv-sync-details"><summary>Sync details</summary><p id="sv-sync" class="sv-status sv-small" role="status" aria-live="polite"></p></details><hr><form id="sv-add"><div class="sv-capture"><input id="sv-task-title" aria-label="What needs to be done?" placeholder="Add a task…" maxlength="240" required><button class="button" type="submit">＋ Add</button></div><p class="sv-small">Shared by James and Sergio. Due today by default.</p><details id="sv-options"><summary>Optional task details</summary><div class="sv-options"><label>Due date<input type="date" id="sv-due" required></label><label>Assigned to<select id="sv-to"><option>James &amp; Sergio</option><option>James</option><option>Sergio</option></select></label><label>Assigned by<input id="sv-by" maxlength="80" placeholder="Optional"></label><label>Priority<select id="sv-priority"><option>Normal</option><option>Urgent</option></select></label><label>Date assigned<input type="date" id="sv-assigned" required></label></div><label>Details / next step<textarea id="sv-details" maxlength="2000" placeholder="Instructions or context (optional)"></textarea></label><label>Checklist steps — one per line<textarea id="sv-steps" maxlength="10000" placeholder="Check trigger timing&#10;Verify images during production&#10;Document the result"></textarea></label></details></form><p id="sv-feedback" role="status" aria-live="polite"></p></section>
-<nav class="sv-tabs" aria-label="Supervisor task filters"><button class="button button-secondary" data-sv-filter="ongoing" type="button">Ongoing</button><button class="button button-secondary" data-sv-filter="completed" type="button">Finished</button></nav><div class="sv-row sv-bar"><h2 id="sv-heading"></h2><label class="sv-small">Search tasks<input type="search" id="sv-search" placeholder="Task or note"></label></div><p class="sv-small">Tap a task to expand. Either supervisor can update or complete it.</p><div class="sv-list" id="sv-list"></div></div>
+<nav class="sv-tabs" aria-label="Supervisor task filters"><button class="button button-secondary" data-sv-filter="ongoing" type="button">Ongoing</button><button class="button button-secondary" data-sv-filter="completed" type="button">Finished</button></nav><div class="sv-row sv-bar"><h2 id="sv-heading"></h2><label class="sv-small">Search tasks<input type="search" id="sv-search" placeholder="Task or note"></label></div><p class="sv-small">Tap a task to expand. Either supervisor can update or complete it.</p><section id="sv-dashboard" class="sv-dashboard" aria-label="Weekly tasks and monthly calendar">
+<section class="sv-dash-panel sv-week-panel" aria-labelledby="sv-week-title">
+<div class="sv-dash-heading"><div><h2 id="sv-week-title">Due this week</h2><p id="sv-week-range" class="sv-small"></p></div><span id="sv-week-count" class="sv-count"></span></div>
+<div id="sv-week-list" class="sv-week-list" aria-live="polite"></div>
+</section>
+<section class="sv-dash-panel sv-month-panel" aria-labelledby="sv-month-label">
+<div class="sv-dash-heading sv-month-heading"><button id="sv-month-prev" type="button" class="button button-secondary" aria-label="Previous month">‹</button><h2 id="sv-month-label"></h2><button id="sv-month-next" type="button" class="button button-secondary" aria-label="Next month">›</button><button id="sv-month-today" type="button" class="button button-secondary">Today</button></div>
+<div class="sv-calendar-grid" role="grid" aria-label="Monthly task calendar">
+<div class="sv-calendar-weekday" role="columnheader">Mon</div><div class="sv-calendar-weekday" role="columnheader">Tue</div><div class="sv-calendar-weekday" role="columnheader">Wed</div><div class="sv-calendar-weekday" role="columnheader">Thu</div><div class="sv-calendar-weekday" role="columnheader">Fri</div><div class="sv-calendar-weekday" role="columnheader">Sat</div><div class="sv-calendar-weekday" role="columnheader">Sun</div>
+<div id="sv-calendar-days" class="sv-calendar-days"></div>
+</div>
+<div class="sv-calendar-legend" aria-label="Task status colors"><span><i class="sv-legend-swatch is-urgent"></i>Urgent</span><span><i class="sv-legend-swatch is-progress"></i>In progress</span><span>Unstarted tasks have no color</span></div>
+<section class="sv-selected-day" aria-labelledby="sv-selected-date"><h3 id="sv-selected-date"></h3><div id="sv-selected-day-tasks" aria-live="polite"></div></section>
+</section>
+</section><div class="sv-list" id="sv-list"></div></div>
 </section>
 
     <section id="weekly-bmpd-view" class="app-view" aria-labelledby="weekly-bmpd-title" hidden>
@@ -7319,7 +7333,7 @@
             <div class="daily-cloud-copy">
               <strong id="daily-cloud-title">Shared shift synchronization</strong>
               <span id="daily-cloud-status" role="status" aria-live="polite">Sign in with Google to share Daily Tasks across phones.</span>
-              <small>Safe Sync v6.2 · App <span id="daily-app-version">3.0.95</span><span id="daily-version-health" class="daily-version-health" hidden></span></small>
+              <small>Safe Sync v6.2 · App <span id="daily-app-version">3.0.97</span><span id="daily-version-health" class="daily-version-health" hidden></span></small>
             </div>
           </div>
           <div class="daily-cloud-actions">
@@ -8155,7 +8169,9 @@
 
       <section class="panel" aria-label="Release history">
         <div class="version-history-list">
-          <article class="version-card version-card-current"><div class="version-card-heading"><h2>Version 3.0.95</h2><time datetime="2026-10-14">October 14, 2026</time></div><p class="version-summary-intro">Supervisor task cards now remain collapsed until opened. A stronger desktop single-column layout keeps every task full-width with its notes and checklist inside the expanded card.</p></article>
+          <article class="version-card version-card-current"><div class="version-card-heading"><h2>Version 3.0.97</h2><time datetime="2026-10-14">October 14, 2026</time></div><p class="version-summary-intro">Supervisor Tasks now uses the desktop side margins for a Due this week list and interactive monthly calendar. Select a date to list tasks due that day. Urgent tasks show red, tasks with checked steps show orange, and unstarted tasks stay neutral. The panels stack on smaller screens.</p></article>
+<article class="version-card"><div class="version-card-heading"><h2>Version 3.0.96</h2><time datetime="2026-10-14">October 14, 2026</time></div><p class="version-summary-intro">Added a desktop due-this-week panel and an interactive monthly due-date calendar. Select a date to see its tasks, color coded red for urgent tasks and orange when at least one checklist step is complete. Calendar and weekly panels stack on narrow screens.</p></article>
+<article class="version-card"><div class="version-card-heading"><h2>Version 3.0.95</h2><time datetime="2026-10-14">October 14, 2026</time></div><p class="version-summary-intro">Supervisor task cards now remain collapsed until opened. A stronger desktop single-column layout keeps every task full-width with its notes and checklist inside the expanded card.</p></article>
 <article class="version-card"><div class="version-card-heading"><h2>Version 3.0.94</h2><time datetime="2026-10-14">October 14, 2026</time></div><p class="version-summary-intro">Supervisor task cards now appear one per row and open expanded by default, with a collapse control. Ongoing tasks are numbered in ascending due-date order, with overdue items first; search results renumber to reflect their displayed order.</p></article>
 <article class="version-card"><div class="version-card-heading"><h2>Version 3.0.93</h2><time datetime="2026-10-14">October 14, 2026</time></div><p class="version-summary-intro">Added shared supervisor step checklists with green checks and red crosses, completion counts on collapsed cards, and update attribution. All steps must be checked before finishing a task. Existing notes and history are preserved.</p></article>
 <article class="version-card"><div class="version-card-heading"><h2>Version 3.0.92</h2><time datetime="2026-10-14">October 14, 2026</time></div><p class="version-summary-intro">Supervisor tasks now share one Ongoing list and a separate Finished view. Both supervisors can update any task. Added Assigned to, retained Assigned by and update attribution, and made task cards collapsible. Existing tasks and history are retained.</p></article>
@@ -9778,8 +9794,8 @@ window.VisionaryIQRequirements = Object.freeze({
         "If the embedded form does not appear or feels cramped, use Open Full Screen.": "포함된 양식이 표시되지 않거나 화면이 좁으면 전체 화면으로 열기를 사용하세요.",
         "Loading Microsoft Form…": "Microsoft 양식을 불러오는 중…",
         "Replay celebration": "축하 영상 다시 보기",
-        "Version 3.0.95 · Last updated:": "버전 3.0.95 · 마지막 업데이트:",
-        "Version 3.0.95": "버전 3.0.95",
+        "Version 3.0.97 · Last updated:": "버전 3.0.97 · 마지막 업데이트:",
+        "Version 3.0.97": "버전 3.0.97",
         "Version 3.0.77 · Last updated:": "버전 3.0.77 · 마지막 업데이트:",
         "Version 3.0.77": "버전 3.0.77",
         "Version 3.0.72 · Last updated:": "버전 3.0.72 · 마지막 업데이트:",
@@ -19839,7 +19855,7 @@ function normalizeWeeklyRows(values) {
     const provider = new GoogleAuthProvider();
     provider.setCustomParameters({ prompt: "select_account" });
     const SYNC_PROTOCOL_VERSION = 6;
-    const APP_VERSION = String(document.querySelector('meta[name="visionary-app-version"]')?.content || "3.0.95");
+    const APP_VERSION = String(document.querySelector('meta[name="visionary-app-version"]')?.content || "3.0.97");
     const HOSTED_APP_ROOT = "https://jsikson7.github.io/Visionary/";
     const HOSTED_APP_URL = HOSTED_APP_ROOT + "?v=" + APP_VERSION.replace(/\D/g, "");
     const isDirectFilePage = !["http:", "https:"].includes(window.location.protocol);
@@ -23051,9 +23067,9 @@ function normalizeWeeklyRows(values) {
       const appProperties = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>' +
         '<Properties xmlns="http://schemas.openxmlformats.org/officeDocument/2006/extended-properties" ' +
         'xmlns:vt="http://schemas.openxmlformats.org/officeDocument/2006/docPropsVTypes">' +
-        '<Application>Visionary 3.0.95</Application><DocSecurity>0</DocSecurity><ScaleCrop>false</ScaleCrop>' +
+        '<Application>Visionary 3.0.97</Application><DocSecurity>0</DocSecurity><ScaleCrop>false</ScaleCrop>' +
         '<Company></Company><LinksUpToDate>false</LinksUpToDate><SharedDoc>false</SharedDoc><HyperlinksChanged>false</HyperlinksChanged>' +
-        '<AppVersion>3.0.95</AppVersion></Properties>';
+        '<AppVersion>3.0.97</AppVersion></Properties>';
 
       const zip = xlsxZipStoredFiles([
         { name: "[Content_Types].xml", contents: contentTypes },
@@ -25494,6 +25510,29 @@ function report(text){$('sv-feedback').textContent=text;}
 function enqueue(kind,task,extra={}){if(!admin())return;load();const state=all();const current=task&&state[task.id];const op={id:uid(),taskId:task?.id||uid(),kind,by:person,at:new Date().toISOString(),revision:task?.revision||0,...extra};if(kind==='create')op.task.id=op.taskId;try{apply(current,op);localStorage.setItem(opPrefix+op.id,JSON.stringify(op));pending.push(op);editorOpen=false;errorText='';report('Saved on this device. Waiting for shared sync.');render();flush();return true;}catch(e){report('Not saved: '+e.message);return false;}}
 async function flush(){if(busy||!admin()||!confirmed||!window.VisionarySupervisorCloud?.ready())return;busy=true;try{load();const blocked=new Set();for(const op of [...pending]){if(!admin()||!window.VisionarySupervisorCloud.ready())break;if(blocked.has(op.taskId))continue;try{const saved=await window.VisionarySupervisorCloud.commit(op);base[op.taskId]=saved;cache();localStorage.removeItem(opPrefix+op.id);pending=pending.filter(p=>p.id!==op.id);}catch(e){errorText=e.code==='permission-denied'?'Shared task access was denied. Firebase permissions for supervisorTasks must be enabled for authorized supervisors.':e.message;blocked.add(op.taskId);if(e.code!=='sv-conflict')break;}}}finally{busy=false;render();}}
 function connect(force=false){if(!admin()){unsub?.();unsub=null;connection='';confirmed=false;return;}const bridge=window.VisionarySupervisorCloud;const next=bridge?.identity()||'';if(!force&&connection===next&&unsub)return;unsub?.();unsub=null;connection=next;confirmed=false;if(!bridge?.ready()){cloudText=location.protocol==='file:'?'Saved on this device only. Open the hosted app and connect Google for shared tasks.':'Saved on this device only. Connect Google to share tasks.';render();return;}cloudText='Connecting to shared tasks…';unsub=bridge.watch((rows,fromCache)=>{const dirty=new Set(pending.map(o=>o.taskId));const merged={};for(const [id,t] of Object.entries(base))if(dirty.has(id))merged[id]=t;base={...merged,...rows};cache();confirmed=!fromCache;cloudText=fromCache?'Showing cached tasks. Waiting for the server.':'Shared tasks connected.';if(confirmed)errorText='';render();if(confirmed)flush();},e=>{confirmed=false;cloudText='Saved on this device only — tasks are NOT shared.';errorText=e.code==='permission-denied'?'Firebase permissions for the new supervisorTasks collection need to be configured for authorized supervisors. Existing shift sync is unaffected.':e.message;render();});render();}
+let calendarMonth=new Date(),selectedCalendarDay='';
+const isoDate=d=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+const dateFromISO=s=>{const [y,m,d]=String(s||'').split('-').map(Number);return new Date(y||2000,(m||1)-1,d||1);};
+function weekBounds(){const start=dateFromISO(today()),weekday=(start.getDay()+6)%7;start.setDate(start.getDate()-weekday);const end=new Date(start);end.setDate(end.getDate()+6);return [start,end];}
+function taskColor(t){if(t.priority==='Urgent')return'is-urgent';if((t.steps||[]).some(step=>step.done))return'is-progress';return'';}
+function taskButton(t,subtitle){const b=el('button','sv-dashboard-task '+taskColor(t),'');b.type='button';const title=el('span','sv-dash-task-title',(t.done?'✅ ':'')+t.title);b.append(title);if(subtitle)b.append(el('span','sv-dash-task-subtitle',subtitle));b.setAttribute('aria-label',t.title+(subtitle?', '+subtitle:''));b.onclick=()=>focusTask(t.id);return b;}
+function focusTask(id){const task=all()[id];if(!task)return;filter=task.done?'completed':'ongoing';$('sv-search').value='';expanded.add(id);render();requestAnimationFrame(()=>{const card=document.getElementById('sv-task-'+id);if(card){card.open=true;card.scrollIntoView({behavior:'smooth',block:'center'});}});}
+function renderDashboard(tasks){
+ const [weekStart,weekEnd]=weekBounds(),weekTasks=tasks.filter(t=>t.due>=isoDate(weekStart)&&t.due<=isoDate(weekEnd)).sort((a,b)=>a.due.localeCompare(b.due)||(a.priority==='Urgent'?-1:0)-(b.priority==='Urgent'?-1:0)||a.title.localeCompare(b.title));
+ $('sv-week-range').textContent=weekStart.toLocaleDateString(undefined,{month:'short',day:'numeric'})+' – '+weekEnd.toLocaleDateString(undefined,{month:'short',day:'numeric'});
+ $('sv-week-count').textContent=weekTasks.length+' task'+(weekTasks.length===1?'':'s');const weekList=$('sv-week-list');weekList.replaceChildren();
+ if(!weekTasks.length)weekList.append(el('p','sv-dashboard-empty','No tasks are due this week.'));
+ weekTasks.forEach(t=>weekList.append(taskButton(t,(t.due===today()?'Today':dateFromISO(t.due).toLocaleDateString(undefined,{weekday:'short',month:'short',day:'numeric'}))+(t.done?' · Finished':' · '+assignee(t)))));
+ const year=calendarMonth.getFullYear(),month=calendarMonth.getMonth();$('sv-month-label').textContent=calendarMonth.toLocaleDateString(undefined,{month:'long',year:'numeric'});
+ const first=new Date(year,month,1),lastDay=new Date(year,month+1,0).getDate(),offset=(first.getDay()+6)%7;
+ if(!selectedCalendarDay)selectedCalendarDay=(year===dateFromISO(today()).getFullYear()&&month===dateFromISO(today()).getMonth())?today():isoDate(new Date(year,month,1));else if(dateFromISO(selectedCalendarDay).getMonth()!==month||dateFromISO(selectedCalendarDay).getFullYear()!==year)selectedCalendarDay=isoDate(new Date(year,month,1));
+ const dayGrid=$('sv-calendar-days');dayGrid.replaceChildren();for(let i=0;i<offset;i++){const blank=el('div','sv-calendar-blank');blank.setAttribute('role','presentation');dayGrid.append(blank);}
+ for(let day=1;day<=lastDay;day++){const date=isoDate(new Date(year,month,day)),due=tasks.filter(t=>t.due===date).sort((a,b)=>(a.priority==='Urgent'?-1:0)-(b.priority==='Urgent'?-1:0)||a.title.localeCompare(b.title));const cell=el('button','sv-calendar-day');cell.type='button';cell.setAttribute('role','gridcell');cell.setAttribute('aria-pressed',String(date===selectedCalendarDay));cell.classList.toggle('is-today',date===today());cell.setAttribute('aria-label',dateFromISO(date).toLocaleDateString(undefined,{weekday:'long',month:'long',day:'numeric'})+(due.length?': '+due.length+' task'+(due.length===1?'':'s')+'. '+due.map(t=>t.title).join('; '):': No tasks due.'));
+  cell.append(el('span','sv-cal-number',String(day)));const labels=el('span','sv-cal-task-labels');due.slice(0,2).forEach(t=>{const item=el('span','sv-cal-task '+taskColor(t),t.title);item.setAttribute('aria-hidden','true');labels.append(item);});if(due.length>2)labels.append(el('span','sv-cal-more','+'+(due.length-2)+' more'));cell.append(labels);cell.onclick=()=>{selectedCalendarDay=date;renderDashboard(allTasks());};dayGrid.append(cell);}
+ const selected=dateFromISO(selectedCalendarDay),dayTasks=tasks.filter(t=>t.due===selectedCalendarDay).sort((a,b)=>(a.priority==='Urgent'?-1:0)-(b.priority==='Urgent'?-1:0)||a.title.localeCompare(b.title));$('sv-selected-date').textContent='Due '+selected.toLocaleDateString(undefined,{weekday:'long',month:'long',day:'numeric',year:'numeric'});const selectedList=$('sv-selected-day-tasks');selectedList.replaceChildren();if(!dayTasks.length)selectedList.append(el('p','sv-dashboard-empty','No tasks due this day.'));dayTasks.forEach(t=>selectedList.append(taskButton(t,(t.done?'Finished':'Assigned to '+assignee(t))+(t.priority==='Urgent'?' · Urgent':''))));
+}
+function allTasks(){return Object.values(all());}
+
 function editForm(card,t,kind){if(!admin()||editorOpen)return;editorOpen=true;const form=el('form','sv-editor');const label=el('label','',kind==='handoff'?'What is done, and what should '+(person==='James'?'Sergio':'James')+' do next?':kind==='complete'?'Completion note (optional)':kind==='addSteps'?'Add steps — one per line':'Progress / next step');const input=el('textarea');input.maxLength=2000;input.required=kind==='handoff'||kind==='note'||kind==='addSteps';if(kind==='addSteps')input.placeholder='Check the trigger timing\nVerify images during production\nDocument the result';label.append(input);form.append(label);if(kind==='edit'){form.replaceChildren();for(const [name,type,title] of [['title','text','Task'],['due','date','Due date'],['assigned','date','Date assigned'],['assignedBy','text','Assigned by']]){const l=el('label','',title),i=el('input');i.name=name;i.type=type;i.value=t[name]||'';i.required=name!=='assignedBy';i.maxLength=name==='title'?240:80;l.append(i);form.append(l);}const toLabel=el('label','','Assigned to'),toSelect=el('select');toSelect.name='assignedTo';['James & Sergio','James','Sergio'].forEach(name=>toSelect.append(el('option','',name)));toSelect.value=assignee(t);toLabel.append(toSelect);form.append(toLabel);const l=el('label','','Priority'),s=el('select');s.name='priority';['Normal','Urgent'].forEach(v=>{const o=el('option','',v);s.append(o);});s.value=t.priority;l.append(s);form.append(l);}const actions=el('div','sv-actions'),save=el('button','button',kind==='handoff'?'Send handoff':kind==='complete'?'✅ Complete':'Save');save.type='submit';actions.append(save,btn('Cancel',()=>{editorOpen=false;render();}));form.append(actions);form.onsubmit=e=>{e.preventDefault();const extra={note:input.value.trim()};if(input.required&&!extra.note)return;if(kind==='addSteps'){extra.steps=parseSteps(input.value);extra.note='';}if(kind==='handoff')extra.to=person==='James'?'Sergio':'James';if(kind==='edit'){extra.patch=Object.fromEntries(new FormData(form));extra.patch.title=extra.patch.title.trim();if(!extra.patch.title)return;}if(enqueue(kind,t,extra)){editorOpen=false;render();}};card.append(form);(form.querySelector('input')||input).focus();}
 function render(){
  if(!admin())return;
@@ -25503,14 +25542,14 @@ function render(){
  root.querySelectorAll('[data-sv-person]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.svPerson===person)));
  root.querySelectorAll('[data-sv-filter]').forEach(b=>{b.setAttribute('aria-pressed',String(b.dataset.svFilter===filter));b.textContent=b.dataset.svFilter==='completed'?'Finished · '+finished.length:'Ongoing · '+ongoing.length;});
  $('sv-sync').textContent=cloudText+(pending.length?' '+pending.length+' change(s) saved on this device, not yet confirmed shared.':'')+(errorText?'\n'+errorText:'');
- $('sv-sync').classList.toggle('sv-error',!!errorText);$('sv-signin').hidden=!!window.VisionarySupervisorCloud?.ready();if(editorOpen)return;
+ $('sv-sync').classList.toggle('sv-error',!!errorText);$('sv-signin').hidden=!!window.VisionarySupervisorCloud?.ready();renderDashboard(tasks);if(editorOpen)return;
  const query=$('sv-search').value.trim().toLowerCase();
  const shown=tasks.filter(t=>(filter==='completed'?t.done:!t.done)&&(!query||[t.title,t.note,t.assignedBy,assignee(t),...(t.events||[]).map(e=>e.note)].join(' ').toLowerCase().includes(query))).sort((a,b)=>filter==='completed'?String(b.completedAt).localeCompare(String(a.completedAt)):a.due.localeCompare(b.due)||(a.priority==='Urgent'?-1:0)-(b.priority==='Urgent'?-1:0)||a.createdAt.localeCompare(b.createdAt));
  $('sv-heading').textContent=(filter==='completed'?'Finished tasks':'Ongoing tasks')+' · '+shown.length;
  const list=$('sv-list');list.replaceChildren();
  if(!shown.length)list.append(el('p','sv-empty',query?'No matching tasks.':filter==='completed'?'Finished tasks will appear here.':'You’re both caught up. Add your next task above.'));
  shown.forEach((t,index)=>{
-  const card=el('details','sv-card sv-collapsible');card.open=expanded.has(t.id);card.addEventListener('toggle',()=>{if(card.open)expanded.add(t.id);else expanded.delete(t.id);});
+  const card=el('details','sv-card sv-collapsible');card.id='sv-task-'+t.id;card.open=expanded.has(t.id);card.addEventListener('toggle',()=>{if(card.open)expanded.add(t.id);else expanded.delete(t.id);});
   const summary=el('summary','sv-card-summary'),head=el('span','sv-summary-title',(index+1)+'. '+(t.done?'✅ ':'❌ ')+t.title),meta=el('span','sv-summary-meta','Assigned to: '+assignee(t)+' · Assigned by: '+(t.assignedBy||'—'));
   const tags=el('span','sv-row');tags.append(el('span','sv-tag',!t.done&&t.due<today()?'Overdue · '+t.due:t.due===today()?'Due today':'Due '+t.due));if(t.priority==='Urgent')tags.append(el('span','sv-tag','Urgent'));
   const local=pending.filter(o=>o.taskId===t.id);if(local.length)tags.append(el('span','sv-tag','Device only · Sync pending'));
@@ -25530,7 +25569,7 @@ function render(){
 }
 load();defaultDay=today();$('sv-due').value=$('sv-assigned').value=defaultDay;
 $('sv-add').onsubmit=e=>{e.preventDefault();if(!admin())return;const title=$('sv-task-title').value.trim();if(!title)return;const now=new Date().toISOString();if(enqueue('create',null,{task:{title,owner:person,assignedTo:$('sv-to').value,assignedBy:$('sv-by').value.trim()||person,assigned:$('sv-assigned').value,due:$('sv-due').value,priority:$('sv-priority').value,note:$('sv-details').value.trim(),steps:parseSteps($('sv-steps').value),createdAt:now,updatedAt:now,done:false,handoff:null},note:$('sv-details').value.trim()})){$('sv-add').reset();$('sv-due').value=$('sv-assigned').value=today();$('sv-options').open=false;$('sv-task-title').focus();}};
-root.querySelectorAll('[data-sv-person]').forEach(b=>b.onclick=()=>{if(!admin())return;if(editorOpen&&!confirm('Discard the unsaved note or edit?'))return;editorOpen=false;person=b.dataset.svPerson;try{localStorage.setItem(key+':person',person);}catch(e){report('Supervisor choice could not be remembered.');}render();});root.querySelectorAll('[data-sv-filter]').forEach(b=>b.onclick=()=>{if(editorOpen&&!confirm('Discard the unsaved note or edit?'))return;editorOpen=false;filter=b.dataset.svFilter;render();});$('sv-search').oninput=render;
+root.querySelectorAll('[data-sv-person]').forEach(b=>b.onclick=()=>{if(!admin())return;if(editorOpen&&!confirm('Discard the unsaved note or edit?'))return;editorOpen=false;person=b.dataset.svPerson;try{localStorage.setItem(key+':person',person);}catch(e){report('Supervisor choice could not be remembered.');}render();});root.querySelectorAll('[data-sv-filter]').forEach(b=>b.onclick=()=>{if(editorOpen&&!confirm('Discard the unsaved note or edit?'))return;editorOpen=false;filter=b.dataset.svFilter;render();});$('sv-search').oninput=render;const navMonth=delta=>{calendarMonth=new Date(calendarMonth.getFullYear(),calendarMonth.getMonth()+delta,1);selectedCalendarDay=isoDate(calendarMonth);renderDashboard(allTasks());};$('sv-month-prev').onclick=()=>navMonth(-1);$('sv-month-next').onclick=()=>navMonth(1);$('sv-month-today').onclick=()=>{calendarMonth=new Date();selectedCalendarDay=today();renderDashboard(allTasks());};
 $('sv-retry').onclick=()=>{if(admin()){errorText='';connect(true);}};$('sv-signin').onclick=()=>{if(!admin())return;if(window.VisionarySupervisorCloud)window.VisionarySupervisorCloud.signIn().catch(e=>report(e.message));else{location.hash='daily-tasks';report('Connect Google in MI2 Daily Tasks, then return here.');}};
 $('sv-export').onclick=()=>{if(!admin())return;const a=document.createElement('a'),url=URL.createObjectURL(new Blob([JSON.stringify({schema:1,exportedAt:new Date().toISOString(),tasks:all(),pending},null,2)],{type:'application/json'}));a.href=url;a.download='supervisor-tasks-'+today()+'.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);};
 tile.onclick=()=>{if(admin())location.hash='supervisor-tasks';};function access(){tile.hidden=!admin();if(!admin()){editorOpen=false;root.hidden=true;$('sv-list').replaceChildren();}else render();connect();}new MutationObserver(access).observe(shell,{attributes:true,attributeFilter:['data-auth-role','hidden']});window.addEventListener('supervisor-cloud-ready',()=>connect(true));window.addEventListener('online',()=>connect(true));window.addEventListener('storage',e=>{if(e.key?.startsWith(key)){load();render();flush();}});window.addEventListener('beforeunload',e=>{if(editorOpen){e.preventDefault();e.returnValue='';}});window.addEventListener('hashchange',()=>{if(location.hash!=='#supervisor-tasks')editorOpen=false;else render();});setInterval(()=>{const next=today();if(next!==defaultDay){for(const id of ['sv-due','sv-assigned'])if($(id).value===defaultDay)$(id).value=next;defaultDay=next;}if(admin()&&!root.hidden)render();},60000);access();
@@ -25617,5 +25656,46 @@ window.VisionarySupervisorModel={apply};
 #supervisor-tasks-view #sv-list.sv-list>.sv-card{grid-column:1/-1!important;width:100%!important;max-width:none!important}
 @media(min-width:760px){#supervisor-tasks-view #sv-list.sv-list{grid-template-columns:minmax(0,1fr)!important}}
 </style>
+<style id="supervisor-week-month-dashboard">
+#supervisor-tasks-view .sv-dashboard{display:grid;grid-template-columns:minmax(0,1fr);gap:12px;width:100%;margin:12px 0}
+#supervisor-tasks-view .sv-dash-panel{min-width:0;padding:12px;background:var(--paper);border:1px solid var(--line);border-radius:12px}
+#supervisor-tasks-view .sv-dash-heading{display:flex;align-items:center;gap:8px;min-width:0;margin-bottom:10px}
+#supervisor-tasks-view .sv-dash-heading h2{margin:0;font-size:15px;line-height:1.3}
+#supervisor-tasks-view .sv-dash-heading p{margin:3px 0 0}
+#supervisor-tasks-view .sv-count{margin-left:auto;white-space:nowrap;font-size:12px;color:var(--muted)}
+#supervisor-tasks-view .sv-week-list{display:grid;gap:6px;max-height:440px;overflow:auto}
+#supervisor-tasks-view .sv-dashboard-task{display:flex;align-items:flex-start;justify-content:space-between;gap:4px 10px;width:100%;min-width:0;text-align:left;background:var(--cream);border:1px solid var(--line);border-left:3px solid transparent;color:var(--ink);padding:8px 9px;font-size:12px;line-height:1.4;overflow-wrap:anywhere;cursor:pointer}
+#supervisor-tasks-view .sv-dash-task-title{min-width:0;overflow-wrap:anywhere}
+#supervisor-tasks-view .sv-dash-task-subtitle{flex:none;color:var(--muted);font-size:11px;text-align:right}
+#supervisor-tasks-view .sv-dashboard-task.is-urgent,#supervisor-tasks-view .sv-cal-task.is-urgent{border-left-color:var(--danger);background:color-mix(in srgb,var(--danger) 13%,var(--paper))}
+#supervisor-tasks-view .sv-dashboard-task.is-progress,#supervisor-tasks-view .sv-cal-task.is-progress{border-left-color:#cf741c;background:color-mix(in srgb,#e99837 20%,var(--paper))}
+#supervisor-tasks-view .sv-dashboard-empty{font-size:12px;color:var(--muted);padding:5px;margin:0}
+#supervisor-tasks-view .sv-month-heading{margin-bottom:9px}
+#supervisor-tasks-view .sv-month-heading h2{flex:1;text-align:center}
+#supervisor-tasks-view .sv-month-heading button{min-width:34px;padding:5px 8px}
+#supervisor-tasks-view .sv-calendar-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:3px}
+#supervisor-tasks-view .sv-calendar-weekday{text-align:center;font-size:11px;font-weight:700;color:var(--muted);padding:4px 0}
+#supervisor-tasks-view .sv-calendar-days{display:contents}
+#supervisor-tasks-view .sv-calendar-blank{min-height:58px}
+#supervisor-tasks-view .sv-calendar-day{display:flex;flex-direction:column;align-items:stretch;justify-content:flex-start;gap:3px;min-width:0;min-height:62px;padding:4px!important;background:var(--cream);border:1px solid var(--line);color:var(--ink);text-align:left;overflow:hidden}
+#supervisor-tasks-view .sv-calendar-day[aria-pressed="true"]{border:2px solid var(--matcha-600);padding:3px!important}
+#supervisor-tasks-view .sv-calendar-day.is-today .sv-cal-number{color:var(--matcha-700);font-weight:800}
+#supervisor-tasks-view .sv-cal-number{font-size:11px;line-height:1.2}
+#supervisor-tasks-view .sv-cal-task-labels{display:grid;gap:2px;min-width:0}
+#supervisor-tasks-view .sv-cal-task{display:block;min-width:0;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding:1px 3px;border-left:2px solid transparent;border-radius:2px;font-size:10px;line-height:1.35}
+#supervisor-tasks-view .sv-cal-more{font-size:10px;color:var(--muted)}
+#supervisor-tasks-view .sv-calendar-legend{display:flex;gap:8px 14px;flex-wrap:wrap;margin:9px 0 12px;font-size:11px;color:var(--muted)}
+#supervisor-tasks-view .sv-calendar-legend>span{display:inline-flex;align-items:center;gap:5px}
+#supervisor-tasks-view .sv-legend-swatch{display:inline-block;width:10px;height:10px;border-radius:3px;background:var(--paper);border:1px solid var(--line)}
+#supervisor-tasks-view .sv-legend-swatch.is-urgent{background:color-mix(in srgb,var(--danger) 35%,var(--paper));border-color:var(--danger)}
+#supervisor-tasks-view .sv-legend-swatch.is-progress{background:color-mix(in srgb,#e99837 35%,var(--paper));border-color:#cf741c}
+#supervisor-tasks-view .sv-selected-day{border-top:1px solid var(--line);padding-top:8px}
+#supervisor-tasks-view .sv-selected-day h3{font-size:13px;margin:0 0 6px}
+#supervisor-tasks-view .sv-selected-day #sv-selected-day-tasks{display:grid;gap:5px}
+#supervisor-tasks-view .sv-shell> .panel{width:min(100%,1100px);margin-inline:auto}
+@media(min-width:950px){#supervisor-tasks-view .sv-shell{width:min(96%,1600px)!important;max-width:1600px!important;margin:16px auto 32px}#supervisor-tasks-view .sv-dashboard{grid-template-columns:minmax(300px,.78fr) minmax(0,1.42fr);gap:14px}#supervisor-tasks-view .sv-dash-panel{padding:14px}#supervisor-tasks-view .sv-calendar-day{min-height:74px}#supervisor-tasks-view .sv-week-list{max-height:500px}}
+@media(max-width:520px){#supervisor-tasks-view .sv-dash-task-subtitle{max-width:105px;overflow-wrap:anywhere}#supervisor-tasks-view .sv-calendar-day{min-height:56px;padding:3px!important}#supervisor-tasks-view .sv-calendar-day[aria-pressed="true"]{padding:2px!important}#supervisor-tasks-view .sv-cal-task{font-size:9px}}
+</style>
+
 </body>
 </html>
