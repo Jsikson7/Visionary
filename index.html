@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="description" content="A mobile-friendly collection of vision production guides, troubleshooting history, and copy-ready reporting tools.">
-  <meta name="visionary-app-version" content="3.0.93">
+  <meta name="visionary-app-version" content="3.0.95">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
@@ -7160,7 +7160,7 @@
             <span class="form-tile-arrow" aria-hidden="true">›</span>
           </button>
         </div>
-        <p class="last-updated">Version 3.0.93 · Last updated: <time datetime="2026-10-14">October 14, 2026</time></p>
+        <p class="last-updated">Version 3.0.95 · Last updated: <time datetime="2026-10-14">October 14, 2026</time></p>
         <div class="version-history-link-wrap">
           <button id="open-version-history" class="version-history-link" type="button">View version history</button>
         </div>
@@ -7319,7 +7319,7 @@
             <div class="daily-cloud-copy">
               <strong id="daily-cloud-title">Shared shift synchronization</strong>
               <span id="daily-cloud-status" role="status" aria-live="polite">Sign in with Google to share Daily Tasks across phones.</span>
-              <small>Safe Sync v6.2 · App <span id="daily-app-version">3.0.93</span><span id="daily-version-health" class="daily-version-health" hidden></span></small>
+              <small>Safe Sync v6.2 · App <span id="daily-app-version">3.0.95</span><span id="daily-version-health" class="daily-version-health" hidden></span></small>
             </div>
           </div>
           <div class="daily-cloud-actions">
@@ -8155,7 +8155,9 @@
 
       <section class="panel" aria-label="Release history">
         <div class="version-history-list">
-          <article class="version-card version-card-current"><div class="version-card-heading"><h2>Version 3.0.93</h2><time datetime="2026-10-14">October 14, 2026</time></div><p class="version-summary-intro">Added shared supervisor step checklists with green checks and red crosses, completion counts on collapsed cards, and update attribution. All steps must be checked before finishing a task. Existing notes and history are preserved.</p></article>
+          <article class="version-card version-card-current"><div class="version-card-heading"><h2>Version 3.0.95</h2><time datetime="2026-10-14">October 14, 2026</time></div><p class="version-summary-intro">Supervisor task cards now remain collapsed until opened. A stronger desktop single-column layout keeps every task full-width with its notes and checklist inside the expanded card.</p></article>
+<article class="version-card"><div class="version-card-heading"><h2>Version 3.0.94</h2><time datetime="2026-10-14">October 14, 2026</time></div><p class="version-summary-intro">Supervisor task cards now appear one per row and open expanded by default, with a collapse control. Ongoing tasks are numbered in ascending due-date order, with overdue items first; search results renumber to reflect their displayed order.</p></article>
+<article class="version-card"><div class="version-card-heading"><h2>Version 3.0.93</h2><time datetime="2026-10-14">October 14, 2026</time></div><p class="version-summary-intro">Added shared supervisor step checklists with green checks and red crosses, completion counts on collapsed cards, and update attribution. All steps must be checked before finishing a task. Existing notes and history are preserved.</p></article>
 <article class="version-card"><div class="version-card-heading"><h2>Version 3.0.92</h2><time datetime="2026-10-14">October 14, 2026</time></div><p class="version-summary-intro">Supervisor tasks now share one Ongoing list and a separate Finished view. Both supervisors can update any task. Added Assigned to, retained Assigned by and update attribution, and made task cards collapsible. Existing tasks and history are retained.</p></article>
 <article class="version-card"><div class="version-card-heading"><h2>Version 3.0.91</h2><time datetime="2026-10-14">October 14, 2026</time></div><p class="version-summary-intro">Compact Supervisor Tasks layout aligned with Daily Tasks: smaller header and buttons, tighter task cards, inline quick entry, and two-column mobile task fields.</p></article>
 <article class="version-card"><div class="version-card-heading"><h2>Version 3.0.90</h2><time datetime="2026-10-14">October 14, 2026</time></div><p class="version-summary-intro">Renamed the visible Admin account to Supervisor while preserving its PIN and permissions. Moved the detailed synchronization description out from under Working as into a collapsed Sync details section.</p></article>
@@ -9776,8 +9778,8 @@ window.VisionaryIQRequirements = Object.freeze({
         "If the embedded form does not appear or feels cramped, use Open Full Screen.": "포함된 양식이 표시되지 않거나 화면이 좁으면 전체 화면으로 열기를 사용하세요.",
         "Loading Microsoft Form…": "Microsoft 양식을 불러오는 중…",
         "Replay celebration": "축하 영상 다시 보기",
-        "Version 3.0.93 · Last updated:": "버전 3.0.93 · 마지막 업데이트:",
-        "Version 3.0.93": "버전 3.0.93",
+        "Version 3.0.95 · Last updated:": "버전 3.0.95 · 마지막 업데이트:",
+        "Version 3.0.95": "버전 3.0.95",
         "Version 3.0.77 · Last updated:": "버전 3.0.77 · 마지막 업데이트:",
         "Version 3.0.77": "버전 3.0.77",
         "Version 3.0.72 · Last updated:": "버전 3.0.72 · 마지막 업데이트:",
@@ -19837,7 +19839,7 @@ function normalizeWeeklyRows(values) {
     const provider = new GoogleAuthProvider();
     provider.setCustomParameters({ prompt: "select_account" });
     const SYNC_PROTOCOL_VERSION = 6;
-    const APP_VERSION = String(document.querySelector('meta[name="visionary-app-version"]')?.content || "3.0.93");
+    const APP_VERSION = String(document.querySelector('meta[name="visionary-app-version"]')?.content || "3.0.95");
     const HOSTED_APP_ROOT = "https://jsikson7.github.io/Visionary/";
     const HOSTED_APP_URL = HOSTED_APP_ROOT + "?v=" + APP_VERSION.replace(/\D/g, "");
     const isDirectFilePage = !["http:", "https:"].includes(window.location.protocol);
@@ -23049,9 +23051,9 @@ function normalizeWeeklyRows(values) {
       const appProperties = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>' +
         '<Properties xmlns="http://schemas.openxmlformats.org/officeDocument/2006/extended-properties" ' +
         'xmlns:vt="http://schemas.openxmlformats.org/officeDocument/2006/docPropsVTypes">' +
-        '<Application>Visionary 3.0.93</Application><DocSecurity>0</DocSecurity><ScaleCrop>false</ScaleCrop>' +
+        '<Application>Visionary 3.0.95</Application><DocSecurity>0</DocSecurity><ScaleCrop>false</ScaleCrop>' +
         '<Company></Company><LinksUpToDate>false</LinksUpToDate><SharedDoc>false</SharedDoc><HyperlinksChanged>false</HyperlinksChanged>' +
-        '<AppVersion>3.0.93</AppVersion></Properties>';
+        '<AppVersion>3.0.95</AppVersion></Properties>';
 
       const zip = xlsxZipStoredFiles([
         { name: "[Content_Types].xml", contents: contentTypes },
@@ -25507,9 +25509,9 @@ function render(){
  $('sv-heading').textContent=(filter==='completed'?'Finished tasks':'Ongoing tasks')+' · '+shown.length;
  const list=$('sv-list');list.replaceChildren();
  if(!shown.length)list.append(el('p','sv-empty',query?'No matching tasks.':filter==='completed'?'Finished tasks will appear here.':'You’re both caught up. Add your next task above.'));
- shown.forEach(t=>{
+ shown.forEach((t,index)=>{
   const card=el('details','sv-card sv-collapsible');card.open=expanded.has(t.id);card.addEventListener('toggle',()=>{if(card.open)expanded.add(t.id);else expanded.delete(t.id);});
-  const summary=el('summary','sv-card-summary'),head=el('span','sv-summary-title',(t.done?'✅ ':'❌ ')+t.title),meta=el('span','sv-summary-meta','Assigned to: '+assignee(t)+' · Assigned by: '+(t.assignedBy||'—'));
+  const summary=el('summary','sv-card-summary'),head=el('span','sv-summary-title',(index+1)+'. '+(t.done?'✅ ':'❌ ')+t.title),meta=el('span','sv-summary-meta','Assigned to: '+assignee(t)+' · Assigned by: '+(t.assignedBy||'—'));
   const tags=el('span','sv-row');tags.append(el('span','sv-tag',!t.done&&t.due<today()?'Overdue · '+t.due:t.due===today()?'Due today':'Due '+t.due));if(t.priority==='Urgent')tags.append(el('span','sv-tag','Urgent'));
   const local=pending.filter(o=>o.taskId===t.id);if(local.length)tags.append(el('span','sv-tag','Device only · Sync pending'));
   const steps=t.steps||[];if(steps.length)tags.append(el('span','sv-tag',steps.filter(x=>x.done).length+'/'+steps.length+' steps complete'));summary.append(head,meta,tags);card.append(summary);const content=el('div','sv-card-content');
@@ -25571,7 +25573,8 @@ window.VisionarySupervisorModel={apply};
 #supervisor-tasks-view .sv-tabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin:12px 0 8px}
 #supervisor-tasks-view .sv-tabs button{min-width:0;padding:7px 5px}
 #supervisor-tasks-view h2{font-size:16px;line-height:1.3;margin:8px 0}
-#supervisor-tasks-view .sv-list{grid-template-columns:repeat(auto-fit,minmax(min(100%,310px),1fr));gap:10px}
+#supervisor-tasks-view .sv-list{grid-template-columns:minmax(0,1fr);gap:10px}
+#supervisor-tasks-view .sv-card{width:100%}
 #supervisor-tasks-view .sv-card{padding:12px;border-radius:11px}
 #supervisor-tasks-view .sv-note{padding:9px;margin:8px 0;border-radius:8px;font-size:13px;line-height:1.45}
 #supervisor-tasks-view .sv-tag{padding:3px 6px;font-size:11px}
@@ -25595,7 +25598,7 @@ window.VisionarySupervisorModel={apply};
 #supervisor-tasks-view .sv-card-summary::-webkit-details-marker{display:none}
 #supervisor-tasks-view .sv-card-summary::after{content:'＋';position:absolute;top:12px;right:12px;font-size:18px;color:var(--muted)}
 #supervisor-tasks-view .sv-collapsible[open]>.sv-card-summary::after{content:'−'}
-#supervisor-tasks-view .sv-summary-title{display:block;font-size:14px;font-weight:700;line-height:1.4;margin-bottom:5px}
+#supervisor-tasks-view .sv-summary-title{display:block;font-size:15px;font-weight:700;line-height:1.4;margin-bottom:5px}
 #supervisor-tasks-view .sv-summary-meta{display:block;font-size:12px;color:var(--muted);line-height:1.4;margin-bottom:8px}
 #supervisor-tasks-view .sv-card-content{padding:0 12px 12px;border-top:1px solid var(--line)}
 </style>
@@ -25607,6 +25610,12 @@ window.VisionarySupervisorModel={apply};
 #supervisor-tasks-view .sv-step-toggle[aria-pressed="true"]{background:var(--paper);color:var(--ink);border-color:var(--line)}
 #supervisor-tasks-view .sv-step-toggle:disabled{opacity:1;cursor:default}
 #supervisor-tasks-view .sv-step-row>.sv-small{padding-left:9px;font-size:11px}
+</style>
+
+<style id="supervisor-desktop-single-row">
+#supervisor-tasks-view #sv-list.sv-list{display:grid!important;grid-template-columns:minmax(0,1fr)!important;grid-auto-flow:row!important;align-items:start!important;width:100%!important}
+#supervisor-tasks-view #sv-list.sv-list>.sv-card{grid-column:1/-1!important;width:100%!important;max-width:none!important}
+@media(min-width:760px){#supervisor-tasks-view #sv-list.sv-list{grid-template-columns:minmax(0,1fr)!important}}
 </style>
 </body>
 </html>
