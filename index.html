@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="description" content="A mobile-friendly collection of vision production guides, troubleshooting history, and copy-ready reporting tools.">
-  <meta name="visionary-app-version" content="3.0.97">
+  <meta name="visionary-app-version" content="3.0.98">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
@@ -7160,7 +7160,7 @@
             <span class="form-tile-arrow" aria-hidden="true">›</span>
           </button>
         </div>
-        <p class="last-updated">Version 3.0.97 · Last updated: <time datetime="2026-10-14">October 14, 2026</time></p>
+        <p class="last-updated">Version 3.0.98 · Last updated: <time datetime="2026-10-15">October 15, 2026</time></p>
         <div class="version-history-link-wrap">
           <button id="open-version-history" class="version-history-link" type="button">View version history</button>
         </div>
@@ -7174,22 +7174,15 @@
 </style>
 <section id="supervisor-tasks-view" class="app-view" hidden aria-labelledby="sv-title">
 <header class="hero"><div><p class="eyebrow">Supervisor workspace</p><h1 id="sv-title">Supervisor Tasks</h1><p class="hero-copy">Capture it. Finish it. Hand it over.</p></div><a href="#" class="button button-secondary">Main menu</a></header>
-<div class="sv-shell"><section class="panel"><div class="sv-row sv-bar"><div class="sv-row"><strong>Working as</strong><button type="button" class="button button-secondary" data-sv-person="James">James</button><button type="button" class="button button-secondary" data-sv-person="Sergio">Sergio</button></div><span class="sv-small" id="sv-today"></span></div><div class="sv-row"><button id="sv-retry" type="button" class="button button-secondary">Retry sync</button><button id="sv-signin" type="button" class="button button-secondary">Connect Google</button><button id="sv-export" type="button" class="button button-secondary">Export backup</button></div><details id="sv-sync-details"><summary>Sync details</summary><p id="sv-sync" class="sv-status sv-small" role="status" aria-live="polite"></p></details><hr><form id="sv-add"><div class="sv-capture"><input id="sv-task-title" aria-label="What needs to be done?" placeholder="Add a task…" maxlength="240" required><button class="button" type="submit">＋ Add</button></div><p class="sv-small">Shared by James and Sergio. Due today by default.</p><details id="sv-options"><summary>Optional task details</summary><div class="sv-options"><label>Due date<input type="date" id="sv-due" required></label><label>Assigned to<select id="sv-to"><option>James &amp; Sergio</option><option>James</option><option>Sergio</option></select></label><label>Assigned by<input id="sv-by" maxlength="80" placeholder="Optional"></label><label>Priority<select id="sv-priority"><option>Normal</option><option>Urgent</option></select></label><label>Date assigned<input type="date" id="sv-assigned" required></label></div><label>Details / next step<textarea id="sv-details" maxlength="2000" placeholder="Instructions or context (optional)"></textarea></label><label>Checklist steps — one per line<textarea id="sv-steps" maxlength="10000" placeholder="Check trigger timing&#10;Verify images during production&#10;Document the result"></textarea></label></details></form><p id="sv-feedback" role="status" aria-live="polite"></p></section>
-<nav class="sv-tabs" aria-label="Supervisor task filters"><button class="button button-secondary" data-sv-filter="ongoing" type="button">Ongoing</button><button class="button button-secondary" data-sv-filter="completed" type="button">Finished</button></nav><div class="sv-row sv-bar"><h2 id="sv-heading"></h2><label class="sv-small">Search tasks<input type="search" id="sv-search" placeholder="Task or note"></label></div><p class="sv-small">Tap a task to expand. Either supervisor can update or complete it.</p><section id="sv-dashboard" class="sv-dashboard" aria-label="Weekly tasks and monthly calendar">
-<section class="sv-dash-panel sv-week-panel" aria-labelledby="sv-week-title">
-<div class="sv-dash-heading"><div><h2 id="sv-week-title">Due this week</h2><p id="sv-week-range" class="sv-small"></p></div><span id="sv-week-count" class="sv-count"></span></div>
-<div id="sv-week-list" class="sv-week-list" aria-live="polite"></div>
-</section>
-<section class="sv-dash-panel sv-month-panel" aria-labelledby="sv-month-label">
-<div class="sv-dash-heading sv-month-heading"><button id="sv-month-prev" type="button" class="button button-secondary" aria-label="Previous month">‹</button><h2 id="sv-month-label"></h2><button id="sv-month-next" type="button" class="button button-secondary" aria-label="Next month">›</button><button id="sv-month-today" type="button" class="button button-secondary">Today</button></div>
+<div class="sv-shell"><details class="sv-dash-panel sv-week-panel" id="sv-week-panel"><summary class="sv-panel-summary"><span class="sv-panel-heading"><strong>Due this week</strong><span id="sv-week-range" class="sv-small"></span></span><span id="sv-week-count" class="sv-count"></span><span class="sv-panel-chevron" aria-hidden="true">⌄</span></summary><div class="sv-panel-body"><div id="sv-week-list" class="sv-week-list" aria-live="polite"></div></div></details><details class="sv-dash-panel sv-month-panel" id="sv-month-panel"><summary class="sv-panel-summary"><strong>Task calendar</strong><span class="sv-panel-chevron" aria-hidden="true">⌄</span></summary><div class="sv-panel-body"><div class="sv-dash-heading sv-month-heading"><button id="sv-month-prev" type="button" class="button button-secondary" aria-label="Previous month">‹</button><h2 id="sv-month-label"></h2><button id="sv-month-next" type="button" class="button button-secondary" aria-label="Next month">›</button><button id="sv-month-today" type="button" class="button button-secondary">Today</button></div>
 <div class="sv-calendar-grid" role="grid" aria-label="Monthly task calendar">
 <div class="sv-calendar-weekday" role="columnheader">Mon</div><div class="sv-calendar-weekday" role="columnheader">Tue</div><div class="sv-calendar-weekday" role="columnheader">Wed</div><div class="sv-calendar-weekday" role="columnheader">Thu</div><div class="sv-calendar-weekday" role="columnheader">Fri</div><div class="sv-calendar-weekday" role="columnheader">Sat</div><div class="sv-calendar-weekday" role="columnheader">Sun</div>
 <div id="sv-calendar-days" class="sv-calendar-days"></div>
 </div>
 <div class="sv-calendar-legend" aria-label="Task status colors"><span><i class="sv-legend-swatch is-urgent"></i>Urgent</span><span><i class="sv-legend-swatch is-progress"></i>In progress</span><span>Unstarted tasks have no color</span></div>
 <section class="sv-selected-day" aria-labelledby="sv-selected-date"><h3 id="sv-selected-date"></h3><div id="sv-selected-day-tasks" aria-live="polite"></div></section>
-</section>
-</section><div class="sv-list" id="sv-list"></div></div>
+</div></details><div class="sv-main-column"><section class="panel"><div class="sv-row sv-bar"><div class="sv-row"><strong>Working as</strong><button type="button" class="button button-secondary" data-sv-person="James">James</button><button type="button" class="button button-secondary" data-sv-person="Sergio">Sergio</button></div><span class="sv-small" id="sv-today"></span></div><div class="sv-row"><button id="sv-retry" type="button" class="button button-secondary">Retry sync</button><button id="sv-signin" type="button" class="button button-secondary">Connect Google</button><button id="sv-export" type="button" class="button button-secondary">Export backup</button></div><details id="sv-sync-details"><summary>Sync details</summary><p id="sv-sync" class="sv-status sv-small" role="status" aria-live="polite"></p></details><hr><form id="sv-add"><div class="sv-capture"><input id="sv-task-title" aria-label="What needs to be done?" placeholder="Add a task…" maxlength="240" required><button class="button" type="submit">＋ Add</button></div><p class="sv-small">Shared by James and Sergio. Due today by default.</p><details id="sv-options"><summary>Optional task details</summary><div class="sv-options"><label>Due date<input type="date" id="sv-due" required></label><label>Assigned to<select id="sv-to"><option>James &amp; Sergio</option><option>James</option><option>Sergio</option></select></label><label>Assigned by<input id="sv-by" maxlength="80" placeholder="Optional"></label><label>Priority<select id="sv-priority"><option>Normal</option><option>Urgent</option></select></label><label>Date assigned<input type="date" id="sv-assigned" required></label></div><label>Details / next step<textarea id="sv-details" maxlength="2000" placeholder="Instructions or context (optional)"></textarea></label><label>Checklist steps — one per line<textarea id="sv-steps" maxlength="10000" placeholder="Check trigger timing&#10;Verify images during production&#10;Document the result"></textarea></label></details></form><p id="sv-feedback" role="status" aria-live="polite"></p></section>
+<nav class="sv-tabs" aria-label="Supervisor task filters"><button class="button button-secondary" data-sv-filter="ongoing" type="button">Ongoing</button><button class="button button-secondary" data-sv-filter="completed" type="button">Finished</button></nav><div class="sv-row sv-bar"><h2 id="sv-heading"></h2><label class="sv-small">Search tasks<input type="search" id="sv-search" placeholder="Task or note"></label></div><p class="sv-small">Tap a task to expand. Either supervisor can update or complete it.</p><div class="sv-list" id="sv-list"></div></div></div>
 </section>
 
     <section id="weekly-bmpd-view" class="app-view" aria-labelledby="weekly-bmpd-title" hidden>
@@ -7333,7 +7326,7 @@
             <div class="daily-cloud-copy">
               <strong id="daily-cloud-title">Shared shift synchronization</strong>
               <span id="daily-cloud-status" role="status" aria-live="polite">Sign in with Google to share Daily Tasks across phones.</span>
-              <small>Safe Sync v6.2 · App <span id="daily-app-version">3.0.97</span><span id="daily-version-health" class="daily-version-health" hidden></span></small>
+              <small>Safe Sync v6.2 · App <span id="daily-app-version">3.0.98</span><span id="daily-version-health" class="daily-version-health" hidden></span></small>
             </div>
           </div>
           <div class="daily-cloud-actions">
@@ -8169,7 +8162,7 @@
 
       <section class="panel" aria-label="Release history">
         <div class="version-history-list">
-          <article class="version-card version-card-current"><div class="version-card-heading"><h2>Version 3.0.97</h2><time datetime="2026-10-14">October 14, 2026</time></div><p class="version-summary-intro">Supervisor Tasks now uses the desktop side margins for a Due this week list and interactive monthly calendar. Select a date to list tasks due that day. Urgent tasks show red, tasks with checked steps show orange, and unstarted tasks stay neutral. The panels stack on smaller screens.</p></article>
+          <article class="version-card version-card-current"><div class="version-card-heading"><h2>Version 3.0.98</h2><time datetime="2026-10-15">October 15, 2026</time></div><p class="version-summary-intro">Supervisor workspace now has three desktop columns: weekly tasks, the main task list, and a monthly calendar. Weekly tasks and the calendar start collapsed on smaller screens.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.97</h2><time datetime="2026-10-14">October 14, 2026</time></div><p class="version-summary-intro">Supervisor Tasks now uses the desktop side margins for a Due this week list and interactive monthly calendar. Select a date to list tasks due that day. Urgent tasks show red, tasks with checked steps show orange, and unstarted tasks stay neutral. The panels stack on smaller screens.</p></article>
 <article class="version-card"><div class="version-card-heading"><h2>Version 3.0.96</h2><time datetime="2026-10-14">October 14, 2026</time></div><p class="version-summary-intro">Added a desktop due-this-week panel and an interactive monthly due-date calendar. Select a date to see its tasks, color coded red for urgent tasks and orange when at least one checklist step is complete. Calendar and weekly panels stack on narrow screens.</p></article>
 <article class="version-card"><div class="version-card-heading"><h2>Version 3.0.95</h2><time datetime="2026-10-14">October 14, 2026</time></div><p class="version-summary-intro">Supervisor task cards now remain collapsed until opened. A stronger desktop single-column layout keeps every task full-width with its notes and checklist inside the expanded card.</p></article>
 <article class="version-card"><div class="version-card-heading"><h2>Version 3.0.94</h2><time datetime="2026-10-14">October 14, 2026</time></div><p class="version-summary-intro">Supervisor task cards now appear one per row and open expanded by default, with a collapse control. Ongoing tasks are numbered in ascending due-date order, with overdue items first; search results renumber to reflect their displayed order.</p></article>
@@ -9794,8 +9787,8 @@ window.VisionaryIQRequirements = Object.freeze({
         "If the embedded form does not appear or feels cramped, use Open Full Screen.": "포함된 양식이 표시되지 않거나 화면이 좁으면 전체 화면으로 열기를 사용하세요.",
         "Loading Microsoft Form…": "Microsoft 양식을 불러오는 중…",
         "Replay celebration": "축하 영상 다시 보기",
-        "Version 3.0.97 · Last updated:": "버전 3.0.97 · 마지막 업데이트:",
-        "Version 3.0.97": "버전 3.0.97",
+        "Version 3.0.98 · Last updated:": "버전 3.0.98 · 마지막 업데이트:",
+        "Version 3.0.98": "버전 3.0.98",
         "Version 3.0.77 · Last updated:": "버전 3.0.77 · 마지막 업데이트:",
         "Version 3.0.77": "버전 3.0.77",
         "Version 3.0.72 · Last updated:": "버전 3.0.72 · 마지막 업데이트:",
@@ -19855,7 +19848,7 @@ function normalizeWeeklyRows(values) {
     const provider = new GoogleAuthProvider();
     provider.setCustomParameters({ prompt: "select_account" });
     const SYNC_PROTOCOL_VERSION = 6;
-    const APP_VERSION = String(document.querySelector('meta[name="visionary-app-version"]')?.content || "3.0.97");
+    const APP_VERSION = String(document.querySelector('meta[name="visionary-app-version"]')?.content || "3.0.98");
     const HOSTED_APP_ROOT = "https://jsikson7.github.io/Visionary/";
     const HOSTED_APP_URL = HOSTED_APP_ROOT + "?v=" + APP_VERSION.replace(/\D/g, "");
     const isDirectFilePage = !["http:", "https:"].includes(window.location.protocol);
@@ -23067,9 +23060,9 @@ function normalizeWeeklyRows(values) {
       const appProperties = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>' +
         '<Properties xmlns="http://schemas.openxmlformats.org/officeDocument/2006/extended-properties" ' +
         'xmlns:vt="http://schemas.openxmlformats.org/officeDocument/2006/docPropsVTypes">' +
-        '<Application>Visionary 3.0.97</Application><DocSecurity>0</DocSecurity><ScaleCrop>false</ScaleCrop>' +
+        '<Application>Visionary 3.0.98</Application><DocSecurity>0</DocSecurity><ScaleCrop>false</ScaleCrop>' +
         '<Company></Company><LinksUpToDate>false</LinksUpToDate><SharedDoc>false</SharedDoc><HyperlinksChanged>false</HyperlinksChanged>' +
-        '<AppVersion>3.0.97</AppVersion></Properties>';
+        '<AppVersion>3.0.98</AppVersion></Properties>';
 
       const zip = xlsxZipStoredFiles([
         { name: "[Content_Types].xml", contents: contentTypes },
@@ -25696,6 +25689,51 @@ window.VisionarySupervisorModel={apply};
 @media(min-width:950px){#supervisor-tasks-view .sv-shell{width:min(96%,1600px)!important;max-width:1600px!important;margin:16px auto 32px}#supervisor-tasks-view .sv-dashboard{grid-template-columns:minmax(300px,.78fr) minmax(0,1.42fr);gap:14px}#supervisor-tasks-view .sv-dash-panel{padding:14px}#supervisor-tasks-view .sv-calendar-day{min-height:74px}#supervisor-tasks-view .sv-week-list{max-height:500px}}
 @media(max-width:520px){#supervisor-tasks-view .sv-dash-task-subtitle{max-width:105px;overflow-wrap:anywhere}#supervisor-tasks-view .sv-calendar-day{min-height:56px;padding:3px!important}#supervisor-tasks-view .sv-calendar-day[aria-pressed="true"]{padding:2px!important}#supervisor-tasks-view .sv-cal-task{font-size:9px}}
 </style>
+
+
+<style id="supervisor-three-column-layout">
+#supervisor-tasks-view .sv-shell{display:grid;grid-template-columns:minmax(0,1fr);gap:12px;width:min(100%,980px)!important;max-width:980px!important;padding:0 12px;margin:14px auto 32px;align-items:start}
+#supervisor-tasks-view .sv-main-column{min-width:0;grid-row:3}
+#supervisor-tasks-view .sv-main-column>.panel{padding:14px;border:1px solid var(--line);border-radius:12px;background:var(--paper);margin:0}
+#supervisor-tasks-view .sv-main-column>.sv-bar>label{width:min(100%,230px)}
+#supervisor-tasks-view .sv-dash-panel{padding:0;min-width:0;border:1px solid var(--line);border-radius:12px;box-shadow:0 3px 12px rgb(0 0 0 / 3%);overflow:hidden;background:var(--paper)}
+#supervisor-tasks-view .sv-week-panel{grid-row:1}
+#supervisor-tasks-view .sv-month-panel{grid-row:2}
+#supervisor-tasks-view .sv-panel-summary{display:flex;align-items:center;gap:10px;padding:14px;min-height:52px;list-style:none;font-size:14px}
+#supervisor-tasks-view .sv-panel-summary::-webkit-details-marker{display:none}
+#supervisor-tasks-view .sv-panel-summary>strong{flex:1}
+#supervisor-tasks-view .sv-panel-heading{display:grid;gap:3px;min-width:0}
+#supervisor-tasks-view .sv-panel-chevron{margin-left:auto;font-size:18px;transition:transform .15s}
+#supervisor-tasks-view .sv-dash-panel[open]>.sv-panel-summary .sv-panel-chevron{transform:rotate(180deg)}
+#supervisor-tasks-view .sv-dash-panel[open]>.sv-panel-summary{border-bottom:1px solid var(--line)}
+#supervisor-tasks-view .sv-panel-body{padding:12px}
+#supervisor-tasks-view .sv-dashboard-task{flex-direction:column;gap:5px;padding:10px;min-height:44px;border-radius:8px}
+#supervisor-tasks-view .sv-dash-task-title{font-size:12px;line-height:1.5;font-weight:600}
+#supervisor-tasks-view .sv-dash-task-subtitle{text-align:left;max-width:100%;flex:auto;font-size:11px}
+#supervisor-tasks-view .sv-week-list{max-height:none;gap:8px}
+#supervisor-tasks-view .sv-month-heading{gap:5px}
+#supervisor-tasks-view .sv-month-heading h2{font-size:14px}
+#supervisor-tasks-view .sv-month-heading button{min-width:30px;padding:5px 7px}
+#supervisor-tasks-view .sv-calendar-day{min-height:67px;border-radius:6px}
+#supervisor-tasks-view .sv-cal-number{font-size:12px}
+#supervisor-tasks-view .sv-calendar-legend{line-height:1.6;gap:6px 10px}
+#supervisor-tasks-view .sv-selected-day h3{font-size:12px;line-height:1.5}
+#supervisor-tasks-view .sv-dash-panel button:focus-visible,#supervisor-tasks-view .sv-panel-summary:focus-visible{outline:2px solid var(--matcha-600);outline-offset:2px}
+#supervisor-tasks-view .sv-dashboard-task:hover{box-shadow:0 0 0 1px var(--line)}
+@media(min-width:1200px){
+ #supervisor-tasks-view .sv-shell{width:min(100%,1920px)!important;max-width:1920px!important;grid-template-columns:minmax(230px,.85fr) minmax(460px,2.1fr) minmax(340px,1fr);gap:16px;padding:0 20px}
+ #supervisor-tasks-view .sv-week-panel{grid-column:1;grid-row:1}
+ #supervisor-tasks-view .sv-main-column{grid-column:2;grid-row:1}
+ #supervisor-tasks-view .sv-month-panel{grid-column:3;grid-row:1}
+ #supervisor-tasks-view .sv-panel-chevron{display:none}
+ #supervisor-tasks-view .sv-panel-summary{cursor:default}
+ #supervisor-tasks-view .sv-options{grid-template-columns:repeat(2,minmax(0,1fr))}
+ #supervisor-tasks-view .sv-calendar-day{min-height:70px}
+}
+</style>
+<script id="supervisor-responsive-panels">
+(()=>{const desktop=window.matchMedia('(min-width:1200px)');const panels=['sv-week-panel','sv-month-panel'].map(id=>document.getElementById(id));const sync=()=>panels.forEach(panel=>{panel.open=desktop.matches;panel.querySelector('summary').tabIndex=desktop.matches?-1:0;});panels.forEach(panel=>panel.querySelector('summary').addEventListener('click',event=>{if(desktop.matches)event.preventDefault();}));desktop.addEventListener('change',sync);sync();})();
+</script>
 
 </body>
 </html>
