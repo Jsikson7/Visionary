@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="description" content="A mobile-friendly collection of vision production guides, troubleshooting history, and copy-ready reporting tools.">
-  <meta name="visionary-app-version" content="3.0.100">
+  <meta name="visionary-app-version" content="3.0.102">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
@@ -3327,6 +3327,11 @@
 
     #app-shell:not([data-auth-role="Admin"]) #admin-ranking-details,
     #app-shell:not([data-auth-role="Admin"]) .monthly-ranking-audit {
+      display: none !important;
+    }
+
+    /* Keep the Power Rankings tile available, but leave its content blank for technicians. */
+    #app-shell:not([data-auth-role="Admin"]) #leaderboard-view .leaderboard-shell {
       display: none !important;
     }
 
@@ -7160,7 +7165,7 @@
             <span class="form-tile-arrow" aria-hidden="true">›</span>
           </button>
         </div>
-        <p class="last-updated">Version 3.0.100 · Last updated: <time datetime="2026-10-15">October 15, 2026</time></p>
+        <p class="last-updated">Version 3.0.102 · Last updated: <time datetime="2026-10-19">October 19, 2026</time></p>
         <div class="version-history-link-wrap">
           <button id="open-version-history" class="version-history-link" type="button">View version history</button>
         </div>
@@ -7181,7 +7186,7 @@
 </div>
 <div class="sv-calendar-legend" aria-label="Task status colors"><span><i class="sv-legend-swatch is-urgent"></i>Urgent</span><span><i class="sv-legend-swatch is-progress"></i>In progress</span><span>Unstarted tasks have no color</span></div>
 <section class="sv-selected-day" aria-labelledby="sv-selected-date"><h3 id="sv-selected-date"></h3><div id="sv-selected-day-tasks" aria-live="polite"></div></section>
-</div></details><div class="sv-main-column"><section class="panel"><div class="sv-row sv-bar"><div class="sv-row"><strong>Working as</strong><button type="button" class="button button-secondary" data-sv-person="James">James</button><button type="button" class="button button-secondary" data-sv-person="Sergio">Sergio</button></div><span class="sv-small" id="sv-today"></span></div><div class="sv-row"><button id="sv-retry" type="button" class="button button-secondary">Retry sync</button><button id="sv-signin" type="button" class="button button-secondary">Connect Google</button><button id="sv-export" type="button" class="button button-secondary">Export backup</button></div><details id="sv-sync-details"><summary>Sync details</summary><p id="sv-sync" class="sv-status sv-small" role="status" aria-live="polite"></p></details><hr><form id="sv-add"><div class="sv-capture"><input id="sv-task-title" aria-label="What needs to be done?" placeholder="Add a task…" maxlength="240" required><button class="button" type="submit">＋ Add</button></div><p class="sv-small">Shared by James and Sergio. Due today by default.</p><details id="sv-options"><summary>Optional task details</summary><div class="sv-options"><label>Due date<input type="date" id="sv-due" required></label><label>Assigned to<select id="sv-to"><option>James &amp; Sergio</option><option>James</option><option>Sergio</option></select></label><label>Assigned by<input id="sv-by" maxlength="80" placeholder="Optional"></label><label>Priority<select id="sv-priority"><option>Normal</option><option>Urgent</option></select></label><label>Date assigned<input type="date" id="sv-assigned" required></label></div><label>Details / next step<textarea id="sv-details" maxlength="2000" placeholder="Instructions or context (optional)"></textarea></label><label>Checklist steps — one per line<textarea id="sv-steps" maxlength="10000" placeholder="Check trigger timing&#10;Verify images during production&#10;Document the result"></textarea></label></details></form><p id="sv-feedback" role="status" aria-live="polite"></p></section>
+</div></details><div class="sv-main-column"><section class="panel"><div class="sv-row sv-bar"><div class="sv-row"><strong>Working as</strong><button type="button" class="button button-secondary" data-sv-person="James">James</button><button type="button" class="button button-secondary" data-sv-person="Sergio">Sergio</button></div><span class="sv-small" id="sv-today"></span></div><div class="sv-row"><button id="sv-retry" type="button" class="button button-secondary">Retry sync</button><button id="sv-signin" type="button" class="button button-secondary">Google sign-in</button><button id="sv-export" type="button" class="button button-secondary">Export backup</button></div><p id="sv-google-account" class="sv-small" role="status" aria-live="polite" style="overflow-wrap:anywhere">Google sign-in is required for shared tasks.</p><details id="sv-sync-details"><summary>Sync details</summary><p id="sv-sync" class="sv-status sv-small" role="status" aria-live="polite"></p></details><hr><form id="sv-add"><div class="sv-capture"><input id="sv-task-title" aria-label="What needs to be done?" placeholder="Add a task…" maxlength="240" required><button class="button" type="submit">＋ Add</button></div><p class="sv-small">Shared by James and Sergio. Due today by default.</p><details id="sv-options"><summary>Optional task details</summary><div class="sv-options"><label>Due date<input type="date" id="sv-due" required></label><label>Assigned to<select id="sv-to"><option>James &amp; Sergio</option><option>James</option><option>Sergio</option></select></label><label>Assigned by<input id="sv-by" maxlength="80" placeholder="Optional"></label><label>Priority<select id="sv-priority"><option>Normal</option><option>Urgent</option></select></label><label>Date assigned<input type="date" id="sv-assigned" required></label></div><label>Details / next step<textarea id="sv-details" maxlength="2000" placeholder="Instructions or context (optional)"></textarea></label><label>Checklist steps — one per line<textarea id="sv-steps" maxlength="10000" placeholder="Check trigger timing&#10;Verify images during production&#10;Document the result"></textarea></label></details></form><p id="sv-feedback" role="status" aria-live="polite"></p></section>
 </div><div class="sv-task-workspace"><div id="sv-delete-status" role="status" aria-live="polite"></div><div class="sv-task-toolbar"><nav class="sv-tabs" aria-label="Supervisor task filters"><button class="button button-secondary" data-sv-filter="ongoing" type="button">Ongoing</button><button class="button button-secondary" data-sv-filter="completed" type="button">Finished</button></nav><label class="sv-small">Search tasks<input type="search" id="sv-search" placeholder="Task or note"></label></div><h2 id="sv-heading"></h2><p class="sv-small">Tap a task to expand. Either supervisor can update or complete it.</p><div class="sv-list" id="sv-list"></div></div></div>
 </section>
 
@@ -7326,7 +7331,7 @@
             <div class="daily-cloud-copy">
               <strong id="daily-cloud-title">Shared shift synchronization</strong>
               <span id="daily-cloud-status" role="status" aria-live="polite">Sign in with Google to share Daily Tasks across phones.</span>
-              <small>Safe Sync v6.2 · App <span id="daily-app-version">3.0.100</span><span id="daily-version-health" class="daily-version-health" hidden></span></small>
+              <small>Safe Sync v6.2 · App <span id="daily-app-version">3.0.102</span><span id="daily-version-health" class="daily-version-health" hidden></span></small>
             </div>
           </div>
           <div class="daily-cloud-actions">
@@ -8162,7 +8167,7 @@
 
       <section class="panel" aria-label="Release history">
         <div class="version-history-list">
-          <article class="version-card version-card-current"><div class="version-card-heading"><h2>Version 3.0.100</h2><time datetime="2026-10-15">October 15, 2026</time></div><p class="version-summary-intro">Added Delete task to ongoing and finished supervisor tasks with confirmation, shared deletion sync, conflict protection, and a visible pending-deletion status with cancellation before sync.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.99</h2><time datetime="2026-10-15">October 15, 2026</time></div><p class="version-summary-intro">Aligned weekly tasks, task entry, and calendar panels above a full-width task toolbar and single-column task list. Compact calendar indicators show urgency and progress. Weekly tasks and the calendar remain collapsible on mobile.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.98</h2><time datetime="2026-10-15">October 15, 2026</time></div><p class="version-summary-intro">Supervisor workspace now has three desktop columns: weekly tasks, the main task list, and a monthly calendar. Weekly tasks and the calendar start collapsed on smaller screens.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.97</h2><time datetime="2026-10-14">October 14, 2026</time></div><p class="version-summary-intro">Supervisor Tasks now uses the desktop side margins for a Due this week list and interactive monthly calendar. Select a date to list tasks due that day. Urgent tasks show red, tasks with checked steps show orange, and unstarted tasks stay neutral. The panels stack on smaller screens.</p></article>
+          <article class="version-card version-card-current"><div class="version-card-heading"><h2>Version 3.0.102</h2><time datetime="2026-10-19">October 19, 2026</time></div><p class="version-summary-intro">Supervisor Tasks now keeps Google sign-in beside Retry sync, shows the connected account, and explains shared-task connection or permission problems.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.101</h2><time datetime="2026-10-19">October 19, 2026</time></div><p class="version-summary-intro">Power Rankings stay visible in the technician menu but open to a blank page. Supervisors retain the rankings view.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.100</h2><time datetime="2026-10-15">October 15, 2026</time></div><p class="version-summary-intro">Added Delete task to ongoing and finished supervisor tasks with confirmation, shared deletion sync, conflict protection, and a visible pending-deletion status with cancellation before sync.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.99</h2><time datetime="2026-10-15">October 15, 2026</time></div><p class="version-summary-intro">Aligned weekly tasks, task entry, and calendar panels above a full-width task toolbar and single-column task list. Compact calendar indicators show urgency and progress. Weekly tasks and the calendar remain collapsible on mobile.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.98</h2><time datetime="2026-10-15">October 15, 2026</time></div><p class="version-summary-intro">Supervisor workspace now has three desktop columns: weekly tasks, the main task list, and a monthly calendar. Weekly tasks and the calendar start collapsed on smaller screens.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.97</h2><time datetime="2026-10-14">October 14, 2026</time></div><p class="version-summary-intro">Supervisor Tasks now uses the desktop side margins for a Due this week list and interactive monthly calendar. Select a date to list tasks due that day. Urgent tasks show red, tasks with checked steps show orange, and unstarted tasks stay neutral. The panels stack on smaller screens.</p></article>
 <article class="version-card"><div class="version-card-heading"><h2>Version 3.0.96</h2><time datetime="2026-10-14">October 14, 2026</time></div><p class="version-summary-intro">Added a desktop due-this-week panel and an interactive monthly due-date calendar. Select a date to see its tasks, color coded red for urgent tasks and orange when at least one checklist step is complete. Calendar and weekly panels stack on narrow screens.</p></article>
 <article class="version-card"><div class="version-card-heading"><h2>Version 3.0.95</h2><time datetime="2026-10-14">October 14, 2026</time></div><p class="version-summary-intro">Supervisor task cards now remain collapsed until opened. A stronger desktop single-column layout keeps every task full-width with its notes and checklist inside the expanded card.</p></article>
 <article class="version-card"><div class="version-card-heading"><h2>Version 3.0.94</h2><time datetime="2026-10-14">October 14, 2026</time></div><p class="version-summary-intro">Supervisor task cards now appear one per row and open expanded by default, with a collapse control. Ongoing tasks are numbered in ascending due-date order, with overdue items first; search results renumber to reflect their displayed order.</p></article>
@@ -9787,8 +9792,8 @@ window.VisionaryIQRequirements = Object.freeze({
         "If the embedded form does not appear or feels cramped, use Open Full Screen.": "포함된 양식이 표시되지 않거나 화면이 좁으면 전체 화면으로 열기를 사용하세요.",
         "Loading Microsoft Form…": "Microsoft 양식을 불러오는 중…",
         "Replay celebration": "축하 영상 다시 보기",
-        "Version 3.0.100 · Last updated:": "버전 3.0.100 · 마지막 업데이트:",
-        "Version 3.0.100": "버전 3.0.100",
+        "Version 3.0.102 · Last updated:": "버전 3.0.102 · 마지막 업데이트:",
+        "Version 3.0.102": "버전 3.0.102",
         "Version 3.0.77 · Last updated:": "버전 3.0.77 · 마지막 업데이트:",
         "Version 3.0.77": "버전 3.0.77",
         "Version 3.0.72 · Last updated:": "버전 3.0.72 · 마지막 업데이트:",
@@ -19768,10 +19773,13 @@ function normalizeWeeklyRows(values) {
     // Supervisor Tasks: separate collection, transaction conflict detection and confirmed saves.
     window.VisionarySupervisorCloud = {
       identity: () => auth.currentUser?.uid || '',
+      accountEmail: () => auth.currentUser?.email || '',
       ready: () => location.protocol !== 'file:' && !!auth.currentUser,
       signIn: async () => {
         if (location.protocol === 'file:') throw new Error('Open the hosted app to connect Google.');
-        await signInWithPopup(auth, new GoogleAuthProvider());
+        const supervisorProvider = new GoogleAuthProvider();
+        supervisorProvider.setCustomParameters({ prompt: 'select_account' });
+        await signInWithPopup(auth, supervisorProvider);
       },
       watch: (onData, onError) => {
         let stopped = false, stop = null;
@@ -19848,7 +19856,7 @@ function normalizeWeeklyRows(values) {
     const provider = new GoogleAuthProvider();
     provider.setCustomParameters({ prompt: "select_account" });
     const SYNC_PROTOCOL_VERSION = 6;
-    const APP_VERSION = String(document.querySelector('meta[name="visionary-app-version"]')?.content || "3.0.100");
+    const APP_VERSION = String(document.querySelector('meta[name="visionary-app-version"]')?.content || "3.0.102");
     const HOSTED_APP_ROOT = "https://jsikson7.github.io/Visionary/";
     const HOSTED_APP_URL = HOSTED_APP_ROOT + "?v=" + APP_VERSION.replace(/\D/g, "");
     const isDirectFilePage = !["http:", "https:"].includes(window.location.protocol);
@@ -22388,6 +22396,15 @@ function normalizeWeeklyRows(values) {
 
     async function generateMonthlyPerformance(event) {
       if (event) event.preventDefault();
+      if (!isLocalLeaderboardAdmin()) {
+        monthlyPerformanceOutput.hidden = true;
+        monthlyTechnicianLeaders.replaceChildren();
+        monthlyShiftLeaders.replaceChildren();
+        document.getElementById("admin-ranking-details").replaceChildren();
+        resetMonthlyRankingExports();
+        setMonthlyPerformanceStatus("");
+        return;
+      }
       if (monthlyPerformanceBusy) return;
       if (!currentUser || !accessAllowed) {
         setMonthlyPerformanceStatus("Sign in with Google on the MI2 Daily Tasks tab first.", true);
@@ -22481,7 +22498,7 @@ function normalizeWeeklyRows(values) {
     }
 
     function maybeLoadMonthlyPerformance(force) {
-      if (!monthlyPerformanceStart || !monthlyPerformanceEnd || !currentUser || !accessAllowed || window.location.hash !== "#leaderboard") return;
+      if (!isLocalLeaderboardAdmin() || !monthlyPerformanceStart || !monthlyPerformanceEnd || !currentUser || !accessAllowed || window.location.hash !== "#leaderboard") return;
       if (monthlyPerformanceBusy) return;
       const now = Date.now();
       if (!force && now - monthlyPerformanceLastRequestAt < MONTHLY_RANKING_REFRESH_DEBOUNCE_MS) return;
@@ -23060,9 +23077,9 @@ function normalizeWeeklyRows(values) {
       const appProperties = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>' +
         '<Properties xmlns="http://schemas.openxmlformats.org/officeDocument/2006/extended-properties" ' +
         'xmlns:vt="http://schemas.openxmlformats.org/officeDocument/2006/docPropsVTypes">' +
-        '<Application>Visionary 3.0.100</Application><DocSecurity>0</DocSecurity><ScaleCrop>false</ScaleCrop>' +
+        '<Application>Visionary 3.0.102</Application><DocSecurity>0</DocSecurity><ScaleCrop>false</ScaleCrop>' +
         '<Company></Company><LinksUpToDate>false</LinksUpToDate><SharedDoc>false</SharedDoc><HyperlinksChanged>false</HyperlinksChanged>' +
-        '<AppVersion>3.0.100</AppVersion></Properties>';
+        '<AppVersion>3.0.102</AppVersion></Properties>';
 
       const zip = xlsxZipStoredFiles([
         { name: "[Content_Types].xml", contents: contentTypes },
@@ -25502,7 +25519,7 @@ function btn(text,fn){const b=el('button','button button-secondary',text);b.type
 function report(text){$('sv-feedback').textContent=text;}
 function enqueue(kind,task,extra={}){if(!admin())return;load();const state=all();const current=task&&state[task.id];const op={id:uid(),taskId:task?.id||uid(),kind,by:person,at:new Date().toISOString(),revision:task?.revision||0,...extra};if(kind==='create')op.task.id=op.taskId;try{apply(current,op);localStorage.setItem(opPrefix+op.id,JSON.stringify(op));pending.push(op);editorOpen=false;errorText='';report('Saved on this device. Waiting for shared sync.');render();flush();return true;}catch(e){report('Not saved: '+e.message);return false;}}
 async function flush(){if(busy||!admin()||!confirmed||!window.VisionarySupervisorCloud?.ready())return;busy=true;try{load();const blocked=new Set();for(const op of [...pending]){if(!admin()||!window.VisionarySupervisorCloud.ready())break;if(blocked.has(op.taskId))continue;try{const saved=await window.VisionarySupervisorCloud.commit(op);if(saved===null)delete base[op.taskId];else base[op.taskId]=saved;cache();localStorage.removeItem(opPrefix+op.id);pending=pending.filter(p=>p.id!==op.id);}catch(e){errorText=e.code==='permission-denied'?(op.kind==='delete'?'Deletion was not synced. Firebase must allow authorized supervisors to delete supervisorTasks documents. Cancel the pending deletion to restore the task on this device.':'Shared task access was denied. Firebase permissions for supervisorTasks must be enabled for authorized supervisors.'):e.message;blocked.add(op.taskId);if(e.code!=='sv-conflict')break;}}}finally{busy=false;render();}}
-function connect(force=false){if(!admin()){unsub?.();unsub=null;connection='';confirmed=false;return;}const bridge=window.VisionarySupervisorCloud;const next=bridge?.identity()||'';if(!force&&connection===next&&unsub)return;unsub?.();unsub=null;connection=next;confirmed=false;if(!bridge?.ready()){cloudText=location.protocol==='file:'?'Saved on this device only. Open the hosted app and connect Google for shared tasks.':'Saved on this device only. Connect Google to share tasks.';render();return;}cloudText='Connecting to shared tasks…';unsub=bridge.watch((rows,fromCache)=>{const dirty=new Set(pending.map(o=>o.taskId));const merged={};for(const [id,t] of Object.entries(base))if(dirty.has(id))merged[id]=t;base={...merged,...rows};cache();confirmed=!fromCache;cloudText=fromCache?'Showing cached tasks. Waiting for the server.':'Shared tasks connected.';if(confirmed)errorText='';render();if(confirmed)flush();},e=>{confirmed=false;cloudText='Saved on this device only — tasks are NOT shared.';errorText=e.code==='permission-denied'?'Firebase permissions for the new supervisorTasks collection need to be configured for authorized supervisors. Existing shift sync is unaffected.':e.message;render();});render();}
+function connect(force=false){if(!admin()){unsub?.();unsub=null;connection='';confirmed=false;return;}const bridge=window.VisionarySupervisorCloud;const next=bridge?.identity()||'';if(!force&&connection===next&&unsub)return;unsub?.();unsub=null;connection=next;confirmed=false;if(!bridge?.ready()){cloudText=location.protocol==='file:'?'Saved on this device only. Open the hosted app and connect Google for shared tasks.':'Saved on this device only. Connect Google to share tasks.';render();return;}cloudText='Connecting to shared tasks…';unsub=bridge.watch((rows,fromCache)=>{const dirty=new Set(pending.map(o=>o.taskId));const merged={};for(const [id,t] of Object.entries(base))if(dirty.has(id))merged[id]=t;base={...merged,...rows};cache();confirmed=!fromCache;cloudText=fromCache?'Showing cached tasks. Waiting for the server.':'Shared tasks connected.';if(confirmed)errorText='';render();if(confirmed)flush();},e=>{confirmed=false;cloudText='Saved on this device only — tasks are NOT shared.';errorText=e.code==='permission-denied'?'This Google account could not access shared supervisor tasks. Confirm that the account is verified and authorized as an active administrator. If it is already authorized, check the current Firebase permissions.':e.message;render();});render();}
 let calendarMonth=new Date(),selectedCalendarDay='';
 const isoDate=d=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
 const dateFromISO=s=>{const [y,m,d]=String(s||'').split('-').map(Number);return new Date(y||2000,(m||1)-1,d||1);};
@@ -25535,12 +25552,17 @@ function render(){
  root.querySelectorAll('[data-sv-person]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.svPerson===person)));
  root.querySelectorAll('[data-sv-filter]').forEach(b=>{b.setAttribute('aria-pressed',String(b.dataset.svFilter===filter));b.textContent=b.dataset.svFilter==='completed'?'Finished · '+finished.length:'Ongoing · '+ongoing.length;});
  $('sv-sync').textContent=cloudText+(pending.length?' '+pending.length+' change(s) saved on this device, not yet confirmed shared.':'')+(errorText?'\n'+errorText:'');
- $('sv-sync').classList.toggle('sv-error',!!errorText);$('sv-signin').hidden=!!window.VisionarySupervisorCloud?.ready();renderDashboard(tasks);const deletionStatus=$('sv-delete-status');deletionStatus.replaceChildren();for(const op of pending.filter(o=>o.kind==='delete')){const row=el('div','sv-pending-delete');row.append(el('span','','Deletion pending: '+(base[op.taskId]?.title||pending.find(o=>o.taskId===op.taskId&&o.kind==='create')?.task?.title||'Supervisor task')+'. '+(errorText?'Not confirmed shared. See Sync details.':'Waiting for shared sync.')));row.append(btn('Cancel deletion',()=>{if(busy){report('Sync is in progress. Try again when it finishes.');return;}try{localStorage.removeItem(opPrefix+op.id);pending=pending.filter(o=>o.id!==op.id);render();report('Pending deletion canceled.');}catch(e){report('Could not cancel deletion: '+e.message);}}));deletionStatus.append(row);}if(editorOpen)return;
+ $('sv-sync').classList.toggle('sv-error',!!errorText);$('sv-signin').hidden=false;
+ const googleConnected=!!window.VisionarySupervisorCloud?.ready(),googleEmail=window.VisionarySupervisorCloud?.accountEmail?.()||'';
+ $('sv-signin').textContent=googleConnected?'Switch Google account':'Google sign-in';
+ $('sv-google-account').textContent=googleConnected?('Google: '+(googleEmail||'Signed in')+' · '+(confirmed?'Shared tasks connected.':errorText?'Shared task access failed. See Sync details.':'Shared tasks are not yet confirmed connected.')):'Not signed into Google. Sign in with an authorized supervisor account to load shared tasks.';
+ if(!confirmed||errorText||pending.length)$('sv-sync-details').open=true;
+ renderDashboard(tasks);const deletionStatus=$('sv-delete-status');deletionStatus.replaceChildren();for(const op of pending.filter(o=>o.kind==='delete')){const row=el('div','sv-pending-delete');row.append(el('span','','Deletion pending: '+(base[op.taskId]?.title||pending.find(o=>o.taskId===op.taskId&&o.kind==='create')?.task?.title||'Supervisor task')+'. '+(errorText?'Not confirmed shared. See Sync details.':'Waiting for shared sync.')));row.append(btn('Cancel deletion',()=>{if(busy){report('Sync is in progress. Try again when it finishes.');return;}try{localStorage.removeItem(opPrefix+op.id);pending=pending.filter(o=>o.id!==op.id);render();report('Pending deletion canceled.');}catch(e){report('Could not cancel deletion: '+e.message);}}));deletionStatus.append(row);}if(editorOpen)return;
  const query=$('sv-search').value.trim().toLowerCase();
  const shown=tasks.filter(t=>(filter==='completed'?t.done:!t.done)&&(!query||[t.title,t.note,t.assignedBy,assignee(t),...(t.events||[]).map(e=>e.note)].join(' ').toLowerCase().includes(query))).sort((a,b)=>filter==='completed'?String(b.completedAt).localeCompare(String(a.completedAt)):a.due.localeCompare(b.due)||(a.priority==='Urgent'?-1:0)-(b.priority==='Urgent'?-1:0)||a.createdAt.localeCompare(b.createdAt));
  $('sv-heading').textContent=(filter==='completed'?'Finished tasks':'Ongoing tasks')+' · '+shown.length;
  const list=$('sv-list');list.replaceChildren();
- if(!shown.length)list.append(el('p','sv-empty',query?'No matching tasks.':filter==='completed'?'Finished tasks will appear here.':'You’re both caught up. Add your next task above.'));
+ if(!shown.length)list.append(el('p','sv-empty',query?'No matching tasks.':filter==='completed'?'Finished tasks will appear here.':(confirmed?'You’re both caught up. Add your next task above.':'No tasks loaded on this device yet. Connect Google and check Sync details for the shared list.')));
  shown.forEach((t,index)=>{
   const card=el('details','sv-card sv-collapsible');card.id='sv-task-'+t.id;card.open=expanded.has(t.id);card.addEventListener('toggle',()=>{if(card.open)expanded.add(t.id);else expanded.delete(t.id);});
   const summary=el('summary','sv-card-summary'),head=el('span','sv-summary-title',(index+1)+'. '+(t.done?'✅ ':'❌ ')+t.title),meta=el('span','sv-summary-meta','Assigned to: '+assignee(t)+' · Assigned by: '+(t.assignedBy||'—'));
@@ -25564,7 +25586,15 @@ function render(){
 load();defaultDay=today();$('sv-due').value=$('sv-assigned').value=defaultDay;
 $('sv-add').onsubmit=e=>{e.preventDefault();if(!admin())return;const title=$('sv-task-title').value.trim();if(!title)return;const now=new Date().toISOString();if(enqueue('create',null,{task:{title,owner:person,assignedTo:$('sv-to').value,assignedBy:$('sv-by').value.trim()||person,assigned:$('sv-assigned').value,due:$('sv-due').value,priority:$('sv-priority').value,note:$('sv-details').value.trim(),steps:parseSteps($('sv-steps').value),createdAt:now,updatedAt:now,done:false,handoff:null},note:$('sv-details').value.trim()})){$('sv-add').reset();$('sv-due').value=$('sv-assigned').value=today();$('sv-options').open=false;$('sv-task-title').focus();}};
 root.querySelectorAll('[data-sv-person]').forEach(b=>b.onclick=()=>{if(!admin())return;if(editorOpen&&!confirm('Discard the unsaved note or edit?'))return;editorOpen=false;person=b.dataset.svPerson;try{localStorage.setItem(key+':person',person);}catch(e){report('Supervisor choice could not be remembered.');}render();});root.querySelectorAll('[data-sv-filter]').forEach(b=>b.onclick=()=>{if(editorOpen&&!confirm('Discard the unsaved note or edit?'))return;editorOpen=false;filter=b.dataset.svFilter;render();});$('sv-search').oninput=render;const navMonth=delta=>{calendarMonth=new Date(calendarMonth.getFullYear(),calendarMonth.getMonth()+delta,1);selectedCalendarDay=isoDate(calendarMonth);renderDashboard(allTasks());};$('sv-month-prev').onclick=()=>navMonth(-1);$('sv-month-next').onclick=()=>navMonth(1);$('sv-month-today').onclick=()=>{calendarMonth=new Date();selectedCalendarDay=today();renderDashboard(allTasks());};
-$('sv-retry').onclick=()=>{if(admin()){errorText='';connect(true);}};$('sv-signin').onclick=()=>{if(!admin())return;if(window.VisionarySupervisorCloud)window.VisionarySupervisorCloud.signIn().catch(e=>report(e.message));else{location.hash='daily-tasks';report('Connect Google in MI2 Daily Tasks, then return here.');}};
+$('sv-retry').onclick=()=>{if(admin()){errorText='';connect(true);}};$('sv-signin').onclick=async()=>{
+ if(!admin()||$('sv-signin').disabled)return;
+ const bridge=window.VisionarySupervisorCloud;
+ if(!bridge){report('Google sign-in has not loaded. Open the hosted app, check your connection, and refresh the page.');return;}
+ $('sv-signin').disabled=true;report('Opening Google sign-in. Choose your authorized supervisor account.');
+ try{await bridge.signIn();if(admin()){errorText='';report('Google signed in. Checking shared task access…');connect(true);}}
+ catch(e){const code=String(e.code||'');report(code.includes('popup-blocked')?'Google sign-in was blocked. Allow pop-ups for this site, then select Google sign-in again.':code.includes('popup-closed-by-user')||code.includes('cancelled-popup-request')?'Google sign-in was canceled. Select Google sign-in to try again.':e.message||'Google sign-in failed. Please try again.');}
+ finally{$('sv-signin').disabled=false;if(admin())render();}
+};
 $('sv-export').onclick=()=>{if(!admin())return;const a=document.createElement('a'),url=URL.createObjectURL(new Blob([JSON.stringify({schema:1,exportedAt:new Date().toISOString(),tasks:all(),pending},null,2)],{type:'application/json'}));a.href=url;a.download='supervisor-tasks-'+today()+'.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);};
 tile.onclick=()=>{if(admin())location.hash='supervisor-tasks';};function access(){tile.hidden=!admin();if(!admin()){editorOpen=false;root.hidden=true;$('sv-list').replaceChildren();}else render();connect();}new MutationObserver(access).observe(shell,{attributes:true,attributeFilter:['data-auth-role','hidden']});window.addEventListener('supervisor-cloud-ready',()=>connect(true));window.addEventListener('online',()=>connect(true));window.addEventListener('storage',e=>{if(e.key?.startsWith(key)){load();render();flush();}});window.addEventListener('beforeunload',e=>{if(editorOpen){e.preventDefault();e.returnValue='';}});window.addEventListener('hashchange',()=>{if(location.hash!=='#supervisor-tasks')editorOpen=false;else render();});setInterval(()=>{const next=today();if(next!==defaultDay){for(const id of ['sv-due','sv-assigned'])if($(id).value===defaultDay)$(id).value=next;defaultDay=next;}if(admin()&&!root.hidden)render();},60000);access();
 window.VisionarySupervisorModel={apply};
