@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="description" content="A mobile-friendly collection of vision production guides, troubleshooting history, and copy-ready reporting tools.">
-  <meta name="visionary-app-version" content="3.0.102">
+  <meta name="visionary-app-version" content="3.0.104">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
@@ -6877,9 +6877,6 @@
 .monthly-ranking-metric-value{text-align:right}
 }
 </style>
-<style id="reading-rate-temporarily-disabled">
-#daily-shift-checklist [data-daily-group="reading-rate"]{display:none!important}
-</style>
 </head>
 <body>
   <svg class="theme-background-art matcha-theme-art matcha-art-leaves" viewBox="0 0 420 340" aria-hidden="true" focusable="false">
@@ -7165,7 +7162,7 @@
             <span class="form-tile-arrow" aria-hidden="true">›</span>
           </button>
         </div>
-        <p class="last-updated">Version 3.0.102 · Last updated: <time datetime="2026-10-19">October 19, 2026</time></p>
+        <p class="last-updated">Version 3.0.104 · Last updated: <time datetime="2026-10-19">October 19, 2026</time></p>
         <div class="version-history-link-wrap">
           <button id="open-version-history" class="version-history-link" type="button">View version history</button>
         </div>
@@ -7331,7 +7328,7 @@
             <div class="daily-cloud-copy">
               <strong id="daily-cloud-title">Shared shift synchronization</strong>
               <span id="daily-cloud-status" role="status" aria-live="polite">Sign in with Google to share Daily Tasks across phones.</span>
-              <small>Safe Sync v6.2 · App <span id="daily-app-version">3.0.102</span><span id="daily-version-health" class="daily-version-health" hidden></span></small>
+              <small>Safe Sync v6.2 · App <span id="daily-app-version">3.0.104</span><span id="daily-version-health" class="daily-version-health" hidden></span></small>
             </div>
           </div>
           <div class="daily-cloud-actions">
@@ -7527,55 +7524,55 @@
                 </div>
               </section>
 
-              <section class="daily-checklist-group" data-daily-group="reading-rate" data-temporarily-disabled="true" hidden inert>
-                <div class="daily-checklist-heading"><h3>2. Cell Tracking Reading Rate</h3><span class="daily-point-badge">All allocations</span></div>
+              <section class="daily-checklist-group" data-daily-group="reading-rate">
+                <div class="daily-checklist-heading"><h3>2. Cell Tracking Reading Rate</h3><span class="daily-point-badge">All allocations · every 4 hours · no points yet</span></div>
                 <div class="daily-check-items">
                   <div class="daily-allocation-check-row">
                     <span class="daily-allocation-check-row-title">Check 1 - 5:00</span>
                     <div class="daily-allocation-check-options">
-                      <label class="daily-allocation-check"><input type="checkbox" aria-label="Allocation 1 Cell Tracking Reading Rate Check 1 at 5:00" data-daily-fixed="reading-rate-a1-0500" data-allocation-score="true" data-allocation="1" data-points="20" data-group="Cell Tracking Reading Rate Check" data-label="Allocation 1 - Cell Tracking Reading Rate Check 1 - 5:00"><span class="daily-allocation-check-copy">A1<small>20 pts</small></span></label>
-                      <label class="daily-allocation-check"><input type="checkbox" aria-label="Allocation 2 Cell Tracking Reading Rate Check 1 at 5:00" data-daily-fixed="reading-rate-a2-0500" data-allocation-score="true" data-allocation="2" data-points="20" data-group="Cell Tracking Reading Rate Check" data-label="Allocation 2 - Cell Tracking Reading Rate Check 1 - 5:00"><span class="daily-allocation-check-copy">A2<small>20 pts</small></span></label>
-                      <label class="daily-allocation-check"><input type="checkbox" aria-label="Allocation 3 Cell Tracking Reading Rate Check 1 at 5:00" data-daily-fixed="reading-rate-a3-0500" data-allocation-score="true" data-allocation="3" data-points="20" data-group="Cell Tracking Reading Rate Check" data-label="Allocation 3 - Cell Tracking Reading Rate Check 1 - 5:00"><span class="daily-allocation-check-copy">A3<small>20 pts</small></span></label>
+                      <label class="daily-allocation-check"><input type="checkbox" aria-label="Allocation 1 Cell Tracking Reading Rate Check 1 at 5:00" data-daily-fixed="reading-rate-a1-0500" data-allocation-score="true" data-allocation="1" data-points="0" data-group="Cell Tracking Reading Rate Check" data-label="Allocation 1 - Cell Tracking Reading Rate Check 1 - 5:00"><span class="daily-allocation-check-copy">A1<small>0 pts</small></span></label>
+                      <label class="daily-allocation-check"><input type="checkbox" aria-label="Allocation 2 Cell Tracking Reading Rate Check 1 at 5:00" data-daily-fixed="reading-rate-a2-0500" data-allocation-score="true" data-allocation="2" data-points="0" data-group="Cell Tracking Reading Rate Check" data-label="Allocation 2 - Cell Tracking Reading Rate Check 1 - 5:00"><span class="daily-allocation-check-copy">A2<small>0 pts</small></span></label>
+                      <label class="daily-allocation-check"><input type="checkbox" aria-label="Allocation 3 Cell Tracking Reading Rate Check 1 at 5:00" data-daily-fixed="reading-rate-a3-0500" data-allocation-score="true" data-allocation="3" data-points="0" data-group="Cell Tracking Reading Rate Check" data-label="Allocation 3 - Cell Tracking Reading Rate Check 1 - 5:00"><span class="daily-allocation-check-copy">A3<small>0 pts</small></span></label>
                     </div>
                   </div>
-                  <div class="daily-allocation-check-row">
+                  <div class="daily-allocation-check-row" hidden inert data-legacy-reading-rate="true">
                     <span class="daily-allocation-check-row-title">Check 2 - 7:00</span>
                     <div class="daily-allocation-check-options">
-                      <label class="daily-allocation-check"><input type="checkbox" aria-label="Allocation 1 Cell Tracking Reading Rate Check 2 at 7:00" data-daily-fixed="reading-rate-a1-0700" data-allocation-score="true" data-allocation="1" data-points="20" data-group="Cell Tracking Reading Rate Check" data-label="Allocation 1 - Cell Tracking Reading Rate Check 2 - 7:00"><span class="daily-allocation-check-copy">A1<small>20 pts</small></span></label>
-                      <label class="daily-allocation-check"><input type="checkbox" aria-label="Allocation 2 Cell Tracking Reading Rate Check 2 at 7:00" data-daily-fixed="reading-rate-a2-0700" data-allocation-score="true" data-allocation="2" data-points="20" data-group="Cell Tracking Reading Rate Check" data-label="Allocation 2 - Cell Tracking Reading Rate Check 2 - 7:00"><span class="daily-allocation-check-copy">A2<small>20 pts</small></span></label>
-                      <label class="daily-allocation-check"><input type="checkbox" aria-label="Allocation 3 Cell Tracking Reading Rate Check 2 at 7:00" data-daily-fixed="reading-rate-a3-0700" data-allocation-score="true" data-allocation="3" data-points="20" data-group="Cell Tracking Reading Rate Check" data-label="Allocation 3 - Cell Tracking Reading Rate Check 2 - 7:00"><span class="daily-allocation-check-copy">A3<small>20 pts</small></span></label>
+                      <label class="daily-allocation-check"><input type="checkbox" aria-label="Allocation 1 Cell Tracking Reading Rate Check 2 at 7:00" data-daily-fixed="reading-rate-a1-0700" data-allocation-score="true" data-allocation="1" data-points="0" data-group="Cell Tracking Reading Rate Check" data-label="Allocation 1 - Cell Tracking Reading Rate Check 2 - 7:00"><span class="daily-allocation-check-copy">A1<small>0 pts</small></span></label>
+                      <label class="daily-allocation-check"><input type="checkbox" aria-label="Allocation 2 Cell Tracking Reading Rate Check 2 at 7:00" data-daily-fixed="reading-rate-a2-0700" data-allocation-score="true" data-allocation="2" data-points="0" data-group="Cell Tracking Reading Rate Check" data-label="Allocation 2 - Cell Tracking Reading Rate Check 2 - 7:00"><span class="daily-allocation-check-copy">A2<small>0 pts</small></span></label>
+                      <label class="daily-allocation-check"><input type="checkbox" aria-label="Allocation 3 Cell Tracking Reading Rate Check 2 at 7:00" data-daily-fixed="reading-rate-a3-0700" data-allocation-score="true" data-allocation="3" data-points="0" data-group="Cell Tracking Reading Rate Check" data-label="Allocation 3 - Cell Tracking Reading Rate Check 2 - 7:00"><span class="daily-allocation-check-copy">A3<small>0 pts</small></span></label>
                     </div>
                   </div>
                   <div class="daily-allocation-check-row">
-                    <span class="daily-allocation-check-row-title">Check 3 - 9:00</span>
+                    <span class="daily-allocation-check-row-title">Check 2 - 9:00</span>
                     <div class="daily-allocation-check-options">
-                      <label class="daily-allocation-check"><input type="checkbox" aria-label="Allocation 1 Cell Tracking Reading Rate Check 3 at 9:00" data-daily-fixed="reading-rate-a1-0900" data-allocation-score="true" data-allocation="1" data-points="20" data-group="Cell Tracking Reading Rate Check" data-label="Allocation 1 - Cell Tracking Reading Rate Check 3 - 9:00"><span class="daily-allocation-check-copy">A1<small>20 pts</small></span></label>
-                      <label class="daily-allocation-check"><input type="checkbox" aria-label="Allocation 2 Cell Tracking Reading Rate Check 3 at 9:00" data-daily-fixed="reading-rate-a2-0900" data-allocation-score="true" data-allocation="2" data-points="20" data-group="Cell Tracking Reading Rate Check" data-label="Allocation 2 - Cell Tracking Reading Rate Check 3 - 9:00"><span class="daily-allocation-check-copy">A2<small>20 pts</small></span></label>
-                      <label class="daily-allocation-check"><input type="checkbox" aria-label="Allocation 3 Cell Tracking Reading Rate Check 3 at 9:00" data-daily-fixed="reading-rate-a3-0900" data-allocation-score="true" data-allocation="3" data-points="20" data-group="Cell Tracking Reading Rate Check" data-label="Allocation 3 - Cell Tracking Reading Rate Check 3 - 9:00"><span class="daily-allocation-check-copy">A3<small>20 pts</small></span></label>
+                      <label class="daily-allocation-check"><input type="checkbox" aria-label="Allocation 1 Cell Tracking Reading Rate Check 2 at 9:00" data-daily-fixed="reading-rate-a1-0900" data-allocation-score="true" data-allocation="1" data-points="0" data-group="Cell Tracking Reading Rate Check" data-label="Allocation 1 - Cell Tracking Reading Rate Check 2 - 9:00"><span class="daily-allocation-check-copy">A1<small>0 pts</small></span></label>
+                      <label class="daily-allocation-check"><input type="checkbox" aria-label="Allocation 2 Cell Tracking Reading Rate Check 2 at 9:00" data-daily-fixed="reading-rate-a2-0900" data-allocation-score="true" data-allocation="2" data-points="0" data-group="Cell Tracking Reading Rate Check" data-label="Allocation 2 - Cell Tracking Reading Rate Check 2 - 9:00"><span class="daily-allocation-check-copy">A2<small>0 pts</small></span></label>
+                      <label class="daily-allocation-check"><input type="checkbox" aria-label="Allocation 3 Cell Tracking Reading Rate Check 2 at 9:00" data-daily-fixed="reading-rate-a3-0900" data-allocation-score="true" data-allocation="3" data-points="0" data-group="Cell Tracking Reading Rate Check" data-label="Allocation 3 - Cell Tracking Reading Rate Check 2 - 9:00"><span class="daily-allocation-check-copy">A3<small>0 pts</small></span></label>
                     </div>
                   </div>
-                  <div class="daily-allocation-check-row">
+                  <div class="daily-allocation-check-row" hidden inert data-legacy-reading-rate="true">
                     <span class="daily-allocation-check-row-title">Check 4 - 11:00</span>
                     <div class="daily-allocation-check-options">
-                      <label class="daily-allocation-check"><input type="checkbox" aria-label="Allocation 1 Cell Tracking Reading Rate Check 4 at 11:00" data-daily-fixed="reading-rate-a1-1100" data-allocation-score="true" data-allocation="1" data-points="20" data-group="Cell Tracking Reading Rate Check" data-label="Allocation 1 - Cell Tracking Reading Rate Check 4 - 11:00"><span class="daily-allocation-check-copy">A1<small>20 pts</small></span></label>
-                      <label class="daily-allocation-check"><input type="checkbox" aria-label="Allocation 2 Cell Tracking Reading Rate Check 4 at 11:00" data-daily-fixed="reading-rate-a2-1100" data-allocation-score="true" data-allocation="2" data-points="20" data-group="Cell Tracking Reading Rate Check" data-label="Allocation 2 - Cell Tracking Reading Rate Check 4 - 11:00"><span class="daily-allocation-check-copy">A2<small>20 pts</small></span></label>
-                      <label class="daily-allocation-check"><input type="checkbox" aria-label="Allocation 3 Cell Tracking Reading Rate Check 4 at 11:00" data-daily-fixed="reading-rate-a3-1100" data-allocation-score="true" data-allocation="3" data-points="20" data-group="Cell Tracking Reading Rate Check" data-label="Allocation 3 - Cell Tracking Reading Rate Check 4 - 11:00"><span class="daily-allocation-check-copy">A3<small>20 pts</small></span></label>
+                      <label class="daily-allocation-check"><input type="checkbox" aria-label="Allocation 1 Cell Tracking Reading Rate Check 4 at 11:00" data-daily-fixed="reading-rate-a1-1100" data-allocation-score="true" data-allocation="1" data-points="0" data-group="Cell Tracking Reading Rate Check" data-label="Allocation 1 - Cell Tracking Reading Rate Check 4 - 11:00"><span class="daily-allocation-check-copy">A1<small>0 pts</small></span></label>
+                      <label class="daily-allocation-check"><input type="checkbox" aria-label="Allocation 2 Cell Tracking Reading Rate Check 4 at 11:00" data-daily-fixed="reading-rate-a2-1100" data-allocation-score="true" data-allocation="2" data-points="0" data-group="Cell Tracking Reading Rate Check" data-label="Allocation 2 - Cell Tracking Reading Rate Check 4 - 11:00"><span class="daily-allocation-check-copy">A2<small>0 pts</small></span></label>
+                      <label class="daily-allocation-check"><input type="checkbox" aria-label="Allocation 3 Cell Tracking Reading Rate Check 4 at 11:00" data-daily-fixed="reading-rate-a3-1100" data-allocation-score="true" data-allocation="3" data-points="0" data-group="Cell Tracking Reading Rate Check" data-label="Allocation 3 - Cell Tracking Reading Rate Check 4 - 11:00"><span class="daily-allocation-check-copy">A3<small>0 pts</small></span></label>
                     </div>
                   </div>
                   <div class="daily-allocation-check-row">
-                    <span class="daily-allocation-check-row-title">Check 5 - 13:00</span>
+                    <span class="daily-allocation-check-row-title">Check 3 - 13:00</span>
                     <div class="daily-allocation-check-options">
-                      <label class="daily-allocation-check"><input type="checkbox" aria-label="Allocation 1 Cell Tracking Reading Rate Check 5 at 13:00" data-daily-fixed="reading-rate-a1-1300" data-allocation-score="true" data-allocation="1" data-points="20" data-group="Cell Tracking Reading Rate Check" data-label="Allocation 1 - Cell Tracking Reading Rate Check 5 - 13:00"><span class="daily-allocation-check-copy">A1<small>20 pts</small></span></label>
-                      <label class="daily-allocation-check"><input type="checkbox" aria-label="Allocation 2 Cell Tracking Reading Rate Check 5 at 13:00" data-daily-fixed="reading-rate-a2-1300" data-allocation-score="true" data-allocation="2" data-points="20" data-group="Cell Tracking Reading Rate Check" data-label="Allocation 2 - Cell Tracking Reading Rate Check 5 - 13:00"><span class="daily-allocation-check-copy">A2<small>20 pts</small></span></label>
-                      <label class="daily-allocation-check"><input type="checkbox" aria-label="Allocation 3 Cell Tracking Reading Rate Check 5 at 13:00" data-daily-fixed="reading-rate-a3-1300" data-allocation-score="true" data-allocation="3" data-points="20" data-group="Cell Tracking Reading Rate Check" data-label="Allocation 3 - Cell Tracking Reading Rate Check 5 - 13:00"><span class="daily-allocation-check-copy">A3<small>20 pts</small></span></label>
+                      <label class="daily-allocation-check"><input type="checkbox" aria-label="Allocation 1 Cell Tracking Reading Rate Check 3 at 13:00" data-daily-fixed="reading-rate-a1-1300" data-allocation-score="true" data-allocation="1" data-points="0" data-group="Cell Tracking Reading Rate Check" data-label="Allocation 1 - Cell Tracking Reading Rate Check 3 - 13:00"><span class="daily-allocation-check-copy">A1<small>0 pts</small></span></label>
+                      <label class="daily-allocation-check"><input type="checkbox" aria-label="Allocation 2 Cell Tracking Reading Rate Check 3 at 13:00" data-daily-fixed="reading-rate-a2-1300" data-allocation-score="true" data-allocation="2" data-points="0" data-group="Cell Tracking Reading Rate Check" data-label="Allocation 2 - Cell Tracking Reading Rate Check 3 - 13:00"><span class="daily-allocation-check-copy">A2<small>0 pts</small></span></label>
+                      <label class="daily-allocation-check"><input type="checkbox" aria-label="Allocation 3 Cell Tracking Reading Rate Check 3 at 13:00" data-daily-fixed="reading-rate-a3-1300" data-allocation-score="true" data-allocation="3" data-points="0" data-group="Cell Tracking Reading Rate Check" data-label="Allocation 3 - Cell Tracking Reading Rate Check 3 - 13:00"><span class="daily-allocation-check-copy">A3<small>0 pts</small></span></label>
                     </div>
                   </div>
-                  <div class="daily-allocation-check-row">
+                  <div class="daily-allocation-check-row" hidden inert data-legacy-reading-rate="true">
                     <span class="daily-allocation-check-row-title">Check 6 - 15:00</span>
                     <div class="daily-allocation-check-options">
-                      <label class="daily-allocation-check"><input type="checkbox" aria-label="Allocation 1 Cell Tracking Reading Rate Check 6 at 15:00" data-daily-fixed="reading-rate-a1-1500" data-allocation-score="true" data-allocation="1" data-points="20" data-group="Cell Tracking Reading Rate Check" data-label="Allocation 1 - Cell Tracking Reading Rate Check 6 - 15:00"><span class="daily-allocation-check-copy">A1<small>20 pts</small></span></label>
-                      <label class="daily-allocation-check"><input type="checkbox" aria-label="Allocation 2 Cell Tracking Reading Rate Check 6 at 15:00" data-daily-fixed="reading-rate-a2-1500" data-allocation-score="true" data-allocation="2" data-points="20" data-group="Cell Tracking Reading Rate Check" data-label="Allocation 2 - Cell Tracking Reading Rate Check 6 - 15:00"><span class="daily-allocation-check-copy">A2<small>20 pts</small></span></label>
-                      <label class="daily-allocation-check"><input type="checkbox" aria-label="Allocation 3 Cell Tracking Reading Rate Check 6 at 15:00" data-daily-fixed="reading-rate-a3-1500" data-allocation-score="true" data-allocation="3" data-points="20" data-group="Cell Tracking Reading Rate Check" data-label="Allocation 3 - Cell Tracking Reading Rate Check 6 - 15:00"><span class="daily-allocation-check-copy">A3<small>20 pts</small></span></label>
+                      <label class="daily-allocation-check"><input type="checkbox" aria-label="Allocation 1 Cell Tracking Reading Rate Check 6 at 15:00" data-daily-fixed="reading-rate-a1-1500" data-allocation-score="true" data-allocation="1" data-points="0" data-group="Cell Tracking Reading Rate Check" data-label="Allocation 1 - Cell Tracking Reading Rate Check 6 - 15:00"><span class="daily-allocation-check-copy">A1<small>0 pts</small></span></label>
+                      <label class="daily-allocation-check"><input type="checkbox" aria-label="Allocation 2 Cell Tracking Reading Rate Check 6 at 15:00" data-daily-fixed="reading-rate-a2-1500" data-allocation-score="true" data-allocation="2" data-points="0" data-group="Cell Tracking Reading Rate Check" data-label="Allocation 2 - Cell Tracking Reading Rate Check 6 - 15:00"><span class="daily-allocation-check-copy">A2<small>0 pts</small></span></label>
+                      <label class="daily-allocation-check"><input type="checkbox" aria-label="Allocation 3 Cell Tracking Reading Rate Check 6 at 15:00" data-daily-fixed="reading-rate-a3-1500" data-allocation-score="true" data-allocation="3" data-points="0" data-group="Cell Tracking Reading Rate Check" data-label="Allocation 3 - Cell Tracking Reading Rate Check 6 - 15:00"><span class="daily-allocation-check-copy">A3<small>0 pts</small></span></label>
                     </div>
                   </div>
                 </div>
@@ -8167,7 +8164,7 @@
 
       <section class="panel" aria-label="Release history">
         <div class="version-history-list">
-          <article class="version-card version-card-current"><div class="version-card-heading"><h2>Version 3.0.102</h2><time datetime="2026-10-19">October 19, 2026</time></div><p class="version-summary-intro">Supervisor Tasks now keeps Google sign-in beside Retry sync, shows the connected account, and explains shared-task connection or permission problems.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.101</h2><time datetime="2026-10-19">October 19, 2026</time></div><p class="version-summary-intro">Power Rankings stay visible in the technician menu but open to a blank page. Supervisors retain the rankings view.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.100</h2><time datetime="2026-10-15">October 15, 2026</time></div><p class="version-summary-intro">Added Delete task to ongoing and finished supervisor tasks with confirmation, shared deletion sync, conflict protection, and a visible pending-deletion status with cancellation before sync.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.99</h2><time datetime="2026-10-15">October 15, 2026</time></div><p class="version-summary-intro">Aligned weekly tasks, task entry, and calendar panels above a full-width task toolbar and single-column task list. Compact calendar indicators show urgency and progress. Weekly tasks and the calendar remain collapsible on mobile.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.98</h2><time datetime="2026-10-15">October 15, 2026</time></div><p class="version-summary-intro">Supervisor workspace now has three desktop columns: weekly tasks, the main task list, and a monthly calendar. Weekly tasks and the calendar start collapsed on smaller screens.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.97</h2><time datetime="2026-10-14">October 14, 2026</time></div><p class="version-summary-intro">Supervisor Tasks now uses the desktop side margins for a Due this week list and interactive monthly calendar. Select a date to list tasks due that day. Urgent tasks show red, tasks with checked steps show orange, and unstarted tasks stay neutral. The panels stack on smaller screens.</p></article>
+          <article class="version-card version-card-current"><div class="version-card-heading"><h2>Version 3.0.104</h2><time datetime="2026-10-19">October 19, 2026</time></div><p class="version-summary-intro">Cell Tracking Reading Rate checks now run every four hours: 5:00, 9:00, and 13:00 on B1/G1, and 17:00, 21:00, and 1:00 on B2/G2. They remain at zero points.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.103</h2><time datetime="2026-10-20">October 20, 2026</time></div><p class="version-summary-intro">Restored the Cell Tracking Reading Rate checklist for all allocations. It is visible and trackable but awards no points yet.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.102</h2><time datetime="2026-10-19">October 19, 2026</time></div><p class="version-summary-intro">Supervisor Tasks now keeps Google sign-in beside Retry sync, shows the connected account, and explains shared-task connection or permission problems.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.101</h2><time datetime="2026-10-19">October 19, 2026</time></div><p class="version-summary-intro">Power Rankings stay visible in the technician menu but open to a blank page. Supervisors retain the rankings view.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.100</h2><time datetime="2026-10-15">October 15, 2026</time></div><p class="version-summary-intro">Added Delete task to ongoing and finished supervisor tasks with confirmation, shared deletion sync, conflict protection, and a visible pending-deletion status with cancellation before sync.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.99</h2><time datetime="2026-10-15">October 15, 2026</time></div><p class="version-summary-intro">Aligned weekly tasks, task entry, and calendar panels above a full-width task toolbar and single-column task list. Compact calendar indicators show urgency and progress. Weekly tasks and the calendar remain collapsible on mobile.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.98</h2><time datetime="2026-10-15">October 15, 2026</time></div><p class="version-summary-intro">Supervisor workspace now has three desktop columns: weekly tasks, the main task list, and a monthly calendar. Weekly tasks and the calendar start collapsed on smaller screens.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.97</h2><time datetime="2026-10-14">October 14, 2026</time></div><p class="version-summary-intro">Supervisor Tasks now uses the desktop side margins for a Due this week list and interactive monthly calendar. Select a date to list tasks due that day. Urgent tasks show red, tasks with checked steps show orange, and unstarted tasks stay neutral. The panels stack on smaller screens.</p></article>
 <article class="version-card"><div class="version-card-heading"><h2>Version 3.0.96</h2><time datetime="2026-10-14">October 14, 2026</time></div><p class="version-summary-intro">Added a desktop due-this-week panel and an interactive monthly due-date calendar. Select a date to see its tasks, color coded red for urgent tasks and orange when at least one checklist step is complete. Calendar and weekly panels stack on narrow screens.</p></article>
 <article class="version-card"><div class="version-card-heading"><h2>Version 3.0.95</h2><time datetime="2026-10-14">October 14, 2026</time></div><p class="version-summary-intro">Supervisor task cards now remain collapsed until opened. A stronger desktop single-column layout keeps every task full-width with its notes and checklist inside the expanded card.</p></article>
 <article class="version-card"><div class="version-card-heading"><h2>Version 3.0.94</h2><time datetime="2026-10-14">October 14, 2026</time></div><p class="version-summary-intro">Supervisor task cards now appear one per row and open expanded by default, with a collapse control. Ongoing tasks are numbered in ascending due-date order, with overdue items first; search results renumber to reflect their displayed order.</p></article>
@@ -9792,6 +9789,10 @@ window.VisionaryIQRequirements = Object.freeze({
         "If the embedded form does not appear or feels cramped, use Open Full Screen.": "포함된 양식이 표시되지 않거나 화면이 좁으면 전체 화면으로 열기를 사용하세요.",
         "Loading Microsoft Form…": "Microsoft 양식을 불러오는 중…",
         "Replay celebration": "축하 영상 다시 보기",
+        "Version 3.0.104 · Last updated:": "버전 3.0.104 · 마지막 업데이트:",
+        "Version 3.0.104": "버전 3.0.104",
+        "Version 3.0.103 · Last updated:": "버전 3.0.103 · 마지막 업데이트:",
+        "Version 3.0.103": "버전 3.0.103",
         "Version 3.0.102 · Last updated:": "버전 3.0.102 · 마지막 업데이트:",
         "Version 3.0.102": "버전 3.0.102",
         "Version 3.0.77 · Last updated:": "버전 3.0.77 · 마지막 업데이트:",
@@ -10165,7 +10166,7 @@ window.VisionaryIQRequirements = Object.freeze({
         "Select Date, Shift, and NGM Error Proofing A or B to unlock the numbered tasks.": "날짜, 근무조 및 NGM 오류 방지 검사 A 또는 B를 선택하면 번호별 작업을 시작할 수 있습니다.",
         "pts earned ·": "점 획득 ·", "pts missed": "점 미완료", "pts ·": "점 ·", "pts": "점", "checks": "검사",
         "Shift completion": "근무조 완료율", "Expand all": "모두 펼치기", "Collapse all": "모두 접기", "Incomplete only": "미완료만 표시", "My tasks": "내 작업", "All tasks": "모든 작업", "Quick reference": "빠른 참조", "All numbered tasks are complete.": "모든 번호별 작업이 완료되었습니다.",
-        "All allocations": "모든 배정 구역", "Cell Tracking Reading Rate": "셀 트래킹 인식률", "Cell Tracking Reading Rate Check": "셀 트래킹 인식률 검사", "Black Frame Check": "블랙 프레임 검사", "PKG 2 Hour Update": "PKG 2시간 업데이트",
+        "All allocations": "모든 배정 구역", "All allocations · every 4 hours · no points yet": "모든 배정 구역 · 4시간마다 · 현재 점수 없음", "Cell Tracking Reading Rate": "셀 트래킹 인식률", "Cell Tracking Reading Rate Check": "셀 트래킹 인식률 검사", "Black Frame Check": "블랙 프레임 검사", "PKG 2 Hour Update": "PKG 2시간 업데이트",
         "PKG IQ Check": "PKG IQ 검사", "No Response Check": "무응답 검사", "LNS IQ Check": "LNS 화질 검사", "LNS TOP NG Report": "LNS 주요 NG 보고", "Cell ID": "셀 ID",
         "Choose Error Proofing A or B above to display the assigned machines.": "위에서 오류 방지 검사 A 또는 B를 선택하면 배정 장비가 표시됩니다.",
         "Each rate uses that allocation's Black Frame, LNS IQ, PKG IQ, and PKG 2 Hour Update checks. Cell Tracking Reading Rate adds points only. Entered names replace the allocation labels automatically.": "각 배정 구역의 완료율은 블랙 프레임 검사와 PKG 2시간 업데이트를 기준으로 계산합니다. 셀 트래킹 인식률은 점수만 추가합니다. 이름을 입력하면 배정 구역 표시가 자동으로 대체됩니다.",
@@ -14486,11 +14487,8 @@ function normalizeWeeklyRows(values) {
       ];
       var DAILY_READING_RATE_TIMES = [
         { label: "5:00", key: "0500" },
-        { label: "7:00", key: "0700" },
         { label: "9:00", key: "0900" },
-        { label: "11:00", key: "1100" },
-        { label: "13:00", key: "1300" },
-        { label: "15:00", key: "1500" }
+        { label: "13:00", key: "1300" }
       ];
       var DAILY_IQ_CHECKS = [
         { label: "5:00", key: "lns-iq-0500", points: 25 },
@@ -19168,6 +19166,16 @@ function normalizeWeeklyRows(values) {
       var localTaskConfig = readLocalTaskConfig();
       var baseTaskCatalog = captureBaseTaskCatalog();
       applyBuiltInTaskConfig(localTaskConfig);
+      Array.prototype.forEach.call(form.querySelectorAll('[data-group="Cell Tracking Reading Rate Check"]'), function (checkbox) {
+        var key = checkbox.getAttribute("data-daily-fixed") || "";
+        var archivedTime = /-(0700|1100|1500)$/.test(key);
+        checkbox.setAttribute("data-points", "0");
+        checkbox.setAttribute("data-task-active", archivedTime ? "false" : "true");
+        checkbox.disabled = archivedTime;
+        var row = checkbox.closest(".daily-allocation-check-row");
+        if (row && archivedTime) { row.hidden = true; row.setAttribute("inert", ""); }
+        updateTaskPointCopy(checkbox, 0);
+      });
       renderLocalCustomTasks(localTaskConfig);
       requireCoreTaskCompletedBy();
       initializeTaskTechnicianFields();
@@ -19856,7 +19864,7 @@ function normalizeWeeklyRows(values) {
     const provider = new GoogleAuthProvider();
     provider.setCustomParameters({ prompt: "select_account" });
     const SYNC_PROTOCOL_VERSION = 6;
-    const APP_VERSION = String(document.querySelector('meta[name="visionary-app-version"]')?.content || "3.0.102");
+    const APP_VERSION = String(document.querySelector('meta[name="visionary-app-version"]')?.content || "3.0.104");
     const HOSTED_APP_ROOT = "https://jsikson7.github.io/Visionary/";
     const HOSTED_APP_URL = HOSTED_APP_ROOT + "?v=" + APP_VERSION.replace(/\D/g, "");
     const isDirectFilePage = !["http:", "https:"].includes(window.location.protocol);
@@ -23077,9 +23085,9 @@ function normalizeWeeklyRows(values) {
       const appProperties = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>' +
         '<Properties xmlns="http://schemas.openxmlformats.org/officeDocument/2006/extended-properties" ' +
         'xmlns:vt="http://schemas.openxmlformats.org/officeDocument/2006/docPropsVTypes">' +
-        '<Application>Visionary 3.0.102</Application><DocSecurity>0</DocSecurity><ScaleCrop>false</ScaleCrop>' +
+        '<Application>Visionary 3.0.104</Application><DocSecurity>0</DocSecurity><ScaleCrop>false</ScaleCrop>' +
         '<Company></Company><LinksUpToDate>false</LinksUpToDate><SharedDoc>false</SharedDoc><HyperlinksChanged>false</HyperlinksChanged>' +
-        '<AppVersion>3.0.102</AppVersion></Properties>';
+        '<AppVersion>3.0.104</AppVersion></Properties>';
 
       const zip = xlsxZipStoredFiles([
         { name: "[Content_Types].xml", contents: contentTypes },
