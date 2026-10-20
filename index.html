@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="description" content="A mobile-friendly collection of vision production guides, troubleshooting history, and copy-ready reporting tools.">
-  <meta name="visionary-app-version" content="3.0.110">
+  <meta name="visionary-app-version" content="3.0.111">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
@@ -6882,11 +6882,11 @@
 #spare-parts-preview-view .spp-shell{display:grid;gap:16px;max-width:1320px;margin:0 auto;padding:18px 0 36px}
 #spare-parts-preview-view .spp-banner{display:flex;gap:10px;padding:13px 16px;border:1px solid var(--line);border-left:4px solid var(--matcha-600);border-radius:10px;background:var(--matcha-100);font-size:.9rem;line-height:1.45}
 #spare-parts-preview-view .spp-banner strong{display:block;margin-bottom:2px}
-#spare-parts-preview-view .spp-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+#spare-parts-preview-view .spp-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;align-items:stretch}
 #spare-parts-preview-view .spp-stat{padding:16px 18px;border:1px solid var(--line);border-radius:12px;background:var(--paper);box-shadow:var(--shadow)}
 #spare-parts-preview-view .spp-stat small{display:block;color:var(--muted);font-size:.8rem}
 #spare-parts-preview-view .spp-stat strong{display:block;margin-top:6px;font-size:1.5rem;font-variant-numeric:tabular-nums}
-#spare-parts-preview-view .spp-layout{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(310px,.8fr);gap:16px;align-items:start}
+#spare-parts-preview-view .spp-layout{display:grid;grid-template-columns:minmax(0,1fr);gap:16px;align-items:start}
 #spare-parts-preview-view .spp-panel{min-width:0;padding:20px;background:var(--paper);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow)}
 #spare-parts-preview-view .spp-panel h2{margin:0;color:var(--ink);font-size:1.1rem}
 #spare-parts-preview-view .spp-heading{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:14px}
@@ -6909,7 +6909,13 @@
 #spare-parts-preview-view .spp-item-action .button{min-height:38px;padding:7px 12px;font-size:.82rem}
 #spare-parts-preview-view .spp-form{display:grid;gap:12px}
 #spare-parts-preview-view .spp-form .button{width:100%;min-height:46px}
-#spare-parts-preview-view .spp-side{display:grid;gap:14px}
+#spare-parts-preview-view .spp-alert-panel{box-sizing:border-box;min-width:0;padding:12px 14px;margin:0}
+#spare-parts-preview-view .spp-alert-panel .spp-heading{margin:0}
+#spare-parts-preview-view .spp-alert-panel .spp-heading h2{font-size:.9rem}
+#spare-parts-preview-view .spp-alert-panel .spp-heading p{font-size:.7rem;margin:2px 0 0}
+#spare-parts-preview-view .spp-alert-panel .spp-low{max-height:74px;overflow:auto;margin-top:7px;gap:5px}
+#spare-parts-preview-view .spp-alert-panel .spp-lowrow{padding:6px 7px;font-size:.72rem}
+#spare-parts-preview-view .spp-alert-panel .spp-empty{font-size:.73rem;line-height:1.35;padding:7px 0}
 #spare-parts-preview-view .spp-low{display:grid;gap:8px;margin-top:14px}
 #spare-parts-preview-view .spp-lowrow{display:flex;justify-content:space-between;gap:10px;padding:10px 11px;border:1px solid #e8c6b9;border-left:3px solid #c9685d;border-radius:8px;background:#fff5f1;font-size:.82rem}
 #spare-parts-preview-view .spp-lowrow strong{display:block;color:#82382f}
@@ -6924,8 +6930,8 @@
 #spare-parts-preview-view .spp-history td:nth-child(3),#spare-parts-preview-view .spp-history td:nth-child(4){white-space:nowrap}
 #spare-parts-preview-view .spp-actions{display:flex;flex-wrap:wrap;gap:9px;margin:14px 0 0}
 #spare-parts-preview-view .spp-note{margin:10px 0 0;color:var(--muted);font-size:.77rem;line-height:1.45}
-@media(max-width:900px){#spare-parts-preview-view .spp-layout{grid-template-columns:1fr}#spare-parts-preview-view .spp-side{grid-template-columns:repeat(2,minmax(0,1fr));align-items:start}}
-@media(max-width:600px){#spare-parts-preview-view .spp-shell{padding:12px 0 24px;gap:12px}#spare-parts-preview-view .spp-stats{gap:8px}#spare-parts-preview-view .spp-stat{padding:12px 10px}#spare-parts-preview-view .spp-stat strong{font-size:1.18rem}#spare-parts-preview-view .spp-side{grid-template-columns:1fr}#spare-parts-preview-view .spp-panel{padding:15px;border-radius:11px}#spare-parts-preview-view .spp-item{padding:12px}#spare-parts-preview-view .spp-history{min-width:640px}}
+@media(max-width:900px){#spare-parts-preview-view .spp-stats{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:600px){#spare-parts-preview-view .spp-shell{padding:12px 0 24px;gap:12px}#spare-parts-preview-view .spp-stats{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}#spare-parts-preview-view .spp-stat{padding:12px 10px}#spare-parts-preview-view .spp-stat strong{font-size:1.18rem}#spare-parts-preview-view .spp-panel{padding:15px;border-radius:11px}#spare-parts-preview-view .spp-alert-panel{padding:12px 10px}#spare-parts-preview-view .spp-item{padding:12px}#spare-parts-preview-view .spp-history{min-width:640px}}
 </style>
 
 <style id="spare-parts-search-flow-style">
@@ -7250,7 +7256,7 @@ body:has(#app-shell[hidden]) :is(#spp-removal-dialog,#spp-edit-dialog,#spp-add-d
             <span class="form-tile-arrow" aria-hidden="true">›</span>
           </button>
         </div>
-        <p class="last-updated">Version 3.0.110 · Last updated: <time datetime="2026-10-20">October 20, 2026</time></p>
+        <p class="last-updated">Version 3.0.111 · Last updated: <time datetime="2026-10-20">October 20, 2026</time></p>
         <div class="version-history-link-wrap">
           <button id="open-version-history" class="version-history-link" type="button">View version history</button>
         </div>
@@ -7410,6 +7416,10 @@ body:has(#app-shell[hidden]) :is(#spp-removal-dialog,#spp-edit-dialog,#spp-add-d
           <div class="spp-stat"><small>Items in catalog</small><strong id="spp-stat-items">—</strong></div>
           <div class="spp-stat"><small>Items below minimum</small><strong id="spp-stat-low">—</strong></div>
           <div class="spp-stat"><small>Recorded withdrawals</small><strong id="spp-stat-withdrawals">—</strong></div>
+          <section class="spp-panel spp-alert-panel" aria-labelledby="spp-alert-title">
+            <div class="spp-heading"><div><h2 id="spp-alert-title">Low-stock alerts</h2><p>Items below minimum</p></div></div>
+            <div id="spp-low-stock-list" class="spp-low" aria-live="polite"></div>
+          </section>
         </div>
         <div class="spp-layout">
           <section class="spp-panel" aria-labelledby="spp-catalog-title">
@@ -7417,12 +7427,6 @@ body:has(#app-shell[hidden]) :is(#spp-removal-dialog,#spp-edit-dialog,#spp-add-d
             <div class="spp-search"><label for="spp-search-input">Find an item</label><input id="spp-search-input" type="search" placeholder="e.g., sensor, 24V, Cage A-03" autocomplete="off"></div>
             <p id="spp-confirmation" class="spp-confirmation" role="status" tabindex="-1" hidden></p><div id="spp-item-list" class="spp-items" aria-live="polite"></div>
           </section>
-          <div class="spp-side">
-            <section class="spp-panel" aria-labelledby="spp-alert-title">
-              <div class="spp-heading"><div><h2 id="spp-alert-title">Low-stock alerts</h2><p>Items are flagged when on hand is below the minimum.</p></div></div>
-              <div id="spp-low-stock-list" class="spp-low" aria-live="polite"></div>
-            </section>
-          </div>
         </div>
         <section class="spp-panel" aria-labelledby="spp-history-title">
           <div class="spp-heading"><div><h2 id="spp-history-title">Recent withdrawal history</h2><p>See who removed each item, the quantity, and the line it was for.</p></div></div>
@@ -7500,7 +7504,7 @@ body:has(#app-shell[hidden]) :is(#spp-removal-dialog,#spp-edit-dialog,#spp-add-d
             <div class="daily-cloud-copy">
               <strong id="daily-cloud-title">Shared shift synchronization</strong>
               <span id="daily-cloud-status" role="status" aria-live="polite">Sign in with Google to share Daily Tasks across phones.</span>
-              <small>Safe Sync v6.2 · App <span id="daily-app-version">3.0.110</span><span id="daily-version-health" class="daily-version-health" hidden></span></small>
+              <small>Safe Sync v6.2 · App <span id="daily-app-version">3.0.111</span><span id="daily-version-health" class="daily-version-health" hidden></span></small>
             </div>
           </div>
           <div class="daily-cloud-actions">
@@ -8336,7 +8340,7 @@ body:has(#app-shell[hidden]) :is(#spp-removal-dialog,#spp-edit-dialog,#spp-add-d
 
       <section class="panel" aria-label="Release history">
         <div class="version-history-list">
-          <article class="version-card version-card-current"><div class="version-card-heading"><h2>Version 3.0.110</h2><time datetime="2026-10-20">October 20, 2026</time></div><p class="version-summary-intro">Aligned new inventory entry and the raw Inventory workbook sheet with the LNS columns. Usage now increases automatically as items are removed.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.109</h2><time datetime="2026-10-20">October 20, 2026</time></div><p class="version-summary-intro">Technicians can now open the Spare Parts preview and submit sample removals. Edit Inventory and Add New Inventory stay restricted to Supervisors.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.108</h2><time datetime="2026-10-20">October 20, 2026</time></div><p class="version-summary-intro">The sample removal form now lets users type the person removing an item instead of selecting a preset technician name. The entered name remains in withdrawal history and Excel export.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.107</h2><time datetime="2026-10-20">October 20, 2026</time></div><p class="version-summary-intro">Added Supervisor-only Edit Inventory to update sample part descriptions and minimum/maximum quantities. Alerts and Excel downloads reflect saved edits; preview changes reset on reload.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.106</h2><time datetime="2026-10-20">October 20, 2026</time></div><p class="version-summary-intro">Loaded the cage workbook’s four process sheets into the Supervisor-only Spare Parts sample preview. Preserves source rows, locations, notes, and stock counts; unknown quantities and unset min/max remain explicit.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.105</h2><time datetime="2026-10-20">October 20, 2026</time></div><p class="version-summary-intro">Added the Spare Parts sample preview to the Supervisor login only, with keyword search, expandable part details, a removal popup for technician/process/line/vision/quantity, low-stock alerts, and Excel export. Sample inventory remains local to the open page while the real inventory list is prepared.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.104</h2><time datetime="2026-10-19">October 19, 2026</time></div><p class="version-summary-intro">Cell Tracking Reading Rate checks now run every four hours: 5:00, 9:00, and 13:00 on B1/G1, and 17:00, 21:00, and 1:00 on B2/G2. They remain at zero points.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.103</h2><time datetime="2026-10-20">October 20, 2026</time></div><p class="version-summary-intro">Restored the Cell Tracking Reading Rate checklist for all allocations. It is visible and trackable but awards no points yet.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.102</h2><time datetime="2026-10-19">October 19, 2026</time></div><p class="version-summary-intro">Supervisor Tasks now keeps Google sign-in beside Retry sync, shows the connected account, and explains shared-task connection or permission problems.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.101</h2><time datetime="2026-10-19">October 19, 2026</time></div><p class="version-summary-intro">Power Rankings stay visible in the technician menu but open to a blank page. Supervisors retain the rankings view.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.100</h2><time datetime="2026-10-15">October 15, 2026</time></div><p class="version-summary-intro">Added Delete task to ongoing and finished supervisor tasks with confirmation, shared deletion sync, conflict protection, and a visible pending-deletion status with cancellation before sync.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.99</h2><time datetime="2026-10-15">October 15, 2026</time></div><p class="version-summary-intro">Aligned weekly tasks, task entry, and calendar panels above a full-width task toolbar and single-column task list. Compact calendar indicators show urgency and progress. Weekly tasks and the calendar remain collapsible on mobile.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.98</h2><time datetime="2026-10-15">October 15, 2026</time></div><p class="version-summary-intro">Supervisor workspace now has three desktop columns: weekly tasks, the main task list, and a monthly calendar. Weekly tasks and the calendar start collapsed on smaller screens.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.97</h2><time datetime="2026-10-14">October 14, 2026</time></div><p class="version-summary-intro">Supervisor Tasks now uses the desktop side margins for a Due this week list and interactive monthly calendar. Select a date to list tasks due that day. Urgent tasks show red, tasks with checked steps show orange, and unstarted tasks stay neutral. The panels stack on smaller screens.</p></article>
+          <article class="version-card version-card-current"><div class="version-card-heading"><h2>Version 3.0.111</h2><time datetime="2026-10-20">October 20, 2026</time></div><p class="version-summary-intro">Reworked the Spare Parts summary so low-stock alerts sit beside the three inventory counts, and the search area uses the full desktop width.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.110</h2><time datetime="2026-10-20">October 20, 2026</time></div><p class="version-summary-intro">Aligned new inventory entry and the raw Inventory workbook sheet with the LNS columns. Usage now increases automatically as items are removed.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.109</h2><time datetime="2026-10-20">October 20, 2026</time></div><p class="version-summary-intro">Technicians can now open the Spare Parts preview and submit sample removals. Edit Inventory and Add New Inventory stay restricted to Supervisors.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.108</h2><time datetime="2026-10-20">October 20, 2026</time></div><p class="version-summary-intro">The sample removal form now lets users type the person removing an item instead of selecting a preset technician name. The entered name remains in withdrawal history and Excel export.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.107</h2><time datetime="2026-10-20">October 20, 2026</time></div><p class="version-summary-intro">Added Supervisor-only Edit Inventory to update sample part descriptions and minimum/maximum quantities. Alerts and Excel downloads reflect saved edits; preview changes reset on reload.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.106</h2><time datetime="2026-10-20">October 20, 2026</time></div><p class="version-summary-intro">Loaded the cage workbook’s four process sheets into the Supervisor-only Spare Parts sample preview. Preserves source rows, locations, notes, and stock counts; unknown quantities and unset min/max remain explicit.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.105</h2><time datetime="2026-10-20">October 20, 2026</time></div><p class="version-summary-intro">Added the Spare Parts sample preview to the Supervisor login only, with keyword search, expandable part details, a removal popup for technician/process/line/vision/quantity, low-stock alerts, and Excel export. Sample inventory remains local to the open page while the real inventory list is prepared.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.104</h2><time datetime="2026-10-19">October 19, 2026</time></div><p class="version-summary-intro">Cell Tracking Reading Rate checks now run every four hours: 5:00, 9:00, and 13:00 on B1/G1, and 17:00, 21:00, and 1:00 on B2/G2. They remain at zero points.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.103</h2><time datetime="2026-10-20">October 20, 2026</time></div><p class="version-summary-intro">Restored the Cell Tracking Reading Rate checklist for all allocations. It is visible and trackable but awards no points yet.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.102</h2><time datetime="2026-10-19">October 19, 2026</time></div><p class="version-summary-intro">Supervisor Tasks now keeps Google sign-in beside Retry sync, shows the connected account, and explains shared-task connection or permission problems.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.101</h2><time datetime="2026-10-19">October 19, 2026</time></div><p class="version-summary-intro">Power Rankings stay visible in the technician menu but open to a blank page. Supervisors retain the rankings view.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.100</h2><time datetime="2026-10-15">October 15, 2026</time></div><p class="version-summary-intro">Added Delete task to ongoing and finished supervisor tasks with confirmation, shared deletion sync, conflict protection, and a visible pending-deletion status with cancellation before sync.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.99</h2><time datetime="2026-10-15">October 15, 2026</time></div><p class="version-summary-intro">Aligned weekly tasks, task entry, and calendar panels above a full-width task toolbar and single-column task list. Compact calendar indicators show urgency and progress. Weekly tasks and the calendar remain collapsible on mobile.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.98</h2><time datetime="2026-10-15">October 15, 2026</time></div><p class="version-summary-intro">Supervisor workspace now has three desktop columns: weekly tasks, the main task list, and a monthly calendar. Weekly tasks and the calendar start collapsed on smaller screens.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.97</h2><time datetime="2026-10-14">October 14, 2026</time></div><p class="version-summary-intro">Supervisor Tasks now uses the desktop side margins for a Due this week list and interactive monthly calendar. Select a date to list tasks due that day. Urgent tasks show red, tasks with checked steps show orange, and unstarted tasks stay neutral. The panels stack on smaller screens.</p></article>
 <article class="version-card"><div class="version-card-heading"><h2>Version 3.0.96</h2><time datetime="2026-10-14">October 14, 2026</time></div><p class="version-summary-intro">Added a desktop due-this-week panel and an interactive monthly due-date calendar. Select a date to see its tasks, color coded red for urgent tasks and orange when at least one checklist step is complete. Calendar and weekly panels stack on narrow screens.</p></article>
 <article class="version-card"><div class="version-card-heading"><h2>Version 3.0.95</h2><time datetime="2026-10-14">October 14, 2026</time></div><p class="version-summary-intro">Supervisor task cards now remain collapsed until opened. A stronger desktop single-column layout keeps every task full-width with its notes and checklist inside the expanded card.</p></article>
 <article class="version-card"><div class="version-card-heading"><h2>Version 3.0.94</h2><time datetime="2026-10-14">October 14, 2026</time></div><p class="version-summary-intro">Supervisor task cards now appear one per row and open expanded by default, with a collapse control. Ongoing tasks are numbered in ascending due-date order, with overdue items first; search results renumber to reflect their displayed order.</p></article>
@@ -9964,8 +9968,8 @@ window.VisionaryIQRequirements = Object.freeze({
         "If the embedded form does not appear or feels cramped, use Open Full Screen.": "포함된 양식이 표시되지 않거나 화면이 좁으면 전체 화면으로 열기를 사용하세요.",
         "Loading Microsoft Form…": "Microsoft 양식을 불러오는 중…",
         "Replay celebration": "축하 영상 다시 보기",
-        "Version 3.0.110 · Last updated:": "버전 3.0.110 · 마지막 업데이트:",
-        "Version 3.0.110": "버전 3.0.110",
+        "Version 3.0.111 · Last updated:": "버전 3.0.111 · 마지막 업데이트:",
+        "Version 3.0.111": "버전 3.0.111",
         "Version 3.0.103 · Last updated:": "버전 3.0.103 · 마지막 업데이트:",
         "Version 3.0.103": "버전 3.0.103",
         "Version 3.0.102 · Last updated:": "버전 3.0.102 · 마지막 업데이트:",
@@ -20061,7 +20065,7 @@ function normalizeWeeklyRows(values) {
     const provider = new GoogleAuthProvider();
     provider.setCustomParameters({ prompt: "select_account" });
     const SYNC_PROTOCOL_VERSION = 6;
-    const APP_VERSION = String(document.querySelector('meta[name="visionary-app-version"]')?.content || "3.0.110");
+    const APP_VERSION = String(document.querySelector('meta[name="visionary-app-version"]')?.content || "3.0.111");
     const HOSTED_APP_ROOT = "https://jsikson7.github.io/Visionary/";
     const HOSTED_APP_URL = HOSTED_APP_ROOT + "?v=" + APP_VERSION.replace(/\D/g, "");
     const isDirectFilePage = !["http:", "https:"].includes(window.location.protocol);
@@ -23282,9 +23286,9 @@ function normalizeWeeklyRows(values) {
       const appProperties = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>' +
         '<Properties xmlns="http://schemas.openxmlformats.org/officeDocument/2006/extended-properties" ' +
         'xmlns:vt="http://schemas.openxmlformats.org/officeDocument/2006/docPropsVTypes">' +
-        '<Application>Visionary 3.0.110</Application><DocSecurity>0</DocSecurity><ScaleCrop>false</ScaleCrop>' +
+        '<Application>Visionary 3.0.111</Application><DocSecurity>0</DocSecurity><ScaleCrop>false</ScaleCrop>' +
         '<Company></Company><LinksUpToDate>false</LinksUpToDate><SharedDoc>false</SharedDoc><HyperlinksChanged>false</HyperlinksChanged>' +
-        '<AppVersion>3.0.110</AppVersion></Properties>';
+        '<AppVersion>3.0.111</AppVersion></Properties>';
 
       const zip = xlsxZipStoredFiles([
         { name: "[Content_Types].xml", contents: contentTypes },
