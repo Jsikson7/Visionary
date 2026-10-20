@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="description" content="A mobile-friendly collection of vision production guides, troubleshooting history, and copy-ready reporting tools.">
-  <meta name="visionary-app-version" content="3.0.104">
+  <meta name="visionary-app-version" content="3.0.105">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
@@ -6877,6 +6877,88 @@
 .monthly-ranking-metric-value{text-align:right}
 }
 </style>
+<style id="spare-parts-preview-style">
+#spare-parts-preview-view[hidden]{display:none!important}
+#spare-parts-preview-view .spp-shell{display:grid;gap:16px;max-width:1320px;margin:0 auto;padding:18px 0 36px}
+#spare-parts-preview-view .spp-banner{display:flex;gap:10px;padding:13px 16px;border:1px solid var(--line);border-left:4px solid var(--matcha-600);border-radius:10px;background:var(--matcha-100);font-size:.9rem;line-height:1.45}
+#spare-parts-preview-view .spp-banner strong{display:block;margin-bottom:2px}
+#spare-parts-preview-view .spp-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+#spare-parts-preview-view .spp-stat{padding:16px 18px;border:1px solid var(--line);border-radius:12px;background:var(--paper);box-shadow:var(--shadow)}
+#spare-parts-preview-view .spp-stat small{display:block;color:var(--muted);font-size:.8rem}
+#spare-parts-preview-view .spp-stat strong{display:block;margin-top:6px;font-size:1.5rem;font-variant-numeric:tabular-nums}
+#spare-parts-preview-view .spp-layout{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(310px,.8fr);gap:16px;align-items:start}
+#spare-parts-preview-view .spp-panel{min-width:0;padding:20px;background:var(--paper);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow)}
+#spare-parts-preview-view .spp-panel h2{margin:0;color:var(--ink);font-size:1.1rem}
+#spare-parts-preview-view .spp-heading{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:14px}
+#spare-parts-preview-view .spp-heading p{margin:5px 0 0;color:var(--muted);font-size:.84rem;line-height:1.45}
+#spare-parts-preview-view label{display:grid;gap:6px;color:var(--label);font-size:.85rem;font-weight:650}
+#spare-parts-preview-view input,#spare-parts-preview-view select{width:100%;min-width:0;min-height:44px;padding:10px 12px;border:1px solid var(--control-line);border-radius:9px;background:var(--cream);color:var(--ink);font:inherit}
+#spare-parts-preview-view .spp-search{display:grid;gap:7px;margin-bottom:14px}
+#spare-parts-preview-view .spp-items{display:grid;gap:10px}
+#spare-parts-preview-view .spp-item{padding:14px;border:1px solid var(--line);border-radius:11px;background:var(--cream)}
+#spare-parts-preview-view .spp-item-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+#spare-parts-preview-view .spp-item h3{margin:0;color:var(--ink);font-size:.98rem;line-height:1.35}
+#spare-parts-preview-view .spp-part{display:block;margin-top:3px;color:var(--muted);font-size:.78rem}
+#spare-parts-preview-view .spp-badge{display:inline-flex;white-space:nowrap;border:1px solid var(--line);border-radius:999px;padding:5px 9px;background:var(--paper);font-size:.74rem;font-weight:750}
+#spare-parts-preview-view .spp-badge.low{border-color:#c9685d;background:#fff0ed;color:#9c3329}
+#spare-parts-preview-view .spp-badge.high{border-color:#d99a4b;background:#fff6e8;color:#885315}
+#spare-parts-preview-view .spp-desc{margin:9px 0;color:var(--secondary-ink);font-size:.84rem;line-height:1.45}
+#spare-parts-preview-view .spp-meta{display:flex;flex-wrap:wrap;gap:7px 14px;color:var(--muted);font-size:.79rem}
+#spare-parts-preview-view .spp-meta strong{color:var(--ink)}
+#spare-parts-preview-view .spp-item-action{display:flex;justify-content:flex-end;margin-top:10px}
+#spare-parts-preview-view .spp-item-action .button{min-height:38px;padding:7px 12px;font-size:.82rem}
+#spare-parts-preview-view .spp-form{display:grid;gap:12px}
+#spare-parts-preview-view .spp-form .button{width:100%;min-height:46px}
+#spare-parts-preview-view .spp-side{display:grid;gap:14px}
+#spare-parts-preview-view .spp-low{display:grid;gap:8px;margin-top:14px}
+#spare-parts-preview-view .spp-lowrow{display:flex;justify-content:space-between;gap:10px;padding:10px 11px;border:1px solid #e8c6b9;border-left:3px solid #c9685d;border-radius:8px;background:#fff5f1;font-size:.82rem}
+#spare-parts-preview-view .spp-lowrow strong{display:block;color:#82382f}
+#spare-parts-preview-view .spp-lowrow span{color:#82382f;white-space:nowrap}
+#spare-parts-preview-view .spp-empty{padding:20px 10px;text-align:center;color:var(--muted);font-size:.88rem}
+#spare-parts-preview-view .spp-status{min-height:1.3em;margin:9px 0 0;color:var(--matcha-800);font-size:.82rem;line-height:1.4}
+#spare-parts-preview-view .spp-history-wrap{width:100%;overflow:auto;border:1px solid var(--line);border-radius:10px}
+#spare-parts-preview-view .spp-history{width:100%;border-collapse:collapse;font-size:.82rem;text-align:left}
+#spare-parts-preview-view .spp-history th,#spare-parts-preview-view .spp-history td{padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+#spare-parts-preview-view .spp-history th{position:sticky;top:0;background:var(--matcha-100);color:var(--ink);white-space:nowrap}
+#spare-parts-preview-view .spp-history tr:last-child td{border-bottom:0}
+#spare-parts-preview-view .spp-history td:nth-child(3),#spare-parts-preview-view .spp-history td:nth-child(4){white-space:nowrap}
+#spare-parts-preview-view .spp-actions{display:flex;flex-wrap:wrap;gap:9px;margin:14px 0 0}
+#spare-parts-preview-view .spp-note{margin:10px 0 0;color:var(--muted);font-size:.77rem;line-height:1.45}
+@media(max-width:900px){#spare-parts-preview-view .spp-layout{grid-template-columns:1fr}#spare-parts-preview-view .spp-side{grid-template-columns:repeat(2,minmax(0,1fr));align-items:start}}
+@media(max-width:600px){#spare-parts-preview-view .spp-shell{padding:12px 0 24px;gap:12px}#spare-parts-preview-view .spp-stats{gap:8px}#spare-parts-preview-view .spp-stat{padding:12px 10px}#spare-parts-preview-view .spp-stat strong{font-size:1.18rem}#spare-parts-preview-view .spp-side{grid-template-columns:1fr}#spare-parts-preview-view .spp-panel{padding:15px;border-radius:11px}#spare-parts-preview-view .spp-item{padding:12px}#spare-parts-preview-view .spp-history{min-width:640px}}
+</style>
+
+<style id="spare-parts-search-flow-style">
+#open-spare-parts-preview[hidden],#app-shell:not([data-auth-role="Admin"]) #open-spare-parts-preview,#app-shell:not([data-auth-role="Admin"]) #spare-parts-preview-view{display:none!important}
+body:has(#app-shell[hidden]) #spp-removal-dialog,body:has(#app-shell:not([data-auth-role="Admin"])) #spp-removal-dialog{display:none!important}
+#spare-parts-preview-view .spp-result-button{display:flex;justify-content:space-between;align-items:center;gap:14px;width:100%;text-align:left;color:var(--ink);background:transparent;border:0;padding:4px 0;min-height:48px;font:inherit;cursor:pointer}
+#spare-parts-preview-view .spp-result-button strong{display:block;font-size:.98rem}
+#spare-parts-preview-view .spp-result-button .spp-chevron{font-size:1.3rem;flex-shrink:0}
+#spare-parts-preview-view .spp-details{border-top:1px solid var(--line);padding-top:12px;margin-top:10px}
+#spare-parts-preview-view .spp-details[hidden]{display:none!important}
+#spare-parts-preview-view .spp-location{padding:12px;border-radius:9px;background:var(--matcha-100);color:var(--ink);font-size:.95rem}
+#spare-parts-preview-view .spp-location small{display:block;color:var(--muted);font-size:.75rem;margin-bottom:4px}
+#spare-parts-preview-view .spp-confirmation{padding:14px;border:1px solid var(--matcha-600);border-radius:10px;background:var(--matcha-100);color:var(--ink);line-height:1.5}
+#spp-removal-dialog{box-sizing:border-box;width:min(560px,calc(100vw - 24px));max-height:calc(100dvh - 32px);overflow:auto;border:1px solid var(--line);border-radius:16px;background:var(--paper);color:var(--ink);padding:22px;font:inherit;box-shadow:0 18px 70px #0005}
+#spp-removal-dialog:not([open]){display:none}
+#spp-removal-dialog::backdrop{background:rgba(12,22,15,.62)}
+#spp-removal-dialog .spp-dialog-heading{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+#spp-removal-dialog h2{font-size:1.3rem;margin:3px 0 14px;color:var(--ink)}
+#spp-removal-dialog .spp-note{font-size:.76rem;color:var(--muted);margin:0}
+#spp-removal-dialog .spp-selected-summary{padding:13px;border:1px solid var(--line);border-radius:10px;background:var(--cream);line-height:1.5;font-size:.88rem}
+#spp-removal-dialog .spp-selected-summary strong{display:block}
+#spp-removal-dialog #spp-modal-instruction{font-size:.87rem;line-height:1.5;margin:14px 0}
+#spp-removal-dialog .spp-form{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+#spp-removal-dialog label{display:grid;gap:6px;font-size:.85rem;font-weight:650;color:var(--label);min-width:0}
+#spp-removal-dialog input,#spp-removal-dialog select{box-sizing:border-box;min-width:0;width:100%;min-height:44px;border:1px solid var(--control-line);border-radius:9px;padding:10px;background:var(--cream);color:var(--ink);font:inherit;font-size:16px}
+#spp-removal-dialog :disabled{opacity:.6}
+#spp-removal-dialog .spp-dialog-actions{display:flex;justify-content:flex-end;gap:10px;grid-column:1/-1}
+#spp-removal-dialog .spp-status{grid-column:1/-1;color:var(--danger);font-size:.85rem;line-height:1.4;margin:0}
+#spp-removal-dialog .spp-status:empty{display:none}
+#spp-removal-dialog button{min-height:44px}
+@media(max-width:600px){#spp-removal-dialog{padding:17px}#spp-removal-dialog .spp-form{grid-template-columns:1fr}#spp-removal-dialog .spp-dialog-actions .button{flex:1}}
+</style>
+
 </head>
 <body>
   <svg class="theme-background-art matcha-theme-art matcha-art-leaves" viewBox="0 0 420 340" aria-hidden="true" focusable="false">
@@ -7105,6 +7187,11 @@
             </span>
             <span class="form-tile-arrow" aria-hidden="true">›</span>
           </button>
+          <button id="open-spare-parts-preview" class="form-tile" type="button" hidden>
+            <span class="form-tile-icon" aria-hidden="true">SP</span>
+            <span class="form-tile-copy"><strong>Spare Parts (Preview)</strong><small>Search for a part, view its details, and submit a removal.</small></span>
+            <span class="form-tile-arrow" aria-hidden="true">›</span>
+          </button>
           <button id="open-daily-tasks" class="form-tile" type="button">
             <span class="form-tile-icon" aria-hidden="true">DT</span>
             <span class="form-tile-copy">
@@ -7162,7 +7249,7 @@
             <span class="form-tile-arrow" aria-hidden="true">›</span>
           </button>
         </div>
-        <p class="last-updated">Version 3.0.104 · Last updated: <time datetime="2026-10-19">October 19, 2026</time></p>
+        <p class="last-updated">Version 3.0.105 · Last updated: <time datetime="2026-10-20">October 20, 2026</time></p>
         <div class="version-history-link-wrap">
           <button id="open-version-history" class="version-history-link" type="button">View version history</button>
         </div>
@@ -7311,6 +7398,57 @@
       </section>
     </section>
 
+    <section id="spare-parts-preview-view" class="app-view" aria-labelledby="spp-title" hidden>
+      <header class="hero">
+        <div><p class="eyebrow">Inventory workspace · Preview</p><h1 id="spp-title">Spare Parts</h1><p class="hero-copy">Search for a part, open its details, then submit a removal before taking it.</p></div>
+        <button id="spare-parts-preview-back" class="button button-secondary top-action-button" type="button">Back</button>
+      </header>
+      <div class="spp-shell">
+        <div class="spp-banner" role="note"><span aria-hidden="true">ⓘ</span><div><strong>Interactive preview with sample data</strong>Withdrawals and stock changes stay in this page only. This preview does not write to Firebase or change live app data.</div></div>
+        <div class="spp-stats" aria-label="Inventory summary">
+          <div class="spp-stat"><small>Items in catalog</small><strong id="spp-stat-items">—</strong></div>
+          <div class="spp-stat"><small>Items below minimum</small><strong id="spp-stat-low">—</strong></div>
+          <div class="spp-stat"><small>Recorded withdrawals</small><strong id="spp-stat-withdrawals">—</strong></div>
+        </div>
+        <div class="spp-layout">
+          <section class="spp-panel" aria-labelledby="spp-catalog-title">
+            <div class="spp-heading"><div><h2 id="spp-catalog-title">Search inventory</h2><p>Search by part number, item name, description, or cage location.</p></div></div>
+            <div class="spp-search"><label for="spp-search-input">Find an item</label><input id="spp-search-input" type="search" placeholder="e.g., sensor, 24V, Cage A-03" autocomplete="off"></div>
+            <p id="spp-confirmation" class="spp-confirmation" role="status" tabindex="-1" hidden></p><div id="spp-item-list" class="spp-items" aria-live="polite"></div>
+          </section>
+          <div class="spp-side">
+            <section class="spp-panel" aria-labelledby="spp-alert-title">
+              <div class="spp-heading"><div><h2 id="spp-alert-title">Low-stock alerts</h2><p>Items are flagged when on hand is below the minimum.</p></div></div>
+              <div id="spp-low-stock-list" class="spp-low" aria-live="polite"></div>
+            </section>
+          </div>
+        </div>
+        <section class="spp-panel" aria-labelledby="spp-history-title">
+          <div class="spp-heading"><div><h2 id="spp-history-title">Recent withdrawal history</h2><p>See who removed each item, the quantity, and the line it was for.</p></div></div>
+          <div class="spp-history-wrap"><table class="spp-history"><thead><tr><th>Time</th><th>Item</th><th>Quantity</th><th>Removed by</th><th>Process</th><th>Line</th><th>Vision</th></tr></thead><tbody id="spp-history-body"></tbody></table></div>
+          <div class="spp-actions"><button id="spp-export-workbook" type="button" class="button button-secondary">Download raw data workbook</button></div>
+          <p id="spp-export-status" class="spp-status" role="status" aria-live="polite"></p>
+          <p class="spp-note">The workbook contains an Inventory sheet with current quantities and min/max levels, plus a Removal History sheet with technician, process, line, vision, quantity, item, and timestamp.</p>
+        </section>
+      </div>
+    </section>
+
+
+<dialog id="spp-removal-dialog" aria-labelledby="spp-modal-title" aria-describedby="spp-modal-instruction">
+  <div class="spp-dialog-heading"><div><p class="spp-note">Spare parts · Sample removal</p><h2 id="spp-modal-title">Remove a part</h2></div><button id="spp-close-dialog" class="button button-secondary" type="button" aria-label="Close removal form">✕</button></div>
+  <div id="spp-selected-summary" class="spp-selected-summary"></div>
+  <p id="spp-modal-instruction">Complete the information and submit before taking the part from the cage.</p>
+  <form id="spp-withdrawal-form" class="spp-form">
+    <label for="spp-technician">Technician<select id="spp-technician" required><option value="">Select technician</option><option>Jordan Lee</option><option>Casey Morgan</option><option>Riley Taylor</option></select></label>
+    <label for="spp-process">Process used for<select id="spp-process" required><option value="">Select process</option><option>LNS</option><option>PKG</option><option>Cell Tracking</option><option>EOL</option></select></label>
+    <label for="spp-line">Line / machine<select id="spp-line" required disabled><option value="">Select process first</option></select></label>
+    <label for="spp-vision">Vision<select id="spp-vision" required disabled><option value="">Select process first</option></select></label>
+    <label for="spp-quantity">Quantity to remove<input id="spp-quantity" type="number" min="1" step="1" inputmode="numeric" value="1" required></label>
+    <p id="spp-withdrawal-status" class="spp-status" role="alert"></p>
+    <div class="spp-dialog-actions"><button id="spp-cancel-dialog" class="button button-secondary" type="button">Cancel</button><button id="spp-submit" class="button button-primary" type="submit">Submit removal</button></div>
+  </form>
+</dialog>
+
     <section id="daily-tasks-view" class="app-view" aria-labelledby="daily-tasks-title" hidden>
       <header class="hero">
         <div>
@@ -7328,7 +7466,7 @@
             <div class="daily-cloud-copy">
               <strong id="daily-cloud-title">Shared shift synchronization</strong>
               <span id="daily-cloud-status" role="status" aria-live="polite">Sign in with Google to share Daily Tasks across phones.</span>
-              <small>Safe Sync v6.2 · App <span id="daily-app-version">3.0.104</span><span id="daily-version-health" class="daily-version-health" hidden></span></small>
+              <small>Safe Sync v6.2 · App <span id="daily-app-version">3.0.105</span><span id="daily-version-health" class="daily-version-health" hidden></span></small>
             </div>
           </div>
           <div class="daily-cloud-actions">
@@ -8164,7 +8302,7 @@
 
       <section class="panel" aria-label="Release history">
         <div class="version-history-list">
-          <article class="version-card version-card-current"><div class="version-card-heading"><h2>Version 3.0.104</h2><time datetime="2026-10-19">October 19, 2026</time></div><p class="version-summary-intro">Cell Tracking Reading Rate checks now run every four hours: 5:00, 9:00, and 13:00 on B1/G1, and 17:00, 21:00, and 1:00 on B2/G2. They remain at zero points.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.103</h2><time datetime="2026-10-20">October 20, 2026</time></div><p class="version-summary-intro">Restored the Cell Tracking Reading Rate checklist for all allocations. It is visible and trackable but awards no points yet.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.102</h2><time datetime="2026-10-19">October 19, 2026</time></div><p class="version-summary-intro">Supervisor Tasks now keeps Google sign-in beside Retry sync, shows the connected account, and explains shared-task connection or permission problems.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.101</h2><time datetime="2026-10-19">October 19, 2026</time></div><p class="version-summary-intro">Power Rankings stay visible in the technician menu but open to a blank page. Supervisors retain the rankings view.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.100</h2><time datetime="2026-10-15">October 15, 2026</time></div><p class="version-summary-intro">Added Delete task to ongoing and finished supervisor tasks with confirmation, shared deletion sync, conflict protection, and a visible pending-deletion status with cancellation before sync.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.99</h2><time datetime="2026-10-15">October 15, 2026</time></div><p class="version-summary-intro">Aligned weekly tasks, task entry, and calendar panels above a full-width task toolbar and single-column task list. Compact calendar indicators show urgency and progress. Weekly tasks and the calendar remain collapsible on mobile.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.98</h2><time datetime="2026-10-15">October 15, 2026</time></div><p class="version-summary-intro">Supervisor workspace now has three desktop columns: weekly tasks, the main task list, and a monthly calendar. Weekly tasks and the calendar start collapsed on smaller screens.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.97</h2><time datetime="2026-10-14">October 14, 2026</time></div><p class="version-summary-intro">Supervisor Tasks now uses the desktop side margins for a Due this week list and interactive monthly calendar. Select a date to list tasks due that day. Urgent tasks show red, tasks with checked steps show orange, and unstarted tasks stay neutral. The panels stack on smaller screens.</p></article>
+          <article class="version-card version-card-current"><div class="version-card-heading"><h2>Version 3.0.105</h2><time datetime="2026-10-20">October 20, 2026</time></div><p class="version-summary-intro">Added the Spare Parts sample preview to the Supervisor login only, with keyword search, expandable part details, a removal popup for technician/process/line/vision/quantity, low-stock alerts, and Excel export. Sample inventory remains local to the open page while the real inventory list is prepared.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.104</h2><time datetime="2026-10-19">October 19, 2026</time></div><p class="version-summary-intro">Cell Tracking Reading Rate checks now run every four hours: 5:00, 9:00, and 13:00 on B1/G1, and 17:00, 21:00, and 1:00 on B2/G2. They remain at zero points.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.103</h2><time datetime="2026-10-20">October 20, 2026</time></div><p class="version-summary-intro">Restored the Cell Tracking Reading Rate checklist for all allocations. It is visible and trackable but awards no points yet.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.102</h2><time datetime="2026-10-19">October 19, 2026</time></div><p class="version-summary-intro">Supervisor Tasks now keeps Google sign-in beside Retry sync, shows the connected account, and explains shared-task connection or permission problems.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.101</h2><time datetime="2026-10-19">October 19, 2026</time></div><p class="version-summary-intro">Power Rankings stay visible in the technician menu but open to a blank page. Supervisors retain the rankings view.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.100</h2><time datetime="2026-10-15">October 15, 2026</time></div><p class="version-summary-intro">Added Delete task to ongoing and finished supervisor tasks with confirmation, shared deletion sync, conflict protection, and a visible pending-deletion status with cancellation before sync.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.99</h2><time datetime="2026-10-15">October 15, 2026</time></div><p class="version-summary-intro">Aligned weekly tasks, task entry, and calendar panels above a full-width task toolbar and single-column task list. Compact calendar indicators show urgency and progress. Weekly tasks and the calendar remain collapsible on mobile.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.98</h2><time datetime="2026-10-15">October 15, 2026</time></div><p class="version-summary-intro">Supervisor workspace now has three desktop columns: weekly tasks, the main task list, and a monthly calendar. Weekly tasks and the calendar start collapsed on smaller screens.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.97</h2><time datetime="2026-10-14">October 14, 2026</time></div><p class="version-summary-intro">Supervisor Tasks now uses the desktop side margins for a Due this week list and interactive monthly calendar. Select a date to list tasks due that day. Urgent tasks show red, tasks with checked steps show orange, and unstarted tasks stay neutral. The panels stack on smaller screens.</p></article>
 <article class="version-card"><div class="version-card-heading"><h2>Version 3.0.96</h2><time datetime="2026-10-14">October 14, 2026</time></div><p class="version-summary-intro">Added a desktop due-this-week panel and an interactive monthly due-date calendar. Select a date to see its tasks, color coded red for urgent tasks and orange when at least one checklist step is complete. Calendar and weekly panels stack on narrow screens.</p></article>
 <article class="version-card"><div class="version-card-heading"><h2>Version 3.0.95</h2><time datetime="2026-10-14">October 14, 2026</time></div><p class="version-summary-intro">Supervisor task cards now remain collapsed until opened. A stronger desktop single-column layout keeps every task full-width with its notes and checklist inside the expanded card.</p></article>
 <article class="version-card"><div class="version-card-heading"><h2>Version 3.0.94</h2><time datetime="2026-10-14">October 14, 2026</time></div><p class="version-summary-intro">Supervisor task cards now appear one per row and open expanded by default, with a collapse control. Ongoing tasks are numbered in ascending due-date order, with overdue items first; search results renumber to reflect their displayed order.</p></article>
@@ -9485,6 +9623,7 @@ window.VisionaryIQRequirements = Object.freeze({
       var guidesMenuView = document.getElementById("guides-menu-view");
       var copyMenuView = document.getElementById("copy-menu-view");
       var dailyTasksView = document.getElementById("daily-tasks-view");
+      var sparePartsPreviewView = document.getElementById("spare-parts-preview-view");
       var liveDashboardView = document.getElementById("live-dashboard-view");
       var leaderboardView = document.getElementById("leaderboard-view");
       var reportsView = document.getElementById("reports-view");
@@ -9500,6 +9639,7 @@ window.VisionaryIQRequirements = Object.freeze({
       var openGuidesMenuButton = document.getElementById("open-guides-menu");
       var openCopyMenuButton = document.getElementById("open-copy-menu");
       var openDailyTasksButton = document.getElementById("open-daily-tasks");
+      var openSparePartsPreviewButton = document.getElementById("open-spare-parts-preview");
       var openLiveDashboardButton = document.getElementById("open-live-dashboard");
       var openLeaderboardButton = document.getElementById("open-leaderboard");
       var openBmpdLogSearchButton = document.getElementById("open-bmpd-log-search");
@@ -9512,6 +9652,7 @@ window.VisionaryIQRequirements = Object.freeze({
       var guidesMenuBackButton = document.getElementById("guides-menu-back");
       var copyMenuBackButton = document.getElementById("copy-menu-back");
       var dailyTasksBackButton = document.getElementById("daily-tasks-back");
+      var sparePartsPreviewBackButton = document.getElementById("spare-parts-preview-back");
       var liveDashboardBackButton = document.getElementById("live-dashboard-back");
       var leaderboardBackButton = document.getElementById("leaderboard-back");
       var reportsBackButton = document.getElementById("reports-back");
@@ -9789,8 +9930,8 @@ window.VisionaryIQRequirements = Object.freeze({
         "If the embedded form does not appear or feels cramped, use Open Full Screen.": "포함된 양식이 표시되지 않거나 화면이 좁으면 전체 화면으로 열기를 사용하세요.",
         "Loading Microsoft Form…": "Microsoft 양식을 불러오는 중…",
         "Replay celebration": "축하 영상 다시 보기",
-        "Version 3.0.104 · Last updated:": "버전 3.0.104 · 마지막 업데이트:",
-        "Version 3.0.104": "버전 3.0.104",
+        "Version 3.0.105 · Last updated:": "버전 3.0.105 · 마지막 업데이트:",
+        "Version 3.0.105": "버전 3.0.105",
         "Version 3.0.103 · Last updated:": "버전 3.0.103 · 마지막 업데이트:",
         "Version 3.0.103": "버전 3.0.103",
         "Version 3.0.102 · Last updated:": "버전 3.0.102 · 마지막 업데이트:",
@@ -10722,6 +10863,7 @@ window.VisionaryIQRequirements = Object.freeze({
         if (isAuthenticated) {
           currentAuthRole = readAuthRole();
           appShell.dataset.authRole = currentAuthRole;
+          openSparePartsPreviewButton.hidden = currentAuthRole !== "Admin";
           openLocalAdminButton.hidden = currentAuthRole !== "Admin";
           openVersionHistoryButton.hidden = currentAuthRole !== "Admin";
           openLiveDashboardButton.hidden = currentAuthRole !== "Admin";
@@ -10735,6 +10877,8 @@ window.VisionaryIQRequirements = Object.freeze({
         } else {
           currentAuthRole = "Technician";
           appShell.dataset.authRole = currentAuthRole;
+          openSparePartsPreviewButton.hidden = true;
+          sparePartsPreviewView.hidden = true;
           openLocalAdminButton.hidden = true;
           openVersionHistoryButton.hidden = true;
           openLiveDashboardButton.hidden = true;
@@ -12651,7 +12795,7 @@ function normalizeWeeklyRows(values) {
 
       function showRequestedView() {
         if (appShell.hidden) return;
-        if (["#supervisor-tasks", "#local-admin", "#version-history", "#live-dashboard", "#bmpd-trends", "#reports", "#weekly-bmpd"].indexOf(window.location.hash) !== -1 && currentAuthRole !== "Admin") {
+        if (["#spare-parts-preview", "#supervisor-tasks", "#local-admin", "#version-history", "#live-dashboard", "#bmpd-trends", "#reports", "#weekly-bmpd"].indexOf(window.location.hash) !== -1 && currentAuthRole !== "Admin") {
           history.replaceState(null, "", window.location.pathname + window.location.search);
         }
         var showSupervisorTasks = window.location.hash === "#supervisor-tasks" && currentAuthRole === "Admin";
@@ -12659,6 +12803,7 @@ function normalizeWeeklyRows(values) {
         var showGuidesMenu = window.location.hash === "#guides";
         var showCopyMenu = window.location.hash === "#copy-paste";
         var showDailyTasks = window.location.hash === "#daily-tasks";
+        var showSparePartsPreview = window.location.hash === "#spare-parts-preview" && currentAuthRole === "Admin" && authIsActive();
         var showLiveDashboard = window.location.hash === "#live-dashboard";
         var showLeaderboard = window.location.hash === "#leaderboard";
         var showWeeklyBmpd = ["#weekly-bmpd", "#bmpd-log-search"].indexOf(window.location.hash) !== -1 && weeklyReportAllowed();
@@ -12676,10 +12821,11 @@ function normalizeWeeklyRows(values) {
         var showTroubleshooting = window.location.hash === "#troubleshooting";
         var showWorkInstructions = window.location.hash === "#work-instructions";
         var showVersionHistory = window.location.hash === "#version-history";
-        formsMenuView.hidden = showSupervisorTasks || showWeeklyBmpd || showPkgIqForm || showBmpdTrends || showGuidesMenu || showCopyMenu || showDailyTasks || showLiveDashboard || showLeaderboard || showReports || showLocalAdmin || showPkgForm || showLnsForm || showTop3Form || showCellRecognitionForm || showEscalationForm || showTroubleshooting || showWorkInstructions || showVersionHistory;
+        formsMenuView.hidden = showSupervisorTasks || showWeeklyBmpd || showPkgIqForm || showBmpdTrends || showGuidesMenu || showCopyMenu || showDailyTasks || showSparePartsPreview || showLiveDashboard || showLeaderboard || showReports || showLocalAdmin || showPkgForm || showLnsForm || showTop3Form || showCellRecognitionForm || showEscalationForm || showTroubleshooting || showWorkInstructions || showVersionHistory;
         guidesMenuView.hidden = !showGuidesMenu;
         copyMenuView.hidden = !showCopyMenu;
         dailyTasksView.hidden = !showDailyTasks;
+        sparePartsPreviewView.hidden = !showSparePartsPreview;
         liveDashboardView.hidden = !showLiveDashboard;
         leaderboardView.hidden = !showLeaderboard;
         reportsView.hidden = !showReports;
@@ -12702,6 +12848,7 @@ function normalizeWeeklyRows(values) {
         else if (showGuidesMenu) document.title = localizedPageTitle("Guides - Visionary Tool");
         else if (showCopyMenu) document.title = localizedPageTitle("Copy/Paste - Visionary Tool");
         else if (showDailyTasks) document.title = localizedPageTitle("MI2 Daily Tasks - Visionary Tool");
+        else if (showSparePartsPreview) document.title = localizedPageTitle("Spare Parts Preview - Visionary Tool");
         else if (showLiveDashboard) document.title = localizedPageTitle("Live Dashboard - Visionary Tool");
         else if (showLeaderboard) document.title = localizedPageTitle("Power Rankings - Visionary Tool");
         else if (showWeeklyBmpd) document.title = localizedPageTitle(window.location.hash === "#bmpd-log-search" ? "BM/PD Log Search - Visionary Tool" : "BM/PD Reports - Visionary Tool");
@@ -12745,6 +12892,17 @@ function normalizeWeeklyRows(values) {
           return;
         }
         window.location.hash = "daily-tasks";
+      }
+      window.VisionarySparePartsAllowed = function () {
+        return !appShell.hidden && currentAuthRole === "Admin" && authIsActive();
+      };
+      function openSparePartsPreview() {
+        if (!window.VisionarySparePartsAllowed()) return;
+        if (window.location.hash === "#spare-parts-preview") {
+          showRequestedView();
+          return;
+        }
+        window.location.hash = "spare-parts-preview";
       }
 
       function openLiveDashboard() {
@@ -14227,6 +14385,7 @@ function normalizeWeeklyRows(values) {
       openGuidesMenuButton.addEventListener("click", openGuidesMenu);
       openCopyMenuButton.addEventListener("click", openCopyMenu);
       openDailyTasksButton.addEventListener("click", openDailyTasks);
+      openSparePartsPreviewButton.addEventListener("click", openSparePartsPreview);
       openLiveDashboardButton.addEventListener("click", openLiveDashboard);
       openLeaderboardButton.addEventListener("click", openLeaderboard);
       openReportsButton.addEventListener("click", openReports);
@@ -14234,6 +14393,7 @@ function normalizeWeeklyRows(values) {
       guidesMenuBackButton.addEventListener("click", openFormsMenu);
       copyMenuBackButton.addEventListener("click", openFormsMenu);
       dailyTasksBackButton.addEventListener("click", openFormsMenu);
+      sparePartsPreviewBackButton.addEventListener("click", openFormsMenu);
       liveDashboardBackButton.addEventListener("click", openFormsMenu);
       leaderboardBackButton.addEventListener("click", openFormsMenu);
       reportsBackButton.addEventListener("click", openFormsMenu);
@@ -19864,7 +20024,7 @@ function normalizeWeeklyRows(values) {
     const provider = new GoogleAuthProvider();
     provider.setCustomParameters({ prompt: "select_account" });
     const SYNC_PROTOCOL_VERSION = 6;
-    const APP_VERSION = String(document.querySelector('meta[name="visionary-app-version"]')?.content || "3.0.104");
+    const APP_VERSION = String(document.querySelector('meta[name="visionary-app-version"]')?.content || "3.0.105");
     const HOSTED_APP_ROOT = "https://jsikson7.github.io/Visionary/";
     const HOSTED_APP_URL = HOSTED_APP_ROOT + "?v=" + APP_VERSION.replace(/\D/g, "");
     const isDirectFilePage = !["http:", "https:"].includes(window.location.protocol);
@@ -23085,9 +23245,9 @@ function normalizeWeeklyRows(values) {
       const appProperties = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>' +
         '<Properties xmlns="http://schemas.openxmlformats.org/officeDocument/2006/extended-properties" ' +
         'xmlns:vt="http://schemas.openxmlformats.org/officeDocument/2006/docPropsVTypes">' +
-        '<Application>Visionary 3.0.104</Application><DocSecurity>0</DocSecurity><ScaleCrop>false</ScaleCrop>' +
+        '<Application>Visionary 3.0.105</Application><DocSecurity>0</DocSecurity><ScaleCrop>false</ScaleCrop>' +
         '<Company></Company><LinksUpToDate>false</LinksUpToDate><SharedDoc>false</SharedDoc><HyperlinksChanged>false</HyperlinksChanged>' +
-        '<AppVersion>3.0.104</AppVersion></Properties>';
+        '<AppVersion>3.0.105</AppVersion></Properties>';
 
       const zip = xlsxZipStoredFiles([
         { name: "[Content_Types].xml", contents: contentTypes },
@@ -23117,6 +23277,8 @@ function normalizeWeeklyRows(values) {
       window.setTimeout(() => URL.revokeObjectURL(url), 2500);
     }
     // END VISIONARY XLSX WRITER
+
+
 
     function masterShiftRecord(data, daily) {
       const state = stateFromCloud(data);
@@ -25825,5 +25987,140 @@ window.VisionarySupervisorModel={apply};
 #supervisor-tasks-view .sv-delete-button{color:var(--danger);border-color:var(--danger);margin-left:auto}
 #supervisor-tasks-view .sv-pending-delete{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;padding:10px 12px;margin:0 0 12px;border:1px solid var(--line);border-left:3px solid var(--danger);border-radius:8px;background:var(--paper);font-size:12px}
 </style>
+<script id="spare-parts-preview-controller">
+(function(){
+"use strict";
+var $=function(id){return document.getElementById(id);};
+  var items=[
+    {id:"e3s",partNumber:"E3S-CL2",name:"Color Mark Photoelectric Sensor",description:"Compact color mark sensor used for web and alignment detection.",location:"Cage A-03 · Bin 12",onHand:4,minimum:2,maximum:6},
+    {id:"iv3",partNumber:"IV3-G500CA",name:"IV3 Vision Sensor Head",description:"Vision sensor head for presence and position checks.",location:"Cage B-02 · Shelf 4",onHand:1,minimum:2,maximum:5},
+    {id:"s8vk",partNumber:"S8VK-G12024",name:"24 VDC Power Supply",description:"120 W DIN rail power supply for controls and vision equipment.",location:"Cage C-01 · Bin 7",onHand:3,minimum:2,maximum:5},
+    {id:"m12",partNumber:"XS2F-D421-G80",name:"M12 5-Pin Cable · 2 m",description:"Straight M12 sensor cable with 5-pin connector.",location:"Cage D-07 · Drawer 2",onHand:7,minimum:4,maximum:10},
+    {id:"cognex",partNumber:"IS7802M-373-50",name:"In-Sight 7802 Camera",description:"Industrial smart camera for high-resolution inspection applications.",location:"Cage B-05 · Shelf 1",onHand:2,minimum:1,maximum:3}
+  ];
+
+var log=[],expandedId=null,pendingId=null;
+var form=$("spp-withdrawal-form"),search=$("spp-search-input"),dialog=$("spp-removal-dialog"),status=$("spp-withdrawal-status");
+var rules=JSON.parse($("pm-selection-rules").textContent);
+var processVisions={
+  LNS:Array.from(new Set(rules.visions.LAMI.concat(rules.visions.STK))),
+  PKG:rules.visions.PKG,
+  "Cell Tracking":rules.visions["Cell Tracking"],
+  EOL:rules.visions.EOL
+};
+function esc(v){return String(v==null?"":v).replace(/[&<>"']/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];});}
+function findItem(id){return items.find(function(i){return i.id===id;});}
+function allowed(){return typeof window.VisionarySparePartsAllowed==="function" && window.VisionarySparePartsAllowed();}
+function refreshAccess(){
+  if(!allowed()){
+    if(dialog.open)dialog.close();
+    pendingId=null;
+    $("spare-parts-preview-view").hidden=true;
+    ["spp-item-list","spp-low-stock-list","spp-history-body","spp-selected-summary"].forEach(function(id){$(id).replaceChildren();});
+    $("spp-confirmation").hidden=true;
+    return;
+  }
+  render();
+}
+function render(){
+  if(!allowed())return;
+  var q=search.value.trim().toLowerCase();
+  var matches=q?items.filter(function(i){return q.split(/\s+/).every(function(word){return [i.partNumber,i.name,i.description,i.location].join(" ").toLowerCase().includes(word);});}):[];
+  $("spp-stat-items").textContent=items.length;
+  $("spp-stat-low").textContent=items.filter(function(i){return i.onHand<i.minimum;}).length;
+  $("spp-stat-withdrawals").textContent=log.length;
+  $("spp-item-list").innerHTML=!q?'<div class="spp-empty">Enter a keyword to find a part. Then open a result to see its location and description.</div>':!matches.length?'<div class="spp-empty">No matching parts. Try another keyword or part number.</div>':matches.map(function(i){
+    var open=i.id===expandedId;
+    return '<article class="spp-item"><button type="button" class="spp-result-button" data-spp-open="'+i.id+'" aria-expanded="'+open+'" aria-controls="spp-details-'+i.id+'"><span><strong>'+esc(i.name)+'</strong><span class="spp-part">'+esc(i.partNumber)+'</span></span><span class="spp-chevron" aria-hidden="true">'+(open?'−':'+')+'</span></button><div class="spp-details" id="spp-details-'+i.id+'"'+(open?'':' hidden')+'><div class="spp-location"><small>Cage location</small><strong>'+esc(i.location)+'</strong></div><p class="spp-desc">'+esc(i.description)+'</p><div class="spp-meta"><span>On hand: <strong>'+i.onHand+'</strong></span><span>Min / max: <strong>'+i.minimum+' / '+i.maximum+'</strong></span>'+(i.onHand<i.minimum?'<span class="spp-badge low">Below minimum</span>':'')+'</div><div class="spp-item-action"><button type="button" class="button button-primary" data-spp-select="'+i.id+'"'+(i.onHand<1?' disabled':'')+'>'+(i.onHand<1?'Out of stock':'Select this part')+'</button></div></div></article>';
+  }).join("");
+  var lows=items.filter(function(i){return i.onHand<i.minimum;});
+  $("spp-low-stock-list").innerHTML=lows.length?lows.map(function(i){return '<div class="spp-lowrow"><div><strong>'+esc(i.partNumber)+' · '+esc(i.name)+'</strong><small>'+esc(i.location)+'</small></div><span>'+i.onHand+' on hand<br>min '+i.minimum+'</span></div>';}).join(""):'<div class="spp-empty">No items are below minimum.</div>';
+  $("spp-history-body").innerHTML=log.length?log.slice().reverse().map(function(t){return '<tr><td>'+esc(t.timestamp)+'</td><td><strong>'+esc(t.partNumber)+'</strong><br>'+esc(t.itemName)+'</td><td>'+t.quantity+'</td><td>'+esc(t.technician)+'</td><td>'+esc(t.process)+'</td><td>'+esc(t.line)+'</td><td>'+esc(t.vision)+'</td></tr>';}).join(""):'<tr><td colspan="7">No sample removals yet. Search for a part to try the flow.</td></tr>';
+}
+function options(el,values,placeholder){el.innerHTML='<option value="">'+esc(placeholder)+'</option>'+values.map(function(v){return '<option value="'+esc(v)+'">'+esc(v)+'</option>';}).join("");el.disabled=!values.length;}
+function setProcess(){
+  var process=$("spp-process").value;
+  options($("spp-line"),process?(process==="PKG"?rules.pkgMachines.MI2:rules.machines.MI2):[],process?"Select line / machine":"Select process first");
+  options($("spp-vision"),processVisions[process]||[],process?"Select vision":"Select process first");
+}
+function closeDialog(){dialog.close();}
+function openRemoval(id){
+  if(!allowed())return;
+  var item=findItem(id);if(!item||item.onHand<1)return;
+  pendingId=id;form.reset();status.textContent="";setProcess();
+  $("spp-quantity").max=item.onHand;
+  $("spp-selected-summary").innerHTML='<strong>'+esc(item.name)+'</strong>'+esc(item.partNumber)+'<br>'+esc(item.location)+'<br>'+item.onHand+' on hand';
+  dialog.showModal();$("spp-technician").focus();
+}
+$("spp-item-list").addEventListener("click",function(e){
+  var select=e.target.closest("[data-spp-select]");
+  if(select){openRemoval(select.getAttribute("data-spp-select"));return;}
+  var open=e.target.closest("[data-spp-open]");
+  if(open){var id=open.getAttribute("data-spp-open");expandedId=expandedId===id?null:id;render();$("spp-item-list").querySelector('[data-spp-open="'+id+'"]').focus();}
+});
+search.addEventListener("input",function(){expandedId=null;render();});
+$("spp-process").addEventListener("change",setProcess);
+$("spp-cancel-dialog").addEventListener("click",closeDialog);
+$("spp-close-dialog").addEventListener("click",closeDialog);
+dialog.addEventListener("close",function(){
+  var id=pendingId;pendingId=null;
+  var trigger=$("spp-item-list").querySelector('[data-spp-select="'+id+'"]');
+  if(trigger&&!trigger.disabled)trigger.focus();
+});
+window.addEventListener("hashchange",function(){if(dialog.open&&location.hash!=="#spare-parts-preview")closeDialog();});
+form.addEventListener("submit",function(e){
+  e.preventDefault();if(!allowed()||!dialog.open||!pendingId)return;
+  status.textContent="";
+  if(!form.reportValidity())return;
+  var item=findItem(pendingId),qty=Number($("spp-quantity").value),technician=$("spp-technician").value,process=$("spp-process").value,line=$("spp-line").value,vision=$("spp-vision").value;
+  var lines=process==="PKG"?rules.pkgMachines.MI2:rules.machines.MI2;
+  if(!technician||!processVisions[process]||!lines.includes(line)||!processVisions[process].includes(vision)){status.textContent="Choose a technician, process, line, and vision.";return;}
+  if(!item||!Number.isSafeInteger(qty)||qty<1||qty>item.onHand){status.textContent="Enter a whole quantity from 1 to "+(item?item.onHand:0)+".";return;}
+  item.onHand-=qty;
+  log.push({timestamp:new Date().toISOString(),partNumber:item.partNumber,itemName:item.name,quantity:qty,technician:technician,process:process,line:line,vision:vision});
+  render();
+  var confirmation=$("spp-confirmation");
+  confirmation.textContent="Sample removal submitted: "+qty+" × "+item.partNumber+" for "+technician+" — "+process+", "+line+", "+vision+". Next step: take "+qty+" from "+item.location+".";
+  confirmation.hidden=false;
+  closeDialog();confirmation.focus();
+});
+  function makePreviewWorkbook(stock,history){
+    var enc=new TextEncoder();
+    function escXml(v){return String(v==null?"":v).replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F]/g,"").replace(/[&<>"']/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&apos;"}[c];});}
+    function colName(i){var n=i+1,s="";while(n){n--;s=String.fromCharCode(65+n%26)+s;n=Math.floor(n/26);}return s;}
+    function cell(ref,v,head){if(v==null||v==="")return '<c r="'+ref+'"/>';if(typeof v==="number")return '<c r="'+ref+'" s="'+(head?1:2)+'"><v>'+v+'</v></c>';return '<c r="'+ref+'"'+(head?' s="1" t="inlineStr"':' t="inlineStr"')+'><is><t xml:space="preserve">'+escXml(v)+'</t></is></c>';}
+    function sheet(rows,widths){var last=colName(widths.length-1),dim="A1:"+last+rows.length;var cols=widths.map(function(w,i){return '<col min="'+(i+1)+'" max="'+(i+1)+'" width="'+w+'" customWidth="1"/>';}).join("");var data=rows.map(function(r,ri){return '<row r="'+(ri+1)+'"'+(ri===0?' ht="30" customHeight="1"':'')+'>'+r.map(function(v,ci){return cell(colName(ci)+(ri+1),v,ri===0);}).join("")+'</row>';}).join("");return '<?xml version="1.0" encoding="UTF-8" standalone="yes"?><worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"><dimension ref="'+dim+'"/><sheetViews><sheetView workbookViewId="0"><pane ySplit="1" topLeftCell="A2" activePane="bottomLeft" state="frozen"/><selection pane="bottomLeft" activeCell="A2" sqref="A2"/></sheetView></sheetViews><sheetFormatPr defaultRowHeight="19"/><cols>'+cols+'</cols><sheetData>'+data+'</sheetData><autoFilter ref="'+dim+'"/><pageMargins left="0.25" right="0.25" top="0.5" bottom="0.5" header="0.2" footer="0.2"/></worksheet>';}
+    var inv=[["Part Number","Item","Description","Location","On Hand","Minimum","Maximum","Stock Status"]].concat(stock.map(function(i){return[i.partNumber,i.name,i.description,i.location,i.onHand,i.minimum,i.maximum,i.onHand<i.minimum?"Below minimum":i.onHand>i.maximum?"Above maximum":"Within range"];}));
+    var hist=[["Timestamp","Part Number","Item","Quantity Removed","Removed By","Process","Line","Vision"]].concat(history.map(function(t){return[t.timestamp,t.partNumber,t.itemName,t.quantity,t.technician,t.process,t.line,t.vision];}));
+    var files=[
+      {name:"[Content_Types].xml",text:'<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Override PartName="/xl/workbook.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml"/><Override PartName="/xl/worksheets/sheet1.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/><Override PartName="/xl/worksheets/sheet2.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/><Override PartName="/xl/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.styles+xml"/></Types>'},
+      {name:"_rels/.rels",text:'<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="xl/workbook.xml"/></Relationships>'},
+      {name:"xl/workbook.xml",text:'<?xml version="1.0" encoding="UTF-8" standalone="yes"?><workbook xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"><bookViews><workbookView/></bookViews><sheets><sheet name="Inventory" sheetId="1" r:id="rId1"/><sheet name="Removal History" sheetId="2" r:id="rId2"/></sheets></workbook>'},
+      {name:"xl/_rels/workbook.xml.rels",text:'<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/sheet1.xml"/><Relationship Id="rId2" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/sheet2.xml"/><Relationship Id="rId3" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/></Relationships>'},
+      {name:"xl/styles.xml",text:'<?xml version="1.0" encoding="UTF-8" standalone="yes"?><styleSheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"><numFmts count="1"><numFmt numFmtId="167" formatCode="#,##0.##"/></numFmts><fonts count="2"><font><sz val="11"/><name val="Aptos"/></font><font><b/><sz val="11"/><color rgb="FFFFFFFF"/><name val="Aptos"/></font></fonts><fills count="3"><fill><patternFill patternType="none"/></fill><fill><patternFill patternType="gray125"/></fill><fill><patternFill patternType="solid"><fgColor rgb="FF30492D"/></patternFill></fill></fills><borders count="2"><border><left/><right/><top/><bottom/><diagonal/></border><border><left style="thin"><color rgb="FFD9E2D4"/></left><right style="thin"><color rgb="FFD9E2D4"/></right><top style="thin"><color rgb="FFD9E2D4"/></top><bottom style="thin"><color rgb="FFD9E2D4"/></bottom><diagonal/></border></borders><cellStyleXfs count="1"><xf numFmtId="0" fontId="0" fillId="0" borderId="0"/></cellStyleXfs><cellXfs count="3"><xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0"/><xf numFmtId="0" fontId="1" fillId="2" borderId="1" xfId="0" applyFont="1" applyFill="1" applyBorder="1" applyAlignment="1"><alignment horizontal="center" vertical="center" wrapText="1"/></xf><xf numFmtId="167" fontId="0" fillId="0" borderId="0" xfId="0" applyNumberFormat="1"/></cellXfs><cellStyles count="1"><cellStyle name="Normal" xfId="0" builtinId="0"/></cellStyles></styleSheet>'},
+      {name:"xl/worksheets/sheet1.xml",text:sheet(inv,[18,30,48,24,12,12,12,18])},
+      {name:"xl/worksheets/sheet2.xml",text:sheet(hist,[24,18,30,18,22,18,14,24])}
+    ];
+    var crcTable=new Uint32Array(256);for(var n=0;n<256;n++){var c=n;for(var k=0;k<8;k++)c=(c&1)?(0xedb88320^(c>>>1)):(c>>>1);crcTable[n]=c>>>0;}
+    function crc(bytes){var c=0xffffffff;for(var i=0;i<bytes.length;i++)c=crcTable[(c^bytes[i])&255]^(c>>>8);return(c^0xffffffff)>>>0;}
+    var locals=[],centrals=[],offset=0;
+    files.forEach(function(file){var name=enc.encode(file.name),data=enc.encode(file.text),sum=crc(data),local=new Uint8Array(30+name.length),v=new DataView(local.buffer);v.setUint32(0,0x04034b50,true);v.setUint16(4,20,true);v.setUint16(6,0x0800,true);v.setUint16(8,0,true);v.setUint32(14,sum,true);v.setUint32(18,data.length,true);v.setUint32(22,data.length,true);v.setUint16(26,name.length,true);v.setUint16(28,0,true);local.set(name,30);locals.push(local,data);
+      var center=new Uint8Array(46+name.length),cv=new DataView(center.buffer);cv.setUint32(0,0x02014b50,true);cv.setUint16(4,20,true);cv.setUint16(6,20,true);cv.setUint16(8,0x0800,true);cv.setUint16(10,0,true);cv.setUint32(16,sum,true);cv.setUint32(20,data.length,true);cv.setUint32(24,data.length,true);cv.setUint16(28,name.length,true);cv.setUint16(30,0,true);cv.setUint16(32,0,true);cv.setUint16(34,0,true);cv.setUint16(36,0,true);cv.setUint32(38,0,true);cv.setUint32(42,offset,true);center.set(name,46);centrals.push(center);offset+=local.length+data.length;
+    });
+    var centralSize=centrals.reduce(function(a,b){return a+b.length;},0),end=new Uint8Array(22),ev=new DataView(end.buffer);ev.setUint32(0,0x06054b50,true);ev.setUint16(4,0,true);ev.setUint16(6,0,true);ev.setUint16(8,files.length,true);ev.setUint16(10,files.length,true);ev.setUint32(12,centralSize,true);ev.setUint32(16,offset,true);ev.setUint16(20,0,true);
+    var all=locals.concat(centrals,[end]),size=all.reduce(function(a,b){return a+b.length;},0),out=new Uint8Array(size),pos=0;all.forEach(function(part){out.set(part,pos);pos+=part.length;});
+    return new Blob([out],{type:"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"});
+  }
+
+
+$("spp-export-workbook").addEventListener("click",function(){
+  if(!allowed())return;
+  try{var blob=makePreviewWorkbook(items,log),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="Visionary-Spare-Parts-Preview.xlsx";document.body.appendChild(a);a.click();a.remove();window.setTimeout(function(){URL.revokeObjectURL(url);},2500);$("spp-export-status").textContent="Downloaded Inventory and Removal History, including process, line, and vision.";}
+  catch(err){$("spp-export-status").textContent=err.message||"Workbook export failed.";}
+});
+new MutationObserver(refreshAccess).observe($("app-shell"),{attributes:true,attributeFilter:["data-auth-role","hidden"]});
+refreshAccess();
+})();
+</script>
 </body>
 </html>
