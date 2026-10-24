@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="description" content="A mobile-friendly collection of vision production guides, troubleshooting history, and copy-ready reporting tools.">
-  <meta name="visionary-app-version" content="3.0.147">
+  <meta name="visionary-app-version" content="3.0.148">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
@@ -7332,7 +7332,7 @@ try{window.VisionaryInventoryCredential=JSON.parse(sessionStorage.getItem('visio
             <span class="form-tile-arrow" aria-hidden="true">›</span>
           </button>
         </div>
-        <p class="last-updated">Version 3.0.147 · Last updated: <time datetime="2026-10-24">October 24, 2026</time></p>
+        <p class="last-updated">Version 3.0.148 · Last updated: <time datetime="2026-10-24">October 24, 2026</time></p>
         <div class="version-history-link-wrap">
           <button id="open-version-history" class="version-history-link" type="button">View version history</button>
         </div>
@@ -7491,7 +7491,7 @@ try{window.VisionaryInventoryCredential=JSON.parse(sessionStorage.getItem('visio
         <div class="spp-stats" aria-label="Inventory summary">
           <div class="spp-stat"><small>Items in catalog</small><strong id="spp-stat-items">—</strong></div>
           <div class="spp-stat"><small>Items below minimum</small><strong id="spp-stat-low">—</strong></div>
-          <div class="spp-stat"><small>Recorded withdrawals</small><strong id="spp-stat-withdrawals">—</strong></div>
+          <div class="spp-stat"><small>Loaded open withdrawals</small><strong id="spp-stat-withdrawals">—</strong></div>
           <section class="spp-panel spp-alert-panel" id="spp-alert-panel" aria-labelledby="spp-alert-title">
             <div class="spp-alert-summary">
               <div><h2 id="spp-alert-title">Low-stock alerts</h2><p>Items below minimum</p></div>
@@ -7511,7 +7511,7 @@ try{window.VisionaryInventoryCredential=JSON.parse(sessionStorage.getItem('visio
         <details id="spp-history-details" class="spp-panel">
           <summary id="spp-history-title">Recent withdrawal history</summary><p class="spp-note">See who removed each item, the quantity, and the line it was for.</p>
           <div id="spp-history-body" class="spp-history-list" aria-live="polite"></div>
-          
+          <button id="spp-history-more" class="button button-secondary" type="button" hidden>Load older history</button>
         </details>
       </div>
     </section>
@@ -7615,7 +7615,7 @@ try{window.VisionaryInventoryCredential=JSON.parse(sessionStorage.getItem('visio
             <div class="daily-cloud-copy">
               <strong id="daily-cloud-title">Shared shift synchronization</strong>
               <span id="daily-cloud-status" role="status" aria-live="polite">Sign in with Google to share Daily Tasks across phones.</span>
-              <small>Safe Sync v6.2 · App <span id="daily-app-version">3.0.147</span><span id="daily-version-health" class="daily-version-health" hidden></span></small>
+              <small>Safe Sync v6.2 · App <span id="daily-app-version">3.0.148</span><span id="daily-version-health" class="daily-version-health" hidden></span></small>
             </div>
           </div>
           <div class="daily-cloud-actions">
@@ -8451,7 +8451,7 @@ try{window.VisionaryInventoryCredential=JSON.parse(sessionStorage.getItem('visio
 
       <section class="panel" aria-label="Release history">
         <div class="version-history-list">
-          <article class="version-card version-card-current"><div class="version-card-heading"><h2>Version 3.0.147</h2><time datetime="2026-10-24">October 24, 2026</time></div><p class="version-summary-intro">Inventory workbook exports now include a Cell Tracking tab with matching formatting, and Excel imports recognize Cell Tracking inventory.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.111</h2><time datetime="2026-10-20">October 20, 2026</time></div><p class="version-summary-intro">Reworked the Spare Parts summary so low-stock alerts sit beside the three inventory counts, and the search area uses the full desktop width.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.110</h2><time datetime="2026-10-20">October 20, 2026</time></div><p class="version-summary-intro">Aligned new inventory entry and the raw Inventory workbook sheet with the LNS columns. Usage now increases automatically as items are removed.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.109</h2><time datetime="2026-10-20">October 20, 2026</time></div><p class="version-summary-intro">Technicians can now open the Spare Parts preview and submit sample removals. Edit Inventory and Add New Inventory stay restricted to Supervisors.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.108</h2><time datetime="2026-10-20">October 20, 2026</time></div><p class="version-summary-intro">The sample removal form now lets users type the person removing an item instead of selecting a preset technician name. The entered name remains in withdrawal history and Excel export.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.107</h2><time datetime="2026-10-20">October 20, 2026</time></div><p class="version-summary-intro">Added Supervisor-only Edit Inventory to update sample part descriptions and minimum/maximum quantities. Alerts and Excel downloads reflect saved edits; preview changes reset on reload.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.106</h2><time datetime="2026-10-20">October 20, 2026</time></div><p class="version-summary-intro">Loaded the cage workbook’s four process sheets into the Supervisor-only Spare Parts sample preview. Preserves source rows, locations, notes, and stock counts; unknown quantities and unset min/max remain explicit.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.105</h2><time datetime="2026-10-20">October 20, 2026</time></div><p class="version-summary-intro">Added the Spare Parts sample preview to the Supervisor login only, with keyword search, expandable part details, a removal popup for technician/process/line/vision/quantity, low-stock alerts, and Excel export. Sample inventory remains local to the open page while the real inventory list is prepared.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.104</h2><time datetime="2026-10-19">October 19, 2026</time></div><p class="version-summary-intro">Cell Tracking Reading Rate checks now run every four hours: 5:00, 9:00, and 13:00 on B1/G1, and 17:00, 21:00, and 1:00 on B2/G2. They remain at zero points.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.103</h2><time datetime="2026-10-20">October 20, 2026</time></div><p class="version-summary-intro">Restored the Cell Tracking Reading Rate checklist for all allocations. It is visible and trackable but awards no points yet.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.102</h2><time datetime="2026-10-19">October 19, 2026</time></div><p class="version-summary-intro">Supervisor Tasks now keeps Google sign-in beside Retry sync, shows the connected account, and explains shared-task connection or permission problems.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.101</h2><time datetime="2026-10-19">October 19, 2026</time></div><p class="version-summary-intro">Power Rankings stay visible in the technician menu but open to a blank page. Supervisors retain the rankings view.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.100</h2><time datetime="2026-10-15">October 15, 2026</time></div><p class="version-summary-intro">Added Delete task to ongoing and finished supervisor tasks with confirmation, shared deletion sync, conflict protection, and a visible pending-deletion status with cancellation before sync.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.99</h2><time datetime="2026-10-15">October 15, 2026</time></div><p class="version-summary-intro">Aligned weekly tasks, task entry, and calendar panels above a full-width task toolbar and single-column task list. Compact calendar indicators show urgency and progress. Weekly tasks and the calendar remain collapsible on mobile.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.98</h2><time datetime="2026-10-15">October 15, 2026</time></div><p class="version-summary-intro">Supervisor workspace now has three desktop columns: weekly tasks, the main task list, and a monthly calendar. Weekly tasks and the calendar start collapsed on smaller screens.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.97</h2><time datetime="2026-10-14">October 14, 2026</time></div><p class="version-summary-intro">Supervisor Tasks now uses the desktop side margins for a Due this week list and interactive monthly calendar. Select a date to list tasks due that day. Urgent tasks show red, tasks with checked steps show orange, and unstarted tasks stay neutral. The panels stack on smaller screens.</p></article>
+          <article class="version-card version-card-current"><div class="version-card-heading"><h2>Version 3.0.148</h2><time datetime="2026-10-24">October 24, 2026</time></div><p class="version-summary-intro">Reduced unnecessary Firestore reads by loading shift history only in Daily Tasks, loading spare-parts data only while that view is open, retaining local Firestore cache, and removing forced listener reconnects when returning to the app.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.111</h2><time datetime="2026-10-20">October 20, 2026</time></div><p class="version-summary-intro">Reworked the Spare Parts summary so low-stock alerts sit beside the three inventory counts, and the search area uses the full desktop width.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.110</h2><time datetime="2026-10-20">October 20, 2026</time></div><p class="version-summary-intro">Aligned new inventory entry and the raw Inventory workbook sheet with the LNS columns. Usage now increases automatically as items are removed.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.109</h2><time datetime="2026-10-20">October 20, 2026</time></div><p class="version-summary-intro">Technicians can now open the Spare Parts preview and submit sample removals. Edit Inventory and Add New Inventory stay restricted to Supervisors.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.108</h2><time datetime="2026-10-20">October 20, 2026</time></div><p class="version-summary-intro">The sample removal form now lets users type the person removing an item instead of selecting a preset technician name. The entered name remains in withdrawal history and Excel export.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.107</h2><time datetime="2026-10-20">October 20, 2026</time></div><p class="version-summary-intro">Added Supervisor-only Edit Inventory to update sample part descriptions and minimum/maximum quantities. Alerts and Excel downloads reflect saved edits; preview changes reset on reload.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.106</h2><time datetime="2026-10-20">October 20, 2026</time></div><p class="version-summary-intro">Loaded the cage workbook’s four process sheets into the Supervisor-only Spare Parts sample preview. Preserves source rows, locations, notes, and stock counts; unknown quantities and unset min/max remain explicit.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.105</h2><time datetime="2026-10-20">October 20, 2026</time></div><p class="version-summary-intro">Added the Spare Parts sample preview to the Supervisor login only, with keyword search, expandable part details, a removal popup for technician/process/line/vision/quantity, low-stock alerts, and Excel export. Sample inventory remains local to the open page while the real inventory list is prepared.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.104</h2><time datetime="2026-10-19">October 19, 2026</time></div><p class="version-summary-intro">Cell Tracking Reading Rate checks now run every four hours: 5:00, 9:00, and 13:00 on B1/G1, and 17:00, 21:00, and 1:00 on B2/G2. They remain at zero points.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.103</h2><time datetime="2026-10-20">October 20, 2026</time></div><p class="version-summary-intro">Restored the Cell Tracking Reading Rate checklist for all allocations. It is visible and trackable but awards no points yet.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.102</h2><time datetime="2026-10-19">October 19, 2026</time></div><p class="version-summary-intro">Supervisor Tasks now keeps Google sign-in beside Retry sync, shows the connected account, and explains shared-task connection or permission problems.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.101</h2><time datetime="2026-10-19">October 19, 2026</time></div><p class="version-summary-intro">Power Rankings stay visible in the technician menu but open to a blank page. Supervisors retain the rankings view.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.100</h2><time datetime="2026-10-15">October 15, 2026</time></div><p class="version-summary-intro">Added Delete task to ongoing and finished supervisor tasks with confirmation, shared deletion sync, conflict protection, and a visible pending-deletion status with cancellation before sync.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.99</h2><time datetime="2026-10-15">October 15, 2026</time></div><p class="version-summary-intro">Aligned weekly tasks, task entry, and calendar panels above a full-width task toolbar and single-column task list. Compact calendar indicators show urgency and progress. Weekly tasks and the calendar remain collapsible on mobile.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.98</h2><time datetime="2026-10-15">October 15, 2026</time></div><p class="version-summary-intro">Supervisor workspace now has three desktop columns: weekly tasks, the main task list, and a monthly calendar. Weekly tasks and the calendar start collapsed on smaller screens.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.97</h2><time datetime="2026-10-14">October 14, 2026</time></div><p class="version-summary-intro">Supervisor Tasks now uses the desktop side margins for a Due this week list and interactive monthly calendar. Select a date to list tasks due that day. Urgent tasks show red, tasks with checked steps show orange, and unstarted tasks stay neutral. The panels stack on smaller screens.</p></article>
 <article class="version-card"><div class="version-card-heading"><h2>Version 3.0.96</h2><time datetime="2026-10-14">October 14, 2026</time></div><p class="version-summary-intro">Added a desktop due-this-week panel and an interactive monthly due-date calendar. Select a date to see its tasks, color coded red for urgent tasks and orange when at least one checklist step is complete. Calendar and weekly panels stack on narrow screens.</p></article>
 <article class="version-card"><div class="version-card-heading"><h2>Version 3.0.95</h2><time datetime="2026-10-14">October 14, 2026</time></div><p class="version-summary-intro">Supervisor task cards now remain collapsed until opened. A stronger desktop single-column layout keeps every task full-width with its notes and checklist inside the expanded card.</p></article>
 <article class="version-card"><div class="version-card-heading"><h2>Version 3.0.94</h2><time datetime="2026-10-14">October 14, 2026</time></div><p class="version-summary-intro">Supervisor task cards now appear one per row and open expanded by default, with a collapse control. Ongoing tasks are numbered in ascending due-date order, with overdue items first; search results renumber to reflect their displayed order.</p></article>
@@ -10084,8 +10084,8 @@ window.VisionaryIQRequirements = Object.freeze({
         "If the embedded form does not appear or feels cramped, use Open Full Screen.": "포함된 양식이 표시되지 않거나 화면이 좁으면 전체 화면으로 열기를 사용하세요.",
         "Loading Microsoft Form…": "Microsoft 양식을 불러오는 중…",
         "Replay celebration": "축하 영상 다시 보기",
-        "Version 3.0.147 · Last updated:": "버전 3.0.147 · 마지막 업데이트:",
-        "Version 3.0.147": "버전 3.0.147",
+        "Version 3.0.148 · Last updated:": "버전 3.0.148 · 마지막 업데이트:",
+        "Version 3.0.148": "버전 3.0.148",
         "Version 3.0.103 · Last updated:": "버전 3.0.103 · 마지막 업데이트:",
         "Version 3.0.103": "버전 3.0.103",
         "Version 3.0.102 · Last updated:": "버전 3.0.102 · 마지막 업데이트:",
@@ -20171,12 +20171,15 @@ function normalizeWeeklyRows(values) {
       getDocs,
       getDocsFromServer,
       initializeFirestore,
+      limit,
       onSnapshot,
+      orderBy,
       persistentLocalCache,
       persistentMultipleTabManager,
       query,
       runTransaction,
       serverTimestamp,
+      startAfter,
       Timestamp,
       updateDoc,
       where
@@ -20200,7 +20203,7 @@ function normalizeWeeklyRows(values) {
   // Inventory uses its own anonymous session, preserving the app's Google session.
 const inventoryApp=initializeApp(firebaseConfig,'visionary-inventory');
 const inventoryAuth=getAuth(inventoryApp);
-const inventoryDb=initializeFirestore(inventoryApp,{});
+const inventoryDb=initializeFirestore(inventoryApp,{localCache:persistentLocalCache({tabManager:persistentMultipleTabManager()})});
 let inventoryLogin=null;
 async function inventoryGuest(){
   if(location.protocol==='file:')throw new Error('Open the hosted website to sync inventory.');
@@ -20272,14 +20275,49 @@ window.VisionaryInventoryCloud={
   async revokeManagement(){if(inventoryAuth.currentUser)await deleteDoc(doc(inventoryDb,"inventoryManagers",inventoryAuth.currentUser.uid));},
   watch(onData,onError){
     let stopped=false,stops=[],stock=null,history=null,returns=null;
+    let olderWithdrawals=[],olderReturns=[],withdrawalCursor=null,returnCursor=null,withdrawalsMore=true,returnsMore=true;
+    const pageSize=100;
+    function normalizeHistory(snapshot,isReturn){return snapshot.docs.map(d=>{const data=d.data();return {...data,id:d.id,...(isReturn?{kind:'return'}:{}),timestamp:data.createdAt?.toDate?.().toISOString()||data.timestamp||''};});}
+    function emit(){if(!stopped&&stock&&history&&returns){const rows=history.rows.concat(olderWithdrawals,returns.rows,olderReturns);onData(stock.rows,rows.sort((a,b)=>String(a.timestamp).localeCompare(String(b.timestamp))),stock.cached||history.cached||returns.cached);}}
     inventoryGuest().then(()=>{
       if(stopped)return;
-      function emit(){if(!stopped&&stock&&history&&returns)onData(stock.rows,history.rows.concat(returns.rows).sort((a,b)=>a.timestamp.localeCompare(b.timestamp)),stock.cached||history.cached||returns.cached);}
-      stops.push(onSnapshot(collection(inventoryDb,'inventoryItems'),{includeMetadataChanges:true},s=>{stock={rows:s.docs.map(d=>d.data()),cached:s.metadata.fromCache||s.metadata.hasPendingWrites};emit();},onError));
-      stops.push(onSnapshot(collection(inventoryDb,'inventoryWithdrawals'),{includeMetadataChanges:true},s=>{history={rows:s.docs.map(d=>({...d.data(),timestamp:d.data().createdAt?.toDate().toISOString()||d.data().timestamp})).sort((a,b)=>a.timestamp.localeCompare(b.timestamp)),cached:s.metadata.fromCache||s.metadata.hasPendingWrites};emit();},onError));
-      stops.push(onSnapshot(collection(inventoryDb,'inventoryReturns'),{includeMetadataChanges:true},s=>{returns={rows:s.docs.map(d=>({...d.data(),kind:'return',timestamp:d.data().createdAt?.toDate().toISOString()||d.data().timestamp})),cached:s.metadata.fromCache||s.metadata.hasPendingWrites};emit();},onError));
+      stops.push(onSnapshot(collection(inventoryDb,'inventoryItems'),{includeMetadataChanges:true},s=>{stock={rows:s.docs.map(d=>({...d.data(),id:d.id})),cached:s.metadata.fromCache||s.metadata.hasPendingWrites};emit();},onError));
+      stops.push(onSnapshot(query(collection(inventoryDb,'inventoryWithdrawals'),orderBy('timestamp','desc'),limit(pageSize)),{includeMetadataChanges:true},s=>{history={rows:normalizeHistory(s,false),cached:s.metadata.fromCache||s.metadata.hasPendingWrites};if(olderWithdrawals.length===0&&s.docs.length)withdrawalCursor=s.docs[s.docs.length-1];withdrawalsMore=s.docs.length===pageSize;emit();},onError));
+      stops.push(onSnapshot(query(collection(inventoryDb,'inventoryReturns'),orderBy('timestamp','desc'),limit(pageSize)),{includeMetadataChanges:true},s=>{returns={rows:normalizeHistory(s,true),cached:s.metadata.fromCache||s.metadata.hasPendingWrites};if(olderReturns.length===0&&s.docs.length)returnCursor=s.docs[s.docs.length-1];returnsMore=s.docs.length===pageSize;emit();},onError));
     }).catch(onError);
-    return()=>{stopped=true;stops.forEach(f=>f());};
+    const stop=()=>{stopped=true;stops.forEach(f=>f());};
+    stop.hasMoreHistory=()=>withdrawalsMore||returnsMore;
+    stop.updateHistoryRecord=(id,patch)=>{
+      [history?.rows,olderWithdrawals,returns?.rows,olderReturns].forEach(rows=>{(rows||[]).forEach(row=>{if(row.id===id)Object.assign(row,patch);});});emit();
+    };
+    stop.upsertHistoryRecord=row=>{
+      const target=row.kind==='return'?returns?.rows:history?.rows;if(target&&!target.some(item=>item.id===row.id))target.unshift(row);emit();
+    };
+    stop.removeHistoryEntries=ids=>{
+      const remove=new Set(ids);const shouldKeep=row=>!remove.has(row.id)&&!remove.has(row.withdrawalId);if(history)history.rows=history.rows.filter(shouldKeep);if(returns)returns.rows=returns.rows.filter(shouldKeep);olderWithdrawals=olderWithdrawals.filter(shouldKeep);olderReturns=olderReturns.filter(shouldKeep);emit();
+    };
+    stop.loadOlderHistory=async()=>{
+      if(stopped)return false;
+      await inventoryGuest();
+      const pages=await Promise.all([
+        withdrawalsMore&&withdrawalCursor?getDocs(query(collection(inventoryDb,'inventoryWithdrawals'),orderBy('timestamp','desc'),startAfter(withdrawalCursor),limit(pageSize))):Promise.resolve(null),
+        returnsMore&&returnCursor?getDocs(query(collection(inventoryDb,'inventoryReturns'),orderBy('timestamp','desc'),startAfter(returnCursor),limit(pageSize))):Promise.resolve(null)
+      ]);
+      if(pages[0]){olderWithdrawals=olderWithdrawals.concat(normalizeHistory(pages[0],false));withdrawalsMore=pages[0].docs.length===pageSize;if(pages[0].docs.length)withdrawalCursor=pages[0].docs[pages[0].docs.length-1];}
+      if(pages[1]){olderReturns=olderReturns.concat(normalizeHistory(pages[1],true));returnsMore=pages[1].docs.length===pageSize;if(pages[1].docs.length)returnCursor=pages[1].docs[pages[1].docs.length-1];}
+      emit();return stop.hasMoreHistory();
+    };
+    return stop;
+  },
+  async getAllInventoryHistoryForExport(){
+    if(!window.VisionarySparePartsCanManage?.())throw new Error('Sign in as Supervisor or Engineer to download withdrawal history.');
+    await inventoryGuest();
+    const [withdrawals,returns]=await Promise.all([
+      getDocsFromServer(collection(inventoryDb,'inventoryWithdrawals')),
+      getDocsFromServer(collection(inventoryDb,'inventoryReturns'))
+    ]);
+    const normalize=(snapshot,isReturn)=>snapshot.docs.map(d=>{const data=d.data();return {...data,id:d.id,...(isReturn?{kind:'return'}:{}),timestamp:data.createdAt?.toDate?.().toISOString()||data.timestamp||''};});
+    return normalize(withdrawals,false).concat(normalize(returns,true)).sort((a,b)=>String(a.timestamp).localeCompare(String(b.timestamp)));
   },
   async getLatestInventoryForExport(){
     if(!window.VisionarySparePartsCanManage?.())throw new Error('Sign in as Supervisor or Engineer to download inventory.');
@@ -20511,7 +20549,7 @@ window.dispatchEvent(new Event('inventory-cloud-ready'));
     const provider = new GoogleAuthProvider();
     provider.setCustomParameters({ prompt: "select_account" });
     const SYNC_PROTOCOL_VERSION = 6;
-    const APP_VERSION = String(document.querySelector('meta[name="visionary-app-version"]')?.content || "3.0.147");
+    const APP_VERSION = String(document.querySelector('meta[name="visionary-app-version"]')?.content || "3.0.148");
     const HOSTED_APP_ROOT = "https://jsikson7.github.io/Visionary/";
     const HOSTED_APP_URL = HOSTED_APP_ROOT + "?v=" + APP_VERSION.replace(/\D/g, "");
     const isDirectFilePage = !["http:", "https:"].includes(window.location.protocol);
@@ -21555,16 +21593,24 @@ window.dispatchEvent(new Event('inventory-cloud-ready'));
 
 
     let honorHistoryUnsubscribe = null;
+    let honorHistoryLoaded = false;
     function subscribeToHonorHistory() {
-      if (honorHistoryUnsubscribe) honorHistoryUnsubscribe();
       const daily = bridge();
-      if (!daily || !daily.setHonorHistory) return;
+      if (!currentUser || location.hash !== '#daily-tasks' || !daily || !daily.setHonorHistory) {
+        if (honorHistoryUnsubscribe) honorHistoryUnsubscribe();
+        honorHistoryUnsubscribe = null;
+        return;
+      }
+      if (honorHistoryUnsubscribe || honorHistoryLoaded) return;
       daily.setHonorHistory([], 'Loading saved shift history…', true);
       honorHistoryUnsubscribe = onSnapshot(collection(db, 'shifts'), { includeMetadataChanges:true }, snapshot => {
         daily.setHonorHistory(snapshot.docChanges().map(change => ({
           id:change.doc.id, removed:change.type === 'removed', state:change.type === 'removed' ? null : stateFromCloud(change.doc.data())
         })), snapshot.metadata.fromCache ? 'Includes cached shift history; waiting for sync.' : 'Includes shared saved shift history.', false);
+        honorHistoryLoaded = true;
       }, () => {
+        honorHistoryUnsubscribe = null;
+        honorHistoryLoaded = false;
         daily.setHonorHistory([], 'Shared history is unavailable; counts include the current shift only.', true);
       });
     }
@@ -21586,9 +21632,12 @@ window.dispatchEvent(new Event('inventory-cloud-ready'));
       maybeLoadMonthlyPerformance();
     }
 
+    window.addEventListener('hashchange', subscribeToHonorHistory);
+
     function stopUserListeners() {
       if (honorHistoryUnsubscribe) honorHistoryUnsubscribe();
       honorHistoryUnsubscribe = null;
+      honorHistoryLoaded = false;
       const daily = bridge();
       if (daily && daily.setHonorHistory) daily.setHonorHistory([], 'Current shift only. Sign in to include saved shift history.', true);
       stopShiftListener();
@@ -23737,9 +23786,9 @@ window.dispatchEvent(new Event('inventory-cloud-ready'));
       const appProperties = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>' +
         '<Properties xmlns="http://schemas.openxmlformats.org/officeDocument/2006/extended-properties" ' +
         'xmlns:vt="http://schemas.openxmlformats.org/officeDocument/2006/docPropsVTypes">' +
-        '<Application>Visionary 3.0.147</Application><DocSecurity>0</DocSecurity><ScaleCrop>false</ScaleCrop>' +
+        '<Application>Visionary 3.0.148</Application><DocSecurity>0</DocSecurity><ScaleCrop>false</ScaleCrop>' +
         '<Company></Company><LinksUpToDate>false</LinksUpToDate><SharedDoc>false</SharedDoc><HyperlinksChanged>false</HyperlinksChanged>' +
-        '<AppVersion>3.0.147</AppVersion></Properties>';
+        '<AppVersion>3.0.148</AppVersion></Properties>';
 
       const zip = xlsxZipStoredFiles([
         { name: "[Content_Types].xml", contents: contentTypes },
@@ -26527,8 +26576,10 @@ function syncControls(){
  $('spp-export-history').disabled=!cloudReady;
 
 }
+function inventoryViewActive(){return allowed()&&location.hash==='#spare-parts-preview'&&!$('spare-parts-preview-view').hidden;}
+function stopInventory(){if(cloudStop)cloudStop();cloudStop=null;cloudStarted=false;cloudReady=false;}
 function connectInventory(){
- if(!allowed()||!window.VisionaryInventoryCloud||cloudStarted)return;
+ if(!inventoryViewActive()||!window.VisionaryInventoryCloud||cloudStarted)return;
  if(cloudStop)cloudStop();cloudReady=false;cloudStarted=true;syncMessage('Connecting…');syncControls();
  cloudStop=window.VisionaryInventoryCloud.watch(function(stock,history,cached){
   items=stock.sort(function(a,b){return a.sourceSheet.localeCompare(b.sourceSheet)||((Number(a.sourceRow)||999999)-(Number(b.sourceRow)||999999))||a.id.localeCompare(b.id);});log=history;cloudReady=!cached&&navigator.onLine;
@@ -26552,6 +26603,7 @@ async function submitPending(){
   const returning=pendingOperation.kind==='return';
   const result=await (returning?window.VisionaryInventoryCloud.returnPart(pendingOperation):window.VisionaryInventoryCloud.remove(pendingOperation));
   localStorage.removeItem(pendingKey);pendingOperation=null;
+  if(returning){const source=log.find(t=>t.id===result.withdrawalId&&t.kind!=='return');if(source){source.returnedQuantity=(source.returnedQuantity||0)+result.quantity;if(cloudStop?.updateHistoryRecord)cloudStop.updateHistoryRecord(source.id,{returnedQuantity:source.returnedQuantity});}if(!log.some(t=>t.id===result.id))log.push({...result,kind:'return'});if(cloudStop?.upsertHistoryRecord)cloudStop.upsertHistoryRecord({...result,kind:'return'});}else if(!log.some(t=>t.id===result.id)){log.push(result);if(cloudStop?.upsertHistoryRecord)cloudStop.upsertHistoryRecord(result);}
   $('spp-confirmation').textContent=returning?'Return saved: '+result.quantity+' × '+result.partNumber+'. Place the part back at '+result.location+'.':'Removal saved: '+result.quantity+' × '+result.partNumber+' for '+result.technician+'. Take '+result.quantity+' from '+result.location+'.';
   $('spp-confirmation').hidden=false;if(dialog.open)dialog.close();if($('spp-return-dialog').open)$('spp-return-dialog').close();
   syncMessage('');
@@ -26563,12 +26615,14 @@ async function submitPending(){
  }
  finally{cloudBusy=false;syncControls();}
 }
-$('spp-sync-retry').addEventListener('click',function(){if(cloudStop)cloudStop();cloudStarted=false;cloudReady=false;connectInventory();});
+$('spp-sync-retry').addEventListener('click',function(){stopInventory();connectInventory();});
+$('spp-history-more').addEventListener('click',async function(){if(!cloudStop?.loadOlderHistory)return;this.disabled=true;this.textContent='Loading…';try{await cloudStop.loadOlderHistory();render();}catch(e){syncMessage(cloudError(e));}finally{this.disabled=false;this.textContent='Load older history';}});
 $('spp-initialize').addEventListener('click',async function(){if(!canManage()||!confirm('Initialize shared inventory with the 127 items from the Master Spare-Parts-Cage workbook? This runs once and will not overwrite existing stock.'))return;await saveCloud(()=>window.VisionaryInventoryCloud.initialize(seedItems),$('spp-sync-status'));});
 $('spp-resolve').addEventListener('click',submitPending);
 window.addEventListener('inventory-cloud-ready',connectInventory);
-document.addEventListener('visibilitychange',function(){cloudReady=false;syncControls();if(!document.hidden&&allowed()){if(cloudStop)cloudStop();cloudStarted=false;connectInventory();}});
-window.addEventListener('online',function(){if(cloudStop)cloudStop();cloudStarted=false;connectInventory();});
+window.addEventListener('hashchange',refreshAccess);
+document.addEventListener('visibilitychange',function(){syncControls();});
+window.addEventListener('online',function(){syncControls();});
 window.addEventListener('offline',function(){cloudReady=false;syncMessage('Offline. Removals cannot be confirmed until you reconnect.');syncControls();});
 
 function esc(v){return String(v==null?"":v).replace(/[&<>"']/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];});}
@@ -26595,14 +26649,14 @@ async function deleteInventoryWithdrawal(id){
  const effect=item?deletionText('This restores '+remaining+' to stock and reduces usage by '+remaining+'.','재고에 '+remaining+'개를 복원하고 사용량을 '+remaining+'개 줄입니다.'):deletionText('This item is no longer in the catalog. Only the history is deleted; current stock is unchanged.','현재 목록에 없는 품목입니다. 내역만 삭제하며 현재 재고는 변경하지 않습니다.');
  if(!confirm(deletionText('Delete this withdrawal?\n\n','이 출고 내역을 삭제하시겠습니까?\n\n')+row.itemName+' · '+row.technician+'\n'+effect+'\n\n'+deletionText('Linked return records will also be deleted. Use this only to correct an entry. This cannot be undone in the app.','연결된 반납 내역도 삭제됩니다. 잘못된 기록을 정정할 때만 사용하세요. 앱에서 되돌릴 수 없습니다.')))return;
  if(!await saveCloud(()=>window.VisionaryInventoryCloud.deleteWithdrawal(id,{quantity:row.quantity,returnedQuantity:row.returnedQuantity||0,itemExists:!!item}),$('spp-confirmation')))return;
- render();$('spp-confirmation').textContent=deletionText('Withdrawal deleted and stock reconciled.','출고 내역을 삭제하고 재고를 반영했습니다.');$('spp-confirmation').hidden=false;
+ log=log.filter(t=>t.id!==id&&t.withdrawalId!==id);if(cloudStop?.removeHistoryEntries)cloudStop.removeHistoryEntries([id]);render();$('spp-confirmation').textContent=deletionText('Withdrawal deleted and stock reconciled.','출고 내역을 삭제하고 재고를 반영했습니다.');$('spp-confirmation').hidden=false;
 }
 
 function refreshAccess(){
   syncControls();
-  if(allowed())connectInventory();
+  if(inventoryViewActive())connectInventory();
+  else stopInventory();
   if(!allowed()){
-    if(cloudStop)cloudStop();cloudStop=null;cloudStarted=false;cloudReady=false;
     if(dialog.open)dialog.close();
     if($("spp-return-dialog").open)$("spp-return-dialog").close();
     if(editDialog.open)editDialog.close();
@@ -26675,6 +26729,7 @@ function render(){
     var actions=(!returned&&remaining>0&&findItem(t.itemId)?'<button type="button" class="button button-secondary" data-spp-return="'+esc(t.id)+'">Return part</button>':'')+(!returned&&canDelete()?'<button type="button" class="button button-secondary spp-delete" data-spp-delete-withdrawal="'+esc(t.id)+'">Delete withdrawal</button>':'');
     return '<details class="spp-history-entry'+(markedReturned?' spp-returned':'')+'"><summary><span><strong>'+esc(t.itemName)+'</strong><small>'+esc(t.timestamp)+' · '+esc(t.partNumber)+' · '+esc(qtyText)+' · '+esc(t.technician)+'</small></span></summary><div class="spp-history-grid"><div class="spp-history-field"><small>Time</small><span>'+esc(t.timestamp)+'</span></div><div class="spp-history-field"><small>Item</small><span>'+esc(t.partNumber)+' · '+esc(t.itemName)+'</span></div><div class="spp-history-field"><small>Quantity</small><span>'+esc(qtyText)+'</span></div><div class="spp-history-field"><small>Person</small><span>'+esc(t.technician)+'</span></div><div class="spp-history-field"><small>Process</small><span>'+esc(t.process)+'</span></div><div class="spp-history-field"><small>Line</small><span>'+esc(t.line)+'</span></div><div class="spp-history-field"><small>Vision</small><span>'+esc(t.vision)+'</span></div><div class="spp-history-field spp-history-description"><small>Description</small><span>'+esc(t.description||'')+'</span></div>'+(actions?'<div class="spp-history-actions">'+actions+'</div>':'')+'</div></details>';
   }).join(""):'<div class="spp-empty">No recorded withdrawals or returns yet.</div>';
+  var more=$('spp-history-more');if(more)more.hidden=!(cloudStop&&cloudStop.hasMoreHistory&&cloudStop.hasMoreHistory());
   syncControls();
 }
 var editingSnapshot=null;
@@ -26986,23 +27041,25 @@ function makeWithdrawalWorkbook(rows){
 $("spp-export-workbook").addEventListener("click",async function(){
   if(!canManage()||!cloudReady||!items.length)return;
   var button=$("spp-export-workbook");button.disabled=true;$("spp-export-status").textContent="Refreshing inventory from server…";
-  try{var latest=await window.VisionaryInventoryCloud.getLatestInventoryForExport();if(!canManage())throw new Error('Your Supervisor or Engineer session ended.');var active=latest.filter(function(i){return !i.catalogArchived;});if(!active.length)throw new Error('No active inventory items were returned by the server.');var blob=makePreviewWorkbook(latest,log),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="Master-Spare-Parts-Cage-"+inventoryExportDate()+".xlsx";document.body.appendChild(a);a.click();a.remove();window.setTimeout(function(){URL.revokeObjectURL(url);},2500);$("spp-export-status").textContent="Downloaded the latest inventory workbook with "+active.length+" active items.";}
+  try{var latest=await window.VisionaryInventoryCloud.getLatestInventoryForExport(),latestHistory=await window.VisionaryInventoryCloud.getAllInventoryHistoryForExport();if(!canManage())throw new Error('Your Supervisor or Engineer session ended.');var active=latest.filter(function(i){return !i.catalogArchived;});if(!active.length)throw new Error('No active inventory items were returned by the server.');var blob=makePreviewWorkbook(latest,latestHistory),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="Master-Spare-Parts-Cage-"+inventoryExportDate()+".xlsx";document.body.appendChild(a);a.click();a.remove();window.setTimeout(function(){URL.revokeObjectURL(url);},2500);$("spp-export-status").textContent="Downloaded the latest inventory workbook with "+active.length+" active items.";}
   catch(err){$("spp-export-status").textContent=err.message||"Workbook export failed.";}
   finally{syncControls();}
 });
 
-$("spp-export-history").addEventListener("click",function(){
+$("spp-export-history").addEventListener("click",async function(){
   if(!canManage()||!cloudReady)return;
+  const button=$("spp-export-history");button.disabled=true;$("spp-export-status").textContent="Refreshing withdrawal history from server…";
+  let exportLog;try{exportLog=await window.VisionaryInventoryCloud.getAllInventoryHistoryForExport();}catch(err){$("spp-export-status").textContent=err.message||"History export failed.";syncControls();return;}
   function csv(value){
     var str=String(value==null?"":value);
     if(typeof value!=="number"&&/^[\s]*[=+\-@]/.test(str))str="'"+str;
     return '"'+str.replace(/"/g,'""')+'"';
   }
   var rows=[["Timestamp","Item Name","Model Name","Quantity Removed","Person Removing","Process Used For","Line","Vision","Location","Inventory Sheet","Movement","Original Withdrawal ID","Description"]];
-  log.forEach(function(t){rows.push([t.timestamp,t.itemName,t.partNumber,t.quantity,t.technician,t.process,t.line,t.vision,t.location,t.sourceSheet,t.kind==="return"?"Return":"Withdrawal",t.withdrawalId||t.id,t.description||""]);});
+  exportLog.forEach(function(t){rows.push([t.timestamp,t.itemName,t.partNumber,t.quantity,t.technician,t.process,t.line,t.vision,t.location,t.sourceSheet,t.kind==="return"?"Return":"Withdrawal",t.withdrawalId||t.id,t.description||""]);});
   var blob=makeWithdrawalWorkbook(rows);
   var url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="Spare-Parts-Withdrawal-History-"+inventoryExportDate()+".xlsx";document.body.appendChild(a);a.click();a.remove();window.setTimeout(function(){URL.revokeObjectURL(url);},2500);
-  $("spp-export-status").textContent="Downloaded withdrawal history.";
+  $("spp-export-status").textContent="Downloaded withdrawal history.";syncControls();
 });
 
 window.addEventListener("parts-qr-access",refreshAccess);
