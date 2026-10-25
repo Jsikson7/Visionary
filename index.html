@@ -6972,9 +6972,6 @@ body:has(#app-shell[hidden]) :is(#spp-removal-dialog,#spp-edit-dialog,#spp-add-d
 @media(max-width:600px){:is(#spp-removal-dialog,#spp-edit-dialog,#spp-add-dialog,#spp-return-dialog){padding:17px}:is(#spp-removal-dialog,#spp-edit-dialog,#spp-add-dialog,#spp-return-dialog) .spp-form{grid-template-columns:1fr}:is(#spp-removal-dialog,#spp-edit-dialog,#spp-add-dialog,#spp-return-dialog) .spp-dialog-actions .button{flex:1}}
 </style>
 
-<script id="spare-parts-qr-mode">
-window.VisionaryPartsQR={active:new URLSearchParams(location.search).get("parts")==="qr"};
-</script>
 <style id="spp-history-entry-style">
 #spare-parts-preview-view .spp-history-list{display:grid;gap:8px}
 #spare-parts-preview-view .spp-history-entry{border:1px solid var(--line);border-radius:10px;background:var(--cream);overflow:hidden}
@@ -6996,7 +6993,6 @@ window.VisionaryPartsQR={active:new URLSearchParams(location.search).get("parts"
 @media(max-width:700px){#spare-parts-preview-view .spp-history-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px 12px}#spare-parts-preview-view .spp-history-entry>summary{padding:10px}#spare-parts-preview-view .spp-history-field span{font-size:.8rem}}
 </style>
 <style id="spare-parts-account-style">
-#app-shell[data-auth-role="Spare Parts"] > .app-view:not(#spare-parts-preview-view):not(#forms-menu-view){display:none!important}
 #spare-parts-preview-view .spp-returned td{background:#fff0ed;color:#9c3329}
 #spp-history-details>summary{cursor:pointer;font-weight:700;font-size:1.1rem;color:var(--ink);padding:4px 0}
 #spp-history-details[open]>summary{margin-bottom:14px}
@@ -7200,7 +7196,6 @@ body:has(#app-shell:not([data-auth-role="Admin"])) :is(#spp-removal-dialog,#spp-
           <label for="login-username">Account</label>
           <select id="login-username" autocomplete="username" required>
             <option value="Technician" selected>Technician</option>
-            <option value="Spare Parts">Spare Parts</option>
             <option value="Engineer">Engineer</option>
             <option value="Admin">Supervisor</option>
           </select>
@@ -9722,7 +9717,7 @@ window.VisionaryIQRequirements = Object.freeze({
       var LNS_DRAFT_KEY = "lns-iq-check-draft-v1";
       var LNS_DRAFT_VERSION = 1;
       var LNS_DRAFT_TTL_MS = 12 * 60 * 60 * 1000;
-      var AUTH_KEY = window.VisionaryPartsQR.active ? "visionary-parts-qr-auth-v1" : "visionary-auth-session-v1";
+      var AUTH_KEY = "visionary-auth-session-v1";
       var AUTH_TTL_MS = 12 * 60 * 60 * 1000;
       var QUOTE_KEY = "visionary-home-quote-v1";
       var QUOTE_BUCKET_MS = 30 * 1000;
@@ -9750,11 +9745,6 @@ window.VisionaryIQRequirements = Object.freeze({
       var appShell = document.getElementById("app-shell");
       var loginForm = document.getElementById("login-form");
       var loginUsername = document.getElementById("login-username");
-      if(window.VisionaryPartsQR.active){
-        var partsOption=loginUsername.querySelector('option[value="Spare Parts"]');
-        loginUsername.insertBefore(partsOption,loginUsername.firstChild);
-        loginUsername.value="Spare Parts";
-      }
       var loginPassword = document.getElementById("login-password");
       var loginPasswordLabel = document.getElementById("login-password-label");
       var loginStatus = document.getElementById("login-status");
@@ -11068,7 +11058,7 @@ Object.assign(sparePartsSpanishUi,{"Replace catalog from Excel":"Reemplazar cat√
         if (!authStorage) return currentAuthRole;
         try {
           var value = JSON.parse(authStorage.getItem(AUTH_KEY) || "null");
-          return value && ["Admin","Technician","Spare Parts","Engineer"].includes(value.role) ? value.role : "Technician";
+          return value && ["Admin","Technician","Engineer"].includes(value.role) ? value.role : "Technician";
         } catch (error) {
           return "Technician";
         }
@@ -11138,7 +11128,7 @@ Object.assign(sparePartsSpanishUi,{"Replace catalog from Excel":"Reemplazar cat√
           weeklyReportRows = null; weeklyReportSource = "";
           openReportsButton.hidden = true;
           document.title = localizedPageTitle("Visionary Tool Login");
-          loginUsername.value = window.VisionaryPartsQR.active ? "Spare Parts" : "Technician";
+          loginUsername.value = "Technician";
           updateLoginCredentialField();
           window.setTimeout(function () { loginPassword.focus(); }, 0);
         }
@@ -13055,7 +13045,7 @@ function normalizeWeeklyRows(values) {
         var showGuidesMenu = window.location.hash === "#guides";
         var showCopyMenu = window.location.hash === "#copy-paste";
         var showDailyTasks = window.location.hash === "#daily-tasks";
-        var showSparePartsPreview = window.location.hash === "#spare-parts-preview" && (["Admin","Technician","Spare Parts","Engineer"].includes(currentAuthRole)) && authIsActive();
+        var showSparePartsPreview = window.location.hash === "#spare-parts-preview" && (["Admin","Technician","Engineer"].includes(currentAuthRole)) && authIsActive();
         var showLiveDashboard = window.location.hash === "#live-dashboard";
         var showLeaderboard = window.location.hash === "#leaderboard";
         var showWeeklyBmpd = ["#weekly-bmpd", "#bmpd-log-search"].indexOf(window.location.hash) !== -1 && weeklyReportAllowed();
@@ -13147,7 +13137,7 @@ function normalizeWeeklyRows(values) {
       }
       window.VisionarySparePartsCanView = function () {
         
-        return !appShell.hidden && (["Admin","Technician","Spare Parts","Engineer"].includes(currentAuthRole)) && authIsActive();
+        return !appShell.hidden && (["Admin","Technician","Engineer"].includes(currentAuthRole)) && authIsActive();
       };
       window.VisionarySparePartsCanManage = function () {
         
@@ -14583,15 +14573,13 @@ function normalizeWeeklyRows(values) {
       });
       loginForm.addEventListener("submit", function (event) {
         event.preventDefault();
-        var selectedRole = ["Admin","Technician","Spare Parts","Engineer"].includes(loginUsername.value) ? loginUsername.value : "Technician";
+        var selectedRole = ["Admin","Technician","Engineer"].includes(loginUsername.value) ? loginUsername.value : "Technician";
         var validCredential = selectedRole === "Admin"
           ? loginPassword.value === "1013"
-          : loginPassword.value === (selectedRole === "Engineer" ? "1204" : selectedRole === "Spare Parts" ? "2026" : "2020");
+          : loginPassword.value === (selectedRole === "Engineer" ? "1204" : "2020");
         if (validCredential) {
           currentAuthRole = selectedRole;
-          if(selectedRole === "Spare Parts"){
-            window.location.hash = "spare-parts-preview";
-          } else if(selectedRole === "Technician" || selectedRole === "Engineer"){
+          if(selectedRole === "Technician" || selectedRole === "Engineer"){
             history.replaceState(null,"",window.location.pathname+window.location.search);
           }
           if(selectedRole === "Admin")window.VisionaryInventoryPasscode?.(selectedRole,loginPassword.value);
@@ -14605,7 +14593,7 @@ function normalizeWeeklyRows(values) {
           loginPassword.value = "";
           return;
         }
-        setUiElementText(loginStatus, selectedRole === "Admin" ? "Incorrect Supervisor PIN." : selectedRole === "Engineer" ? "Incorrect Engineer passcode." : selectedRole === "Spare Parts" ? "Incorrect Spare Parts password." : "Incorrect Technician password.");
+        setUiElementText(loginStatus, selectedRole === "Admin" ? "Incorrect Supervisor PIN." : selectedRole === "Engineer" ? "Incorrect Engineer passcode." : "Incorrect Technician password.");
         loginPassword.select();
       });
       loginUsername.addEventListener("change", updateLoginCredentialField);
@@ -14779,7 +14767,7 @@ function normalizeWeeklyRows(values) {
       renderWorkInstructionSearch();
       window.VisionHistory.mount(document.querySelector('.troubleshooting-search-panel'));
       renderLnsChecks();
-      if (!window.VisionaryPartsQR.active && authIsActive()) {
+      if (authIsActive()) {
         currentAuthRole = readAuthRole();
         saveAuthActivity(true);
         setAuthenticatedView(true);
