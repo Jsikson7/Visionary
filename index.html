@@ -6996,8 +6996,7 @@ window.VisionaryPartsQR={active:new URLSearchParams(location.search).get("parts"
 @media(max-width:700px){#spare-parts-preview-view .spp-history-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px 12px}#spare-parts-preview-view .spp-history-entry>summary{padding:10px}#spare-parts-preview-view .spp-history-field span{font-size:.8rem}}
 </style>
 <style id="spare-parts-account-style">
-#app-shell:not([data-auth-role="Admin"]) > .app-view:not(#spare-parts-preview-view),
-#app-shell:not([data-auth-role="Admin"]) #spare-parts-preview-back{display:none!important}
+#app-shell[data-auth-role="Spare Parts"] > .app-view:not(#spare-parts-preview-view):not(#forms-menu-view){display:none!important}
 #spare-parts-preview-view .spp-returned td{background:#fff0ed;color:#9c3329}
 #spp-history-details>summary{cursor:pointer;font-weight:700;font-size:1.1rem;color:var(--ink);padding:4px 0}
 #spp-history-details[open]>summary{margin-bottom:14px}
@@ -7491,7 +7490,7 @@ body:has(#app-shell:not([data-auth-role="Admin"])) :is(#spp-removal-dialog,#spp-
     <section id="spare-parts-preview-view" class="app-view" aria-labelledby="spp-title" hidden>
       <header class="hero">
         <div><p class="eyebrow">Inventory workspace</p><h1 id="spp-title">Spare Parts</h1><p class="hero-copy">Search for a part, open its details, then submit a removal before taking it.</p></div>
-        <button id="spare-parts-preview-back" class="button button-secondary top-action-button" type="button">Back</button>
+        <button id="spare-parts-preview-back" class="button button-secondary top-action-button" type="button" aria-label="Return to home page">Home</button>
       </header>
       <div class="spp-shell">
         <div id="spp-summary-desktop-slot" hidden></div>
@@ -13048,9 +13047,6 @@ function normalizeWeeklyRows(values) {
 
       function showRequestedView() {
         if (appShell.hidden) return;
-        if(currentAuthRole !== "Admin" && location.hash !== "#spare-parts-preview"){
-          history.replaceState(null,"",location.pathname+location.search+"#spare-parts-preview");
-        }
         if (["#supervisor-tasks", "#local-admin", "#version-history", "#live-dashboard", "#bmpd-trends", "#reports", "#weekly-bmpd"].indexOf(window.location.hash) !== -1 && currentAuthRole !== "Admin") {
           history.replaceState(null, "", window.location.pathname + window.location.search);
         }
@@ -14593,6 +14589,11 @@ function normalizeWeeklyRows(values) {
           : loginPassword.value === (selectedRole === "Engineer" ? "1204" : selectedRole === "Spare Parts" ? "2026" : "2020");
         if (validCredential) {
           currentAuthRole = selectedRole;
+          if(selectedRole === "Spare Parts"){
+            window.location.hash = "spare-parts-preview";
+          } else if(selectedRole === "Technician" || selectedRole === "Engineer"){
+            history.replaceState(null,"",window.location.pathname+window.location.search);
+          }
           if(selectedRole === "Admin")window.VisionaryInventoryPasscode?.(selectedRole,loginPassword.value);
 
           try {
