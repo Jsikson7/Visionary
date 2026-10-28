@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="description" content="A mobile-friendly collection of vision production guides, troubleshooting history, and copy-ready reporting tools.">
-  <meta name="visionary-app-version" content="3.0.149">
+  <meta name="visionary-app-version" content="3.0.150">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
@@ -6877,6 +6877,13 @@
 .monthly-ranking-metric-value{text-align:right}
 }
 </style>
+<style id="visionary-translator-style">
+#visionary-translator-view[hidden]{display:none!important}
+#visionary-translator-view .visionary-translator-shell{max-width:1100px;margin:0 auto;padding:24px 0 36px}
+#visionary-translator-view video{display:block;width:100%;max-height:78vh;border:1px solid var(--line);border-radius:14px;background:#101010;box-shadow:var(--shadow)}
+#visionary-translator-view .visionary-translator-status{margin:14px 0 0;padding:12px 14px;border:1px solid var(--line);border-radius:10px;background:var(--paper);color:var(--muted);line-height:1.5}
+@media(max-width:700px){#visionary-translator-view .visionary-translator-shell{padding:14px 0 24px}#visionary-translator-view video{max-height:72vh;border-radius:10px}}
+</style>
 <style id="spare-parts-preview-style">
 #spare-parts-preview-view[hidden]{display:none!important}
 #spare-parts-preview-view .spp-shell{display:grid;gap:16px;max-width:1320px;margin:0 auto;padding:18px 0 36px}
@@ -7271,6 +7278,11 @@ body:has(#app-shell:not([data-auth-role="Admin"])) :is(#spp-removal-dialog,#spp-
             </span>
             <span class="form-tile-arrow" aria-hidden="true">›</span>
           </button>
+          <button id="open-visionary-translator" class="form-tile" type="button">
+            <span class="form-tile-icon" aria-hidden="true">VT</span>
+            <span class="form-tile-copy"><strong>Visionary Translator</strong><small>Play the Visionary Translator video.</small></span>
+            <span class="form-tile-arrow" aria-hidden="true">›</span>
+          </button>
           <button id="open-spare-parts-preview" class="form-tile" type="button" hidden>
             <span class="form-tile-icon" aria-hidden="true">SP</span>
             <span class="form-tile-copy"><strong>Spare Parts</strong><small>Search spare parts and find their cage locations.</small></span>
@@ -7480,6 +7492,19 @@ body:has(#app-shell:not([data-auth-role="Admin"])) :is(#spp-removal-dialog,#spp-
           </button>
         </div>
       </section>
+    </section>
+
+    <section id="visionary-translator-view" class="app-view" aria-labelledby="visionary-translator-title" hidden>
+      <header class="hero">
+        <div><p class="eyebrow">Visionary Tool</p><h1 id="visionary-translator-title">Visionary Translator</h1><p class="hero-copy">Watch the Visionary Translator video.</p></div>
+        <button id="visionary-translator-home" class="button button-secondary top-action-button" type="button">Home</button>
+      </header>
+      <div class="visionary-translator-shell">
+        <video id="visionary-translator-video" controls playsinline preload="none" aria-label="Visionary Translator video">
+          <source src="assets/visionary-translator.mp4" type="video/mp4">
+        </video>
+        <p id="visionary-translator-status" class="visionary-translator-status" role="status" hidden>Video not found. Add <code>assets/visionary-translator.mp4</code> to the Visionary GitHub repository.</p>
+      </div>
     </section>
 
     <section id="spare-parts-preview-view" class="app-view" aria-labelledby="spp-title" hidden>
@@ -9773,6 +9798,9 @@ window.VisionaryIQRequirements = Object.freeze({
       var guidesMenuView = document.getElementById("guides-menu-view");
       var copyMenuView = document.getElementById("copy-menu-view");
       var dailyTasksView = document.getElementById("daily-tasks-view");
+      var visionaryTranslatorView = document.getElementById("visionary-translator-view");
+      var visionaryTranslatorVideo = document.getElementById("visionary-translator-video");
+      var visionaryTranslatorStatus = document.getElementById("visionary-translator-status");
       var sparePartsPreviewView = document.getElementById("spare-parts-preview-view");
       var liveDashboardView = document.getElementById("live-dashboard-view");
       var leaderboardView = document.getElementById("leaderboard-view");
@@ -9790,6 +9818,7 @@ window.VisionaryIQRequirements = Object.freeze({
       var openCopyMenuButton = document.getElementById("open-copy-menu");
       var openDailyTasksButton = document.getElementById("open-daily-tasks");
       var openSparePartsPreviewButton = document.getElementById("open-spare-parts-preview");
+      var openVisionaryTranslatorButton = document.getElementById("open-visionary-translator");
       var openLiveDashboardButton = document.getElementById("open-live-dashboard");
       var openLeaderboardButton = document.getElementById("open-leaderboard");
       var openBmpdLogSearchButton = document.getElementById("open-bmpd-log-search");
@@ -9803,6 +9832,7 @@ window.VisionaryIQRequirements = Object.freeze({
       var copyMenuBackButton = document.getElementById("copy-menu-back");
       var dailyTasksBackButton = document.getElementById("daily-tasks-back");
       var sparePartsPreviewBackButton = document.getElementById("spare-parts-preview-back");
+      var visionaryTranslatorHomeButton = document.getElementById("visionary-translator-home");
       var liveDashboardBackButton = document.getElementById("live-dashboard-back");
       var leaderboardBackButton = document.getElementById("leaderboard-back");
       var reportsBackButton = document.getElementById("reports-back");
@@ -13045,6 +13075,7 @@ function normalizeWeeklyRows(values) {
         var showGuidesMenu = window.location.hash === "#guides";
         var showCopyMenu = window.location.hash === "#copy-paste";
         var showDailyTasks = window.location.hash === "#daily-tasks";
+        var showVisionaryTranslator = window.location.hash === "#visionary-translator" && authIsActive();
         var showSparePartsPreview = window.location.hash === "#spare-parts-preview" && (["Admin","Technician","Engineer"].includes(currentAuthRole)) && authIsActive();
         var showLiveDashboard = window.location.hash === "#live-dashboard";
         var showLeaderboard = window.location.hash === "#leaderboard";
@@ -13063,10 +13094,11 @@ function normalizeWeeklyRows(values) {
         var showTroubleshooting = window.location.hash === "#troubleshooting";
         var showWorkInstructions = window.location.hash === "#work-instructions";
         var showVersionHistory = window.location.hash === "#version-history";
-        formsMenuView.hidden = showSupervisorTasks || showWeeklyBmpd || showPkgIqForm || showBmpdTrends || showGuidesMenu || showCopyMenu || showDailyTasks || showSparePartsPreview || showLiveDashboard || showLeaderboard || showReports || showLocalAdmin || showPkgForm || showLnsForm || showTop3Form || showCellRecognitionForm || showEscalationForm || showTroubleshooting || showWorkInstructions || showVersionHistory;
+        formsMenuView.hidden = showSupervisorTasks || showWeeklyBmpd || showPkgIqForm || showBmpdTrends || showGuidesMenu || showCopyMenu || showDailyTasks || showVisionaryTranslator || showSparePartsPreview || showLiveDashboard || showLeaderboard || showReports || showLocalAdmin || showPkgForm || showLnsForm || showTop3Form || showCellRecognitionForm || showEscalationForm || showTroubleshooting || showWorkInstructions || showVersionHistory;
         guidesMenuView.hidden = !showGuidesMenu;
         copyMenuView.hidden = !showCopyMenu;
         dailyTasksView.hidden = !showDailyTasks;
+        visionaryTranslatorView.hidden = !showVisionaryTranslator;
         sparePartsPreviewView.hidden = !showSparePartsPreview;
         liveDashboardView.hidden = !showLiveDashboard;
         leaderboardView.hidden = !showLeaderboard;
@@ -13090,6 +13122,7 @@ function normalizeWeeklyRows(values) {
         else if (showGuidesMenu) document.title = localizedPageTitle("Guides - Visionary Tool");
         else if (showCopyMenu) document.title = localizedPageTitle("Copy/Paste - Visionary Tool");
         else if (showDailyTasks) document.title = localizedPageTitle("MI2 Daily Tasks - Visionary Tool");
+        else if (showVisionaryTranslator) document.title = localizedPageTitle("Visionary Translator - Visionary Tool");
         else if (showSparePartsPreview) document.title = localizedPageTitle("Spare Parts - Visionary Tool");
         else if (showLiveDashboard) document.title = localizedPageTitle("Live Dashboard - Visionary Tool");
         else if (showLeaderboard) document.title = localizedPageTitle("Power Rankings - Visionary Tool");
@@ -13143,6 +13176,21 @@ function normalizeWeeklyRows(values) {
         
         return !appShell.hidden && currentAuthRole === "Admin" && authIsActive();
       };
+      function openVisionaryTranslator() {
+        if (appShell.hidden || !authIsActive()) return;
+        if (window.location.hash !== "#visionary-translator") window.location.hash = "visionary-translator";
+        showRequestedView();
+        visionaryTranslatorStatus.hidden = true;
+        visionaryTranslatorVideo.currentTime = 0;
+        var playRequest = visionaryTranslatorVideo.play();
+        if (playRequest && typeof playRequest.catch === "function") playRequest.catch(function () {});
+      }
+
+      function leaveVisionaryTranslator() {
+        visionaryTranslatorVideo.pause();
+        openFormsMenu();
+      }
+
       function openSparePartsPreview() {
         if (!window.VisionarySparePartsCanView()) return;
         if (window.location.hash === "#spare-parts-preview") {
@@ -14638,6 +14686,7 @@ function normalizeWeeklyRows(values) {
       openCopyMenuButton.addEventListener("click", openCopyMenu);
       openDailyTasksButton.addEventListener("click", openDailyTasks);
       openSparePartsPreviewButton.addEventListener("click", openSparePartsPreview);
+      openVisionaryTranslatorButton.addEventListener("click", openVisionaryTranslator);
       openLiveDashboardButton.addEventListener("click", openLiveDashboard);
       openLeaderboardButton.addEventListener("click", openLeaderboard);
       openReportsButton.addEventListener("click", openReports);
@@ -14646,6 +14695,9 @@ function normalizeWeeklyRows(values) {
       copyMenuBackButton.addEventListener("click", openFormsMenu);
       dailyTasksBackButton.addEventListener("click", openFormsMenu);
       sparePartsPreviewBackButton.addEventListener("click", openFormsMenu);
+      visionaryTranslatorHomeButton.addEventListener("click", leaveVisionaryTranslator);
+      visionaryTranslatorVideo.addEventListener("ended", leaveVisionaryTranslator);
+      visionaryTranslatorVideo.addEventListener("error", function () { visionaryTranslatorStatus.hidden = false; });
       liveDashboardBackButton.addEventListener("click", openFormsMenu);
       leaderboardBackButton.addEventListener("click", openFormsMenu);
       reportsBackButton.addEventListener("click", openFormsMenu);
