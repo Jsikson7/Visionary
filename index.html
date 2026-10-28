@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="description" content="A mobile-friendly collection of vision production guides, troubleshooting history, and copy-ready reporting tools.">
-  <meta name="visionary-app-version" content="3.0.150">
+  <meta name="visionary-app-version" content="3.0.151">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
@@ -7345,7 +7345,7 @@ body:has(#app-shell:not([data-auth-role="Admin"])) :is(#spp-removal-dialog,#spp-
             <span class="form-tile-arrow" aria-hidden="true">›</span>
           </button>
         </div>
-        <p class="last-updated">Version 3.0.150 · Last updated: <time datetime="2026-10-28">October 28, 2026</time></p>
+        <p class="last-updated">Version 3.0.151 · Last updated: <time datetime="2026-10-28">October 28, 2026</time></p>
         <div class="version-history-link-wrap">
           <button id="open-version-history" class="version-history-link" type="button">View version history</button>
         </div>
@@ -7501,9 +7501,9 @@ body:has(#app-shell:not([data-auth-role="Admin"])) :is(#spp-removal-dialog,#spp-
       </header>
       <div class="visionary-translator-shell">
         <video id="visionary-translator-video" controls playsinline preload="none" aria-label="Visionary Translator video">
-          <source src="assets/visionary-translator.mp4" type="video/mp4">
+          <source src="assets/Visionary-Translator.mp4" type="video/mp4">
         </video>
-        <p id="visionary-translator-status" class="visionary-translator-status" role="status" hidden>Video not found. Add <code>assets/visionary-translator.mp4</code> to the Visionary GitHub repository.</p>
+        <p id="visionary-translator-status" class="visionary-translator-status" role="status" hidden>Video not found. Add <code>assets/Visionary-Translator.mp4</code> to the Visionary GitHub repository.</p>
       </div>
     </section>
 
@@ -7641,7 +7641,7 @@ body:has(#app-shell:not([data-auth-role="Admin"])) :is(#spp-removal-dialog,#spp-
             <div class="daily-cloud-copy">
               <strong id="daily-cloud-title">Shared shift synchronization</strong>
               <span id="daily-cloud-status" role="status" aria-live="polite">Sign in with Google to share Daily Tasks across phones.</span>
-              <small>Safe Sync v6.2 · App <span id="daily-app-version">3.0.150</span><span id="daily-version-health" class="daily-version-health" hidden></span></small>
+              <small>Safe Sync v6.2 · App <span id="daily-app-version">3.0.151</span><span id="daily-version-health" class="daily-version-health" hidden></span></small>
             </div>
           </div>
           <div class="daily-cloud-actions">
@@ -8476,7 +8476,7 @@ body:has(#app-shell:not([data-auth-role="Admin"])) :is(#spp-removal-dialog,#spp-
       </header>
 
       <section class="panel" aria-label="Release history">
-        <div class="version-history-list"><article class="version-card version-card-current"><div class="version-card-heading"><h2>Version 3.0.150</h2><time datetime="2026-10-28">October 28, 2026</time></div><p class="version-summary-intro">Added Visionary Translator video playback from a separate GitHub asset. The video returns to the home screen when it finishes, and the Spare Parts login was removed.</p></article>
+        <div class="version-history-list"><article class="version-card version-card-current"><div class="version-card-heading"><h2>Version 3.0.151</h2><time datetime="2026-10-28">October 28, 2026</time></div><p class="version-summary-intro">Fixed the Visionary Translator video link to match the exact GitHub filename so playback loads correctly.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.150</h2><time datetime="2026-10-28">October 28, 2026</time></div><p class="version-summary-intro">Added Visionary Translator video playback from a separate GitHub asset. The video returns to the home screen when it finishes, and the Spare Parts login was removed.</p></article>
           <article class="version-card"><div class="version-card-heading"><h2>Version 3.0.149</h2><time datetime="2026-10-25">October 25, 2026</time></div><p class="version-summary-intro">Spare-parts inventory changes, withdrawals, returns, imports and Excel downloads are restricted to Supervisor. All other logins open directly to part search and cage-location lookup.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.148</h2><time datetime="2026-10-24">October 24, 2026</time></div><p class="version-summary-intro">Reduced unnecessary Firestore reads by loading shift history only in Daily Tasks, loading spare-parts data only while that view is open, retaining local Firestore cache, and removing forced listener reconnects when returning to the app.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.111</h2><time datetime="2026-10-20">October 20, 2026</time></div><p class="version-summary-intro">Reworked the Spare Parts summary so low-stock alerts sit beside the three inventory counts, and the search area uses the full desktop width.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.110</h2><time datetime="2026-10-20">October 20, 2026</time></div><p class="version-summary-intro">Aligned new inventory entry and the raw Inventory workbook sheet with the LNS columns. Usage now increases automatically as items are removed.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.109</h2><time datetime="2026-10-20">October 20, 2026</time></div><p class="version-summary-intro">Technicians can now open the Spare Parts preview and submit sample removals. Edit Inventory and Add New Inventory stay restricted to Supervisors.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.108</h2><time datetime="2026-10-20">October 20, 2026</time></div><p class="version-summary-intro">The sample removal form now lets users type the person removing an item instead of selecting a preset technician name. The entered name remains in withdrawal history and Excel export.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.107</h2><time datetime="2026-10-20">October 20, 2026</time></div><p class="version-summary-intro">Added Supervisor-only Edit Inventory to update sample part descriptions and minimum/maximum quantities. Alerts and Excel downloads reflect saved edits; preview changes reset on reload.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.106</h2><time datetime="2026-10-20">October 20, 2026</time></div><p class="version-summary-intro">Loaded the cage workbook’s four process sheets into the Supervisor-only Spare Parts sample preview. Preserves source rows, locations, notes, and stock counts; unknown quantities and unset min/max remain explicit.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.105</h2><time datetime="2026-10-20">October 20, 2026</time></div><p class="version-summary-intro">Added the Spare Parts sample preview to the Supervisor login only, with keyword search, expandable part details, a removal popup for technician/process/line/vision/quantity, low-stock alerts, and Excel export. Sample inventory remains local to the open page while the real inventory list is prepared.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.104</h2><time datetime="2026-10-19">October 19, 2026</time></div><p class="version-summary-intro">Cell Tracking Reading Rate checks now run every four hours: 5:00, 9:00, and 13:00 on B1/G1, and 17:00, 21:00, and 1:00 on B2/G2. They remain at zero points.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.103</h2><time datetime="2026-10-20">October 20, 2026</time></div><p class="version-summary-intro">Restored the Cell Tracking Reading Rate checklist for all allocations. It is visible and trackable but awards no points yet.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.102</h2><time datetime="2026-10-19">October 19, 2026</time></div><p class="version-summary-intro">Supervisor Tasks now keeps Google sign-in beside Retry sync, shows the connected account, and explains shared-task connection or permission problems.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.101</h2><time datetime="2026-10-19">October 19, 2026</time></div><p class="version-summary-intro">Power Rankings stay visible in the technician menu but open to a blank page. Supervisors retain the rankings view.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.100</h2><time datetime="2026-10-15">October 15, 2026</time></div><p class="version-summary-intro">Added Delete task to ongoing and finished supervisor tasks with confirmation, shared deletion sync, conflict protection, and a visible pending-deletion status with cancellation before sync.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.99</h2><time datetime="2026-10-15">October 15, 2026</time></div><p class="version-summary-intro">Aligned weekly tasks, task entry, and calendar panels above a full-width task toolbar and single-column task list. Compact calendar indicators show urgency and progress. Weekly tasks and the calendar remain collapsible on mobile.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.98</h2><time datetime="2026-10-15">October 15, 2026</time></div><p class="version-summary-intro">Supervisor workspace now has three desktop columns: weekly tasks, the main task list, and a monthly calendar. Weekly tasks and the calendar start collapsed on smaller screens.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.97</h2><time datetime="2026-10-14">October 14, 2026</time></div><p class="version-summary-intro">Supervisor Tasks now uses the desktop side margins for a Due this week list and interactive monthly calendar. Select a date to list tasks due that day. Urgent tasks show red, tasks with checked steps show orange, and unstarted tasks stay neutral. The panels stack on smaller screens.</p></article>
 <article class="version-card"><div class="version-card-heading"><h2>Version 3.0.96</h2><time datetime="2026-10-14">October 14, 2026</time></div><p class="version-summary-intro">Added a desktop due-this-week panel and an interactive monthly due-date calendar. Select a date to see its tasks, color coded red for urgent tasks and orange when at least one checklist step is complete. Calendar and weekly panels stack on narrow screens.</p></article>
 <article class="version-card"><div class="version-card-heading"><h2>Version 3.0.95</h2><time datetime="2026-10-14">October 14, 2026</time></div><p class="version-summary-intro">Supervisor task cards now remain collapsed until opened. A stronger desktop single-column layout keeps every task full-width with its notes and checklist inside the expanded card.</p></article>
@@ -20605,7 +20605,7 @@ window.dispatchEvent(new Event('inventory-cloud-ready'));
     const provider = new GoogleAuthProvider();
     provider.setCustomParameters({ prompt: "select_account" });
     const SYNC_PROTOCOL_VERSION = 6;
-    const APP_VERSION = String(document.querySelector('meta[name="visionary-app-version"]')?.content || "3.0.150");
+    const APP_VERSION = String(document.querySelector('meta[name="visionary-app-version"]')?.content || "3.0.151");
     const HOSTED_APP_ROOT = "https://jsikson7.github.io/Visionary/";
     const HOSTED_APP_URL = HOSTED_APP_ROOT + "?v=" + APP_VERSION.replace(/\D/g, "");
     const isDirectFilePage = !["http:", "https:"].includes(window.location.protocol);
@@ -23842,9 +23842,9 @@ window.dispatchEvent(new Event('inventory-cloud-ready'));
       const appProperties = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>' +
         '<Properties xmlns="http://schemas.openxmlformats.org/officeDocument/2006/extended-properties" ' +
         'xmlns:vt="http://schemas.openxmlformats.org/officeDocument/2006/docPropsVTypes">' +
-        '<Application>Visionary 3.0.150</Application><DocSecurity>0</DocSecurity><ScaleCrop>false</ScaleCrop>' +
+        '<Application>Visionary 3.0.151</Application><DocSecurity>0</DocSecurity><ScaleCrop>false</ScaleCrop>' +
         '<Company></Company><LinksUpToDate>false</LinksUpToDate><SharedDoc>false</SharedDoc><HyperlinksChanged>false</HyperlinksChanged>' +
-        '<AppVersion>3.0.150</AppVersion></Properties>';
+        '<AppVersion>3.0.151</AppVersion></Properties>';
 
       const zip = xlsxZipStoredFiles([
         { name: "[Content_Types].xml", contents: contentTypes },
