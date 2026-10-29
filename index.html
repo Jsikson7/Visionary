@@ -4,11 +4,11 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="description" content="A mobile-friendly collection of vision production guides, troubleshooting history, and copy-ready reporting tools.">
-  <meta name="visionary-app-version" content="4.01">
+  <meta name="visionary-app-version" content="4.03">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
-  <meta name="color-scheme" content="light dark">
+  <meta name="color-scheme" content="light">
   <meta name="theme-color" content="#294e3b">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-title" content="Visionary Tool">
@@ -81,13 +81,13 @@
         document.documentElement.setAttribute("data-app-icon-theme", themeName);
       };
 
-      var initialIconTheme = "matcha";
+      // Matcha is mandatory, even when an older version stored a different theme.
       try {
-        initialIconTheme = window.localStorage.getItem("copy-paste-preferred-theme-v1") || "matcha";
+        window.localStorage.setItem("copy-paste-preferred-theme-v1", "matcha");
       } catch (error) {
-        // Halloween remains the default when storage is unavailable.
+        // Matcha remains active even when storage is unavailable.
       }
-      window.applyVisionaryThemeIcon(initialIconTheme);
+      window.applyVisionaryThemeIcon("matcha");
     }());
   </script>
   <title>Visionary Tool</title>
@@ -142,524 +142,7 @@
       --section-heading-3: #ebe6d7;
     }
 
-    /* Alternate theme palettes */
-    html[data-theme="sakura"] {
-      --matcha-950: #65283f;
-      --matcha-900: #7c344f;
-      --matcha-700: #a84f72;
-      --matcha-600: #c26083;
-      --matcha-200: #f4ccdc;
-      --matcha-100: #fce8f0;
-      --cream: #fffafd;
-      --paper: #fff5f9;
-      --page: #ffedf4;
-      --ink: #432633;
-      --muted: #7f6370;
-      --line: #ecc8d6;
-      --danger: #a63c4a;
-      --success: #8d4b68;
-      --shadow: 0 12px 35px rgba(111, 46, 72, 0.13);
-      --hero-end: #c75e87;
-      --hero-accent: #ffe2ed;
-      --hero-copy: #fff1f6;
-      --page-glow: rgba(244, 166, 196, 0.3);
-      --page-wash: rgba(212, 103, 143, 0.1);
-      --label: #694354;
-      --control-line: #dfb9c8;
-      --input-bg: #fffafd;
-      --focus-ring: rgba(194, 96, 131, 0.24);
-      --placeholder: #aa8796;
-      --readonly-line: #e3bfcd;
-      --readonly-bg: #f9dfE9;
-      --column-label: #845f6f;
-      --row-bg: #f5dce6;
-      --row-ink: #7d5365;
-      --danger-line: #e6b6bf;
-      --danger-hover: #fff0f3;
-      --add-line: #d79bb2;
-      --preview-line: #dfbdca;
-      --preview-bg: #fff6fa;
-      --preview-ink: #432633;
-      --secondary-ink: #704559;
-      --section-tone-1: #fffafd;
-      --section-tone-2: #fff0f6;
-      --section-tone-3: #fce8f0;
-      --section-heading-1: #fce8f0;
-      --section-heading-2: #f6d8e5;
-      --section-heading-3: #f2cedd;
-    }
-
-    html[data-theme="cyberpunk"] {
-      color-scheme: dark;
-      --matcha-950: #09031f;
-      --matcha-900: #160631;
-      --matcha-700: #00dff2;
-      --matcha-600: #c43cff;
-      --matcha-200: #38205b;
-      --matcha-100: #21123f;
-      --cream: #100824;
-      --paper: #160d2f;
-      --page: #070411;
-      --ink: #f7f3ff;
-      --muted: #b7a9d0;
-      --line: #493268;
-      --danger: #ff5b86;
-      --success: #50f2c1;
-      --shadow: 0 12px 36px rgba(0, 223, 242, 0.12);
-      --hero-end: #5f0d83;
-      --hero-accent: #55f5ff;
-      --hero-copy: #eee6ff;
-      --page-glow: rgba(0, 223, 242, 0.13);
-      --page-wash: rgba(221, 56, 255, 0.12);
-      --label: #ddd0f3;
-      --control-line: #604681;
-      --input-bg: #0d071d;
-      --focus-ring: rgba(0, 223, 242, 0.22);
-      --placeholder: #8f7ba9;
-      --readonly-line: #543a76;
-      --readonly-bg: #251440;
-      --column-label: #c1b0dd;
-      --row-bg: #281844;
-      --row-ink: #78f4ff;
-      --danger-line: #7a3959;
-      --danger-hover: #311127;
-      --add-line: #00bfd2;
-      --preview-line: #52366f;
-      --preview-bg: #0d071d;
-      --preview-ink: #eefbff;
-      --secondary-ink: #e6dcfa;
-      --white-button: #160d2f;
-      --section-tone-1: #100824;
-      --section-tone-2: #10152d;
-      --section-tone-3: #21102d;
-      --section-heading-1: #21123f;
-      --section-heading-2: #142c42;
-      --section-heading-3: #34133e;
-    }
-
-    html[data-theme="lavender"] {
-      --matcha-950: #443064;
-      --matcha-900: #564076;
-      --matcha-700: #73579a;
-      --matcha-600: #8a6caf;
-      --matcha-200: #dfd5ef;
-      --matcha-100: #efe9f8;
-      --cream: #fefcff;
-      --paper: #faf7fe;
-      --page: #f2edfa;
-      --ink: #342943;
-      --muted: #746a82;
-      --line: #dcd2e8;
-      --danger: #a45369;
-      --success: #665184;
-      --shadow: 0 12px 35px rgba(83, 58, 114, 0.12);
-      --hero-end: #8466aa;
-      --hero-accent: #eadffc;
-      --hero-copy: #f7f2ff;
-      --page-glow: rgba(185, 158, 219, 0.25);
-      --page-wash: rgba(127, 94, 168, 0.09);
-      --label: #554765;
-      --control-line: #cfc2dd;
-      --input-bg: #fffefe;
-      --focus-ring: rgba(138, 108, 175, 0.23);
-      --placeholder: #93869f;
-      --readonly-line: #d3c7e0;
-      --readonly-bg: #ece4f5;
-      --column-label: #6f617f;
-      --row-bg: #ebe4f2;
-      --row-ink: #675676;
-      --danger-line: #dec2ca;
-      --danger-hover: #fff1f4;
-      --add-line: #b6a2ca;
-      --preview-line: #d2c6df;
-      --preview-bg: #faf7fd;
-      --preview-ink: #342943;
-      --secondary-ink: #5e4c73;
-      --section-tone-1: #fefcff;
-      --section-tone-2: #f2ecfa;
-      --section-tone-3: #eae4f4;
-      --section-heading-1: #efe9f8;
-      --section-heading-2: #e5dcf1;
-      --section-heading-3: #ddd2eb;
-    }
-
-    html[data-theme="halloween"] {
-      color-scheme: dark;
-      --matcha-950: #0f0816;
-      --matcha-900: #160b20;
-      --matcha-700: #e47422;
-      --matcha-600: #bc551d;
-      --matcha-200: #6d4a7d;
-      --matcha-100: #33213e;
-      --cream: #17101e;
-      --paper: #1d1426;
-      --page: #0b0710;
-      --ink: #fff4dc;
-      --muted: #c8b5cf;
-      --line: #4a3758;
-      --danger: #ff8582;
-      --success: #f4a64b;
-      --shadow: 0 14px 38px rgba(0, 0, 0, 0.42);
-      --hero-end: #351747;
-      --hero-accent: #ffd078;
-      --hero-copy: #fff1d2;
-      --page-glow: rgba(228, 116, 34, 0.14);
-      --page-wash: rgba(109, 74, 125, 0.14);
-      --label: #eadbea;
-      --control-line: #634a72;
-      --input-bg: #100a16;
-      --focus-ring: rgba(244, 166, 75, 0.26);
-      --placeholder: #9f8ba8;
-      --readonly-line: #594367;
-      --readonly-bg: #281b31;
-      --column-label: #cbb7d2;
-      --row-bg: #261a2e;
-      --row-ink: #ffbe6a;
-      --danger-line: #7e444f;
-      --danger-hover: #32161e;
-      --add-line: #b7622c;
-      --preview-line: #553f63;
-      --preview-bg: #0f0a15;
-      --preview-ink: #fff4dc;
-      --secondary-ink: #eadbea;
-      --white-button: #211629;
-      --section-tone-1: #17101e;
-      --section-tone-2: #21132a;
-      --section-tone-3: #241725;
-      --section-heading-1: #32203c;
-      --section-heading-2: #3a2235;
-      --section-heading-3: #412324;
-    }
-
-    html[data-theme="halloween"] input[readonly] {
-      color: var(--ink);
-    }
-
-    html[data-theme="pokemon"] {
-      --matcha-950: #172653;
-      --matcha-900: #1d2c5e;
-      --matcha-700: #2a75bb;
-      --matcha-600: #e3350d;
-      --matcha-200: #ffe36a;
-      --matcha-100: #fff5bd;
-      --cream: #fffef8;
-      --paper: #f5faff;
-      --page: #eaf4ff;
-      --ink: #1e2d4f;
-      --muted: #64728c;
-      --line: #c7d9ed;
-      --danger: #e3350d;
-      --success: #2a75bb;
-      --shadow: 0 12px 35px rgba(42, 117, 187, 0.15);
-      --hero-end: #2a75bb;
-      --hero-accent: #ffcb05;
-      --hero-copy: #f7fbff;
-      --page-glow: rgba(255, 203, 5, 0.25);
-      --page-wash: rgba(42, 117, 187, 0.1);
-      --label: #33466c;
-      --control-line: #b8cee6;
-      --input-bg: #ffffff;
-      --focus-ring: rgba(42, 117, 187, 0.24);
-      --placeholder: #8290a8;
-      --readonly-line: #b9cee3;
-      --readonly-bg: #e5f1fb;
-      --column-label: #536887;
-      --row-bg: #e2eef9;
-      --row-ink: #2a5f93;
-      --danger-line: #e6b7ad;
-      --danger-hover: #fff0ec;
-      --add-line: #7aa6cf;
-      --preview-line: #bdd1e5;
-      --preview-bg: #f8fbff;
-      --preview-ink: #1e2d4f;
-      --secondary-ink: #304a75;
-      --section-tone-1: #fffef8;
-      --section-tone-2: #edf7ff;
-      --section-tone-3: #fff8d6;
-      --section-heading-1: #fff5bd;
-      --section-heading-2: #ddecfb;
-      --section-heading-3: #ffe989;
-    }
-
-    html[data-theme="gryffindor"] {
-      --matcha-950: #3b0b14;
-      --matcha-900: #5b1321;
-      --matcha-700: #8c1d32;
-      --matcha-600: #aa263d;
-      --matcha-200: #e9ca78;
-      --matcha-100: #fbefc9;
-      --cream: #fffdf7;
-      --paper: #fff8e8;
-      --page: #f7ecd3;
-      --ink: #3b201c;
-      --muted: #765f55;
-      --line: #dfc98e;
-      --danger: #a62035;
-      --success: #6d4d10;
-      --shadow: 0 12px 35px rgba(76, 16, 28, 0.15);
-      --hero-end: #8c1d32;
-      --hero-accent: #f2d36b;
-      --hero-copy: #fff4d5;
-      --page-glow: rgba(211, 166, 37, 0.25);
-      --page-wash: rgba(121, 20, 39, 0.1);
-      --label: #624336;
-      --control-line: #d4b96f;
-      --input-bg: #fffdf8;
-      --focus-ring: rgba(170, 38, 61, 0.22);
-      --placeholder: #9a8275;
-      --readonly-line: #d8bd76;
-      --readonly-bg: #f8e9ba;
-      --column-label: #725c45;
-      --row-bg: #f3e1ad;
-      --row-ink: #6a4318;
-      --danger-line: #dda9b1;
-      --danger-hover: #fff0f2;
-      --add-line: #b69337;
-      --preview-line: #d9c17f;
-      --preview-bg: #fffbef;
-      --preview-ink: #3b201c;
-      --secondary-ink: #67422f;
-      --section-tone-1: #fffdf7;
-      --section-tone-2: #fbf0ce;
-      --section-tone-3: #f8e4d7;
-      --section-heading-1: #fbefc9;
-      --section-heading-2: #f2d98e;
-      --section-heading-3: #efc8c9;
-    }
-
-    html[data-theme="slytherin"] {
-      --matcha-950: #0b211b;
-      --matcha-900: #12352a;
-      --matcha-700: #1f5d48;
-      --matcha-600: #2c745d;
-      --matcha-200: #c9d1d3;
-      --matcha-100: #e7eceb;
-      --cream: #fbfdfc;
-      --paper: #f1f5f3;
-      --page: #e5ece9;
-      --ink: #193129;
-      --muted: #61726b;
-      --line: #c4cfcb;
-      --danger: #9c4852;
-      --success: #1f664e;
-      --shadow: 0 12px 35px rgba(11, 42, 33, 0.14);
-      --hero-end: #245e4b;
-      --hero-accent: #d8dee0;
-      --hero-copy: #edf5f1;
-      --page-glow: rgba(174, 188, 191, 0.25);
-      --page-wash: rgba(31, 93, 72, 0.1);
-      --label: #38564b;
-      --control-line: #b2c1bc;
-      --input-bg: #ffffff;
-      --focus-ring: rgba(44, 116, 93, 0.23);
-      --placeholder: #83918c;
-      --readonly-line: #b9c7c2;
-      --readonly-bg: #dfe9e5;
-      --column-label: #526b61;
-      --row-bg: #dce7e3;
-      --row-ink: #285b49;
-      --danger-line: #d9b6ba;
-      --danger-hover: #fff1f2;
-      --add-line: #789b8e;
-      --preview-line: #bccbc5;
-      --preview-bg: #f7faf8;
-      --preview-ink: #193129;
-      --secondary-ink: #34584b;
-      --section-tone-1: #fbfdfc;
-      --section-tone-2: #eaf1ee;
-      --section-tone-3: #edf0f1;
-      --section-heading-1: #e7eceb;
-      --section-heading-2: #d6e4df;
-      --section-heading-3: #d8dddf;
-    }
-
-    html[data-theme="ravenclaw"] {
-      --matcha-950: #111a30;
-      --matcha-900: #192744;
-      --matcha-700: #29466f;
-      --matcha-600: #365b88;
-      --matcha-200: #dfc5a1;
-      --matcha-100: #f3e8d8;
-      --cream: #fffdfa;
-      --paper: #f6f7fa;
-      --page: #e9edf4;
-      --ink: #202c42;
-      --muted: #667084;
-      --line: #cbd2df;
-      --danger: #a34c55;
-      --success: #315b78;
-      --shadow: 0 12px 35px rgba(24, 39, 68, 0.15);
-      --hero-end: #31527d;
-      --hero-accent: #e8c79c;
-      --hero-copy: #eff4fb;
-      --page-glow: rgba(176, 122, 63, 0.2);
-      --page-wash: rgba(41, 70, 111, 0.11);
-      --label: #435169;
-      --control-line: #bbc4d4;
-      --input-bg: #ffffff;
-      --focus-ring: rgba(54, 91, 136, 0.23);
-      --placeholder: #8790a0;
-      --readonly-line: #bec8d7;
-      --readonly-bg: #e1e8f1;
-      --column-label: #5a667c;
-      --row-bg: #dfe6f0;
-      --row-ink: #34547b;
-      --danger-line: #dcb9bd;
-      --danger-hover: #fff1f2;
-      --add-line: #899bb5;
-      --preview-line: #c2cbda;
-      --preview-bg: #f8fafd;
-      --preview-ink: #202c42;
-      --secondary-ink: #405471;
-      --section-tone-1: #fffdfa;
-      --section-tone-2: #edf2f8;
-      --section-tone-3: #f5ece1;
-      --section-heading-1: #f3e8d8;
-      --section-heading-2: #dde6f2;
-      --section-heading-3: #ead8c0;
-    }
-
-    html[data-theme="hufflepuff"] {
-      --matcha-950: #272319;
-      --matcha-900: #363024;
-      --matcha-700: #6d5b1e;
-      --matcha-600: #927820;
-      --matcha-200: #f1d75c;
-      --matcha-100: #fff3b5;
-      --cream: #fffef7;
-      --paper: #fffbea;
-      --page: #f5efcf;
-      --ink: #332f23;
-      --muted: #726b58;
-      --line: #ded29a;
-      --danger: #9f4d46;
-      --success: #6d5b1e;
-      --shadow: 0 12px 35px rgba(48, 43, 31, 0.14);
-      --hero-end: #5f5227;
-      --hero-accent: #ffe56f;
-      --hero-copy: #fff8cf;
-      --page-glow: rgba(241, 201, 60, 0.27);
-      --page-wash: rgba(78, 67, 31, 0.09);
-      --label: #58503b;
-      --control-line: #d1c384;
-      --input-bg: #fffef9;
-      --focus-ring: rgba(146, 120, 32, 0.22);
-      --placeholder: #918a76;
-      --readonly-line: #d4c78a;
-      --readonly-bg: #f4e9af;
-      --column-label: #6c634d;
-      --row-bg: #eee3aa;
-      --row-ink: #665820;
-      --danger-line: #dcb9b4;
-      --danger-hover: #fff1ef;
-      --add-line: #aa984d;
-      --preview-line: #d6c98c;
-      --preview-bg: #fffdf2;
-      --preview-ink: #332f23;
-      --secondary-ink: #5a5033;
-      --section-tone-1: #fffef7;
-      --section-tone-2: #fff6ce;
-      --section-tone-3: #f1ecdd;
-      --section-heading-1: #fff3b5;
-      --section-heading-2: #f5df78;
-      --section-heading-3: #e3dcc6;
-    }
-
-    html[data-theme="astronaut"] {
-      color-scheme: dark;
-      --matcha-950: #030713;
-      --matcha-900: #071126;
-      --matcha-700: #4169e1;
-      --matcha-600: #527cf0;
-      --matcha-200: #273c72;
-      --matcha-100: #15264e;
-      --cream: #0a1227;
-      --paper: #0d1830;
-      --page: #020611;
-      --ink: #f2f6ff;
-      --muted: #a5b3cc;
-      --line: #2c3d61;
-      --danger: #ff718d;
-      --success: #67e8f9;
-      --shadow: 0 12px 38px rgba(82, 124, 240, 0.17);
-      --hero-end: #17387a;
-      --hero-accent: #7cecff;
-      --hero-copy: #e4edff;
-      --page-glow: rgba(103, 232, 249, 0.13);
-      --page-wash: rgba(82, 124, 240, 0.14);
-      --label: #d3ddf1;
-      --control-line: #3a4e77;
-      --input-bg: #060d1d;
-      --focus-ring: rgba(103, 232, 249, 0.22);
-      --placeholder: #7e8ca8;
-      --readonly-line: #344b79;
-      --readonly-bg: #14254a;
-      --column-label: #afbed9;
-      --row-bg: #17294f;
-      --row-ink: #84ecff;
-      --danger-line: #7c4054;
-      --danger-hover: #321326;
-      --add-line: #55bcd0;
-      --preview-line: #35496f;
-      --preview-bg: #050b19;
-      --preview-ink: #eef5ff;
-      --secondary-ink: #dce6fa;
-      --white-button: #0d1830;
-      --section-tone-1: #0a1227;
-      --section-tone-2: #0d1b39;
-      --section-tone-3: #11172d;
-      --section-heading-1: #15264e;
-      --section-heading-2: #173457;
-      --section-heading-3: #202844;
-    }
-
-    html[data-theme="lg"] {
-      color-scheme: dark;
-      --matcha-950: #080c11;
-      --matcha-900: #0b1118;
-      --matcha-700: #147355;
-      --matcha-600: #1a7f5d;
-      --matcha-200: #173a31;
-      --matcha-100: #122a24;
-      --cream: #111820;
-      --paper: #0f161d;
-      --page: #0a0d12;
-      --ink: #e7ecef;
-      --muted: #8794a2;
-      --line: #202a35;
-      --danger: #ed7180;
-      --success: #37df92;
-      --shadow: 0 12px 38px rgba(0, 0, 0, 0.38);
-      --hero-end: #151d27;
-      --hero-accent: #4be3a8;
-      --hero-copy: #c6d0d8;
-      --page-glow: rgba(55, 223, 146, 0.055);
-      --page-wash: rgba(75, 99, 120, 0.08);
-      --label: #c4ced6;
-      --control-line: #2a3643;
-      --input-bg: #0c1218;
-      --focus-ring: rgba(55, 223, 146, 0.2);
-      --placeholder: #6f7c89;
-      --readonly-line: #27333e;
-      --readonly-bg: #151d26;
-      --column-label: #94a1ad;
-      --row-bg: #171b24;
-      --row-ink: #62e5b2;
-      --danger-line: #58343e;
-      --danger-hover: #26161c;
-      --add-line: #2d8068;
-      --preview-line: #27333f;
-      --preview-bg: #0b1117;
-      --preview-ink: #eef2f4;
-      --secondary-ink: #cad3da;
-      --white-button: #111820;
-      --section-tone-1: #111820;
-      --section-tone-2: #141b24;
-      --section-tone-3: #17202a;
-      --section-heading-1: #18212a;
-      --section-heading-2: #1b252f;
-      --section-heading-3: #202a34;
-    }
+    /* Matcha is the only supported application theme. */
 
     * {
       box-sizing: border-box;
@@ -3330,8 +2813,15 @@
       display: none !important;
     }
 
-    /* v4.00: Power Rankings are visible to Technician and Supervisor accounts.
-       Detailed ranking audits and custom date controls remain Supervisor-only. */
+    /* v4.03: Power Rankings are Supervisor-only. The home tile is also the
+       workspace-sidebar's visibility source, so hide it for other roles. */
+    #app-shell:not([data-auth-role="Admin"]) #open-leaderboard,
+    #app-shell:not([data-auth-role="Admin"]) #leaderboard-view {
+      display: none !important;
+    }
+    #app-shell:not([data-auth-role="Admin"]) #leaderboard-view[hidden] {
+      display: none !important;
+    }
 
     .monthly-ranking-audit-heading {
       display: flex;
@@ -7586,7 +7076,7 @@ html[data-theme="matcha"] #daily-tasks-view #daily-cloud-admin{margin-top:6px;pa
   <div class="vs-pick-actions"><button type="button" id="vs-pick-latest">Latest shift</button><button type="button" id="vs-pick-done">View shift</button></div>
 </div></div></div>
 <div class="vs-bar-actions"><span class="vs-status" id="vs-connection-status">● Workspace active</span><span class="vs-role" id="vs-current-role">Team view</span><button type="button" class="vs-avatar" id="vs-account-menu" aria-label="Workspace settings" aria-expanded="false">VT</button></div>
-<div id="vs-settings-popover" aria-hidden="true"><label for="vs-user-theme">Appearance</label><select id="vs-user-theme" aria-label="Change theme"></select><div class="vs-settings-row" role="group" aria-label="Language"><button type="button" data-vs-lang="en">🇺🇸 EN</button><button type="button" data-vs-lang="ko">🇰🇷 KO</button><button type="button" data-vs-lang="es-MX">🇲🇽 ES</button></div><button type="button" class="vs-signout" id="vs-supervisor-settings" hidden>Supervisor Settings</button><button type="button" class="vs-signout" id="vs-sign-out">Log out</button></div></header>
+<div id="vs-settings-popover" aria-hidden="true"><div class="vs-settings-row" role="group" aria-label="Language"><button type="button" data-vs-lang="en">🇺🇸 EN</button><button type="button" data-vs-lang="ko">🇰🇷 KO</button><button type="button" data-vs-lang="es-MX">🇲🇽 ES</button></div><button type="button" class="vs-signout" id="vs-supervisor-settings" hidden>Supervisor Settings</button><button type="button" class="vs-signout" id="vs-sign-out">Log out</button></div></header>
     <section id="forms-menu-view" class="app-view" aria-labelledby="forms-menu-title">
 <div id="vs-overview" aria-label="Visionary Tool overview">
   <div class="vs-overview-head"><div><h1>Good morning, Vision Team <span style="color:#84a28a">✦</span></h1><p class="vs-muted">Here's your team's activity at a glance.</p></div><button class="vs-action vs-outline" type="button" data-vs-go="reports">View shift report ↗</button></div>
@@ -7612,22 +7102,8 @@ html[data-theme="matcha"] #daily-tasks-view #daily-cloud-admin{margin-top:6px;pa
           <p id="home-quote" class="home-quote">&quot;The secret of getting ahead is getting started.&quot; - Mark Twain</p>
         </div>
         <div id="header-actions" class="header-actions" aria-label="Page controls">
-          <div class="theme-control">
-            <label for="theme-select">Choose theme</label>
-            <select id="theme-select" aria-label="Choose color theme">
-              <option value="halloween">🎃 Halloween</option>
-              <option value="matcha" selected>🍵 Matcha · Becoming-inspired</option>
-              <option value="sakura">🌸 Sakura</option>
-              <option value="cyberpunk">⚡ Cyberpunk</option>
-              <option value="lavender">💜 Lavender</option>
-              <option value="pokemon">⚡ Pokémon</option>
-              <option value="gryffindor">🦁 Gryffindor</option>
-              <option value="slytherin">🐍 Slytherin</option>
-              <option value="ravenclaw">🦅 Ravenclaw</option>
-              <option value="hufflepuff">🦡 Hufflepuff</option>
-              <option value="astronaut">🚀 Astronaut</option>
-              <option value="lg">🟢 LG</option>
-            </select>
+          <div class="theme-control" hidden aria-hidden="true">
+            <select id="theme-select" tabindex="-1" aria-label="Application theme (Matcha)"><option value="matcha" selected>Matcha</option></select>
           </div>
           <button id="logout-button" class="button button-secondary" type="button">Log out</button>
         </div>
@@ -7730,7 +7206,7 @@ html[data-theme="matcha"] #daily-tasks-view #daily-cloud-admin{margin-top:6px;pa
             <span class="form-tile-arrow" aria-hidden="true">›</span>
           </button>
         </div>
-        <p class="last-updated">Version 4.01 · Last updated: <time datetime="2026-10-29">October 29, 2026</time></p>
+        <p class="last-updated">Version 4.03 · Last updated: <time datetime="2026-10-29">October 29, 2026</time></p>
         <div class="version-history-link-wrap">
           <button id="open-version-history" class="version-history-link" type="button">View version history</button>
         </div>
@@ -8031,7 +7507,7 @@ const views=[&#x27;setup&#x27;,&#x27;presenter&#x27;,&#x27;join&#x27;,&#x27;list
             <div class="daily-cloud-copy">
               <strong id="daily-cloud-title">Shared shift synchronization</strong>
               <span id="daily-cloud-status" role="status" aria-live="polite">Sign in with Google to share Daily Tasks across phones.</span>
-              <small>Safe Sync v6.2 · App <span id="daily-app-version">4.01</span></small><span id="daily-version-health" class="daily-version-health" hidden></span>
+              <small>Safe Sync v6.2 · App <span id="daily-app-version">4.03</span></small><span id="daily-version-health" class="daily-version-health" hidden></span>
             </div>
           </div>
           <div class="daily-cloud-actions">
@@ -8865,7 +8341,7 @@ const views=[&#x27;setup&#x27;,&#x27;presenter&#x27;,&#x27;join&#x27;,&#x27;list
       </header>
 
       <section class="panel" aria-label="Release history">
-        <div class="version-history-list"><article class="version-card version-card-current"><div class="version-card-heading"><h2>Version 4.01</h2><time datetime="2026-10-29">October 29, 2026</time></div><p class="version-summary-intro">Power Rankings v2: assigned Core Task Completion 20%, same-shift Work Contribution 20%, Escalations 20%, Error Proofing 15%, Super Escalations 10%, and PMs 15%. Removed overlapping PPS and medals from scoring while retaining their display. Preserved saved shift data, shared credit, and technician/lead access rules.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 4.00</h2><time datetime="2026-10-29">October 29, 2026</time></div><p class="version-summary-intro">Major Visionary Tool theme and workspace redesign with responsive sidebar, shift history selector, last recorded shift overview, live shift metrics, and Top Technician recognition. Restored Power Rankings for Technician accounts while retaining Supervisor-only detailed rankings and audit controls.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.152</h2><time datetime="2026-10-28">October 28, 2026</time></div><p class="version-summary-intro">Visionary Translator video now enters fullscreen during playback and returns to Home when it finishes.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.151</h2><time datetime="2026-10-28">October 28, 2026</time></div><p class="version-summary-intro">Fixed the Visionary Translator video link to match the exact GitHub filename so playback loads correctly.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.150</h2><time datetime="2026-10-28">October 28, 2026</time></div><p class="version-summary-intro">Added Visionary Translator video playback from a separate GitHub asset. The video returns to the home screen when it finishes, and the Spare Parts login was removed.</p></article>
+        <div class="version-history-list"><article class="version-card version-card-current"><div class="version-card-heading"><h2>Version 4.03</h2><time datetime="2026-10-29">October 29, 2026</time></div><p class="version-summary-intro">Power Rankings are now Supervisor-only. Removed the Technician workspace shortcut and home tile, blocked non-Supervisor leaderboard links, and restricted ranking refreshes without changing the scoring formula or saved shift records.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 4.02</h2><time datetime="2026-10-29">October 29, 2026</time></div><p class="version-summary-intro">Matcha is now the only application theme. Removed the Appearance theme picker, disabled alternate palettes and saved theme overrides, and preserved the VT menu's language, supervisor settings, and sign-out actions.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 4.01</h2><time datetime="2026-10-29">October 29, 2026</time></div><p class="version-summary-intro">Power Rankings v2: assigned Core Task Completion 20%, same-shift Work Contribution 20%, Escalations 20%, Error Proofing 15%, Super Escalations 10%, and PMs 15%. Removed overlapping PPS and medals from scoring while retaining their display. Preserved saved shift data, shared credit, and technician/lead access rules.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 4.00</h2><time datetime="2026-10-29">October 29, 2026</time></div><p class="version-summary-intro">Major Visionary Tool theme and workspace redesign with responsive sidebar, shift history selector, last recorded shift overview, live shift metrics, and Top Technician recognition. Restored Power Rankings for Technician accounts while retaining Supervisor-only detailed rankings and audit controls.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.152</h2><time datetime="2026-10-28">October 28, 2026</time></div><p class="version-summary-intro">Visionary Translator video now enters fullscreen during playback and returns to Home when it finishes.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.151</h2><time datetime="2026-10-28">October 28, 2026</time></div><p class="version-summary-intro">Fixed the Visionary Translator video link to match the exact GitHub filename so playback loads correctly.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.150</h2><time datetime="2026-10-28">October 28, 2026</time></div><p class="version-summary-intro">Added Visionary Translator video playback from a separate GitHub asset. The video returns to the home screen when it finishes, and the Spare Parts login was removed.</p></article>
           <article class="version-card"><div class="version-card-heading"><h2>Version 3.0.149</h2><time datetime="2026-10-25">October 25, 2026</time></div><p class="version-summary-intro">Spare-parts inventory changes, withdrawals, returns, imports and Excel downloads are restricted to Supervisor. All other logins open directly to part search and cage-location lookup.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.148</h2><time datetime="2026-10-24">October 24, 2026</time></div><p class="version-summary-intro">Reduced unnecessary Firestore reads by loading shift history only in Daily Tasks, loading spare-parts data only while that view is open, retaining local Firestore cache, and removing forced listener reconnects when returning to the app.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.111</h2><time datetime="2026-10-20">October 20, 2026</time></div><p class="version-summary-intro">Reworked the Spare Parts summary so low-stock alerts sit beside the three inventory counts, and the search area uses the full desktop width.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.110</h2><time datetime="2026-10-20">October 20, 2026</time></div><p class="version-summary-intro">Aligned new inventory entry and the raw Inventory workbook sheet with the LNS columns. Usage now increases automatically as items are removed.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.109</h2><time datetime="2026-10-20">October 20, 2026</time></div><p class="version-summary-intro">Technicians can now open the Spare Parts preview and submit sample removals. Edit Inventory and Add New Inventory stay restricted to Supervisors.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.108</h2><time datetime="2026-10-20">October 20, 2026</time></div><p class="version-summary-intro">The sample removal form now lets users type the person removing an item instead of selecting a preset technician name. The entered name remains in withdrawal history and Excel export.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.107</h2><time datetime="2026-10-20">October 20, 2026</time></div><p class="version-summary-intro">Added Supervisor-only Edit Inventory to update sample part descriptions and minimum/maximum quantities. Alerts and Excel downloads reflect saved edits; preview changes reset on reload.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.106</h2><time datetime="2026-10-20">October 20, 2026</time></div><p class="version-summary-intro">Loaded the cage workbook’s four process sheets into the Supervisor-only Spare Parts sample preview. Preserves source rows, locations, notes, and stock counts; unknown quantities and unset min/max remain explicit.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.105</h2><time datetime="2026-10-20">October 20, 2026</time></div><p class="version-summary-intro">Added the Spare Parts sample preview to the Supervisor login only, with keyword search, expandable part details, a removal popup for technician/process/line/vision/quantity, low-stock alerts, and Excel export. Sample inventory remains local to the open page while the real inventory list is prepared.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.104</h2><time datetime="2026-10-19">October 19, 2026</time></div><p class="version-summary-intro">Cell Tracking Reading Rate checks now run every four hours: 5:00, 9:00, and 13:00 on B1/G1, and 17:00, 21:00, and 1:00 on B2/G2. They remain at zero points.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.103</h2><time datetime="2026-10-20">October 20, 2026</time></div><p class="version-summary-intro">Restored the Cell Tracking Reading Rate checklist for all allocations. It is visible and trackable but awards no points yet.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.102</h2><time datetime="2026-10-19">October 19, 2026</time></div><p class="version-summary-intro">Supervisor Tasks now keeps Google sign-in beside Retry sync, shows the connected account, and explains shared-task connection or permission problems.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.101</h2><time datetime="2026-10-19">October 19, 2026</time></div><p class="version-summary-intro">Power Rankings stay visible in the technician menu but open to a blank page. Supervisors retain the rankings view.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.100</h2><time datetime="2026-10-15">October 15, 2026</time></div><p class="version-summary-intro">Added Delete task to ongoing and finished supervisor tasks with confirmation, shared deletion sync, conflict protection, and a visible pending-deletion status with cancellation before sync.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.99</h2><time datetime="2026-10-15">October 15, 2026</time></div><p class="version-summary-intro">Aligned weekly tasks, task entry, and calendar panels above a full-width task toolbar and single-column task list. Compact calendar indicators show urgency and progress. Weekly tasks and the calendar remain collapsible on mobile.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.98</h2><time datetime="2026-10-15">October 15, 2026</time></div><p class="version-summary-intro">Supervisor workspace now has three desktop columns: weekly tasks, the main task list, and a monthly calendar. Weekly tasks and the calendar start collapsed on smaller screens.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.97</h2><time datetime="2026-10-14">October 14, 2026</time></div><p class="version-summary-intro">Supervisor Tasks now uses the desktop side margins for a Due this week list and interactive monthly calendar. Select a date to list tasks due that day. Urgent tasks show red, tasks with checked steps show orange, and unstarted tasks stay neutral. The panels stack on smaller screens.</p></article>
 <article class="version-card"><div class="version-card-heading"><h2>Version 3.0.96</h2><time datetime="2026-10-14">October 14, 2026</time></div><p class="version-summary-intro">Added a desktop due-this-week panel and an interactive monthly due-date calendar. Select a date to see its tasks, color coded red for urgent tasks and orange when at least one checklist step is complete. Calendar and weekly panels stack on narrow screens.</p></article>
 <article class="version-card"><div class="version-card-heading"><h2>Version 3.0.95</h2><time datetime="2026-10-14">October 14, 2026</time></div><p class="version-summary-intro">Supervisor task cards now remain collapsed until opened. A stronger desktop single-column layout keeps every task full-width with its notes and checklist inside the expanded card.</p></article>
@@ -10339,20 +9815,7 @@ window.VisionaryIQRequirements = Object.freeze({
       var lnsTogglePreviewButton = document.getElementById("lns-toggle-preview");
       var lnsStatus = document.getElementById("lns-copy-status");
       var lnsDraftNote = document.getElementById("lns-draft-note");
-      var themeColors = {
-        halloween: "#160b20",
-        matcha: "#30492d",
-        sakura: "#7c344f",
-        cyberpunk: "#160631",
-        lavender: "#564076",
-        pokemon: "#1d2c5e",
-        gryffindor: "#5b1321",
-        slytherin: "#12352a",
-        ravenclaw: "#192744",
-        hufflepuff: "#363024",
-        astronaut: "#071126",
-        lg: "#0b1118"
-      };
+      var themeColors = { matcha: "#30492d" };
       var koreanUiText = {
         "Visionary Translator": "비저너리 번역기",
         "Play the Visionary Translator video.": "Visionary Translator 영상을 재생합니다.",
@@ -13461,7 +12924,7 @@ function normalizeWeeklyRows(values) {
 
       function showRequestedView() {
         if (appShell.hidden) return;
-        if (["#supervisor-tasks", "#local-admin", "#version-history", "#live-dashboard", "#bmpd-trends", "#reports", "#weekly-bmpd"].indexOf(window.location.hash) !== -1 && currentAuthRole !== "Admin") {
+        if (["#supervisor-tasks", "#local-admin", "#version-history", "#live-dashboard", "#bmpd-trends", "#reports", "#weekly-bmpd", "#leaderboard"].indexOf(window.location.hash) !== -1 && currentAuthRole !== "Admin") {
           history.replaceState(null, "", window.location.pathname + window.location.search);
         }
         var showSupervisorTasks = window.location.hash === "#supervisor-tasks" && currentAuthRole === "Admin";
@@ -13472,7 +12935,7 @@ function normalizeWeeklyRows(values) {
         var showVisionaryTranslator = window.location.hash === "#visionary-translator" && authIsActive();
         var showSparePartsPreview = window.location.hash === "#spare-parts-preview" && (["Admin","Technician","Engineer"].includes(currentAuthRole)) && authIsActive();
         var showLiveDashboard = window.location.hash === "#live-dashboard";
-        var showLeaderboard = window.location.hash === "#leaderboard";
+        var showLeaderboard = window.location.hash === "#leaderboard" && currentAuthRole === "Admin";
         var showWeeklyBmpd = ["#weekly-bmpd", "#bmpd-log-search"].indexOf(window.location.hash) !== -1 && weeklyReportAllowed();
         syncWeeklyBmpdReport(showWeeklyBmpd);
         var showBmpdTrends = window.location.hash === "#bmpd-trends";
@@ -13599,6 +13062,7 @@ function normalizeWeeklyRows(values) {
       }
 
       function openLeaderboard() {
+        if (currentAuthRole !== "Admin" || !authIsActive()) return;
         if (window.location.hash === "#leaderboard") {
           showRequestedView();
           return;
@@ -13737,13 +13201,7 @@ function normalizeWeeklyRows(values) {
       }
 
       function readSavedTheme() {
-        if (!themeStorage) return "";
-        try {
-          var savedTheme = themeStorage.getItem(THEME_KEY) || "";
-          return themeColors[savedTheme] ? savedTheme : "";
-        } catch (error) {
-          return "";
-        }
+        return "matcha";
       }
 
       function savePreferredTheme(themeName) {
@@ -14413,7 +13871,8 @@ function normalizeWeeklyRows(values) {
       }
 
       function applyTheme(themeName) {
-        var safeTheme = themeColors[themeName] ? themeName : "matcha";
+        // Prevent imported drafts or obsolete theme preferences from changing the theme.
+        var safeTheme = "matcha";
         document.documentElement.setAttribute("data-theme", safeTheme);
         themeSelect.value = safeTheme;
         if (themeColorMeta) themeColorMeta.setAttribute("content", themeColors[safeTheme]);
@@ -21018,7 +20477,7 @@ window.dispatchEvent(new Event('inventory-cloud-ready'));
     const provider = new GoogleAuthProvider();
     provider.setCustomParameters({ prompt: "select_account" });
     const SYNC_PROTOCOL_VERSION = 6;
-    const APP_VERSION = String(document.querySelector('meta[name="visionary-app-version"]')?.content || "4.01");
+    const APP_VERSION = String(document.querySelector('meta[name="visionary-app-version"]')?.content || "4.03");
     const HOSTED_APP_ROOT = "https://jsikson7.github.io/Visionary/";
     const HOSTED_APP_URL = HOSTED_APP_ROOT + "?v=" + APP_VERSION.replace(/\D/g, "");
     const isDirectFilePage = !["http:", "https:"].includes(window.location.protocol);
@@ -22528,7 +21987,7 @@ window.dispatchEvent(new Event('inventory-cloud-ready'));
     }
 
     function canViewPowerRankings() {
-      return Boolean(appShellElement && ["Admin", "Technician"].includes(appShellElement.dataset.authRole));
+      return Boolean(appShellElement && appShellElement.dataset.authRole === "Admin");
     }
 
     const OFFICIAL_RANKING_START = "2026-10-01";
@@ -24425,9 +23884,9 @@ window.dispatchEvent(new Event('inventory-cloud-ready'));
       const appProperties = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>' +
         '<Properties xmlns="http://schemas.openxmlformats.org/officeDocument/2006/extended-properties" ' +
         'xmlns:vt="http://schemas.openxmlformats.org/officeDocument/2006/docPropsVTypes">' +
-        '<Application>Visionary 4.01</Application><DocSecurity>0</DocSecurity><ScaleCrop>false</ScaleCrop>' +
+        '<Application>Visionary 4.03</Application><DocSecurity>0</DocSecurity><ScaleCrop>false</ScaleCrop>' +
         '<Company></Company><LinksUpToDate>false</LinksUpToDate><SharedDoc>false</SharedDoc><HyperlinksChanged>false</HyperlinksChanged>' +
-        '<AppVersion>4.01</AppVersion></Properties>';
+        '<AppVersion>4.03</AppVersion></Properties>';
 
       const zip = xlsxZipStoredFiles([
         { name: "[Content_Types].xml", contents: contentTypes },
@@ -27907,8 +27366,6 @@ refreshAccess();
  function toggleSettings(force){const show=typeof force==='boolean'?force:settings.getAttribute('aria-hidden')!=='false';settings.setAttribute('aria-hidden',String(!show));avatar.setAttribute('aria-expanded',String(show))}
  avatar.addEventListener('click',()=>toggleSettings());
  document.addEventListener('click',e=>{if(settings.getAttribute('aria-hidden')==='false'&&!settings.contains(e.target)&&!avatar.contains(e.target))toggleSettings(false)});
- const realTheme=byId('theme-select'),newTheme=byId('vs-user-theme');
- if(realTheme){newTheme.innerHTML=realTheme.innerHTML;newTheme.value=realTheme.value;newTheme.addEventListener('change',()=>{realTheme.value=newTheme.value;realTheme.dispatchEvent(new Event('change',{bubbles:true}));});realTheme.addEventListener('change',()=>{newTheme.value=realTheme.value})}
  const supervisorSettings=byId('vs-supervisor-settings');
  supervisorSettings.addEventListener('click',()=>{if(!sourceAllowed('open-local-admin'))return;toggleSettings(false);closeNav();byId('open-local-admin').click();updateView()});
  byId('vs-sign-out').addEventListener('click',()=>{toggleSettings(false);byId('logout-button')?.click()});
