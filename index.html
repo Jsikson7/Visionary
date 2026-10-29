@@ -1,15 +1,15 @@
 <!doctype html>
-<html lang="en" data-theme="halloween">
+<html lang="en" data-theme="matcha">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="description" content="A mobile-friendly collection of vision production guides, troubleshooting history, and copy-ready reporting tools.">
-  <meta name="visionary-app-version" content="3.0.152">
+  <meta name="visionary-app-version" content="4.01">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
   <meta name="color-scheme" content="light dark">
-  <meta name="theme-color" content="#160b20">
+  <meta name="theme-color" content="#294e3b">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-title" content="Visionary Tool">
   <link id="app-touch-icon" rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=17">
@@ -81,9 +81,9 @@
         document.documentElement.setAttribute("data-app-icon-theme", themeName);
       };
 
-      var initialIconTheme = "halloween";
+      var initialIconTheme = "matcha";
       try {
-        initialIconTheme = window.localStorage.getItem("copy-paste-preferred-theme-v1") || "halloween";
+        initialIconTheme = window.localStorage.getItem("copy-paste-preferred-theme-v1") || "matcha";
       } catch (error) {
         // Halloween remains the default when storage is unavailable.
       }
@@ -3330,10 +3330,8 @@
       display: none !important;
     }
 
-    /* Keep the Power Rankings tile available, but leave its content blank for technicians. */
-    #app-shell:not([data-auth-role="Admin"]) #leaderboard-view .leaderboard-shell {
-      display: none !important;
-    }
+    /* v4.00: Power Rankings are visible to Technician and Supervisor accounts.
+       Detailed ranking audits and custom date controls remain Supervisor-only. */
 
     .monthly-ranking-audit-heading {
       display: flex;
@@ -7046,6 +7044,365 @@ body:has(#app-shell:not([data-auth-role="Admin"])) :is(#spp-removal-dialog,#spp-
 .spp-read-only-row{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:16px}.spp-read-only-row>div:first-child{min-width:0}.spp-read-only-row>div:first-child strong{display:block;overflow-wrap:anywhere}.spp-read-only-row>div:first-child small{display:block;margin-top:5px;color:var(--muted);overflow-wrap:anywhere}.spp-read-only-row .spp-location{flex:0 0 auto;min-width:85px;margin:0;text-align:center}.spp-read-only-row .spp-location strong{font-size:1.15rem}
 @media(max-width:600px){.spp-read-only-row{padding:12px;gap:12px}.spp-read-only-row .spp-location{min-width:70px}}
 </style>
+<style id="visionary-becoming-theme-revision">
+/* Visionary 2026 refresh: Becoming-inspired matcha, presentation-only layer.
+   Existing DOM IDs, events, Firebase, forms, data and roles are unchanged. */
+html[data-theme="matcha"] {
+  --matcha-950:#264b3b; --matcha-900:#315a45; --matcha-700:#426e55;
+  --matcha-600:#648b6d; --matcha-200:#dcead8; --matcha-100:#eaf2e9;
+  --cream:#ffffff; --paper:#ffffff; --page:#f5f7f2;
+  --ink:#26362f; --muted:#718176; --line:#e2eae2;
+  --success:#426e55; --shadow:0 14px 45px rgba(32,69,45,.065);
+  --radius:18px; --hero-end:#537c5d; --hero-accent:#dcead8;
+  --hero-copy:#e2f0e1; --page-glow:rgba(181,206,176,.12);
+  --page-wash:rgba(203,220,197,.07); --label:#435b4a;
+  --control-line:#d6e3d6; --input-bg:#fff; --focus-ring:rgba(88,137,99,.2);
+  --placeholder:#8c9b90; --readonly-bg:#f1f6f0; --readonly-line:#dce6db;
+  --row-bg:#f1f6f0; --row-ink:#536e5a; --preview-bg:#f7faf6;
+  --preview-line:#e0e9df; --secondary-ink:#506957;
+  --section-tone-1:#fff; --section-tone-2:#f0f6ef; --section-tone-3:#f7f8f3;
+  --section-heading-1:#eaf2e9; --section-heading-2:#e0ede0; --section-heading-3:#edf3e9;
+}
+html[data-theme="matcha"] body {background:var(--page);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;line-height:1.52}
+html[data-theme="matcha"] .hero {background:linear-gradient(112deg,#2c5843,#537c5d);box-shadow:0 14px 35px rgba(33,73,48,.10)}
+html[data-theme="matcha"] .login-card,html[data-theme="matcha"] .panel {background:#fff;border-color:var(--line);box-shadow:var(--shadow)}
+html[data-theme="matcha"] .login-card,html[data-theme="matcha"] .panel,html[data-theme="matcha"] .hero {border-radius:18px}
+html[data-theme="matcha"] .forms-grid {background:#fff;gap:16px}
+html[data-theme="matcha"] input:not([type="checkbox"]):not([type="radio"]),html[data-theme="matcha"] select,html[data-theme="matcha"] textarea {border-radius:11px}
+html[data-theme="matcha"] button {transition:background-color .16s ease,border-color .16s ease,box-shadow .16s ease}
+html[data-theme="matcha"] .theme-background-art {display:none!important}
+@media (min-width:650px){html[data-theme="matcha"] .page-shell{width:min(1280px,calc(100% - 36px))}}
+@media (max-width:649px){html[data-theme="matcha"] .hero{border-radius:0 0 18px 18px}}
+</style>
+<style>@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap");</style>
+<style id="visionary-exact-design-system">
+/* Inspired by the approved Visionary Tool — Theme Revision prototype.
+   The existing JS-driven forms, Firebase bridge, selectors and feature views are retained. */
+html[data-theme="matcha"]{
+ --page:#f5f7f2;--paper:#fff;--cream:#fff;--ink:#26362f;--muted:#7a897e;
+ --line:#e2eae2;--matcha-950:#264b3b;--matcha-900:#2c5843;
+ --matcha-700:#426e55;--matcha-600:#648e6d;--matcha-200:#dcead8;
+ --matcha-100:#eaf2e9;--success:#426e55;--label:#4b6654;
+ --control-line:#d8e4d8;--input-bg:#fff;--focus-ring:rgba(66,110,85,.15);
+ --shadow:0 14px 45px rgba(32,69,45,.055);--radius:17px;
+ --hero-end:#537c5d;--hero-accent:#e0efdd;--hero-copy:#e1f0e0;
+}
+html[data-theme="matcha"] body{background:#f5f7f2!important;color:#26362f;font-family:'DM Sans',system-ui,-apple-system,'Segoe UI',sans-serif}
+html[data-theme="matcha"] .theme-background-art{display:none!important}
+html[data-theme="matcha"] #app-shell.page-shell{
+ width:calc(100% - 254px)!important;max-width:none!important;margin:0 0 0 254px!important;
+ min-height:100vh;padding:0 34px 65px!important;background:#f5f7f2!important;box-shadow:none!important;box-sizing:border-box!important;
+}
+html[data-theme="matcha"] #app-shell .app-view{max-width:1420px;margin-inline:auto}
+html[data-theme="matcha"] #app-shell .app-view[hidden]{display:none!important}
+html[data-theme="matcha"] #app-shell .app-view:not(#forms-menu-view) > .hero{
+ background:transparent!important;color:#26362f!important;border:0!important;box-shadow:none!important;
+ padding:27px 0 21px!important;border-radius:0!important;min-height:0!important;margin:0!important;gap:14px!important;
+}
+html[data-theme="matcha"] #app-shell .app-view:not(#forms-menu-view) > .hero h1{color:#26362f!important;font:800 clamp(23px,2.2vw,29px)/1.2 'Manrope',system-ui,sans-serif!important;letter-spacing:-.9px}
+html[data-theme="matcha"] #app-shell .app-view:not(#forms-menu-view) > .hero .eyebrow{color:#689477!important;font-size:11px;letter-spacing:1px}
+html[data-theme="matcha"] #app-shell .app-view:not(#forms-menu-view) > .hero .hero-copy{color:#7a897e!important;font-size:14px;line-height:1.55!important}
+html[data-theme="matcha"] #app-shell .app-view:not(#forms-menu-view) > .hero .button-secondary{background:#fff!important;color:#2c5843!important;border:1px solid #e2eae2!important;box-shadow:none!important}
+html[data-theme="matcha"] #app-shell .panel,
+html[data-theme="matcha"] #app-shell .local-dashboard-grid > article,
+html[data-theme="matcha"] #app-shell .daily-shift-setup-card,
+html[data-theme="matcha"] #app-shell .daily-checklist-group,
+html[data-theme="matcha"] #app-shell .daily-quick-summary,
+html[data-theme="matcha"] #app-shell .spp-panel,
+html[data-theme="matcha"] #app-shell .sv-card{
+ background:#fff!important;border:1px solid #e2eae2!important;
+ border-radius:17px!important;box-shadow:0 14px 45px rgba(32,69,45,.055)!important;
+}
+html[data-theme="matcha"] #app-shell .panel h2,html[data-theme="matcha"] #app-shell .panel h3{color:#26362f;font-family:'Manrope',system-ui,sans-serif;letter-spacing:-.35px}
+html[data-theme="matcha"] #app-shell input:not([type="checkbox"]):not([type="radio"]),
+html[data-theme="matcha"] #app-shell select,
+html[data-theme="matcha"] #app-shell textarea{border-radius:10px;border-color:#dce7dc}
+html[data-theme="matcha"] #app-shell .button-primary,
+html[data-theme="matcha"] #app-shell button.button-primary{background:#264b3b!important;border-color:#264b3b!important;color:#fff!important;border-radius:10px!important}
+html[data-theme="matcha"] #app-shell .button-secondary{border-radius:10px!important}
+html[data-theme="matcha"] #app-shell .form-tile,
+html[data-theme="matcha"] #app-shell .daily-allocation-rate-card{border-radius:13px!important}
+html[data-theme="matcha"] #app-shell .daily-task-progress-fill{background:#7da483!important}
+html[data-theme="matcha"] #app-shell [id^="spp-"] .button-primary{border-radius:10px!important}
+html[data-theme="matcha"] #app-shell .spp-shell{max-width:1420px!important}
+html[data-theme="matcha"] #app-shell #visionary-translator-preview-frame{border-radius:16px!important}
+html[data-theme="matcha"] #app-shell .hero .header-actions{gap:9px;align-items:center}
+/* Dashboard exactly follows the mockup's banner, four stats and two lower cards. */
+#vs-overview{display:block;color:#26362f;font-family:'DM Sans',system-ui,sans-serif;padding-top:31px}
+#vs-overview *{box-sizing:border-box}
+#vs-overview h1,#vs-overview h2,#vs-overview h3{font-family:'Manrope',system-ui,sans-serif}
+#vs-overview h1{font-size:clamp(23px,2.25vw,29px);letter-spacing:-1px;line-height:1.2;margin:0;font-weight:800;color:#26362f}
+#vs-overview h2{font-size:17px;letter-spacing:-.3px;line-height:1.35;margin:0;font-weight:750;color:#26362f}
+#vs-overview p{margin:0}
+#vs-overview .vs-muted{color:#7a897e}
+#vs-overview .vs-overview-head{display:flex;align-items:end;justify-content:space-between;gap:16px;margin-bottom:25px}
+#vs-overview .vs-overview-head p{margin-top:8px;font-size:14px}
+.vs-action{border-radius:10px;padding:11px 16px;font-size:13px;font-weight:750;cursor:pointer;border:1px solid #264b3b;background:#264b3b;color:#fff;white-space:nowrap}
+.vs-action.vs-outline{background:#fff;color:#264b3b;border-color:#e2eae2}
+.vs-action:hover{filter:brightness(.96)}
+#vs-overview .vs-banner{background:linear-gradient(112deg,#2c5843,#537c5d);border-radius:19px;color:#fff;padding:28px 30px;display:flex;align-items:center;justify-content:space-between;gap:18px;margin-bottom:21px}
+#vs-overview .vs-banner h2{font-size:22px;color:#fff;margin:8px 0}
+#vs-overview .vs-banner p{color:#e2f0e1;line-height:1.6}
+#vs-overview .vs-banner .vs-action{background:#fff;border-color:#fff;color:#31553d}
+#vs-overview .vs-banner-kicker{font-size:11px;color:#cfe7ce;letter-spacing:.8px;font-weight:800}
+#vs-overview .vs-stat-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:17px}
+#vs-overview .vs-box{background:#fff;border:1px solid #e2eae2;border-radius:17px;padding:21px;box-shadow:0 14px 45px rgba(32,69,45,.055);min-width:0}
+#vs-overview .vs-stat{display:flex;justify-content:space-between;gap:7px}
+#vs-overview .vs-stat .vs-stat-title{font-size:13px;color:#7a897e}
+#vs-overview .vs-stat .vs-stat-number{font:800 30px/1.3 'Manrope',system-ui;margin:14px 0 5px;letter-spacing:-1px;white-space:nowrap;color:#26362f}
+#vs-overview .vs-stat .vs-stat-sub{font-size:12px;color:#7a897e}
+#vs-overview .vs-stat-icon{flex:0 0 40px;width:40px;height:40px;display:grid;place-items:center;background:#edf4ec;border-radius:12px;color:#426e55;font-size:19px}
+#vs-overview .vs-bottom-grid{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(0,1fr);gap:17px;margin-top:18px}
+#vs-overview .vs-card-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:19px}
+#vs-overview .vs-tag{display:inline-block;background:#f1f5ef;color:#58735d;padding:6px 9px;border-radius:8px;font-size:11px;font-weight:700}
+#vs-overview .vs-priority{display:flex;align-items:center;gap:12px;border-top:1px solid #e2eae2;padding:15px 0}
+#vs-overview .vs-priority:first-child{border-top:0}
+#vs-overview .vs-task-check{width:20px;height:20px;border-radius:6px;background:#eef4ed;border:1px solid #c9d9c9;display:grid;place-items:center;color:#527b58;font-size:12px;flex:0 0 20px}
+#vs-overview .vs-task-check.done{background:#598869;color:#fff;border-color:#598869}
+#vs-overview .vs-priority-copy{flex:1;min-width:0}
+#vs-overview .vs-priority-copy strong{font-size:13px;color:#26362f;display:block;line-height:1.4}
+#vs-overview .vs-priority-copy small{display:block;font-size:12px;margin-top:4px;color:#7a897e}
+#vs-overview .vs-badge-ok,#vs-overview .vs-badge-pending{font-size:11px;font-weight:750;border-radius:8px;padding:6px 9px;white-space:nowrap}
+#vs-overview .vs-badge-ok{background:#e8f4e9;color:#42764d}
+#vs-overview .vs-badge-pending{background:#fff5df;color:#946c27}
+#vs-overview .vs-ring{height:140px;width:140px;border-radius:50%;background:conic-gradient(#759b7c 0 var(--vs-ring,0%),#eaf0e9 var(--vs-ring,0%));display:grid;place-items:center;margin:18px auto}
+#vs-overview .vs-ring:before{content:attr(data-progress);display:grid;place-items:center;width:106px;height:106px;background:#fff;border-radius:50%;font:800 26px 'Manrope',system-ui}
+#vs-overview .vs-progress-line{display:flex;justify-content:space-between;gap:9px;margin:12px 0;font-size:13px}
+#vs-overview .vs-track{height:8px;background:#edf2eb;border-radius:20px;overflow:hidden}
+#vs-overview .vs-track span{height:100%;background:#7da483;border-radius:20px;display:block;transition:width .2s ease}
+#vs-overview .vs-source-note{font-size:11px;color:#7a897e;margin-top:16px;line-height:1.6}
+/* Desktop left navigation and top workspace bar: same proportions as reference. */
+#vs-nav{display:none;position:fixed;inset:0 auto 0 0;width:254px;z-index:250;background:#fff;border-right:1px solid #e2eae2;padding:27px 15px;overflow:auto;font-family:'DM Sans',system-ui,sans-serif}
+#vs-nav .vs-brand{display:flex;align-items:center;gap:12px;padding:0 12px 25px}
+#vs-nav .vs-brand-mark{height:39px;width:39px;flex:0 0 39px;display:grid;place-items:center;background:#264b3b;color:#fff;border-radius:13px;font-size:23px}
+#vs-nav .vs-brand strong{display:block;font:800 17px 'Manrope',system-ui;color:#26362f;letter-spacing:-.4px}
+#vs-nav .vs-brand small{font-size:10px;display:block;color:#7a897e;margin-top:2px}
+#vs-nav .vs-label{color:#98a69b;font-size:10px;letter-spacing:1.7px;font-weight:800;margin:10px 13px 10px}
+#vs-nav .vs-nav-button{display:flex;align-items:center;gap:12px;border:0;background:none;padding:12px 14px;border-radius:11px;color:#67796c;font-weight:700;font-size:13px;text-align:left;width:100%;cursor:pointer;min-height:43px}
+#vs-nav .vs-nav-button:hover{background:#f1f5ef}
+#vs-nav .vs-nav-button[aria-current="page"]{background:#e9f1e8;color:#264b3b}
+#vs-nav .vs-nav-button[hidden]{display:none!important}
+#vs-nav .vs-nav-symbol{width:22px;font-size:18px;line-height:1;flex-shrink:0;text-align:center}
+#vs-nav .vs-nav-spacer{margin-top:22px}
+#vs-nav .vs-nav-foot{margin:20px 0 0;padding:15px;border:1px solid #e2eae2;background:#f8faf7;border-radius:15px;color:#26362f}
+#vs-nav .vs-nav-foot strong{font-weight:800;font-size:12px}
+#vs-nav .vs-nav-foot p{font-size:11px;color:#7a897e;margin:6px 0 0;line-height:1.55}
+#vs-nav .vs-close{display:none}
+#vs-workspace-bar{display:none;position:sticky;top:0;z-index:140;margin:0 -34px;padding:0 34px;height:80px;align-items:center;justify-content:space-between;gap:12px;background:rgba(255,255,255,.95);backdrop-filter:blur(10px);border-bottom:1px solid #e2eae2;color:#26362f}
+#vs-workspace-bar .vs-top-text strong{display:block;font-weight:800;font-size:14px}
+#vs-workspace-bar .vs-top-text small{display:block;color:#7a897e;font-size:12px;margin-top:3px}
+#vs-workspace-bar .vs-bar-actions{display:flex;align-items:center;gap:12px}
+#vs-workspace-bar .vs-status{display:flex;align-items:center;gap:7px;border-radius:99px;padding:8px 12px;background:#edf5eb;color:#3d7550;font-size:12px;font-weight:750}
+#vs-workspace-bar .vs-role{font-size:12px;color:#7a897e}
+#vs-workspace-bar .vs-avatar{height:36px;width:36px;border:0;border-radius:50%;background:#d9e9d7;color:#264b3b;font-weight:800;cursor:pointer}
+#vs-workspace-bar .vs-mobile-menu{display:none;font-size:23px;background:transparent;border:0;color:#264b3b;padding:6px}
+#vs-settings-popover{display:none;position:absolute;right:24px;top:67px;width:min(300px,calc(100vw - 28px));background:#fff;z-index:155;border:1px solid #e2eae2;border-radius:15px;padding:17px;box-shadow:0 14px 35px #1b39282b}
+#vs-settings-popover[aria-hidden="false"]{display:block} #vs-settings-popover [hidden]{display:none!important}
+#vs-settings-popover label{display:block;font-weight:700;font-size:12px;margin-bottom:6px}
+#vs-settings-popover select{width:100%;border:1px solid #dce7dc;background:white;color:#26362f;padding:10px;border-radius:10px;font-size:13px}
+#vs-settings-popover .vs-settings-row{display:flex;gap:7px;margin:13px 0;flex-wrap:wrap}
+#vs-settings-popover .vs-settings-row button{border:1px solid #e2eae2;border-radius:9px;background:#f8faf7;padding:8px 10px;color:#31583b;cursor:pointer}
+#vs-settings-popover .vs-settings-row button[aria-pressed="true"]{background:#e2f0e0;border-color:#96ba98}
+#vs-settings-popover .vs-signout{width:100%;border:1px solid #e2eae2;border-radius:10px;background:#fff;color:#264b3b;padding:11px;cursor:pointer;font-weight:750}
+#vs-scrim{display:none}
+/* Preserve the original menu tiles and actions in the DOM while showing the new Overview. */
+html[data-theme="matcha"] #forms-menu-view > .hero,
+html[data-theme="matcha"] #forms-menu-view > .language-bar,
+html[data-theme="matcha"] #forms-menu-view > .partial-language-note,
+html[data-theme="matcha"] #forms-menu-view > .forms-menu-panel{display:none!important}
+html[data-theme="matcha"] body:has(#app-shell:not([hidden])) #vs-nav{display:block}
+html[data-theme="matcha"] body:has(#app-shell:not([hidden])) #vs-workspace-bar{display:flex}
+@media(min-width:1550px){html[data-theme="matcha"] #app-shell.page-shell{padding-left:44px!important;padding-right:44px!important}#vs-workspace-bar{margin-left:-44px;margin-right:-44px;padding-left:44px;padding-right:44px}}
+@media(max-width:1080px){#vs-overview .vs-stat-grid{grid-template-columns:repeat(2,minmax(0,1fr))}#vs-overview .vs-bottom-grid{grid-template-columns:1fr}}
+@media(max-width:850px){
+ html[data-theme="matcha"] #app-shell.page-shell{margin:0!important;width:100%!important;padding:0 16px 60px!important}
+ #vs-nav{display:block!important;transform:translateX(-105%);transition:transform .22s ease;box-shadow:8px 0 30px #193e2c1c}
+ #vs-nav.vs-open{transform:translateX(0)}
+ #vs-nav .vs-close{display:block;margin-left:auto;border:0;background:#edf5eb;color:#264b3b;border-radius:9px;font-size:21px;padding:5px 10px}
+ #vs-scrim.vs-open{display:block;position:fixed;inset:0;background:#10291d66;z-index:245}
+ #vs-workspace-bar{height:64px;margin:0 -16px;padding:0 16px}
+ #vs-workspace-bar .vs-mobile-menu{display:block}
+ #vs-workspace-bar .vs-status{display:none}
+ #vs-workspace-bar .vs-bar-actions{gap:9px}
+ #vs-overview{padding-top:24px}
+ #vs-overview .vs-overview-head{align-items:start}
+ #vs-overview .vs-overview-head h1{font-size:23px}
+ #vs-overview .vs-overview-head .vs-action{font-size:11px;padding:9px}
+ #vs-overview .vs-banner{padding:22px;flex-direction:column;align-items:start}
+ #vs-overview .vs-stat .vs-stat-number{font-size:25px}
+ #vs-overview .vs-box{padding:16px}
+ html[data-theme="matcha"] #app-shell .app-view:not(#forms-menu-view) > .hero{padding-top:23px!important}
+}
+@media(max-width:420px){#vs-overview .vs-stat-grid{gap:10px}#vs-overview .vs-stat-icon{width:30px;height:30px;flex-basis:30px;font-size:15px}#vs-overview .vs-stat .vs-stat-number{font-size:21px}#vs-overview .vs-stat .vs-stat-title{font-size:11px}#vs-overview .vs-priority{gap:8px}#vs-overview .vs-badge-ok,#vs-overview .vs-badge-pending{font-size:10px;padding:5px 7px}}
+@media print{#vs-nav,#vs-workspace-bar,#vs-scrim,#vs-settings-popover{display:none!important}html[data-theme="matcha"] #app-shell.page-shell{margin:0!important;width:100%!important;padding:0!important}html[data-theme="matcha"] #app-shell .app-view:not(#forms-menu-view)>.hero{display:none!important}}
+</style>
+<style id="visionary-clean-header-refinement">
+/* Approved clean-header concept: one global page title, not two stacked title bars.
+   Keep per-view helper descriptions and any non-navigation action chips. */
+html[data-theme="matcha"] #app-shell .app-view:not(#forms-menu-view) > header.hero{
+ display:flex!important;align-items:center!important;justify-content:space-between!important;
+ background:transparent!important;box-shadow:none!important;border:0!important;
+ border-bottom:1px solid #e2eae2!important;border-radius:0!important;
+ padding:18px 0 17px!important;margin:0 0 20px!important;min-height:0!important;
+ gap:12px!important;color:#26362f!important;
+}
+/* The top workspace bar supplies the heading, and the old hero supplies only context. */
+html[data-theme="matcha"] #app-shell .app-view:not(#forms-menu-view) > header.hero .eyebrow,
+html[data-theme="matcha"] #app-shell .app-view:not(#forms-menu-view) > header.hero h1{display:none!important}
+html[data-theme="matcha"] #app-shell .app-view:not(#forms-menu-view) > header.hero .hero-copy{
+ margin:0!important;padding:0!important;color:#7a897e!important;
+ font-size:14px!important;line-height:1.5!important;max-width:800px!important;
+}
+/* The sidebar (including the mobile hamburger) replaces legacy Back/Home controls. */
+html[data-theme="matcha"] #app-shell .app-view:not(#forms-menu-view) > header.hero > .top-action-button,
+html[data-theme="matcha"] #app-shell .app-view:not(#forms-menu-view) > header.hero > a.button-secondary[href="#"],
+html[data-theme="matcha"] #app-shell .app-view:not(#forms-menu-view) > header.hero #leaderboard-back{display:none!important}
+/* All legacy back actions remain in DOM for existing script handlers. */
+html[data-theme="matcha"] #app-shell .app-view:not(#forms-menu-view) > header.hero > div:first-child{min-width:0;flex:1}
+html[data-theme="matcha"] #app-shell .app-view:not(#forms-menu-view) > header.hero .leaderboard-hero-actions:empty{display:none!important}
+@media(max-width:850px){
+ html[data-theme="matcha"] #app-shell .app-view:not(#forms-menu-view) > header.hero{
+   padding:15px 0 14px!important;margin-bottom:16px!important;
+ }
+ html[data-theme="matcha"] #app-shell .app-view:not(#forms-menu-view) > header.hero .hero-copy{
+   font-size:12px!important;line-height:1.55!important;
+ }
+}
+</style>
+<style id="visionary-dense-workspace-layout">
+/* Keep the four functional subtab buttons on ONE row on phones and desktop. */
+html body #app-shell #daily-tasks-view > .bmpd-nav{
+ display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;
+ grid-auto-flow:row!important;gap:6px!important;width:100%!important;max-width:100%!important;
+ margin:7px 0 12px!important;padding:4px!important;overflow:visible!important;
+}
+html body #app-shell #daily-tasks-view > .bmpd-nav > button{
+ box-sizing:border-box!important;grid-column:auto!important;grid-row:auto!important;
+ width:100%!important;min-width:0!important;min-height:39px!important;
+ padding:7px 3px!important;margin:0!important;font-size:clamp(10px,1.03vw,13px)!important;
+ letter-spacing:-.15px!important;line-height:1.2!important;white-space:nowrap!important;
+ text-overflow:clip!important;
+}
+/* Compact whitespace without affecting child form dimensions or reporting exports. */
+html[data-theme="matcha"] #app-shell.page-shell{max-width:none!important}
+html[data-theme="matcha"] #vs-overview{padding-top:17px!important}
+html[data-theme="matcha"] #vs-overview .vs-overview-head{margin-bottom:14px!important}
+html[data-theme="matcha"] #vs-overview .vs-banner{margin-bottom:14px!important;padding:21px 24px!important}
+html[data-theme="matcha"] #vs-overview .vs-stat-grid,
+html[data-theme="matcha"] #vs-overview .vs-bottom-grid{gap:12px!important}
+html[data-theme="matcha"] #vs-overview .vs-bottom-grid{margin-top:14px!important}
+html[data-theme="matcha"] #vs-overview .vs-box{padding:17px!important}
+html[data-theme="matcha"] #vs-overview .vs-card-head{margin-bottom:11px!important}
+html[data-theme="matcha"] #vs-overview .vs-ring{margin:10px auto!important}
+html[data-theme="matcha"] #app-shell .app-view:not(#forms-menu-view) > header.hero{
+ padding:9px 0 10px!important;margin-bottom:12px!important;
+}
+html[data-theme="matcha"] #app-shell .app-view:not(#forms-menu-view) > header.hero:has(.hero-copy:empty){display:none!important}
+html[data-theme="matcha"] #app-shell .app-view:not(#forms-menu-view) > .panel{margin-top:10px!important;margin-bottom:12px!important}
+html[data-theme="matcha"] #app-shell .panel-heading{margin-bottom:11px!important}
+html[data-theme="matcha"] #daily-tasks-view .daily-cloud-panel{margin-bottom:10px!important;padding:11px 14px!important}
+html[data-theme="matcha"] #daily-tasks-view .daily-task-workspace{gap:12px!important}
+html[data-theme="matcha"] #daily-tasks-view .daily-shift-setup-card,
+html[data-theme="matcha"] #daily-tasks-view .daily-checklist-group{margin-block:9px!important}
+html[data-theme="matcha"] #bmpd-log-panel,
+html[data-theme="matcha"] #pm-log-panel,
+html[data-theme="matcha"] #cell-tracking-panel{margin:10px auto!important;max-width:1080px!important}
+html[data-theme="matcha"] #bmpd-log-panel .bm-header,
+html[data-theme="matcha"] #pm-log-panel .bm-header{padding:14px 18px!important}
+html[data-theme="matcha"] .bm-fields{row-gap:11px!important}
+html[data-theme="matcha"] .cell-tracking-heading{padding:14px 17px!important}
+html[data-theme="matcha"] #app-shell .spp-shell{max-width:none!important}
+html[data-theme="matcha"] #app-shell .spp-panel{margin-block:10px!important}
+html[data-theme="matcha"] #app-shell .local-dashboard-grid{gap:12px!important}
+@media(max-width:850px){
+ html[data-theme="matcha"] #vs-overview{padding-top:15px!important}
+ html[data-theme="matcha"] #vs-overview .vs-banner{padding:17px!important}
+ html[data-theme="matcha"] #vs-overview .vs-overview-head{gap:8px!important}
+ html[data-theme="matcha"] #app-shell .app-view:not(#forms-menu-view) > header.hero{padding:9px 0!important;margin-bottom:9px!important}
+ html[data-theme="matcha"] #vs-overview .vs-box{padding:13px!important}
+ html body #app-shell #daily-tasks-view > .bmpd-nav{gap:3px!important;margin:5px 0 9px!important;padding:3px!important}
+ html body #app-shell #daily-tasks-view > .bmpd-nav > button{font-size:clamp(9.3px,2.45vw,11px)!important;min-height:37px!important;padding:6px 1px!important}
+}
+@media print{html[data-theme="matcha"] #app-shell .app-view:not(#forms-menu-view) > header.hero{display:none!important}}
+</style>
+<style id="visionary-small-shift-sync">
+/* Compact status strip: retain all IDs, login/logout events, warnings and sync state. */
+html[data-theme="matcha"] #daily-tasks-view #daily-cloud-panel{
+ margin:4px 0 8px!important;padding:7px 12px!important;
+ border-radius:12px!important;min-height:0!important;
+}
+html[data-theme="matcha"] #daily-tasks-view #daily-cloud-panel .daily-cloud-row{
+ display:grid!important;grid-template-columns:minmax(0,1fr) auto!important;
+ align-items:center!important;gap:7px 12px!important;
+ flex-wrap:nowrap!important;
+}
+html[data-theme="matcha"] #daily-tasks-view #daily-cloud-panel .daily-cloud-identity{
+ display:flex;align-items:center;gap:9px;min-width:0;
+}
+html[data-theme="matcha"] #daily-tasks-view #daily-cloud-panel .daily-cloud-dot{
+ width:8px;height:8px;margin:0;box-shadow:none;flex:0 0 8px;
+}
+html[data-theme="matcha"] #daily-tasks-view #daily-cloud-panel .daily-cloud-copy{
+ min-width:0;display:flex;align-items:baseline;gap:5px 9px;flex-wrap:wrap;
+}
+html[data-theme="matcha"] #daily-tasks-view #daily-cloud-panel .daily-cloud-copy strong{
+ font-size:12px;line-height:1.2;white-space:nowrap;
+}
+html[data-theme="matcha"] #daily-tasks-view #daily-cloud-panel #daily-cloud-status{
+ font-size:11px;line-height:1.25;margin:0;min-width:0;
+}
+html[data-theme="matcha"] #daily-tasks-view #daily-cloud-panel .daily-cloud-copy small{display:none!important}
+html[data-theme="matcha"] #daily-tasks-view #daily-cloud-panel #daily-version-health:not([hidden]){display:inline!important;font-size:10px;line-height:1.25;color:#a74f35}
+html[data-theme="matcha"] #daily-tasks-view #daily-cloud-panel .daily-cloud-actions{
+ display:flex!important;align-items:center!important;justify-content:flex-end!important;
+ width:auto!important;flex-wrap:nowrap!important;gap:5px!important;
+}
+html[data-theme="matcha"] #daily-tasks-view #daily-cloud-panel .daily-cloud-actions .button{
+ display:inline-flex;align-items:center;justify-content:center;
+ min-height:30px!important;height:30px!important;width:auto!important;
+ padding:4px 9px!important;font-size:11px!important;line-height:1.1!important;
+ border-radius:8px!important;white-space:nowrap;flex:0 0 auto!important;
+}
+html[data-theme="matcha"] #daily-tasks-view #daily-cloud-panel .daily-cloud-actions .button[hidden]{display:none!important}
+html[data-theme="matcha"] #daily-tasks-view #daily-cloud-admin{margin-top:6px;padding-top:6px}
+@media(max-width:620px){
+ html[data-theme="matcha"] #daily-tasks-view #daily-cloud-panel{padding:7px 9px!important;margin:3px 0 7px!important}
+ html[data-theme="matcha"] #daily-tasks-view #daily-cloud-panel .daily-cloud-row{gap:6px!important}
+ html[data-theme="matcha"] #daily-tasks-view #daily-cloud-panel .daily-cloud-copy{display:block}
+ html[data-theme="matcha"] #daily-tasks-view #daily-cloud-panel .daily-cloud-copy strong{font-size:11px}
+ html[data-theme="matcha"] #daily-tasks-view #daily-cloud-panel #daily-cloud-status{font-size:10px;margin-top:2px;line-height:1.25;overflow-wrap:anywhere}
+ html[data-theme="matcha"] #daily-tasks-view #daily-cloud-panel .daily-cloud-copy small{font-size:9px;margin-top:2px}
+ html[data-theme="matcha"] #daily-tasks-view #daily-cloud-panel .daily-cloud-actions .button{min-height:29px!important;height:29px!important;padding:4px 7px!important;font-size:10px!important}
+}
+</style>
+<style id="visionary-history-selector-style">
+/* Compact read-only shift history. Keeps the original two-line workspace header height. */
+#vs-workspace-bar .vs-top-text{position:relative;min-width:0}
+#vs-workspace-bar #vs-shift-context-button{display:inline-flex;align-items:center;gap:5px;padding:0;margin-top:3px;background:transparent;border:0;color:#7a897e;font:500 12px/1.4 'DM Sans',system-ui,sans-serif;text-align:left;cursor:pointer;max-width:100%;min-height:18px}
+#vs-workspace-bar #vs-shift-context-button:hover,#vs-workspace-bar #vs-shift-context-button[aria-expanded="true"]{color:#264b3b}
+#vs-workspace-bar #vs-shift-context-button:focus-visible{outline:2px solid #6a9470;outline-offset:4px;border-radius:3px}
+#vs-workspace-bar #vs-shift-context-button[hidden],#vs-workspace-bar #vs-shift-picker[hidden]{display:none!important}
+#vs-workspace-bar #vs-current-context{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#vs-workspace-bar .vs-context-chevron{display:inline-block;flex-shrink:0;font-size:15px;line-height:12px}
+#vs-workspace-bar #vs-shift-picker{position:absolute;left:0;top:calc(100% + 15px);width:268px;max-width:calc(100vw - 28px);padding:15px;background:white;color:#26362f;border:1px solid #e2eae2;border-radius:14px;box-shadow:0 14px 35px #1b39282b;z-index:180;display:grid;gap:7px}
+#vs-workspace-bar #vs-shift-picker>strong{font:800 13px 'Manrope',system-ui;margin-bottom:4px}
+#vs-workspace-bar #vs-shift-picker>label{font-size:11px;font-weight:750;color:#536d5b}
+#vs-workspace-bar #vs-shift-picker select{display:block;width:100%;font:600 13px 'DM Sans',system-ui;color:#26362f;border:1px solid #dce7dc;border-radius:9px;background:#fff;padding:9px 10px;min-height:36px}
+#vs-workspace-bar #vs-shift-picker select:disabled{opacity:.6}
+#vs-workspace-bar #vs-pick-status{color:#7a897e;font-size:11px;line-height:1.45;margin:4px 0 1px}
+#vs-workspace-bar .vs-pick-actions{display:flex;gap:8px;margin-top:4px}
+#vs-workspace-bar .vs-pick-actions button{border:1px solid #e2eae2;border-radius:9px;padding:9px 12px;background:#f9fbf7;color:#2c5843;font-size:12px;font-weight:750;flex:1;cursor:pointer}
+#vs-workspace-bar .vs-pick-actions button:last-child{background:#264b3b;border-color:#264b3b;color:#fff}
+#vs-overview .vs-stat-grid{grid-template-columns:repeat(5,minmax(0,1fr))}
+#vs-overview .vs-top-tech{background:linear-gradient(135deg,#f7fbf5,#ecf4eb);border-color:#c9dec8;align-items:center}
+#vs-overview .vs-top-tech .vs-top-tech-label{font:800 11px 'DM Sans',sans-serif;color:#426e55;letter-spacing:.08em}
+#vs-overview .vs-top-tech .vs-stat-number{white-space:normal;overflow-wrap:anywhere;margin:7px 0 4px;font-size:clamp(18px,1.9vw,26px)}
+#vs-overview .vs-top-medal{font-size:32px;align-self:center}
+@media(max-width:1280px){#vs-overview .vs-stat-grid{grid-template-columns:repeat(2,minmax(0,1fr))}#vs-overview .vs-top-tech{grid-column:1 / -1}}
+@media(max-width:850px){#vs-workspace-bar #vs-shift-picker{top:calc(100% + 13px)}#vs-overview .vs-top-tech{padding:16px!important}#vs-overview .vs-top-tech .vs-stat-number{font-size:23px}}
+@media(max-width:430px){#vs-workspace-bar #vs-shift-context-button{font-size:11px}#vs-workspace-bar #vs-shift-picker{left:-35px;max-width:calc(100vw - 30px)}#vs-workspace-bar .vs-role{font-size:10px}}
+@media print{#vs-workspace-bar #vs-shift-picker{display:none!important}}
+</style>
 </head>
 <body>
   <svg class="theme-background-art matcha-theme-art matcha-art-leaves" viewBox="0 0 420 340" aria-hidden="true" focusable="false">
@@ -7215,8 +7572,38 @@ body:has(#app-shell:not([data-auth-role="Admin"])) :is(#spp-removal-dialog,#spp-
     </div>
   </section>
 
-  <main id="app-shell" class="page-shell" data-auth-role="Technician" hidden>
+  <aside id="vs-nav" aria-label="Workspace navigation">
+  <div class="vs-brand"><div class="vs-brand-mark">✦</div><div><strong>Visionary Tool</strong><small>Cell Inspection Technology</small></div><button type="button" class="vs-close" aria-label="Close menu">×</button></div>
+  <div class="vs-label">WORKSPACE</div><nav id="vs-primary-nav" aria-label="Main sections"></nav>
+  <div class="vs-nav-spacer"><div class="vs-label">MORE TOOLS</div><nav id="vs-extra-nav" aria-label="Additional sections"></nav></div>
+  <div class="vs-nav-foot"><strong>Visionary Workspace</strong><p>Daily work, team performance, and shared reports in one place.</p></div>
+</aside><div id="vs-scrim"></div>
+<main id="app-shell" class="page-shell" data-auth-role="Technician" hidden><header id="vs-workspace-bar"><div style="display:flex;align-items:center;gap:12px"><button type="button" class="vs-mobile-menu" aria-label="Open menu" aria-expanded="false">☰</button><div class="vs-top-text"><strong id="vs-current-page">Overview</strong><button type="button" id="vs-shift-context-button" aria-label="Choose Overview shift and date" aria-expanded="false" aria-controls="vs-shift-picker" title="View another recorded shift"><span id="vs-current-context">MI2 · Vision Team</span><span class="vs-context-chevron" aria-hidden="true">⌄</span></button><div id="vs-shift-picker" role="group" aria-label="Overview shift history" hidden>
+  <strong>Browse recorded shifts</strong>
+  <label for="vs-pick-shift">Shift</label><select id="vs-pick-shift" aria-label="Select shift"><option value="">Select shift</option></select>
+  <label for="vs-pick-date">Recorded date</label><select id="vs-pick-date" aria-label="Select a recorded shift date" disabled><option value="">Select a shift first</option></select>
+  <p id="vs-pick-status" role="status" aria-live="polite">Loading saved shift dates…</p>
+  <div class="vs-pick-actions"><button type="button" id="vs-pick-latest">Latest shift</button><button type="button" id="vs-pick-done">View shift</button></div>
+</div></div></div>
+<div class="vs-bar-actions"><span class="vs-status" id="vs-connection-status">● Workspace active</span><span class="vs-role" id="vs-current-role">Team view</span><button type="button" class="vs-avatar" id="vs-account-menu" aria-label="Workspace settings" aria-expanded="false">VT</button></div>
+<div id="vs-settings-popover" aria-hidden="true"><label for="vs-user-theme">Appearance</label><select id="vs-user-theme" aria-label="Change theme"></select><div class="vs-settings-row" role="group" aria-label="Language"><button type="button" data-vs-lang="en">🇺🇸 EN</button><button type="button" data-vs-lang="ko">🇰🇷 KO</button><button type="button" data-vs-lang="es-MX">🇲🇽 ES</button></div><button type="button" class="vs-signout" id="vs-supervisor-settings" hidden>Supervisor Settings</button><button type="button" class="vs-signout" id="vs-sign-out">Log out</button></div></header>
     <section id="forms-menu-view" class="app-view" aria-labelledby="forms-menu-title">
+<div id="vs-overview" aria-label="Visionary Tool overview">
+  <div class="vs-overview-head"><div><h1>Good morning, Vision Team <span style="color:#84a28a">✦</span></h1><p class="vs-muted">Here's your team's activity at a glance.</p></div><button class="vs-action vs-outline" type="button" data-vs-go="reports">View shift report ↗</button></div>
+  <section class="vs-banner" aria-label="Visionary workspace"><div><span class="vs-banner-kicker">VISIONARY WORKSPACE</span><h2>Everything your team needs, in one place.</h2><p>Daily tasks, performance, maintenance and team collaboration.</p></div><button class="vs-action" type="button" data-vs-go="tasks">Open daily tasks →</button></section>
+  <div class="vs-stat-grid">
+    <article class="vs-box vs-stat"><div><div class="vs-stat-title">Shift completion</div><div class="vs-stat-number" id="vs-stat-percent">—</div><span class="vs-stat-sub" id="vs-stat-percent-note">Select a shift</span></div><div class="vs-stat-icon">✓</div></article>
+    <article class="vs-box vs-stat"><div><div class="vs-stat-title">Escalations logged</div><div class="vs-stat-number" id="vs-stat-escalations">—</div><span class="vs-stat-sub">Recorded during shift</span></div><div class="vs-stat-icon">↗</div></article>
+    <article class="vs-box vs-stat"><div><div class="vs-stat-title">Error proofing completed</div><div class="vs-stat-number" id="vs-stat-error-proofing">—</div><span class="vs-stat-sub" id="vs-stat-error-proofing-note">Recorded shift</span></div><div class="vs-stat-icon">✓</div></article>
+    <article class="vs-box vs-stat"><div><div class="vs-stat-title">PMs completed</div><div class="vs-stat-number" id="vs-stat-pms">—</div><span class="vs-stat-sub">Selected shift</span></div><div class="vs-stat-icon">⚙</div></article>
+    <article class="vs-box vs-stat vs-top-tech"><div><div class="vs-top-tech-label">TOP TECHNICIAN</div><div class="vs-stat-number" id="vs-stat-top-tech">—</div><span class="vs-stat-sub" id="vs-stat-top-points">No credited work yet</span></div><div class="vs-top-medal" aria-hidden="true">🏅</div></article>
+  </div>
+  <div class="vs-bottom-grid">
+    <section class="vs-box"><div class="vs-card-head"><h2>Today's priorities</h2><button class="vs-action vs-outline" type="button" data-vs-go="tasks">View all →</button></div><div id="vs-priorities"><p class="vs-muted">Select a date and shift in Daily Tasks to display progress here.</p></div></section>
+    <section class="vs-box"><div class="vs-card-head"><h2>Shift progress</h2><span class="vs-tag" id="vs-shift-pill">No shift selected</span></div><div id="vs-progress-ring" class="vs-ring" data-progress="—" style="--vs-ring:0%" role="img" aria-label="Shift progress unavailable"></div><p class="vs-muted" id="vs-progress-description" style="text-align:center;line-height:1.6">Select a shift to view live task progress.</p><div class="vs-progress-line"><span>Core checks</span><strong id="vs-core-count">—</strong></div><div class="vs-track"><span id="vs-core-bar" style="width:0%"></span></div><div class="vs-progress-line"><span>Quality checks</span><strong id="vs-quality-count">—</strong></div><div class="vs-track"><span id="vs-quality-bar" style="width:0%"></span></div></section>
+  </div>
+  <p class="vs-source-note" id="vs-overview-source">Overview uses the existing Daily Tasks scoring and selected shift. No sample metrics are shown.</p>
+</div>
       <header class="hero">
         <div>
           <p class="eyebrow">A Vision Dictionary</p>
@@ -7228,8 +7615,8 @@ body:has(#app-shell:not([data-auth-role="Admin"])) :is(#spp-removal-dialog,#spp-
           <div class="theme-control">
             <label for="theme-select">Choose theme</label>
             <select id="theme-select" aria-label="Choose color theme">
-              <option value="halloween" selected>🎃 Halloween</option>
-              <option value="matcha">🍵 Matcha</option>
+              <option value="halloween">🎃 Halloween</option>
+              <option value="matcha" selected>🍵 Matcha · Becoming-inspired</option>
               <option value="sakura">🌸 Sakura</option>
               <option value="cyberpunk">⚡ Cyberpunk</option>
               <option value="lavender">💜 Lavender</option>
@@ -7343,7 +7730,7 @@ body:has(#app-shell:not([data-auth-role="Admin"])) :is(#spp-removal-dialog,#spp-
             <span class="form-tile-arrow" aria-hidden="true">›</span>
           </button>
         </div>
-        <p class="last-updated">Version 3.0.152 · Last updated: <time datetime="2026-10-28">October 28, 2026</time></p>
+        <p class="last-updated">Version 4.01 · Last updated: <time datetime="2026-10-29">October 29, 2026</time></p>
         <div class="version-history-link-wrap">
           <button id="open-version-history" class="version-history-link" type="button">View version history</button>
         </div>
@@ -7633,7 +8020,6 @@ const views=[&#x27;setup&#x27;,&#x27;presenter&#x27;,&#x27;join&#x27;,&#x27;list
         <div>
           <p class="eyebrow">Shift task tracker</p>
           <h1 id="daily-tasks-title">MI2 Daily Tasks</h1>
-          <p class="hero-copy">Choose the shift and Technician, then check off work as it is completed.</p>
         </div>
         <button id="daily-tasks-back" class="button button-secondary top-action-button" type="button">Back</button>
       </header>
@@ -7645,7 +8031,7 @@ const views=[&#x27;setup&#x27;,&#x27;presenter&#x27;,&#x27;join&#x27;,&#x27;list
             <div class="daily-cloud-copy">
               <strong id="daily-cloud-title">Shared shift synchronization</strong>
               <span id="daily-cloud-status" role="status" aria-live="polite">Sign in with Google to share Daily Tasks across phones.</span>
-              <small>Safe Sync v6.2 · App <span id="daily-app-version">3.0.152</span><span id="daily-version-health" class="daily-version-health" hidden></span></small>
+              <small>Safe Sync v6.2 · App <span id="daily-app-version">4.01</span></small><span id="daily-version-health" class="daily-version-health" hidden></span>
             </div>
           </div>
           <div class="daily-cloud-actions">
@@ -7664,7 +8050,6 @@ const views=[&#x27;setup&#x27;,&#x27;presenter&#x27;,&#x27;join&#x27;,&#x27;list
           <div class="panel-heading">
             <div>
               <h2 id="daily-task-details-title">Shift details</h2>
-              <p>Your checklist, completion, and points update automatically.</p>
             </div>
           </div>
 
@@ -8480,7 +8865,7 @@ const views=[&#x27;setup&#x27;,&#x27;presenter&#x27;,&#x27;join&#x27;,&#x27;list
       </header>
 
       <section class="panel" aria-label="Release history">
-        <div class="version-history-list"><article class="version-card version-card-current"><div class="version-card-heading"><h2>Version 3.0.152</h2><time datetime="2026-10-28">October 28, 2026</time></div><p class="version-summary-intro">Visionary Translator video now enters fullscreen during playback and returns to Home when it finishes.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.151</h2><time datetime="2026-10-28">October 28, 2026</time></div><p class="version-summary-intro">Fixed the Visionary Translator video link to match the exact GitHub filename so playback loads correctly.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.150</h2><time datetime="2026-10-28">October 28, 2026</time></div><p class="version-summary-intro">Added Visionary Translator video playback from a separate GitHub asset. The video returns to the home screen when it finishes, and the Spare Parts login was removed.</p></article>
+        <div class="version-history-list"><article class="version-card version-card-current"><div class="version-card-heading"><h2>Version 4.01</h2><time datetime="2026-10-29">October 29, 2026</time></div><p class="version-summary-intro">Power Rankings v2: assigned Core Task Completion 20%, same-shift Work Contribution 20%, Escalations 20%, Error Proofing 15%, Super Escalations 10%, and PMs 15%. Removed overlapping PPS and medals from scoring while retaining their display. Preserved saved shift data, shared credit, and technician/lead access rules.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 4.00</h2><time datetime="2026-10-29">October 29, 2026</time></div><p class="version-summary-intro">Major Visionary Tool theme and workspace redesign with responsive sidebar, shift history selector, last recorded shift overview, live shift metrics, and Top Technician recognition. Restored Power Rankings for Technician accounts while retaining Supervisor-only detailed rankings and audit controls.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.152</h2><time datetime="2026-10-28">October 28, 2026</time></div><p class="version-summary-intro">Visionary Translator video now enters fullscreen during playback and returns to Home when it finishes.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.151</h2><time datetime="2026-10-28">October 28, 2026</time></div><p class="version-summary-intro">Fixed the Visionary Translator video link to match the exact GitHub filename so playback loads correctly.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.150</h2><time datetime="2026-10-28">October 28, 2026</time></div><p class="version-summary-intro">Added Visionary Translator video playback from a separate GitHub asset. The video returns to the home screen when it finishes, and the Spare Parts login was removed.</p></article>
           <article class="version-card"><div class="version-card-heading"><h2>Version 3.0.149</h2><time datetime="2026-10-25">October 25, 2026</time></div><p class="version-summary-intro">Spare-parts inventory changes, withdrawals, returns, imports and Excel downloads are restricted to Supervisor. All other logins open directly to part search and cage-location lookup.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.148</h2><time datetime="2026-10-24">October 24, 2026</time></div><p class="version-summary-intro">Reduced unnecessary Firestore reads by loading shift history only in Daily Tasks, loading spare-parts data only while that view is open, retaining local Firestore cache, and removing forced listener reconnects when returning to the app.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.111</h2><time datetime="2026-10-20">October 20, 2026</time></div><p class="version-summary-intro">Reworked the Spare Parts summary so low-stock alerts sit beside the three inventory counts, and the search area uses the full desktop width.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.110</h2><time datetime="2026-10-20">October 20, 2026</time></div><p class="version-summary-intro">Aligned new inventory entry and the raw Inventory workbook sheet with the LNS columns. Usage now increases automatically as items are removed.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.109</h2><time datetime="2026-10-20">October 20, 2026</time></div><p class="version-summary-intro">Technicians can now open the Spare Parts preview and submit sample removals. Edit Inventory and Add New Inventory stay restricted to Supervisors.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.108</h2><time datetime="2026-10-20">October 20, 2026</time></div><p class="version-summary-intro">The sample removal form now lets users type the person removing an item instead of selecting a preset technician name. The entered name remains in withdrawal history and Excel export.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.107</h2><time datetime="2026-10-20">October 20, 2026</time></div><p class="version-summary-intro">Added Supervisor-only Edit Inventory to update sample part descriptions and minimum/maximum quantities. Alerts and Excel downloads reflect saved edits; preview changes reset on reload.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.106</h2><time datetime="2026-10-20">October 20, 2026</time></div><p class="version-summary-intro">Loaded the cage workbook’s four process sheets into the Supervisor-only Spare Parts sample preview. Preserves source rows, locations, notes, and stock counts; unknown quantities and unset min/max remain explicit.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.105</h2><time datetime="2026-10-20">October 20, 2026</time></div><p class="version-summary-intro">Added the Spare Parts sample preview to the Supervisor login only, with keyword search, expandable part details, a removal popup for technician/process/line/vision/quantity, low-stock alerts, and Excel export. Sample inventory remains local to the open page while the real inventory list is prepared.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.104</h2><time datetime="2026-10-19">October 19, 2026</time></div><p class="version-summary-intro">Cell Tracking Reading Rate checks now run every four hours: 5:00, 9:00, and 13:00 on B1/G1, and 17:00, 21:00, and 1:00 on B2/G2. They remain at zero points.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.103</h2><time datetime="2026-10-20">October 20, 2026</time></div><p class="version-summary-intro">Restored the Cell Tracking Reading Rate checklist for all allocations. It is visible and trackable but awards no points yet.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.102</h2><time datetime="2026-10-19">October 19, 2026</time></div><p class="version-summary-intro">Supervisor Tasks now keeps Google sign-in beside Retry sync, shows the connected account, and explains shared-task connection or permission problems.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.101</h2><time datetime="2026-10-19">October 19, 2026</time></div><p class="version-summary-intro">Power Rankings stay visible in the technician menu but open to a blank page. Supervisors retain the rankings view.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.100</h2><time datetime="2026-10-15">October 15, 2026</time></div><p class="version-summary-intro">Added Delete task to ongoing and finished supervisor tasks with confirmation, shared deletion sync, conflict protection, and a visible pending-deletion status with cancellation before sync.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.99</h2><time datetime="2026-10-15">October 15, 2026</time></div><p class="version-summary-intro">Aligned weekly tasks, task entry, and calendar panels above a full-width task toolbar and single-column task list. Compact calendar indicators show urgency and progress. Weekly tasks and the calendar remain collapsible on mobile.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.98</h2><time datetime="2026-10-15">October 15, 2026</time></div><p class="version-summary-intro">Supervisor workspace now has three desktop columns: weekly tasks, the main task list, and a monthly calendar. Weekly tasks and the calendar start collapsed on smaller screens.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.97</h2><time datetime="2026-10-14">October 14, 2026</time></div><p class="version-summary-intro">Supervisor Tasks now uses the desktop side margins for a Due this week list and interactive monthly calendar. Select a date to list tasks due that day. Urgent tasks show red, tasks with checked steps show orange, and unstarted tasks stay neutral. The panels stack on smaller screens.</p></article>
 <article class="version-card"><div class="version-card-heading"><h2>Version 3.0.96</h2><time datetime="2026-10-14">October 14, 2026</time></div><p class="version-summary-intro">Added a desktop due-this-week panel and an interactive monthly due-date calendar. Select a date to see its tasks, color coded red for urgent tasks and orange when at least one checklist step is complete. Calendar and weekly panels stack on narrow screens.</p></article>
 <article class="version-card"><div class="version-card-heading"><h2>Version 3.0.95</h2><time datetime="2026-10-14">October 14, 2026</time></div><p class="version-summary-intro">Supervisor task cards now remain collapsed until opened. A stronger desktop single-column layout keeps every task full-width with its notes and checklist inside the expanded card.</p></article>
@@ -14597,7 +14982,7 @@ function normalizeWeeklyRows(values) {
         reviewDate.value = localDateValue(new Date());
         startTime.value = times.start;
         endTime.value = times.end;
-        if (resetTheme) applyTheme(readSavedTheme() || "halloween");
+        if (resetTheme) applyTheme(readSavedTheme() || "matcha");
         renderSections();
         updateReport();
       }
@@ -17143,22 +17528,47 @@ function normalizeWeeklyRows(values) {
         };
       }
 
-      // Read-only trial metrics: count earned work once and split shared credit.
+      // Read-only ranking metrics. Preserve the established shared-credit and
+      // manual-escalation rules while separating core completion from output.
       function trialWorkBreakdown() {
         var empty = function () { return { core: 0, proof: 0, escalation: 0, super: 0, pm: 0 }; };
-        var total = empty(), people = Object.create(null);
-        dailyContributorOptions().forEach(function (option) { people[option.key] = empty(); });
+        var total = empty(), people = Object.create(null), coreAssignments = Object.create(null);
+        var coreTotals = { earned: 0, available: 0, unassignedAvailable: 0 };
+        dailyContributorOptions().forEach(function (option) {
+          people[option.key] = empty();
+          coreAssignments[option.key] = { earned: 0, available: 0 };
+        });
         function award(category, amount, keys) {
           total[category] += amount;
           keys.forEach(function (key) { if (people[key]) people[key][category] += amount / keys.length; });
         }
         activeFixedCheckboxes().forEach(function (box) {
-          if (!fixedTaskIsEarned(box)) return;
           var proof = (box.getAttribute("data-group") || "").indexOf("NGM Error Proofing") === 0;
           var allocation = box.getAttribute("data-allocation");
           var key = box.getAttribute("data-technician-required") === "true"
             ? taskTechnician(box.getAttribute("data-daily-fixed")) : (allocation ? "Allocation " + allocation : "");
-          award(proof ? "proof" : "core", proof ? 1 : fixedTaskPoints(box), key ? [key] : []);
+          var earned = fixedTaskIsEarned(box);
+          var countedCore = !proof && fixedTaskCountsTowardTotalCompletion(box);
+          if (countedCore) {
+            var taskPoints = fixedTaskPoints(box);
+            coreTotals.available += taskPoints;
+            if (earned) coreTotals.earned += taskPoints;
+            // A missing assignment must never be silently credited to a person.
+            // Only explicit assignment or saved roster allocations have a denominator.
+            var assignee = contributorOption(key);
+            var validAssignee = Boolean(assignee && (key.indexOf("OT:") === 0 || rosterName(key)));
+            if (validAssignee && coreAssignments[key]) {
+              coreAssignments[key].available += taskPoints;
+              if (earned) coreAssignments[key].earned += taskPoints;
+            } else {
+              coreTotals.unassignedAvailable += taskPoints;
+            }
+          }
+          if (!earned) return;
+          // Exclude non-scoring checks from core productivity as well as its
+          // completion denominator; error proofing has its own category.
+          if (proof) award("proof", 1, key ? [key] : []);
+          else if (countedCore) award("core", fixedTaskPoints(box), key ? [key] : []);
         });
         [[pmEntries,"pm"],[escalationEntries,"escalation"],[superEscalationEntries,"super"]].forEach(function (group) {
           collectDynamic(group[0]).forEach(function (entry) {
@@ -17169,7 +17579,7 @@ function normalizeWeeklyRows(values) {
             award(group[1], amount, keys);
           });
         });
-        return { total: total, people: people };
+        return { total: total, people: people, coreAssignments: coreAssignments, coreTotals: coreTotals };
       }
 
       function contributorCompletionBreakdown(contributorKey) {
@@ -20608,7 +21018,7 @@ window.dispatchEvent(new Event('inventory-cloud-ready'));
     const provider = new GoogleAuthProvider();
     provider.setCustomParameters({ prompt: "select_account" });
     const SYNC_PROTOCOL_VERSION = 6;
-    const APP_VERSION = String(document.querySelector('meta[name="visionary-app-version"]')?.content || "3.0.152");
+    const APP_VERSION = String(document.querySelector('meta[name="visionary-app-version"]')?.content || "4.01");
     const HOSTED_APP_ROOT = "https://jsikson7.github.io/Visionary/";
     const HOSTED_APP_URL = HOSTED_APP_ROOT + "?v=" + APP_VERSION.replace(/\D/g, "");
     const isDirectFilePage = !["http:", "https:"].includes(window.location.protocol);
@@ -21651,6 +22061,106 @@ window.dispatchEvent(new Event('inventory-cloud-ready'));
     }
 
 
+    // Overview only: observe a small window of the newest recorded shared shifts.
+    // Keep this independent of the Daily Tasks selection and existing write/sync code.
+    let latestOverviewUnsubscribe = null;
+    const OVERVIEW_CACHE_KEY = 'visionary-overview-recorded-shift-v1';
+    function hasOverviewActivity(state) {
+      if (!state || !state.date || !state.shift) return false;
+      const fixed = state.fixed || {};
+      return Object.values(fixed).some(Boolean)
+        || Object.values(state.roster || {}).some(name => String(name || '').trim())
+        || Boolean(String(state.errorProof || '').trim())
+        || Boolean(String(state.handoffNote || '').trim())
+        || ['pms','escalations','superEscalations'].some(key => {
+          const v = state[key];
+          return Array.isArray(v) ? v.some(entry => entry && entry.saved !== false) : Boolean(v && Object.keys(v).length);
+        });
+    }
+    function shiftTimestamp(value) {
+      if (value && typeof value.toMillis === 'function') return value.toMillis();
+      if (value && typeof value.seconds === 'number') return value.seconds * 1000;
+      return 0;
+    }
+    function beginLatestOverview() {
+      if (!currentUser || !accessAllowed || latestOverviewUnsubscribe) return;
+      // Query by shift date to include legacy records that predate createdAt metadata.
+      const latestQuery = query(collection(db, 'shifts'), orderBy('date', 'desc'), limit(32));
+      latestOverviewUnsubscribe = onSnapshot(latestQuery, { includeMetadataChanges: true }, snapshot => {
+        const candidates = snapshot.docs.map(item => {
+          const data = item.data();
+          return { state: stateFromCloud(data), created: shiftTimestamp(data.createdAt),
+            modified: shiftTimestamp(data.updatedAt), id: item.id };
+        }).filter(entry => hasOverviewActivity(entry.state));
+        // Newest shift DATE wins; creation time breaks ties for concurrent shift crews.
+        // Editing an old shift doesn't replace a newer shift on the Overview.
+        candidates.sort((a,b) => b.state.date.localeCompare(a.state.date)
+          || b.created - a.created || b.modified - a.modified || b.id.localeCompare(a.id));
+        const chosen = candidates[0] || null;
+        // Once the saved record is confirmed, let live shared updates replace
+        // optimistic local edits for the same shift.
+        const pending = window.VisionaryOverviewPendingShift;
+        if (chosen && pending && !snapshot.metadata.fromCache && !snapshot.metadata.hasPendingWrites &&
+            chosen.state.date === pending.state?.date && chosen.state.shift === pending.state?.shift) {
+          window.VisionaryOverviewPendingShift = null;
+        }
+        window.VisionaryLatestShiftData = chosen ? {state:chosen.state, origin:'shared', created:chosen.created} : null;
+        if (chosen && !snapshot.metadata.fromCache) {
+          try { localStorage.setItem(OVERVIEW_CACHE_KEY, JSON.stringify({state:chosen.state, savedAt:Date.now()})); } catch (_) {}
+        }
+        window.dispatchEvent(new Event('visionary-latest-shift'));
+      }, err => {
+        latestOverviewUnsubscribe = null;
+        // Keep the last confirmed summary, rather than changing to an empty draft.
+        window.dispatchEvent(new Event('visionary-latest-shift'));
+      });
+    }
+    // Read-only historical shift list for Overview's compact picker. Lazy: only
+    // query the full collection when someone opens the picker (never on every render).
+    let overviewHistoryPromise = null;
+    let overviewHistoryCache = null;
+    let overviewHistoryUserId = null;
+    let overviewHistoryLoadedAt = 0;
+    window.VisionaryOverviewFetchHistory = async function(force) {
+      if (!currentUser || !accessAllowed) throw new Error('Sign in with Google to browse shared shift history.');
+      if (!force && overviewHistoryCache && overviewHistoryUserId === currentUser.uid && Date.now()-overviewHistoryLoadedAt < 60000) return overviewHistoryCache;
+      if (overviewHistoryPromise) return overviewHistoryPromise;
+      const requestingUid = currentUser.uid;
+      overviewHistoryPromise = (async () => {
+        let snapshot;
+        try { snapshot = await getDocsFromServer(collection(db, 'shifts')); }
+        catch (serverError) { snapshot = await getDocs(collection(db, 'shifts')); }
+        if (!currentUser || !accessAllowed || currentUser.uid !== requestingUid) throw new Error('Sign in again to view shift history.');
+        const found = new Map();
+        snapshot.forEach(docSnap => {
+          const data = docSnap.data();
+          const state = stateFromCloud(data);
+          if (!hasOverviewActivity(state) || !/^(G1|G2|B1|B2)$/.test(state.shift) ||
+              !/^\d{4}-\d{2}-\d{2}$/.test(state.date)) return;
+          const key = state.shift + '|' + state.date;
+          const modified = shiftTimestamp(data.updatedAt) || shiftTimestamp(data.createdAt);
+          const prior = found.get(key);
+          if (!prior || modified > prior.modified) found.set(key, {state, modified});
+        });
+        overviewHistoryUserId = requestingUid;
+        overviewHistoryLoadedAt = Date.now();
+        overviewHistoryCache = Array.from(found.values()).map(item => item.state).sort((a,b) =>
+          b.date.localeCompare(a.date) || a.shift.localeCompare(b.shift));
+        return overviewHistoryCache;
+      })().finally(() => { overviewHistoryPromise = null; });
+      return overviewHistoryPromise;
+    };
+    function stopLatestOverview() {
+      if (latestOverviewUnsubscribe) latestOverviewUnsubscribe();
+      latestOverviewUnsubscribe = null;
+      overviewHistoryCache = null;
+      overviewHistoryPromise = null;
+      overviewHistoryUserId = null;
+      overviewHistoryLoadedAt = 0;
+      window.VisionaryLatestShiftData = null;
+      window.VisionaryOverviewPendingShift = null;
+      window.dispatchEvent(new Event('visionary-latest-shift'));
+    }
     let honorHistoryUnsubscribe = null;
     let honorHistoryLoaded = false;
     function subscribeToHonorHistory() {
@@ -21688,12 +22198,14 @@ window.dispatchEvent(new Event('inventory-cloud-ready'));
       }
       subscribeToShift(currentState());
       subscribeToHonorHistory();
+      beginLatestOverview();
       maybeLoadMonthlyPerformance();
     }
 
     window.addEventListener('hashchange', subscribeToHonorHistory);
 
     function stopUserListeners() {
+      stopLatestOverview();
       if (honorHistoryUnsubscribe) honorHistoryUnsubscribe();
       honorHistoryUnsubscribe = null;
       honorHistoryLoaded = false;
@@ -22015,6 +22527,10 @@ window.dispatchEvent(new Event('inventory-cloud-ready'));
       return Boolean(appShellElement && appShellElement.dataset.authRole === "Admin");
     }
 
+    function canViewPowerRankings() {
+      return Boolean(appShellElement && ["Admin", "Technician"].includes(appShellElement.dataset.authRole));
+    }
+
     const OFFICIAL_RANKING_START = "2026-10-01";
     const OFFICIAL_RANKING_END = "2026-10-30";
     function monthlyOfficialDefaultStart() { return OFFICIAL_RANKING_START; }
@@ -22096,12 +22612,16 @@ window.dispatchEvent(new Event('inventory-cloud-ready'));
           errorProofingCount: 0,
           isLead: false,
           trial: { core: 0, proof: 0, escalation: 0, super: 0, pm: 0 },
+          coreEarned: 0,
+          coreAvailable: 0,
           shifts: []
         };
         Object.keys(existing.trial).forEach(category => {
           existing.trial[category] += Number(summary.trial?.people[option.key]?.[category]) || 0;
         });
         existing.points += points;
+        existing.coreEarned += Number(summary.trial?.coreAssignments?.[option.key]?.earned) || 0;
+        existing.coreAvailable += Number(summary.trial?.coreAssignments?.[option.key]?.available) || 0;
         existing.pmCount += Number(breakdown.pm) || 0;
         existing.escalationCount += Number(breakdown.escalations) || 0;
         existing.superEscalationCount += Number(breakdown.superEscalations) || 0;
@@ -22130,6 +22650,7 @@ window.dispatchEvent(new Event('inventory-cloud-ready'));
         errorProofingCount: errorProofingCount,
         perfect: perfect,
         trial: summary.trial.total,
+        coreTotals: summary.trial.coreTotals,
         people: Array.from(people.values())
       };
     }
@@ -22249,7 +22770,9 @@ window.dispatchEvent(new Event('inventory-cloud-ready'));
           (name === "Tolay" && String(person.name).trim().toLowerCase() === "tolayc"))) return;
         result.push(trial ? {
           key: name.toLowerCase(), name, shifts: 0, exposure: 0, points: 0,
-          work: { core: 0, escalation: 0, pps: 0, medals: 0, proof: 0, super: 0, pm: 0 }
+          kind: "technician", coreEarned: 0, coreAvailable: 0,
+          contributionSum: 0, contributionSamples: 0,
+          work: { core: 0, escalation: 0, medals: 0, proof: 0, super: 0, pm: 0 }
         } : {
           key: name.toLowerCase(), name, shiftCount: 0, points: 0, shiftCounts: {},
           pmCount: 0, escalationCount: 0, superEscalationCount: 0, errorProofingCount: 0,
@@ -22319,37 +22842,69 @@ window.dispatchEvent(new Event('inventory-cloud-ready'));
       return lines;
     }
 
+    // v4.01: Completion is an absolute assigned-work rate. Contribution is
+    // relative to technicians present on that same recorded shift, not a
+    // reweighted copy of Average PPS. Exclude leads from peer comparisons.
     const BALANCED_CATEGORIES = [
-      { key: "core", label: "Core work", weight: 20, rateLabel: "Core points / exposure" },
+      { key: "completion", label: "Core task completion", weight: 20, rateLabel: "Assigned core completion (%)" },
+      { key: "contribution", label: "Work contribution", weight: 20, rateLabel: "Work contribution index (%)" },
       { key: "escalation", label: "Escalations", weight: 20, rateLabel: "Escalation credits / exposure" },
-      { key: "pps", label: "Avg PPS", weight: 20, rateLabel: "Avg points / recorded shift" },
-      { key: "medals", label: "Medals earned", weight: 10, rateLabel: "Medals / exposure" },
-      { key: "proof", label: "Error proofing", weight: 10, rateLabel: "Error proofing / exposure" },
+      { key: "proof", label: "Error proofing", weight: 15, rateLabel: "Error proofing / exposure" },
       { key: "super", label: "Super escalations", weight: 10, rateLabel: "Super credits / exposure" },
-      { key: "pm", label: "PMs", weight: 10, rateLabel: "PM credits / exposure" }
+      { key: "pm", label: "PMs", weight: 15, rateLabel: "PM credits / exposure" }
     ];
 
     function balancedRankingAggregate(records) {
       const techs = new Map(), shifts = new Map();
-      const empty = (key, name) => ({ key, name, shifts: 0, exposure: 0, points: 0,
-        work: { core: 0, proof: 0, escalation: 0, super: 0, pm: 0, medals: 0, pps: 0 } });
-      const add = (item, work) => BALANCED_CATEGORIES.forEach(c => { item.work[c.key] += Number(work?.[c.key]) || 0; });
-      // Caller supplies canonical, successfully calculated records; no 70% performance exclusion.
+      const empty = (key, name, kind) => ({
+        key, name, kind, shifts: 0, exposure: 0, points: 0,
+        coreEarned: 0, coreAvailable: 0,
+        contributionSum: 0, contributionSamples: 0,
+        contributionCore: 0, contributionExposure: 0,
+        work: { core: 0, proof: 0, escalation: 0, super: 0, pm: 0, medals: 0 }
+      });
+      const add = (item, work) => {
+        ["core", "proof", "escalation", "super", "pm"].forEach(key => {
+          item.work[key] += Number(work?.[key]) || 0;
+        });
+      };
+      // Only the validated canonical records passed in by the caller count.
       records.forEach(record => {
-        const team = shifts.get(record.shift) || empty(record.shift, record.shift);
+        const team = shifts.get(record.shift) || empty(record.shift, record.shift, "shift");
         team.shifts += 1;
         team.exposure += record.people.length;
         team.points += record.earned;
+        team.coreEarned += Number(record.coreTotals?.earned) || 0;
+        team.coreAvailable += Number(record.coreTotals?.available) || 0;
         add(team, record.trial);
         shifts.set(record.shift, team);
+
+        const peers = record.people.filter(person => !isRankingLead(person));
+        const coreTotal = peers.reduce((sum, person) => sum + Math.max(0, Number(person.trial?.core) || 0), 0);
+        // Shift contribution compares core output per working technician, not
+        // team size or total shift points (which overlap other categories).
+        if (peers.length) {
+          team.contributionCore += coreTotal;
+          team.contributionExposure += peers.length;
+        }
         record.people.forEach(person => {
-          const tech = techs.get(person.key) || empty(person.key, person.name);
-          tech.shifts += 1; tech.exposure += 1; tech.points += person.points;
+          const tech = techs.get(person.key) || empty(person.key, person.name, "technician");
+          tech.shifts += 1;
+          tech.exposure += 1;
+          tech.points += person.points;
+          tech.coreEarned += Number(person.coreEarned) || 0;
+          tech.coreAvailable += Number(person.coreAvailable) || 0;
           add(tech, person.trial);
-          // One medal per person per saved shift, using their highest earned tier.
+          // Historical achievements stay displayed, but do not inflate ranking.
           const medal = monthlyMedalIndex(person.points) >= 0 ? 1 : 0;
           tech.work.medals += medal;
           team.work.medals += medal;
+          // Solo or no-core-work shifts cannot establish a peer comparison.
+          // Every present peer is included, including a peer with zero core work.
+          if (!isRankingLead(person) && peers.length >= 2 && coreTotal > 0) {
+            tech.contributionSum += (Math.max(0, Number(person.trial?.core) || 0) / coreTotal) * peers.length;
+            tech.contributionSamples += 1;
+          }
           techs.set(person.key, tech);
         });
       });
@@ -22357,9 +22912,23 @@ window.dispatchEvent(new Event('inventory-cloud-ready'));
     }
 
     function balancedRankingRank(items) {
-      const rates = item => Object.fromEntries(BALANCED_CATEGORIES.map(c => [c.key,
-        c.key === "pps" ? (item.shifts ? item.points / item.shifts : 0)
-          : (item.exposure ? (Number(item.work[c.key]) || 0) / item.exposure : 0)]));
+      const rates = item => {
+        const exposure = Number(item.exposure) || 0;
+        const completion = Number(item.coreAvailable) > 0
+          ? Math.max(0, Math.min(100, 100 * (Number(item.coreEarned) || 0) / item.coreAvailable)) : 0;
+        const contribution = item.kind === "shift"
+          ? (Number(item.contributionExposure) > 0 ? (Number(item.contributionCore) || 0) / item.contributionExposure : 0)
+          : (Number(item.contributionSamples) > 0 ? 100 * (Number(item.contributionSum) || 0) / item.contributionSamples : 0);
+        return {
+          completion,
+          contribution,
+          escalation: exposure ? (Number(item.work?.escalation) || 0) / exposure : 0,
+          proof: exposure ? (Number(item.work?.proof) || 0) / exposure : 0,
+          super: exposure ? (Number(item.work?.super) || 0) / exposure : 0,
+          pm: exposure ? (Number(item.work?.pm) || 0) / exposure : 0,
+          pps: item.shifts ? item.points / item.shifts : 0
+        };
+      };
       const pool = items.filter(item => item.shifts >= 5 && item.exposure > 0);
       const reference = pool.map(rates);
       const active = BALANCED_CATEGORIES.filter(c => reference.some(r => r[c.key] > 0));
@@ -22368,9 +22937,16 @@ window.dispatchEvent(new Event('inventory-cloud-ready'));
         const rate = rates(item), parts = {}, confirmed = item.shifts >= 5 && item.exposure > 0;
         active.forEach(c => {
           const value = rate[c.key];
+          if (c.key === "completion") {
+            // Everyone who completes 100% of *their own* attributed tasks
+            // earns the full completion weight, regardless of task volume.
+            parts[c.key] = (value / 100) * c.weight * (100 / weight);
+            return;
+          }
           const less = reference.filter(r => r[c.key] < value - 1e-9).length;
           const equal = reference.filter(r => Math.abs(r[c.key] - value) <= 1e-9).length;
-          // Percentile midrank: ties receive the same credit; zero work receives zero.
+          // Existing percentile midrank policy is retained for activity and
+          // comparative work contribution. Zero activity receives zero.
           parts[c.key] = value > 0 ? ((less + equal / 2) / reference.length) * 100 * c.weight / weight : 0;
         });
         return { ...item, rate, parts, confirmed, score: weight && confirmed ? Object.values(parts).reduce((a,b) => a+b,0) : null, rank: null };
@@ -22422,10 +22998,10 @@ window.dispatchEvent(new Event('inventory-cloud-ready'));
         table.appendChild(body); wrap.appendChild(table); host.appendChild(wrap);
       }
       const leadNote = document.createElement("p");
-      leadNote.textContent = "Balanced score / 100: Core work 20% · Escalations 20% · Average PPS 20% · Medals 10% · Error proofing 10% · Super escalations 10% · PMs 10%. Five recorded shifts and a roster are required. Leads appear last and use a separate comparison group. All valid recorded shifts count, regardless of completion percentage.";
+      leadNote.textContent = "Balanced score / 100: Assigned core task completion 20% · Work contribution 20% · Escalations 20% · Error proofing 15% · Super escalations 10% · PMs 15%. Minimum 5 recorded shifts; leads are separately ranked. All valid shifts count.";
       host.appendChild(leadNote);
       const details = document.createElement("p");
-      details.textContent = "Shared completed work is split equally; manual escalations retain half credit. Activity and medals use technician-shift exposure; PPS uses recorded shifts. One highest-tier medal per technician per shift, all tiers equal. Eligible-group percentile midranks preserve ties; zero work scores zero. Empty categories are skipped and weights rebalanced. PPS intentionally overlaps activity and medals. Category columns show contributions to the score.";
+      details.textContent = "Core completion = credited eligible core points / explicitly assigned eligible core points. Unassigned tasks never become individual credit; zero assigned work has no completion credit. Work contribution = average of (individual core points / peer core points × number of technicians), calculated within each saved shift with at least 2 non-lead technicians and positive core output; 100 is an equal share. Shift work contribution uses core points / technician-shift. Escalations, Error Proofing, Super Escalations and PMs use split-credit rates per exposure. Manual escalations retain half credit. The non-completion categories use eligible-group percentile midranks; completion uses the actual completion rate. Empty categories are omitted and weights rebalanced. Medals and Average PPS remain visible but no longer affect the balanced score.";
       host.appendChild(details);
       const techRows = balancedRankingRank(current.technicians.filter(item => !isRankingLead(item))).rows;
       const leadRows = balancedRankingRank(includeRankingLeads(current.technicians.filter(isRankingLead), true)).rows;
@@ -23164,7 +23740,7 @@ window.dispatchEvent(new Event('inventory-cloud-ready'));
 
     async function generateMonthlyPerformance(event) {
       if (event) event.preventDefault();
-      if (!isLocalLeaderboardAdmin()) {
+      if (!canViewPowerRankings()) {
         monthlyPerformanceOutput.hidden = true;
         monthlyTechnicianLeaders.replaceChildren();
         monthlyShiftLeaders.replaceChildren();
@@ -23266,7 +23842,11 @@ window.dispatchEvent(new Event('inventory-cloud-ready'));
     }
 
     function maybeLoadMonthlyPerformance(force) {
-      if (!isLocalLeaderboardAdmin() || !monthlyPerformanceStart || !monthlyPerformanceEnd || !currentUser || !accessAllowed || window.location.hash !== "#leaderboard") return;
+      if (!canViewPowerRankings() || !monthlyPerformanceStart || !monthlyPerformanceEnd || window.location.hash !== "#leaderboard") return;
+      if (!currentUser || !accessAllowed) {
+        setMonthlyPerformanceStatus("Sign in with Google in Daily Tasks to load live Power Rankings.", true);
+        return;
+      }
       if (monthlyPerformanceBusy) return;
       const now = Date.now();
       if (!force && now - monthlyPerformanceLastRequestAt < MONTHLY_RANKING_REFRESH_DEBOUNCE_MS) return;
@@ -23845,9 +24425,9 @@ window.dispatchEvent(new Event('inventory-cloud-ready'));
       const appProperties = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>' +
         '<Properties xmlns="http://schemas.openxmlformats.org/officeDocument/2006/extended-properties" ' +
         'xmlns:vt="http://schemas.openxmlformats.org/officeDocument/2006/docPropsVTypes">' +
-        '<Application>Visionary 3.0.152</Application><DocSecurity>0</DocSecurity><ScaleCrop>false</ScaleCrop>' +
+        '<Application>Visionary 4.01</Application><DocSecurity>0</DocSecurity><ScaleCrop>false</ScaleCrop>' +
         '<Company></Company><LinksUpToDate>false</LinksUpToDate><SharedDoc>false</SharedDoc><HyperlinksChanged>false</HyperlinksChanged>' +
-        '<AppVersion>3.0.152</AppVersion></Properties>';
+        '<AppVersion>4.01</AppVersion></Properties>';
 
       const zip = xlsxZipStoredFiles([
         { name: "[Content_Types].xml", contents: contentTypes },
@@ -24946,11 +25526,11 @@ finally{clearTimeout(slowNotice);btn.disabled=bmpdSent;btn.textContent=bmpdSent?
   const open=document.createElement('button');open.type='button';open.className='button button-secondary';open.setAttribute('aria-haspopup','dialog');open.textContent='Settings';
   dialog.append(theme);
   const language=document.createElement('div');language.className='language-bar';language.innerHTML='<span class="language-label">Language</span><div class="language-toggle"><button type="button" class="language-option" data-settings-lang="en">🇺🇸 English</button><button type="button" class="language-option" data-settings-lang="ko">🇰🇷 한국어</button></div>';
-  dialog.append(language,logout);document.body.append(dialog);actions.append(open);
+  dialog.append(language,logout);document.body.append(dialog);/* Legacy Settings trigger removed; VT menu is the single visible settings entry. */
   const refresh=()=>{const ko=document.documentElement.lang==='ko';open.textContent=ko?'설정':'Settings';dialog.querySelector('h2').textContent=open.textContent;dialog.querySelector('[data-close]').textContent=ko?'닫기':'Close';language.querySelector('.language-label').textContent=ko?'언어':'Language';language.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.settingsLang===(ko?'ko':'en'))));};
   language.querySelectorAll('button').forEach(b=>b.onclick=()=>{document.getElementById('language-'+b.dataset.settingsLang).click();refresh();});
   open.onclick=()=>{refresh();dialog.showModal();};dialog.querySelector('[data-close]').onclick=()=>dialog.close();
-  logout.addEventListener('click',()=>dialog.close());dialog.addEventListener('close',()=>open.focus());
+  logout.addEventListener('click',()=>dialog.close());dialog.addEventListener('close',()=>document.getElementById('vs-account-menu')?.focus());
   new MutationObserver(refresh).observe(document.documentElement,{attributes:true,attributeFilter:['lang']});refresh();
 })();
 </script>
@@ -27208,5 +27788,390 @@ refreshAccess();
 #spare-parts-preview-view .spp-admin-actions .spp-status{flex:1 0 100%;margin:0;text-align:right}
 @media(max-width:600px){#spare-parts-preview-view .spp-desktop-export{display:none!important}#spare-parts-preview-view .spp-excel-actions{gap:6px}}
 </style>
+<script id="visionary-theme-overview-controller">
+/* Read-only bridge: all edits remain in the original Daily Tasks / Reports forms. */
+(function(){'use strict';
+ const byId=id=>document.getElementById(id);
+ const app=byId('app-shell'),sidebar=byId('vs-nav'),shade=byId('vs-scrim'),topbar=byId('vs-workspace-bar');
+ if(!app||!sidebar||!topbar)return;
+ const primary=byId('vs-primary-nav'),extra=byId('vs-extra-nav');
+ const overviewPicker=byId('vs-shift-picker'),overviewButton=byId('vs-shift-context-button');
+ const historyShift=byId('vs-pick-shift'),historyDate=byId('vs-pick-date'),historyStatus=byId('vs-pick-status');
+ const shiftChoices=['G1','G2','B1','B2'];
+ let historicalStates=[],selectedHistoricalKey='',historyRequestId=0;
+ function selectedRecord(){return historicalStates.find(s=>s.shift+'|'+s.date===selectedHistoricalKey)||null}
+ function clearHistorySelection(){selectedHistoricalKey='';}
+ function formatShiftDate(iso){if(!/^\d{4}-\d{2}-\d{2}$/.test(iso||''))return iso||'';
+   const parts=iso.split('-').map(Number);return new Date(parts[0],parts[1]-1,parts[2]).toLocaleDateString(undefined,{month:'short',day:'numeric',year:'numeric'});}
+ function pickerOpen(){return overviewPicker&&!overviewPicker.hidden}
+ function closePicker(){overviewPicker.hidden=true;overviewButton.setAttribute('aria-expanded','false')}
+ function availableRecords(shift){return historicalStates.filter(s=>s.shift===shift).sort((a,b)=>b.date.localeCompare(a.date))}
+ function renderPickerDates(preferred){
+  const records=availableRecords(historyShift.value);
+  historyDate.replaceChildren();
+  if(!records.length){historyDate.add(new Option('No saved dates for this shift',''));historyDate.disabled=true;
+   historyStatus.textContent=historicalStates.length?'No recorded shifts for '+(historyShift.value||'this shift')+'.':'No saved shift records found.';return;}
+  historyDate.disabled=false;
+  records.forEach(s=>historyDate.add(new Option(formatShiftDate(s.date),s.date)));
+  historyDate.value=records.some(s=>s.date===preferred)?preferred:records[0].date;
+  historyStatus.textContent=records.length+' recorded '+historyShift.value+' '+(records.length===1?'date':'dates')+' available.';
+ }
+ function rebuildPicker(){
+  const effective=pickOverviewState()?.state;
+  historyShift.replaceChildren();
+  shiftChoices.forEach(code=>historyShift.add(new Option(code,code)));
+  const before=historyShift.value;
+  historyShift.value=before&&shiftChoices.includes(before)?before:effective&&shiftChoices.includes(effective.shift)?effective.shift:'G1';
+  renderPickerDates(effective?.date);
+ }
+ async function openPicker(){
+  if(location.hash)return;
+  if(pickerOpen()){closePicker();return;}
+  overviewPicker.hidden=false;overviewButton.setAttribute('aria-expanded','true');
+  const request=++historyRequestId;
+  // Show the latest saved entry immediately while older records load.
+  const existing=pickOverviewState()?.state;
+  const confirmed=window.VisionaryLatestShiftData?.state;
+  const seed=[...historicalStates,confirmed,existing].filter(hasRecordedActivity);
+  const byKey=new Map(seed.map(item=>[item.shift+'|'+item.date,item]));
+  historicalStates=Array.from(byKey.values());rebuildPicker();
+  historyStatus.textContent='Loading recorded dates…';
+  try{
+   const states=await window.VisionaryOverviewFetchHistory?.();
+   if(request!==historyRequestId||!pickerOpen())return;
+   const merged=new Map((Array.isArray(states)?states:[]).map(s=>[s.shift+'|'+s.date,s]));
+   [confirmed,existing].filter(hasRecordedActivity).forEach(s=>{if(!merged.has(s.shift+'|'+s.date))merged.set(s.shift+'|'+s.date,s)});
+   historicalStates=Array.from(merged.values());rebuildPicker();
+  }catch(error){if(request===historyRequestId&&pickerOpen())historyStatus.textContent=
+   (error?.message||'Shared shift history unavailable.')+(historicalStates.length?' Showing available saved shifts.':'');}
+ }
+ overviewButton.addEventListener('click',openPicker);
+ historyShift.addEventListener('change',()=>renderPickerDates());
+ historyDate.addEventListener('change',()=>{
+  const s=availableRecords(historyShift.value).find(item=>item.date===historyDate.value);
+  if(!s)return;
+  selectedHistoricalKey=s.shift+'|'+s.date;
+  updateView();closePicker();
+ });
+ byId('vs-pick-latest').addEventListener('click',()=>{clearHistorySelection();closePicker();updateView()});
+ byId('vs-pick-done').addEventListener('click',()=>{const s=availableRecords(historyShift.value).find(item=>item.date===historyDate.value);if(s){selectedHistoricalKey=s.shift+'|'+s.date;updateView();}closePicker()});
+ document.addEventListener('pointerdown',event=>{if(pickerOpen()&&!overviewPicker.contains(event.target)&&!overviewButton.contains(event.target))closePicker()});
+ const entries=[
+  {label:'Overview',sym:'▦',hash:'',type:'primary'},
+  {label:'Daily Tasks',sym:'☑',source:'open-daily-tasks',hash:'#daily-tasks',type:'primary'},
+  {label:'BM/PD Log Search',sym:'▤',source:'open-bmpd-log-search',hash:'#bmpd-log-search',type:'primary'},
+  {label:'Power Rankings',sym:'♛',source:'open-leaderboard',hash:'#leaderboard',type:'primary'},
+  {label:'Spare Parts',sym:'◫',source:'open-spare-parts-preview',hash:'#spare-parts-preview',type:'primary'},
+  {label:'Translator (Preview)',sym:'◎',source:'open-visionary-translator',hash:'#visionary-translator',type:'primary'},
+  {label:'Supervisor Tasks',sym:'☷',source:'open-supervisor-tasks',hash:'#supervisor-tasks',type:'primary'},
+  {label:'Copy/Paste',sym:'▤',source:'open-copy-menu',hash:'#copy-paste',type:'extra'},
+  {label:'Live Dashboard',sym:'◷',source:'open-live-dashboard',hash:'#live-dashboard',type:'extra'},
+  {label:'BM/PD Trends',sym:'▥',source:'open-bmpd-trends',hash:'#bmpd-trends',type:'extra'},
+  {label:'BM/PD Reports',sym:'▧',source:'open-weekly-bmpd',hash:'#weekly-bmpd',type:'extra'},
+  {label:'Reports',sym:'▤',source:'open-reports',hash:'#reports',type:'extra'},
+  {label:'Guides',sym:'▣',source:'open-guides-menu',hash:'#guides',type:'extra'}
+ ];
+ let lastPM=false;
+ const labels={
+  '':'Overview','#daily-tasks':'Daily Tasks','#bmpd-log-search':'BM/PD Log Search','#weekly-bmpd':'BM/PD Reports',
+  '#reports':'Reports','#leaderboard':'Power Rankings','#spare-parts-preview':'Spare Parts',
+  '#visionary-translator':'Translator (Preview)','#supervisor-tasks':'Supervisor Tasks','#copy-paste':'Copy/Paste',
+  '#live-dashboard':'Live Dashboard','#bmpd-trends':'BM/PD Trends','#guides':'Guides','#local-admin':'Supervisor Settings',
+  '#pkg-update':'PKG Update','#lns-iq-check':'LNS IQ Check','#pkg-iq-check':'PKG IQ Check',
+  '#lns-top-3-ng':'LNS Top 3 NG','#escalation-format':'Escalation Format','#troubleshooting':'Troubleshooting',
+  '#work-instructions':'Work Instructions','#version-history':'Version History'
+ };
+ function sourceAllowed(id){const el=byId(id);return !!(el&&!el.hidden&&getComputedStyle(el).display!=='none');}
+ function closeNav(){sidebar.classList.remove('vs-open');shade.classList.remove('vs-open');sidebar.querySelector('.vs-close').setAttribute('aria-expanded','false');const menu=topbar.querySelector('.vs-mobile-menu');menu.setAttribute('aria-expanded','false')}
+ function visit(entry){
+  closeNav();
+  const source=byId(entry.source||'');
+  if(entry.label==='Overview') {lastPM=false;if(location.hash){location.hash='';}else updateView();return;}
+  if(!source||!sourceAllowed(entry.source))return;
+  lastPM=false;
+  source.click();
+  if(entry.target){window.setTimeout(()=>{const tab=document.querySelector(entry.target);if(entry.label==='PM Log'&&tab){tab.click();byId('pm-log-panel')?.scrollIntoView({block:'start',behavior:'smooth'})}else{tab?.scrollIntoView({block:'start',behavior:'smooth'})}},140)}
+  updateView();
+ }
+ entries.forEach(e=>{
+  const b=document.createElement('button');b.type='button';b.className='vs-nav-button';
+  const icon=document.createElement('span');icon.className='vs-nav-symbol';icon.textContent=e.sym;
+  const txt=document.createElement('span');txt.textContent=e.label;b.append(icon,txt);b.addEventListener('click',()=>visit(e));
+  (e.type==='primary'?primary:extra).appendChild(b);e.el=b;
+ });
+ const menu=topbar.querySelector('.vs-mobile-menu'),close=sidebar.querySelector('.vs-close');
+ function toggleMenu(){const open=!sidebar.classList.contains('vs-open');sidebar.classList.toggle('vs-open',open);shade.classList.toggle('vs-open',open);menu.setAttribute('aria-expanded',String(open))}
+ menu.addEventListener('click',toggleMenu);close.addEventListener('click',closeNav);shade.addEventListener('click',closeNav);
+ document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeNav();closePicker();toggleSettings(false)}});
+ const settings=byId('vs-settings-popover'),avatar=byId('vs-account-menu');
+ function toggleSettings(force){const show=typeof force==='boolean'?force:settings.getAttribute('aria-hidden')!=='false';settings.setAttribute('aria-hidden',String(!show));avatar.setAttribute('aria-expanded',String(show))}
+ avatar.addEventListener('click',()=>toggleSettings());
+ document.addEventListener('click',e=>{if(settings.getAttribute('aria-hidden')==='false'&&!settings.contains(e.target)&&!avatar.contains(e.target))toggleSettings(false)});
+ const realTheme=byId('theme-select'),newTheme=byId('vs-user-theme');
+ if(realTheme){newTheme.innerHTML=realTheme.innerHTML;newTheme.value=realTheme.value;newTheme.addEventListener('change',()=>{realTheme.value=newTheme.value;realTheme.dispatchEvent(new Event('change',{bubbles:true}));});realTheme.addEventListener('change',()=>{newTheme.value=realTheme.value})}
+ const supervisorSettings=byId('vs-supervisor-settings');
+ supervisorSettings.addEventListener('click',()=>{if(!sourceAllowed('open-local-admin'))return;toggleSettings(false);closeNav();byId('open-local-admin').click();updateView()});
+ byId('vs-sign-out').addEventListener('click',()=>{toggleSettings(false);byId('logout-button')?.click()});
+ settings.querySelectorAll('[data-vs-lang]').forEach(b=>b.addEventListener('click',()=>{const source=byId('language-'+b.dataset.vsLang);if(source&&!source.hidden)source.click();updateView()}));
+ function updateView(){
+  if(app.hidden){clearHistorySelection();historicalStates=[];historyRequestId++;closePicker();return;}
+  const role=app.getAttribute('data-auth-role')||'Technician';
+  byId('vs-current-role').textContent=(role==='Admin'?'Supervisor':role)+' view';
+  const hash=location.hash||'';byId('vs-current-page').textContent=hash==='#daily-tasks'&&lastPM?'PM Log':(labels[hash]||'Visionary Tool');
+  const state=window.VisionaryDailyTasks?.getState?.();
+  const overviewState=!hash?pickOverviewState()?.state:null;
+  const context=overviewState||state;
+  byId('vs-current-context').textContent=context?.date&&context?.shift?'MI2 · '+context.shift+' · '+context.date:'MI2 · Vision Team';
+  overviewButton.hidden=!!hash;
+  if(hash&&pickerOpen())closePicker();
+  entries.forEach(e=>{
+   let allowed=!e.source||sourceAllowed(e.source);
+   if(e.label==='Shift Reports'){allowed=sourceAllowed('open-reports')||sourceAllowed('open-daily-tasks');}
+   e.el.hidden=!allowed;
+   const active=e.label==='Overview'&&!hash||e.hash===hash&&hash;
+   if(active)e.el.setAttribute('aria-current','page');else e.el.removeAttribute('aria-current');
+  });
+  supervisorSettings.hidden=!sourceAllowed('open-local-admin');
+  settings.querySelectorAll('[data-vs-lang]').forEach(b=>{const real=byId('language-'+b.dataset.vsLang);b.hidden=!real||real.hidden;b.setAttribute('aria-pressed',real?.getAttribute('aria-pressed')||'false')});
+  if(!hash){refreshOverview()}
+ }
+ function percentage(n,d){return d?Math.max(0,Math.min(100,Math.round(n/d*100))):0}
+ function countComplete(entries){return (Array.isArray(entries)?entries:[]).filter(x=>x&&x.complete&&x.saved!==false&&(x.completedBy||Array.isArray(x.completedByList)&&x.completedByList.length)).length}
+ function hasRecordedActivity(state){
+  if(!state?.date||!state?.shift)return false;
+  return Object.values(state.fixed||{}).some(Boolean)||Object.values(state.roster||{}).some(x=>String(x||'').trim())
+   ||Boolean(String(state.errorProof||'').trim())||Boolean(String(state.handoffNote||'').trim())
+   ||['pms','escalations','superEscalations'].some(k=>Array.isArray(state[k])&&state[k].some(e=>e&&e.saved!==false));
+ }
+ function recentShiftCache(){
+  try {const cache=JSON.parse(localStorage.getItem('visionary-overview-recorded-shift-v1')||'null');return hasRecordedActivity(cache?.state)?cache.state:null;}catch(_){return null}
+ }
+ function pickOverviewState(){
+  if(selectedHistoricalKey){const recorded=selectedRecord();if(recorded)return {state:recorded,source:'history'};}
+  const bridge=window.VisionaryDailyTasks;
+  const confirmed=window.VisionaryLatestShiftData?.state||recentShiftCache();
+  const live=bridge?.getState?.();
+  // Selecting an empty shift must not clear the dashboard. Once the next shift
+  // receives a first edit, display it even while its cloud save is pending.
+  const pending=window.VisionaryOverviewPendingShift;
+  if(hasRecordedActivity(pending?.state) && (!confirmed || pending.state.date>confirmed.date ||
+      (pending.state.date===confirmed.date&&pending.state.shift===confirmed.shift))) {
+    return {state:pending.state,source:'pending'};
+  }
+  if(hasRecordedActivity(confirmed))return {state:confirmed,source:window.VisionaryLatestShiftData?.state?'shared':'saved'};
+  if(hasRecordedActivity(live))return {state:live,source:'current'};
+  return null;
+ }
+ function snapshotSummary(state){
+  const fixed=state.fixed||{},techs=state.technicians||{},version=Number(state.scoringRulesVersion)||1;
+  const result={earned:0,available:0,completed:0,total:0,completionEarned:0,completionAvailable:0,percent:0};
+  const groups=new Map(), inventorySeen=new Set();
+  const night=state.shift==='B2'||state.shift==='G2';
+  const roster=Object.assign({},state.roster||{});
+  (state.otSupport||[]).forEach(person=>{roster['OT:'+person.id]=person.name});
+  const form=byId('daily-shift-form');
+  if(!form)return {result,groups};
+  form.querySelectorAll('input[data-daily-fixed]').forEach(box=>{
+   if(box.getAttribute('data-task-active')==='false')return;
+   const required=box.getAttribute('data-required-date');
+   if(required&&(required!==state.date||box.getAttribute('data-custom-shifts')!==state.shift))return;
+   const allowed=(box.getAttribute('data-custom-shifts')||'').split(',').filter(Boolean);
+   if(allowed.length&&!allowed.includes(state.shift))return;
+   const proof=box.closest('[data-error-proof-group]');
+   if(proof&&(proof.getAttribute('data-error-proof-group')!==state.errorProof||
+     proof.getAttribute('data-error-proof-period')!==(night?'night':'day')))return;
+   const key=box.getAttribute('data-daily-fixed'),group=box.getAttribute('data-group')||'Other';
+   const points=version<2&&group==='LNS NG Report'?25:version<2&&group.startsWith('NGM Error Proofing')?75:Number(box.getAttribute('data-points'))||0;
+   const requiredTech=box.getAttribute('data-technician-required')==='true';
+   let earned=Boolean(fixed[key])&&(!requiredTech||Boolean(techs[key]));
+   if(earned&&group==='Inventory Day'){
+     const normalized=String(roster[techs[key]]||'').trim().toLowerCase();
+     if(!normalized||inventorySeen.has(normalized))earned=false;
+     else inventorySeen.add(normalized);
+   }
+   const counts=group!=='Cell Tracking Reading Rate Check'&&
+     (!window.VisionaryIQRequirements || window.VisionaryIQRequirements.required(state,key));
+   result.available+=points;result.total++;
+   if(counts)result.completionAvailable+=points;
+   if(earned){result.earned+=points;result.completed++;if(counts)result.completionEarned+=points;}
+   const entry=groups.get(group)||{label:group,total:0,completed:0};entry.total++;if(earned)entry.completed++;groups.set(group,entry);
+  });
+  if(!state.errorProof){const missing=version<2?375:250;result.available+=missing;result.completionAvailable+=missing;result.total+=5;}
+  for(const [key,kind] of [['pms','pm'],['escalations','escalation'],['superEscalations','super']]){
+   const entries=Array.isArray(state[key])?state[key]:Object.values(state[key]||{});
+   entries.forEach(item=>{
+     if(!item||item.saved===false)return;
+     const itemVersion=Number(item.scoringRulesVersion)||version;
+     const points=kind==='pm'?25:kind==='super'?150:itemVersion>=3&&item.source!=='bmpd'?25:50;
+     result.available+=points;result.completionAvailable+=points;result.total++;
+     if(item.complete&&(item.completedBy||item.completedByList?.length)){
+       result.earned+=points;result.completionEarned+=points;result.completed++;
+     }
+   });
+  }
+  result.percent=result.completionAvailable?Math.round(result.completionEarned/result.completionAvailable*1000)/10:0;
+  return {result,groups};
+ }
+ function formatPoints(points){return Number(points||0).toLocaleString(undefined,{maximumFractionDigits:1});}
+ function topTechnicianFromShift(state){
+  // Historical equivalent of Daily Tasks' Top Contributor logic: fixed checks
+  // award their documented points, and shared PM/escalation work splits points.
+  // No change to Daily Tasks form state or save/lock status is required.
+  const live=window.VisionaryDailyTasks?.getState?.();
+  if(live?.date===state.date&&live?.shift===state.shift&&
+      JSON.stringify(live)===JSON.stringify(state)){
+   try {const top=window.VisionaryDailyTasks.getReportSummary().topContributor;
+    if(top)return {label:top.label,points:top.points};}catch(_){ }
+  }
+  const scores=new Map(), labels=new Map();
+  const roster=Object.assign({},state.roster||{});
+  (state.otSupport||[]).forEach(person=>{if(person?.id)roster['OT:'+person.id]=person.name});
+  for(const [key,value] of Object.entries(roster)){
+   const label=String(value||'').trim();if(label){labels.set(key,label);scores.set(key,0)}
+  }
+  function credit(key,points){if(!labels.has(key))return;scores.set(key,(scores.get(key)||0)+points)}
+  const form=byId('daily-shift-form'),fixed=state.fixed||{},techs=state.technicians||{};
+  const version=Number(state.scoringRulesVersion)||1;
+  const night=state.shift==='B2'||state.shift==='G2';
+  const inventorySeen=new Set();
+  if(form)form.querySelectorAll('input[data-daily-fixed]').forEach(box=>{
+   if(box.getAttribute('data-task-active')==='false')return;
+   const required=box.getAttribute('data-required-date');
+   if(required&&(required!==state.date||box.getAttribute('data-custom-shifts')!==state.shift))return;
+   const allowed=(box.getAttribute('data-custom-shifts')||'').split(',').filter(Boolean);
+   if(allowed.length&&!allowed.includes(state.shift))return;
+   const proof=box.closest('[data-error-proof-group]');
+   if(proof&&(proof.getAttribute('data-error-proof-group')!==state.errorProof||
+      proof.getAttribute('data-error-proof-period')!==(night?'night':'day')))return;
+   const key=box.getAttribute('data-daily-fixed');if(!fixed[key])return;
+   const group=box.getAttribute('data-group')||'';
+   const requiredTech=box.getAttribute('data-technician-required')==='true';
+   const who=requiredTech?techs[key]:box.getAttribute('data-allocation')?'Allocation '+box.getAttribute('data-allocation'):'';
+   if(requiredTech&&!who)return;
+   if(group==='Inventory Day'){
+     const name=String(roster[who]||'').trim().toLowerCase();
+     if(!name||inventorySeen.has(name))return;
+     inventorySeen.add(name);
+   }
+   const points=version<2&&group==='LNS NG Report'?25:
+      version<2&&group.startsWith('NGM Error Proofing')?75:Number(box.getAttribute('data-points'))||0;
+   credit(who,points);
+  });
+  for(const [kind,pointsDefault] of [['pms',25],['escalations',50],['superEscalations',150]]){
+   const items=Array.isArray(state[kind])?state[kind]:Object.values(state[kind]||{});
+   items.forEach(item=>{
+    if(!item||item.saved===false||!item.complete)return;
+    const participants=[...new Set((item.completedByList?.length?item.completedByList:[item.completedBy])
+      .map(name=>String(name||'').trim()).filter(Boolean))];
+    if(!participants.length)return;
+    const itemVersion=Number(item.scoringRulesVersion)||version;
+    const pts=kind==='escalations'&&itemVersion>=3&&item.source!=='bmpd'?25:pointsDefault;
+    participants.forEach(key=>credit(key,pts/participants.length));
+   });
+  }
+  const ranked=Array.from(scores.entries()).map(([key,points])=>({key,points,label:labels.get(key)}))
+    .sort((a,b)=>b.points-a.points||a.label.localeCompare(b.label));
+  if(!ranked.length||ranked[0].points<=0)return {label:'No completed work',points:0};
+  const leaders=ranked.filter(p=>p.points===ranked[0].points);
+  return {label:(leaders.length>1?'Tie: ':'')+leaders.map(l=>l.label).join(' / '),points:ranked[0].points};
+ }
+ function currentGroupSummaries(state){return snapshotSummary(state).groups}
+ function number(id,value){byId(id).textContent=value}
+ function fillBar(id,done,total){byId(id).style.width=percentage(done,total)+'%'}
+ function emptyOverview(){['vs-stat-percent','vs-stat-escalations','vs-stat-error-proofing','vs-stat-pms','vs-stat-top-tech','vs-core-count','vs-quality-count'].forEach(id=>number(id,'—'));
+  number('vs-stat-percent-note','Select a shift');number('vs-stat-top-points','No credited work yet');number('vs-stat-error-proofing-note','No recorded shift');number('vs-shift-pill','No shift selected');
+  const ring=byId('vs-progress-ring');ring.style.setProperty('--vs-ring','0%');ring.setAttribute('data-progress','—');ring.setAttribute('aria-label','No selected shift');
+  number('vs-progress-description','Choose a date and shift in Daily Tasks to display completion here.');
+  fillBar('vs-core-bar',0,0);fillBar('vs-quality-bar',0,0);
+  byId('vs-priorities').replaceChildren();const p=document.createElement('p');p.className='vs-muted';p.textContent='Open Daily Tasks and select your shift to see completed and outstanding checks.';byId('vs-priorities').appendChild(p);
+  number('vs-overview-source','No shift selected. Metrics will come directly from Daily Tasks after setup.');
+ }
+ function refreshOverview(){
+  const selected=pickOverviewState();
+  if(!selected){emptyOverview();return;}
+  const state=selected.state;
+  const bridge=window.VisionaryDailyTasks;
+  let result,groups;
+  try {
+    // The existing score engine is authoritative when the selected form is
+    // displaying the same recorded shift. Historical shifts are scored read-only.
+    const current=bridge?.getState?.();
+    const snapshot=snapshotSummary(state);
+    groups=snapshot.groups;
+    result=current?.date===state.date&&current?.shift===state.shift&&
+     selected.source!=='saved'&&selected.source!=='shared'?bridge.getMetrics():snapshot.result;
+  }catch(_){emptyOverview();return;}
+  const p=Number(result.percent)||0;
+  number('vs-stat-percent',p+'%');number('vs-stat-percent-note',result.total?'Recorded shift':'Shift setup');
+  number('vs-stat-escalations',(Array.isArray(state.escalations)?state.escalations:Object.values(state.escalations||{})).filter(e=>e&&e.saved!==false).length);
+  // Count only the completed NGM Error Proofing checks for this recorded shift.
+  // The group's completed tally uses the same saved checkbox/credited-tech logic
+  // as the Daily Tasks completion calculation, including A/B and day/night.
+  let proofDone=0,proofTotal=0;
+  groups.forEach((group,key)=>{
+   if(!key.startsWith('NGM Error Proofing'))return;
+   proofDone+=group.completed;proofTotal+=group.total;
+  });
+  number('vs-stat-error-proofing',proofDone);
+  number('vs-stat-error-proofing-note',proofTotal?'of '+proofTotal+' assigned checks':'No allocation selected');
+  number('vs-stat-pms',countComplete(Array.isArray(state.pms)?state.pms:Object.values(state.pms||{})));
+  const top=topTechnicianFromShift(state);
+  number('vs-stat-top-tech',top.label);number('vs-stat-top-points',top.points>0?formatPoints(top.points)+' pts · best on shift':'No credited work yet');
+  number('vs-shift-pill',state.shift+' · '+state.date);
+  const ring=byId('vs-progress-ring');ring.style.setProperty('--vs-ring',p+'%');ring.setAttribute('data-progress',p+'%');ring.setAttribute('aria-label','Shift completion '+p+' percent');
+  number('vs-progress-description',p===100?'All scored shift requirements are complete.':result.total?'This recorded shift is '+p+'% complete by points.':'Shift tasks have not been configured.');
+  const quality=['PKG IQ Check','LNS IQ Check','NGM Error Proofing A','NGM Error Proofing B'];
+  let core={total:0,completed:0},q={total:0,completed:0};
+  groups.forEach((g,k)=>{const to=quality.includes(k)?q:core;to.total+=g.total;to.completed+=g.completed});
+  number('vs-core-count',core.completed+' / '+core.total);number('vs-quality-count',q.completed+' / '+q.total);
+  fillBar('vs-core-bar',core.completed,core.total);fillBar('vs-quality-bar',q.completed,q.total);
+  const preferred=['LNS IQ Check','PKG IQ Check','Black Frame Check','NGM Error Proofing A','NGM Error Proofing B','Cell Tracking Reading Rate Check','No Response Check','LNS NG Report'];
+  const picked=[...preferred.map(k=>groups.get(k)).filter(Boolean),...Array.from(groups.values()).filter(v=>!preferred.includes(v.label))].slice(0,4);
+  const list=byId('vs-priorities');list.replaceChildren();
+  if(!picked.length){const d=document.createElement('p');d.className='vs-muted';d.textContent='No active checks for this recorded shift.';list.appendChild(d)}
+  for(const item of picked){
+   const complete=item.total>0&&item.completed===item.total;
+   const row=document.createElement('div');row.className='vs-priority';
+   const check=document.createElement('span');check.className='vs-task-check'+(complete?' done':'');check.textContent=complete?'✓':'';
+   const info=document.createElement('div');info.className='vs-priority-copy';const name=document.createElement('strong');name.textContent=item.label;
+   const detail=document.createElement('small');detail.textContent=item.completed+' of '+item.total+' checks completed';info.append(name,detail);
+   const badge=document.createElement('span');badge.className=complete?'vs-badge-ok':'vs-badge-pending';badge.textContent=complete?'Complete':item.completed?'In progress':'Pending';
+   row.append(check,info,badge);list.appendChild(row);
+  }
+  const origin=selected.source==='history'?'Historical saved shift':selected.source==='shared'?'Latest saved shared shift':selected.source==='saved'?'Last saved shift on this device':selected.source==='pending'?'New shift in progress (sync pending)':'Active shift on this device';
+  number('vs-overview-source',origin+': '+state.shift+' · '+state.date+'. Tap the shift/date in the header to browse other saved shifts.');
+ }
+ function updateStatus(){const status=byId('daily-cloud-status')?.textContent?.trim()||'';
+  const badge=byId('vs-connection-status');
+  if(/failed|error|offline|unavailable|blocked/i.test(status)){badge.textContent='● Sync needs attention';badge.style.background='#fff3e4';badge.style.color='#9a6a33'}
+  else if(/saved|connected|shared|synced/i.test(status)&&!/(sign in|not connected)/i.test(status)){badge.textContent='● Shift sync connected';badge.style.background='#edf5eb';badge.style.color='#3d7550'}
+  else{badge.textContent='● Workspace active';badge.style.background='#edf5eb';badge.style.color='#3d7550'}
+ }
+ topbar.querySelectorAll('[data-vs-go]').forEach(b=>b.addEventListener('click',()=>{}));
+ document.querySelectorAll('#vs-overview [data-vs-go]').forEach(b=>b.addEventListener('click',()=>{
+  visit(entries.find(e=>e.label===(b.dataset.vsGo==='reports'?'Reports':'Daily Tasks')));
+ }));
+ window.addEventListener('hashchange',()=>{closePicker();if(location.hash!=='#daily-tasks')lastPM=false;updateView();updateStatus();closeNav();toggleSettings(false)});
+ window.addEventListener('visionary-daily-ready',()=>{updateView();updateStatus()});
+ window.addEventListener('visionary-daily-local-change',event=>{
+  if(event.detail?.intent!=='shift-selection'&&hasRecordedActivity(event.detail?.state)){
+   window.VisionaryOverviewPendingShift={state:event.detail.state,seenAt:Date.now()};
+  }
+  queueMicrotask(()=>{updateView();updateStatus()});
+ });
+ window.addEventListener('visionary-latest-shift',()=>{if(!location.hash){refreshOverview();updateView()}});
+ // Native Firebase shift callbacks already update these score nodes; watch only their text.
+ const progressNode=byId('daily-task-quick-count'),cloudStatus=byId('daily-cloud-status');
+ if(progressNode){new MutationObserver(()=>{if(!location.hash)refreshOverview()}).observe(progressNode,{childList:true,characterData:true,subtree:true})}
+ if(cloudStatus){new MutationObserver(updateStatus).observe(cloudStatus,{childList:true,characterData:true,subtree:true})}
+ // Original auth/role code changes button[hidden]; do not alter source permissions.
+ const originals=byId('forms-menu-view')?.querySelector('.forms-grid');
+ if(originals){new MutationObserver(updateView).observe(originals,{subtree:true,attributes:true,attributeFilter:['hidden','style','class']})}
+ new MutationObserver(updateView).observe(app,{attributes:true,attributeFilter:['hidden','data-auth-role']});
+ const dt=byId('daily-shift-date'),shift=byId('daily-shift-shift');
+ [dt,shift].forEach(el=>el?.addEventListener('change',()=>window.setTimeout(updateView,0)));
+ updateView();updateStatus();
+})();
+</script>
 </body>
 </html>
