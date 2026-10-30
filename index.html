@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="description" content="A mobile-friendly collection of vision production guides, troubleshooting history, and copy-ready reporting tools.">
-  <meta name="visionary-app-version" content="4.04">
+  <meta name="visionary-app-version" content="4.05">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
@@ -6898,7 +6898,11 @@ html[data-theme="matcha"] #daily-tasks-view #daily-cloud-admin{margin-top:6px;pa
 @media(max-width:430px){#vs-workspace-bar #vs-shift-context-button{font-size:11px}#vs-workspace-bar #vs-shift-picker{left:-35px;max-width:calc(100vw - 30px)}#vs-workspace-bar .vs-role{font-size:10px}}
 @media print{#vs-workspace-bar #vs-shift-picker{display:none!important}}
 </style>
-</head>
+<style id="shift-allocation-style">
+.sa-tabs{display:flex;gap:8px;border-bottom:1px solid var(--line);padding-bottom:12px;margin-bottom:20px}.sa-tabs button{border:1px solid var(--line);border-radius:10px;padding:10px 16px;background:var(--paper);color:var(--ink);font:inherit;cursor:pointer}.sa-tabs button[aria-selected="true"]{background:#294e3b;color:white}
+.sa-widget{--sa-color:#2563a5;max-width:1100px}.sa-fields{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.sa-fields .field{min-width:0}.sa-fields input,.sa-widget select{width:100%;min-width:0}.sa-widget input{box-sizing:border-box;border:1px solid var(--line);border-radius:9px;padding:10px;background:var(--paper);color:var(--ink);font:inherit}.sa-widget input:focus{outline:2px solid var(--sa-color);outline-offset:2px}.sa-preview{white-space:pre-wrap;overflow-wrap:anywhere;background:var(--paper);border:1px solid var(--line);border-left:4px solid var(--sa-color);border-radius:10px;padding:14px;font:inherit;line-height:1.7}.sa-actions{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:14px}.sa-team{color:var(--sa-color);font-weight:700}.sa-daily{border:1px solid var(--line);border-radius:12px;margin:14px 0;padding:12px 14px}.sa-daily>summary{cursor:pointer;font-weight:700}.sa-daily>summary span{font-weight:400;font-size:12px;opacity:.7;margin-left:10px}.sa-daily .sa-widget{max-width:none}.sa-daily .sa-preview{font-size:13px;margin-bottom:0}
+@media(max-width:1050px){.sa-fields{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:540px){.sa-fields{grid-template-columns:1fr}.sa-daily>summary span{display:block;margin:4px 0 0}}
+</style></head>
 <body>
   <svg class="theme-background-art matcha-theme-art matcha-art-leaves" viewBox="0 0 420 340" aria-hidden="true" focusable="false">
     <path class="matcha-art-line" d="M408 28C344 69 314 126 244 178C181 226 99 267 16 326"/>
@@ -7211,7 +7215,7 @@ html[data-theme="matcha"] #daily-tasks-view #daily-cloud-admin{margin-top:6px;pa
             <span class="form-tile-arrow" aria-hidden="true">›</span>
           </button>
         </div>
-        <p class="last-updated">Version 4.04 · Last updated: <time datetime="2026-10-29">October 29, 2026</time></p>
+        <p class="last-updated">Version 4.05 · Last updated: <time datetime="2026-10-30">October 30, 2026</time></p>
         <div class="version-history-link-wrap">
           <button id="open-version-history" class="version-history-link" type="button">View version history</button>
         </div>
@@ -7310,7 +7314,7 @@ html[data-theme="matcha"] #daily-tasks-view #daily-cloud-admin{margin-top:6px;pa
         <button id="copy-menu-back" class="button button-secondary top-action-button" type="button">Back</button>
       </header>
       <section class="panel forms-menu-panel" aria-label="Copy and paste tools">
-        <div class="forms-grid">
+        <div class="sa-tabs" role="tablist" aria-label="Copy and paste tools"><button type="button" id="sa-reports-tab" role="tab" aria-selected="true" aria-controls="sa-reports-panel">Reports</button><button type="button" id="sa-allocation-tab" role="tab" aria-selected="false" aria-controls="sa-allocation-panel" tabindex="-1">Shift Allocation</button></div><div id="sa-reports-panel" role="tabpanel" aria-labelledby="sa-reports-tab"><div class="forms-grid">
           <button id="open-escalation-form" class="form-tile" type="button">
             <span class="form-tile-icon" aria-hidden="true">🚨</span>
             <span class="form-tile-copy">
@@ -7357,6 +7361,7 @@ html[data-theme="matcha"] #daily-tasks-view #daily-cloud-admin{margin-top:6px;pa
             <span class="form-tile-arrow" aria-hidden="true">›</span>
           </button>
         </div>
+</div><div id="sa-allocation-panel" role="tabpanel" aria-labelledby="sa-allocation-tab" hidden><h2>Shift Allocation</h2><p>Assign line support and copy a team-colored update.</p><div class="sa-widget" data-sa-widget="copy"><div class="field"><label for="sa-copy-team">Team</label><select id="sa-copy-team" data-sa-team><option value="B1">Blue 1</option><option value="B2">Blue 2</option><option value="G1">Gold 1</option><option value="G2">Gold 2</option></select></div><div class="sa-fields"><div class="field"><label for="sa-copy-line3">Line 3</label><input id="sa-copy-line3" data-sa-name="line3" list="sa-name-directory" maxlength="120" placeholder="Line 3 name" autocomplete="off"></div><div class="field"><label for="sa-copy-line4">Line 4</label><input id="sa-copy-line4" data-sa-name="line4" list="sa-name-directory" maxlength="120" placeholder="Line 4 name" autocomplete="off"></div><div class="field"><label for="sa-copy-line5">Line 5</label><input id="sa-copy-line5" data-sa-name="line5" list="sa-name-directory" maxlength="120" placeholder="Line 5 name" autocomplete="off"></div><div class="field"><label for="sa-copy-lead">Oversight</label><input id="sa-copy-lead" data-sa-name="lead" list="sa-name-directory" maxlength="120" placeholder="Oversight name" autocomplete="off"></div></div><div class="sa-actions"><button class="button button-primary" type="button" data-sa-copy>Copy allocation</button><span class="status" role="status" aria-live="polite" data-sa-status></span></div><pre class="sa-preview" data-sa-preview aria-label="Copy-ready shift allocation"></pre></div></div>
       </section>
     </section>
 
@@ -7576,7 +7581,7 @@ document.addEventListener(&#x27;keydown&#x27;,e=&gt;{if(e.key===&#x27;Escape&#x2
             <div class="daily-cloud-copy">
               <strong id="daily-cloud-title">Shared shift synchronization</strong>
               <span id="daily-cloud-status" role="status" aria-live="polite">Sign in with Google to share Daily Tasks across phones.</span>
-              <small>Safe Sync v6.2 · App <span id="daily-app-version">4.04</span></small><span id="daily-version-health" class="daily-version-health" hidden></span>
+              <small>Safe Sync v6.2 · App <span id="daily-app-version">4.05</span></small><span id="daily-version-health" class="daily-version-health" hidden></span>
             </div>
           </div>
           <div class="daily-cloud-actions">
@@ -7647,6 +7652,7 @@ document.addEventListener(&#x27;keydown&#x27;,e=&gt;{if(e.key===&#x27;Escape&#x2
               </div>
                 </div>
 
+                <details class="sa-daily"><summary>Shift Allocation <span>Assign line support · Copy update</span></summary><div class="sa-widget" data-sa-widget="daily"><p class="sa-team" data-sa-team-label>Choose a shift above</p><div class="sa-fields"><div class="field"><label for="sa-daily-line3">Line 3</label><input id="sa-daily-line3" data-sa-name="line3" list="sa-name-directory" maxlength="120" placeholder="Line 3 name" autocomplete="off"></div><div class="field"><label for="sa-daily-line4">Line 4</label><input id="sa-daily-line4" data-sa-name="line4" list="sa-name-directory" maxlength="120" placeholder="Line 4 name" autocomplete="off"></div><div class="field"><label for="sa-daily-line5">Line 5</label><input id="sa-daily-line5" data-sa-name="line5" list="sa-name-directory" maxlength="120" placeholder="Line 5 name" autocomplete="off"></div><div class="field"><label for="sa-daily-lead">Oversight</label><input id="sa-daily-lead" data-sa-name="lead" list="sa-name-directory" maxlength="120" placeholder="Oversight name" autocomplete="off"></div></div><div class="sa-actions"><button class="button button-primary" type="button" data-sa-copy>Copy allocation</button><span class="status" role="status" aria-live="polite" data-sa-status></span></div><pre class="sa-preview" data-sa-preview aria-label="Copy-ready shift allocation"></pre></div></details>
                 <p id="daily-shift-setup-alert" class="daily-shift-setup-alert" role="status" aria-live="polite">Select Date, Shift, and NGM Error Proofing A or B to unlock the numbered tasks.</p>
               </div>
             </details>
@@ -8410,7 +8416,7 @@ document.addEventListener(&#x27;keydown&#x27;,e=&gt;{if(e.key===&#x27;Escape&#x2
       </header>
 
       <section class="panel" aria-label="Release history">
-        <div class="version-history-list"><article class="version-card version-card-current"><div class="version-card-heading"><h2>Version 4.04</h2><time datetime="2026-10-29">October 29, 2026</time></div><p class="version-summary-intro">Expanded the Translator desktop workspace and listener layout. Added full-screen live translation with larger captions and exit controls.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 4.03</h2><time datetime="2026-10-29">October 29, 2026</time></div><p class="version-summary-intro">Power Rankings are now Supervisor-only. Removed the Technician workspace shortcut and home tile, blocked non-Supervisor leaderboard links, and restricted ranking refreshes without changing the scoring formula or saved shift records.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 4.02</h2><time datetime="2026-10-29">October 29, 2026</time></div><p class="version-summary-intro">Matcha is now the only application theme. Removed the Appearance theme picker, disabled alternate palettes and saved theme overrides, and preserved the VT menu's language, supervisor settings, and sign-out actions.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 4.01</h2><time datetime="2026-10-29">October 29, 2026</time></div><p class="version-summary-intro">Power Rankings v2: assigned Core Task Completion 20%, same-shift Work Contribution 20%, Escalations 20%, Error Proofing 15%, Super Escalations 10%, and PMs 15%. Removed overlapping PPS and medals from scoring while retaining their display. Preserved saved shift data, shared credit, and technician/lead access rules.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 4.00</h2><time datetime="2026-10-29">October 29, 2026</time></div><p class="version-summary-intro">Major Visionary Tool theme and workspace redesign with responsive sidebar, shift history selector, last recorded shift overview, live shift metrics, and Top Technician recognition. Restored Power Rankings for Technician accounts while retaining Supervisor-only detailed rankings and audit controls.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.152</h2><time datetime="2026-10-28">October 28, 2026</time></div><p class="version-summary-intro">Visionary Translator video now enters fullscreen during playback and returns to Home when it finishes.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.151</h2><time datetime="2026-10-28">October 28, 2026</time></div><p class="version-summary-intro">Fixed the Visionary Translator video link to match the exact GitHub filename so playback loads correctly.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.150</h2><time datetime="2026-10-28">October 28, 2026</time></div><p class="version-summary-intro">Added Visionary Translator video playback from a separate GitHub asset. The video returns to the home screen when it finishes, and the Spare Parts login was removed.</p></article>
+        <div class="version-history-list"><article class="version-card version-card-current"><div class="version-card-heading"><h2>Version 4.05</h2><time datetime="2026-10-30">October 30, 2026</time></div><p class="version-summary-intro">Top 3 NG now calculates the previous two hours from one update time. Added team-colored Shift Allocation tools in Copy/Paste and Daily Tasks shift setup.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 4.04</h2><time datetime="2026-10-29">October 29, 2026</time></div><p class="version-summary-intro">Expanded the Translator desktop workspace and listener layout. Added full-screen live translation with larger captions and exit controls.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 4.03</h2><time datetime="2026-10-29">October 29, 2026</time></div><p class="version-summary-intro">Power Rankings are now Supervisor-only. Removed the Technician workspace shortcut and home tile, blocked non-Supervisor leaderboard links, and restricted ranking refreshes without changing the scoring formula or saved shift records.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 4.02</h2><time datetime="2026-10-29">October 29, 2026</time></div><p class="version-summary-intro">Matcha is now the only application theme. Removed the Appearance theme picker, disabled alternate palettes and saved theme overrides, and preserved the VT menu's language, supervisor settings, and sign-out actions.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 4.01</h2><time datetime="2026-10-29">October 29, 2026</time></div><p class="version-summary-intro">Power Rankings v2: assigned Core Task Completion 20%, same-shift Work Contribution 20%, Escalations 20%, Error Proofing 15%, Super Escalations 10%, and PMs 15%. Removed overlapping PPS and medals from scoring while retaining their display. Preserved saved shift data, shared credit, and technician/lead access rules.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 4.00</h2><time datetime="2026-10-29">October 29, 2026</time></div><p class="version-summary-intro">Major Visionary Tool theme and workspace redesign with responsive sidebar, shift history selector, last recorded shift overview, live shift metrics, and Top Technician recognition. Restored Power Rankings for Technician accounts while retaining Supervisor-only detailed rankings and audit controls.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.152</h2><time datetime="2026-10-28">October 28, 2026</time></div><p class="version-summary-intro">Visionary Translator video now enters fullscreen during playback and returns to Home when it finishes.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.151</h2><time datetime="2026-10-28">October 28, 2026</time></div><p class="version-summary-intro">Fixed the Visionary Translator video link to match the exact GitHub filename so playback loads correctly.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.150</h2><time datetime="2026-10-28">October 28, 2026</time></div><p class="version-summary-intro">Added Visionary Translator video playback from a separate GitHub asset. The video returns to the home screen when it finishes, and the Spare Parts login was removed.</p></article>
           <article class="version-card"><div class="version-card-heading"><h2>Version 3.0.149</h2><time datetime="2026-10-25">October 25, 2026</time></div><p class="version-summary-intro">Spare-parts inventory changes, withdrawals, returns, imports and Excel downloads are restricted to Supervisor. All other logins open directly to part search and cage-location lookup.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.148</h2><time datetime="2026-10-24">October 24, 2026</time></div><p class="version-summary-intro">Reduced unnecessary Firestore reads by loading shift history only in Daily Tasks, loading spare-parts data only while that view is open, retaining local Firestore cache, and removing forced listener reconnects when returning to the app.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.111</h2><time datetime="2026-10-20">October 20, 2026</time></div><p class="version-summary-intro">Reworked the Spare Parts summary so low-stock alerts sit beside the three inventory counts, and the search area uses the full desktop width.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.110</h2><time datetime="2026-10-20">October 20, 2026</time></div><p class="version-summary-intro">Aligned new inventory entry and the raw Inventory workbook sheet with the LNS columns. Usage now increases automatically as items are removed.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.109</h2><time datetime="2026-10-20">October 20, 2026</time></div><p class="version-summary-intro">Technicians can now open the Spare Parts preview and submit sample removals. Edit Inventory and Add New Inventory stay restricted to Supervisors.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.108</h2><time datetime="2026-10-20">October 20, 2026</time></div><p class="version-summary-intro">The sample removal form now lets users type the person removing an item instead of selecting a preset technician name. The entered name remains in withdrawal history and Excel export.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.107</h2><time datetime="2026-10-20">October 20, 2026</time></div><p class="version-summary-intro">Added Supervisor-only Edit Inventory to update sample part descriptions and minimum/maximum quantities. Alerts and Excel downloads reflect saved edits; preview changes reset on reload.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.106</h2><time datetime="2026-10-20">October 20, 2026</time></div><p class="version-summary-intro">Loaded the cage workbook’s four process sheets into the Supervisor-only Spare Parts sample preview. Preserves source rows, locations, notes, and stock counts; unknown quantities and unset min/max remain explicit.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.105</h2><time datetime="2026-10-20">October 20, 2026</time></div><p class="version-summary-intro">Added the Spare Parts sample preview to the Supervisor login only, with keyword search, expandable part details, a removal popup for technician/process/line/vision/quantity, low-stock alerts, and Excel export. Sample inventory remains local to the open page while the real inventory list is prepared.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.104</h2><time datetime="2026-10-19">October 19, 2026</time></div><p class="version-summary-intro">Cell Tracking Reading Rate checks now run every four hours: 5:00, 9:00, and 13:00 on B1/G1, and 17:00, 21:00, and 1:00 on B2/G2. They remain at zero points.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.103</h2><time datetime="2026-10-20">October 20, 2026</time></div><p class="version-summary-intro">Restored the Cell Tracking Reading Rate checklist for all allocations. It is visible and trackable but awards no points yet.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.102</h2><time datetime="2026-10-19">October 19, 2026</time></div><p class="version-summary-intro">Supervisor Tasks now keeps Google sign-in beside Retry sync, shows the connected account, and explains shared-task connection or permission problems.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.101</h2><time datetime="2026-10-19">October 19, 2026</time></div><p class="version-summary-intro">Power Rankings stay visible in the technician menu but open to a blank page. Supervisors retain the rankings view.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.100</h2><time datetime="2026-10-15">October 15, 2026</time></div><p class="version-summary-intro">Added Delete task to ongoing and finished supervisor tasks with confirmation, shared deletion sync, conflict protection, and a visible pending-deletion status with cancellation before sync.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.99</h2><time datetime="2026-10-15">October 15, 2026</time></div><p class="version-summary-intro">Aligned weekly tasks, task entry, and calendar panels above a full-width task toolbar and single-column task list. Compact calendar indicators show urgency and progress. Weekly tasks and the calendar remain collapsible on mobile.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.98</h2><time datetime="2026-10-15">October 15, 2026</time></div><p class="version-summary-intro">Supervisor workspace now has three desktop columns: weekly tasks, the main task list, and a monthly calendar. Weekly tasks and the calendar start collapsed on smaller screens.</p></article><article class="version-card"><div class="version-card-heading"><h2>Version 3.0.97</h2><time datetime="2026-10-14">October 14, 2026</time></div><p class="version-summary-intro">Supervisor Tasks now uses the desktop side margins for a Due this week list and interactive monthly calendar. Select a date to list tasks due that day. Urgent tasks show red, tasks with checked steps show orange, and unstarted tasks stay neutral. The panels stack on smaller screens.</p></article>
 <article class="version-card"><div class="version-card-heading"><h2>Version 3.0.96</h2><time datetime="2026-10-14">October 14, 2026</time></div><p class="version-summary-intro">Added a desktop due-this-week panel and an interactive monthly due-date calendar. Select a date to see its tasks, color coded red for urgent tasks and orange when at least one checklist step is complete. Calendar and weekly panels stack on narrow screens.</p></article>
 <article class="version-card"><div class="version-card-heading"><h2>Version 3.0.95</h2><time datetime="2026-10-14">October 14, 2026</time></div><p class="version-summary-intro">Supervisor task cards now remain collapsed until opened. A stronger desktop single-column layout keeps every task full-width with its notes and checklist inside the expanded card.</p></article>
@@ -9092,18 +9098,18 @@ document.addEventListener(&#x27;keydown&#x27;,e=&gt;{if(e.key===&#x27;Escape&#x2
           <div class="panel-heading">
             <div>
               <h2 id="top3-details-title">Top 3 details</h2>
-              <p>Times use 24-hour, one-hour increments.</p>
+              <p>Enter the update time. The report automatically covers the previous two hours, including across midnight.</p>
             </div>
           </div>
           <form id="top3-form" class="simple-form" autocomplete="off">
             <div class="simple-fields">
               <div class="field">
-                <label for="top3-start-time">Start Time</label>
-                <select id="top3-start-time"></select>
+                <label for="top3-start-time">Window start (automatic)</label>
+                <input id="top3-start-time" type="text" readonly aria-label="Calculated window start">
               </div>
               <div class="field">
-                <label for="top3-end-time">End Time</label>
-                <select id="top3-end-time"></select>
+                <label for="top3-end-time">Update time</label>
+                <input id="top3-end-time" type="time" step="60" required>
               </div>
             </div>
             <div id="top3-entries" class="simple-entry-grid"></div>
@@ -10203,7 +10209,7 @@ window.VisionaryIQRequirements = Object.freeze({
         "L&S Top 3 High NG": "L&S 불량 상위 3개",
         "Enter the three highest results, verify the preview, then copy the update.": "가장 높은 결과 3개를 입력하고 미리보기를 확인한 다음 업데이트를 복사하세요.",
         "Top 3 details": "상위 3개 세부 정보",
-        "Times use 24-hour, one-hour increments.": "시간은 24시간 형식의 1시간 단위입니다.",
+        "Enter the update time. The report automatically covers the previous two hours, including across midnight.": "시간은 24시간 형식의 1시간 단위입니다.",
         "Start Time": "시작 시간",
         "End Time": "종료 시간",
         "Copy-ready preview": "복사 미리보기",
@@ -11176,17 +11182,7 @@ Object.assign(sparePartsSpanishUi,{"Replace catalog from Excel":"Reemplazar cat�
       }
 
       function initializeTop3Form() {
-        for (var hour = 0; hour < 24; hour += 1) {
-          var time = String(hour).padStart(2, "0") + ":00";
-          [top3StartTime, top3EndTime].forEach(function (select) {
-            var option = document.createElement("option");
-            option.value = time;
-            option.textContent = time;
-            select.appendChild(option);
-          });
-        }
         var currentHour = new Date().getHours();
-        top3StartTime.value = String((currentHour + 23) % 24).padStart(2, "0") + ":00";
         top3EndTime.value = String(currentHour).padStart(2, "0") + ":00";
         for (var index = 1; index <= 3; index += 1) {
           var entry = document.createElement("section");
@@ -11208,9 +11204,13 @@ Object.assign(sparePartsSpanishUi,{"Replace catalog from Excel":"Reemplazar cat�
       }
 
       function updateTop3Preview() {
+        var updateMatch = /^(\d{2}):(\d{2})$/.exec(top3EndTime.value);
+        if (!updateMatch) { top3StartTime.value = ""; top3Preview.value = "Enter an update time to generate the two-hour report."; return; }
+        var startMinutes = (Number(updateMatch[1]) * 60 + Number(updateMatch[2]) - 120 + 1440) % 1440;
+        top3StartTime.value = String(Math.floor(startMinutes / 60)).padStart(2, "0") + ":" + String(startMinutes % 60).padStart(2, "0");
         var lines = [
           reportText("🟥L&S Top 3 High NG🟥", "🟥L&S 불량 상위 3개🟥"),
-          reportText("Time frame: ", "시간대: ") + top3StartTime.value + " " + top3EndTime.value
+          reportText("Time frame: ", "시간대: ") + top3StartTime.value + "-" + top3EndTime.value
         ];
         for (var index = 1; index <= 3; index += 1) {
           var rateComment = top3Value("top3-ng-rate-comment-" + index);
@@ -20546,7 +20546,7 @@ window.dispatchEvent(new Event('inventory-cloud-ready'));
     const provider = new GoogleAuthProvider();
     provider.setCustomParameters({ prompt: "select_account" });
     const SYNC_PROTOCOL_VERSION = 6;
-    const APP_VERSION = String(document.querySelector('meta[name="visionary-app-version"]')?.content || "4.04");
+    const APP_VERSION = String(document.querySelector('meta[name="visionary-app-version"]')?.content || "4.05");
     const HOSTED_APP_ROOT = "https://jsikson7.github.io/Visionary/";
     const HOSTED_APP_URL = HOSTED_APP_ROOT + "?v=" + APP_VERSION.replace(/\D/g, "");
     const isDirectFilePage = !["http:", "https:"].includes(window.location.protocol);
@@ -23953,9 +23953,9 @@ window.dispatchEvent(new Event('inventory-cloud-ready'));
       const appProperties = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>' +
         '<Properties xmlns="http://schemas.openxmlformats.org/officeDocument/2006/extended-properties" ' +
         'xmlns:vt="http://schemas.openxmlformats.org/officeDocument/2006/docPropsVTypes">' +
-        '<Application>Visionary 4.04</Application><DocSecurity>0</DocSecurity><ScaleCrop>false</ScaleCrop>' +
+        '<Application>Visionary 4.05</Application><DocSecurity>0</DocSecurity><ScaleCrop>false</ScaleCrop>' +
         '<Company></Company><LinksUpToDate>false</LinksUpToDate><SharedDoc>false</SharedDoc><HyperlinksChanged>false</HyperlinksChanged>' +
-        '<AppVersion>4.04</AppVersion></Properties>';
+        '<AppVersion>4.05</AppVersion></Properties>';
 
       const zip = xlsxZipStoredFiles([
         { name: "[Content_Types].xml", contents: contentTypes },
@@ -27705,5 +27705,26 @@ window.addEventListener('message',event=>{if(event.source!==frame.contentWindow|
 const active=event.data.active===true;frame.classList.toggle('translator-focus-fallback',active);document.body.classList.toggle('translator-focus-open',active);
 });})();
 </script>
-</body>
+<datalist id="sa-name-directory"></datalist><script>(()=>{
+ const $=id=>document.getElementById(id);
+ const teams={B1:{name:'Blue 1',icon:'🔵',color:'#2563a5'},B2:{name:'Blue 2',icon:'🔷',color:'#2563a5'},G1:{name:'Gold 1',icon:'🟡',color:'#997315'},G2:{name:'Gold 2',icon:'🔶',color:'#997315'}};
+ const keys=['line3','line4','line5','lead'];const cache={};
+ const date=()=>$('daily-shift-date').value||new Date().toLocaleDateString('en-CA');
+ function draft(team){const key='visionary-shift-allocation-v1:'+date()+':'+team;if(!cache[key]){try{cache[key]=JSON.parse(localStorage.getItem(key))||{}}catch(e){cache[key]={}}}return {key,data:cache[key]};}
+ function roster(role){const el=$('daily-technician-'+role);return el.value==='__other__'?$('daily-technician-'+role+'-other').value:el.value;}
+ function teamFor(w){return w.dataset.saWidget==='daily'?$('daily-shift-shift').value:w.querySelector('[data-sa-team]').value;}
+ function values(w){const team=teamFor(w),data=draft(team).data;return keys.map(k=>String(data[k]??(k==='lead'&&team===$('daily-shift-shift').value?roster('lead'):'')).trim());}
+ function allocationText(team,names){const t=teams[team];return t?`${t.icon}Vision Support: ${t.name}${t.icon}\nLine 3: ${names[0]}\nLine 4: ${names[1]}\nLine 5: ${names[2]}\nOversight: ${names[3]}`:'';}
+ const widgets=[...document.querySelectorAll('[data-sa-widget]')];
+ function render(){for(const w of widgets){const team=teamFor(w),t=teams[team],names=values(w);w.style.setProperty('--sa-color',t?.color||'#73857b');const label=w.querySelector('[data-sa-team-label]');if(label)label.textContent=t?`${t.icon} ${t.name}`:'Choose a shift above';w.querySelectorAll('[data-sa-name]').forEach((el,i)=>{el.disabled=!t;if(document.activeElement!==el)el.value=names[i]});w.querySelector('[data-sa-preview]').textContent=t?allocationText(team,names):'Select a shift to prepare the allocation.';w.querySelector('[data-sa-copy]').disabled=!t||names.some(n=>!n);}
+ const names=new Set();document.querySelectorAll('[data-daily-roster-role] option,[data-daily-roster-other] option').forEach(o=>{if(o.value&&o.value!=='__other__')names.add(o.value)});const directory=$('sa-name-directory');if(directory.dataset.names!==JSON.stringify([...names])){directory.replaceChildren(...[...names].map(name=>{const o=document.createElement('option');o.value=name;return o}));directory.dataset.names=JSON.stringify([...names]);}}
+ async function copyText(text){if(navigator.clipboard&&window.isSecureContext){try{await navigator.clipboard.writeText(text);return}catch(e){}}
+ const ta=document.createElement('textarea');ta.value=text;ta.style.cssText='position:fixed;opacity:0;pointer-events:none';document.body.append(ta);const old=document.activeElement;ta.select();const ok=document.execCommand('copy');ta.remove();old?.focus();if(!ok)throw new Error('Copy unavailable');}
+ for(const w of widgets){w.addEventListener('input',e=>{const k=e.target.dataset.saName;if(!k)return;const d=draft(teamFor(w));d.data[k]=e.target.value;try{localStorage.setItem(d.key,JSON.stringify(d.data))}catch(e){};widgets.forEach(x=>x.querySelector('[data-sa-status]').textContent='');render()});w.querySelector('[data-sa-team]')?.addEventListener('change',()=>{w.querySelector('[data-sa-status]').textContent='';render()});w.querySelector('[data-sa-copy]').addEventListener('click',async()=>{render();const names=values(w),status=w.querySelector('[data-sa-status]');if(!teams[teamFor(w)]||names.some(n=>!n)){status.textContent='Complete all names first.';return}try{await copyText(allocationText(teamFor(w),names));status.textContent='Allocation copied.'}catch(e){status.textContent='Select the preview text and copy it manually.'}})}
+ const tabs=[$('sa-reports-tab'),$('sa-allocation-tab')];function selectTab(i){tabs.forEach((t,j)=>{t.setAttribute('aria-selected',String(i===j));t.tabIndex=i===j?0:-1;$(t.getAttribute('aria-controls')).hidden=i!==j});render()};tabs.forEach((t,i)=>{t.addEventListener('click',()=>selectTab(i));t.addEventListener('keydown',e=>{if(['ArrowLeft','ArrowRight','Home','End'].includes(e.key)){e.preventDefault();const next=e.key==='Home'?0:e.key==='End'?1:1-i;selectTab(next);tabs[next].focus()}})});
+ for(const id of ['daily-shift-date','daily-shift-shift','daily-technician-lead','daily-technician-lead-other']){$(id).addEventListener('change',()=>{widgets.forEach(w=>w.querySelector('[data-sa-status]').textContent='');render()})}
+ document.querySelector('.sa-daily').addEventListener('toggle',render);
+ const observer=new MutationObserver(render);for(const role of ['lead','a1','a2','a3'])for(const suffix of ['','-other'])observer.observe($('daily-technician-'+role+suffix),{childList:true,subtree:true});render();
+})();
+</script></body>
 </html>
