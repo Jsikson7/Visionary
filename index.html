@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="description" content="A mobile-friendly collection of vision production guides, troubleshooting history, and copy-ready reporting tools.">
-  <meta name="visionary-app-version" content="4.19">
+  <meta name="visionary-app-version" content="4.20">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
@@ -8220,9 +8220,9 @@ html[data-theme="matcha"] #daily-tasks-view #daily-cloud-admin{margin-top:6px;pa
             </div>
             <button id="monthly-performance-google-sign-in" class="button button-secondary" type="button" hidden>Sign in with Google to load rankings</button>
             <button id="monthly-performance-refresh" class="button button-primary" type="submit">Refresh rankings</button>
-            <p class="monthly-performance-default-note">Rankings use the official October 1–30, 2026 period. Supervisors can choose a custom date range.</p>
+            <p class="monthly-performance-default-note">Rankings use the official October 1–31, 2026 period. Supervisors can choose a custom date range.</p>
           </form>
-          <p id="monthly-ranking-period-note" class="monthly-ranking-period-note" hidden>Official October 2026 Power Rankings cover October 1 through October 30.</p>
+          <p id="monthly-ranking-period-note" class="monthly-ranking-period-note" hidden>Official October 2026 Power Rankings cover October 1 through October 31.</p>
           <p id="monthly-performance-status" class="status" role="status" aria-live="polite"></p>
           <div id="monthly-performance-output" hidden>
             <p id="monthly-performance-range" class="monthly-performance-range"></p>
@@ -10141,8 +10141,8 @@ window.VisionaryIQRequirements = Object.freeze({
         "Open Work Instructions and Troubleshooting.": "작업 지침과 문제 해결을 엽니다.",
         "Power Rankings": "파워 랭킹",
         "Top 3 technicians": "상위 3명의 기술자",
-        "Rankings use the official October 1–30, 2026 period. Admin can choose a custom date range for their own view.": "기술자 순위는 공식 최종 월간 순위 기간을 사용합니다. 관리자는 직접 날짜 범위를 선택할 수 있습니다.",
-        "Official October 2026 Power Rankings cover October 1 through October 30.": "2026년 10월 공식 파워 랭킹 기간은 10월 1일부터 10월 30일까지입니다.",
+        "Rankings use the official October 1–31, 2026 period. Admin can choose a custom date range for their own view.": "기술자 순위는 공식 최종 월간 순위 기간을 사용합니다. 관리자는 직접 날짜 범위를 선택할 수 있습니다.",
+        "Official October 2026 Power Rankings cover October 1 through October 31.": "2026년 10월 공식 파워 랭킹 기간은 10월 1일부터 10월 30일까지입니다.",
         "Performance rankings": "성과 순위",
         "Refresh rankings": "순위 새로 고침",
         "Save PNG": "PNG 저장",
@@ -20827,7 +20827,7 @@ window.dispatchEvent(new Event('inventory-cloud-ready'));
     const provider = new GoogleAuthProvider();
     provider.setCustomParameters({ prompt: "select_account" });
     const SYNC_PROTOCOL_VERSION = 6;
-    const APP_VERSION = String(document.querySelector('meta[name="visionary-app-version"]')?.content || "4.19");
+    const APP_VERSION = String(document.querySelector('meta[name="visionary-app-version"]')?.content || "4.20");
     const HOSTED_APP_ROOT = "https://jsikson7.github.io/Visionary/";
     const HOSTED_APP_URL = HOSTED_APP_ROOT + "?v=" + APP_VERSION.replace(/\D/g, "");
     const isDirectFilePage = !["http:", "https:"].includes(window.location.protocol);
@@ -22339,7 +22339,7 @@ window.dispatchEvent(new Event('inventory-cloud-ready'));
     }
 
     function canViewPowerRankings() {
-      return Boolean(appShellElement && !appShellElement.hidden && ["Admin", "Technician", "Engineer"].includes(appShellElement.dataset.authRole) && authIsActive());
+      return Boolean(appShellElement && !appShellElement.hidden && ["Admin", "Technician", "Engineer"].includes(appShellElement.dataset.authRole));
     }
 
     function updateMonthlyRankingSignInAction() {
@@ -22351,7 +22351,7 @@ window.dispatchEvent(new Event('inventory-cloud-ready'));
     }
 
     const OFFICIAL_RANKING_START = "2026-10-01";
-    const OFFICIAL_RANKING_END = "2026-10-30";
+    const OFFICIAL_RANKING_END = "2026-10-31";
     function monthlyOfficialDefaultStart() { return OFFICIAL_RANKING_START; }
     function monthlyOfficialDefaultEnd() { return OFFICIAL_RANKING_END; }
     function updateMonthlyRankingPeriodNote() {
