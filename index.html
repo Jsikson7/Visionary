@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="description" content="A mobile-friendly collection of vision production guides, troubleshooting history, and copy-ready reporting tools.">
-  <meta name="visionary-app-version" content="4.26">
+  <meta name="visionary-app-version" content="4.27">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
@@ -7285,9 +7285,9 @@ html[data-theme="matcha"] #daily-tasks-view #daily-cloud-admin{margin-top:6px;pa
   <section class="vs-banner" aria-label="Visionary workspace"><div><span class="vs-banner-kicker">VISIONARY WORKSPACE</span><h2>Everything your team needs, in one place.</h2><p>Daily tasks, performance, maintenance and team collaboration.</p></div><button class="vs-action" type="button" data-vs-go="tasks">Open daily tasks →</button></section>
   <div class="vs-stat-grid">
     <article class="vs-box vs-stat"><div><div class="vs-stat-title">Shift completion</div><div class="vs-stat-number" id="vs-stat-percent">—</div><span class="vs-stat-sub" id="vs-stat-percent-note">Select a shift</span></div><div class="vs-stat-icon">✓</div></article>
-    <article class="vs-box vs-stat"><div><div class="vs-stat-title">Escalations logged</div><div class="vs-stat-number" id="vs-stat-escalations">—</div><span class="vs-stat-sub">Recorded during shift</span></div><div class="vs-stat-icon">↗</div></article>
-    <article class="vs-box vs-stat"><div><div class="vs-stat-title">Error proofing completed</div><div class="vs-stat-number" id="vs-stat-error-proofing">—</div><span class="vs-stat-sub" id="vs-stat-error-proofing-note">Recorded shift</span></div><div class="vs-stat-icon">✓</div></article>
-    <article class="vs-box vs-stat"><div><div class="vs-stat-title">PMs completed</div><div class="vs-stat-number" id="vs-stat-pms">—</div><span class="vs-stat-sub">Selected shift</span></div><div class="vs-stat-icon">⚙</div></article>
+    <article class="vs-box vs-stat" role="button" tabindex="0" aria-haspopup="dialog" data-vs-detail="escalations"><div><div class="vs-stat-title">Escalations logged</div><div class="vs-stat-number" id="vs-stat-escalations">—</div><span class="vs-stat-sub">Recorded during shift</span></div><div class="vs-stat-icon">↗</div></article>
+    <article class="vs-box vs-stat" role="button" tabindex="0" aria-haspopup="dialog" data-vs-detail="proof"><div><div class="vs-stat-title">Error proofing completed</div><div class="vs-stat-number" id="vs-stat-error-proofing">—</div><span class="vs-stat-sub" id="vs-stat-error-proofing-note">Recorded shift</span></div><div class="vs-stat-icon">✓</div></article>
+    <article class="vs-box vs-stat" role="button" tabindex="0" aria-haspopup="dialog" data-vs-detail="pms"><div><div class="vs-stat-title">PMs completed</div><div class="vs-stat-number" id="vs-stat-pms">—</div><span class="vs-stat-sub">Selected shift</span></div><div class="vs-stat-icon">⚙</div></article>
     <article class="vs-box vs-stat vs-top-tech"><div><div class="vs-top-tech-label">TOP TECHNICIAN</div><div class="vs-stat-number" id="vs-stat-top-tech">—</div><span class="vs-stat-sub" id="vs-stat-top-points">No credited work yet</span></div><div class="vs-top-medal" aria-hidden="true">🏅</div></article>
   </div>
   <div class="vs-bottom-grid">
@@ -27673,6 +27673,22 @@ refreshAccess();
 #spare-parts-preview-view .spp-admin-actions .spp-status{flex:1 0 100%;margin:0;text-align:right}
 @media(max-width:600px){#spare-parts-preview-view .spp-desktop-export{display:none!important}#spare-parts-preview-view .spp-excel-actions{gap:6px}}
 </style>
+<style id="vs-record-details-style">
+#vs-overview [data-vs-detail]{cursor:pointer}
+#vs-overview [data-vs-detail]:focus-visible{outline:3px solid #527b58;outline-offset:3px}
+#vs-record-details{box-sizing:border-box;width:min(640px,calc(100% - 32px));max-height:85dvh;padding:0;border:1px solid #dce6dc;border-radius:20px;background:#fff;color:#26362f;box-shadow:0 20px 80px #142b3340;font:14px/1.6 'DM Sans',system-ui,sans-serif}
+#vs-record-details::backdrop{background:#142b3366}
+#vs-record-details header{display:flex;align-items:start;justify-content:space-between;gap:16px;padding:20px;border-bottom:1px solid #e2eae2;position:sticky;top:0;background:#fff;z-index:1}
+#vs-record-details h2{font:750 21px/1.3 'Manrope',system-ui;margin:0;color:#26362f}
+#vs-record-details p{margin:6px 0 0;overflow-wrap:anywhere}
+#vs-record-close{width:44px;height:44px;padding:0;border:1px solid #dce6dc;border-radius:12px;background:#f4f7f2;color:#31553d;font-size:24px;cursor:pointer;flex-shrink:0}
+#vs-record-list{padding:16px 20px 24px;overflow-wrap:anywhere}
+#vs-record-list section{padding:14px;border:1px solid #e2eae2;border-radius:12px;margin-bottom:12px;background:#f9fbf8}
+#vs-record-list h3{margin:0;font-size:16px;color:#31553d}
+#vs-record-context{color:#637569;font-size:13px}
+@media(max-width:850px){#vs-record-details{width:100%;max-width:100%;max-height:80dvh;margin:auto 0 0;border-radius:20px 20px 0 0;padding-bottom:env(safe-area-inset-bottom)}}
+</style>
+<dialog id="vs-record-details" aria-labelledby="vs-record-title" aria-describedby="vs-record-context"><header><div><h2 id="vs-record-title"></h2><p id="vs-record-context"></p></div><button id="vs-record-close" type="button" aria-label="Close shift records">×</button></header><div id="vs-record-list"></div></dialog>
 <script id="visionary-theme-overview-controller">
 /* Read-only bridge: all edits remain in the original Daily Tasks / Reports forms. */
 (function(){'use strict';
@@ -28026,6 +28042,59 @@ refreshAccess();
   const origin=selected.source==='history'?'Historical saved shift':selected.source==='shared'?'Latest saved shared shift':selected.source==='saved'?'Last saved shift on this device':selected.source==='pending'?'New shift in progress (sync pending)':'Active shift on this device';
   number('vs-overview-source',origin+': '+state.shift+' · '+state.date+'. Tap the shift/date in the header to browse other saved shifts.');
  }
+ // Read-only details use exactly the state and filters behind the Overview cards.
+ function overviewRecords(kind,state){
+  if(!state)return [];
+  const roster=Object.assign({},state.roster||{});
+  (state.otSupport||[]).forEach(p=>{if(p?.id)roster['OT:'+p.id]=p.name});
+  const names=keys=>[...new Set(keys.filter(Boolean))].map(key=>roster[key]||key).join(' / ');
+  if(kind!=='proof')return (Array.isArray(state[kind])?state[kind]:Object.values(state[kind]||{}))
+   .filter(e=>e&&e.saved!==false&&(kind!=='pms'||countComplete([e])===1))
+   .map(e=>({title:[e.process,e.machine,e.vision].filter(Boolean).join(' · ')||'Details not entered',
+    fields:[['Status',e.complete&&(e.completedBy||e.completedByList?.length)?'Completed':'Not completed'],
+     ['Technician',names(e.completedByList?.length?e.completedByList:[e.completedBy])||'Not selected'],
+     ['Requested by',e.requestedBy],['Notes',e.comment]]}));
+  const night=state.shift==='B2'||state.shift==='G2',records=[];
+  byId('daily-shift-form')?.querySelectorAll('input[data-daily-fixed]').forEach(box=>{
+   const key=box.getAttribute('data-daily-fixed'),group=box.getAttribute('data-group')||'';
+   if(!group.startsWith('NGM Error Proofing')||box.getAttribute('data-task-active')==='false')return;
+   const required=box.getAttribute('data-required-date');
+   if(required&&(required!==state.date||box.getAttribute('data-custom-shifts')!==state.shift))return;
+   const allowed=(box.getAttribute('data-custom-shifts')||'').split(',').filter(Boolean);
+   if(allowed.length&&!allowed.includes(state.shift))return;
+   const proof=box.closest('[data-error-proof-group]');
+   if(proof&&(proof.getAttribute('data-error-proof-group')!==state.errorProof||proof.getAttribute('data-error-proof-period')!==(night?'night':'day')))return;
+   if(!state.fixed?.[key]||(box.getAttribute('data-technician-required')==='true'&&!state.technicians?.[key]))return;
+   const line=box.getAttribute('data-error-line')||box.getAttribute('data-label')||key;
+   records.push({title:group+' · '+line,fields:[['Status','Completed'],['Technician',names([state.technicians?.[key]])||'Not selected'],['Cell ID',state.cellIds?.[state.errorProof+'|'+line]||'Not entered']]});
+  });
+  return records;
+ }
+ const recordDialog=byId('vs-record-details');
+ let recordOpener=null,recordScroll='';
+ function openOverviewRecords(kind,opener){
+  const state=pickOverviewState()?.state,records=overviewRecords(kind,state);
+  const title={escalations:'Escalations',pms:'PMs completed',proof:'Error proofing completed'}[kind];
+  byId('vs-record-title').textContent=title+' ('+records.length+')';
+  byId('vs-record-context').textContent=state?state.shift+' · '+state.date:'No shift selected';
+  const list=byId('vs-record-list');list.replaceChildren();
+  function textNode(tag,text){const node=document.createElement(tag);node.textContent=text;return node}
+  for(const record of records){
+   const section=document.createElement('section');section.append(textNode('h3',record.title));
+   record.fields.forEach(([label,value])=>{if(value)section.append(textNode('p',label+': '+value))});list.append(section);
+  }
+  if(!records.length)list.append(textNode('p',state?'No '+(kind==='pms'?'completed PMs':kind==='proof'?'completed error proofing checks':'escalations')+' recorded for this shift.':'Select a date and shift to see records.'));
+  recordOpener=opener;recordScroll=document.body.style.overflow;recordDialog.showModal();document.body.style.overflow='hidden';byId('vs-record-close').focus();
+ }
+ byId('vs-record-close').addEventListener('click',()=>recordDialog.close());
+ recordDialog.addEventListener('click',event=>{if(event.target===recordDialog){const r=recordDialog.getBoundingClientRect();if(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom)recordDialog.close()}});
+ recordDialog.addEventListener('close',()=>{document.body.style.overflow=recordScroll;recordOpener?.focus()});
+ document.querySelectorAll('#vs-overview [data-vs-detail]').forEach(card=>{
+  card.addEventListener('click',()=>openOverviewRecords(card.dataset.vsDetail,card));
+  card.addEventListener('keydown',event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();openOverviewRecords(card.dataset.vsDetail,card)}});
+ });
+ window.addEventListener('hashchange',()=>{if(recordDialog.open)recordDialog.close()});
+ new MutationObserver(()=>{if(app.hidden&&recordDialog.open)recordDialog.close()}).observe(app,{attributes:true,attributeFilter:['hidden']});
  function updateStatus(){const status=byId('daily-cloud-status')?.textContent?.trim()||'';
   const badge=byId('vs-connection-status');
   if(/failed|error|offline|unavailable|blocked/i.test(status)){badge.textContent='● Sync needs attention';badge.style.background='#fff3e4';badge.style.color='#9a6a33'}
