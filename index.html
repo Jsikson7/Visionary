@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="description" content="A mobile-friendly collection of vision production guides, troubleshooting history, and copy-ready reporting tools.">
-  <meta name="visionary-app-version" content="4.27">
+  <meta name="visionary-app-version" content="4.28">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
@@ -27689,6 +27689,12 @@ refreshAccess();
 @media(max-width:850px){#vs-record-details{width:100%;max-width:100%;max-height:80dvh;margin:auto 0 0;border-radius:20px 20px 0 0;padding-bottom:env(safe-area-inset-bottom)}}
 </style>
 <dialog id="vs-record-details" aria-labelledby="vs-record-title" aria-describedby="vs-record-context"><header><div><h2 id="vs-record-title"></h2><p id="vs-record-context"></p></div><button id="vs-record-close" type="button" aria-label="Close shift records">×</button></header><div id="vs-record-list"></div></dialog>
+<style id="vs-thumb-style">
+#vs-thumb-nav{display:none}#vs-thumb-nav button[hidden]{display:none!important}#vs-thumb-sheet{box-sizing:border-box;border:1px solid #dce6dc;border-radius:22px 22px 0 0;background:#fff;color:#26362f;width:100%;max-width:100%;max-height:70dvh;margin:auto 0 0;padding:20px 20px calc(24px + env(safe-area-inset-bottom));font-family:system-ui}#vs-thumb-sheet::backdrop{background:#142b3366}#vs-thumb-sheet h2{margin:0;font-size:21px}#vs-thumb-sheet header{display:flex;justify-content:space-between;align-items:center;margin-bottom:15px}#vs-thumb-sheet button{background:#f1f6ef;color:#264b3b;border:1px solid #dce6dc;border-radius:12px;padding:14px;font:inherit;text-align:left;cursor:pointer}#vs-thumb-items{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+@media(max-width:850px){body:has(#app-shell:not([hidden])) #vs-thumb-nav{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));position:fixed;bottom:0;left:0;right:0;z-index:1000;background:#fff;border-top:1px solid #dce6dc;padding:7px 4px calc(7px + env(safe-area-inset-bottom));box-shadow:0 -4px 20px #244c3c0a}#vs-thumb-nav button{display:flex;flex-direction:column;gap:4px;align-items:center;justify-content:center;border:0;border-radius:12px;background:transparent;color:#738278;font:600 10px/1.2 system-ui;padding:8px 1px;min-height:52px;cursor:pointer}#vs-thumb-nav button span:first-child{font-size:22px;line-height:24px}#vs-thumb-nav button[aria-current="page"]{background:#edf5eb;color:#244c3c}#app-shell{padding-bottom:calc(95px + env(safe-area-inset-bottom))!important}#vs-workspace-bar .vs-mobile-menu{display:none!important}}
+@media print{#vs-thumb-nav,#vs-thumb-sheet{display:none!important}}
+</style>
+<nav id="vs-thumb-nav" aria-label="Mobile navigation"></nav><dialog id="vs-thumb-sheet" aria-labelledby="vs-thumb-title"><header><h2 id="vs-thumb-title"></h2><button type="button" id="vs-thumb-close" aria-label="Close menu">×</button></header><div id="vs-thumb-items"></div></dialog>
 <script id="visionary-theme-overview-controller">
 /* Read-only bridge: all edits remain in the original Daily Tasks / Reports forms. */
 (function(){'use strict';
@@ -27774,6 +27780,40 @@ refreshAccess();
   {label:'Reports',sym:'▤',source:'open-reports',hash:'#reports',type:'extra'},
   {label:'Guides',sym:'▣',source:'open-guides-menu',hash:'#guides',type:'extra'}
  ];
+
+ const thumbNav=byId('vs-thumb-nav'),thumbSheet=byId('vs-thumb-sheet');
+ const thumbDefinitions=[['Home','⌂','Overview'],['Daily Tasks','☑','Daily Tasks'],['Copy/Paste','▤','Copy/Paste'],['Tools','⚒','tools'],['More','•••','more']];
+ const toolLabels=['Cell Barcode Scanner','Visionary Translator'];
+ let thumbOpener=null;
+ function openThumbSheet(kind,button){
+  byId('vs-thumb-title').textContent=kind==='tools'?'Tools':'More';
+  const list=byId('vs-thumb-items');list.replaceChildren();
+  entries.filter(e=>kind==='tools'?toolLabels.includes(e.label):!['Overview','Daily Tasks','Copy/Paste',...toolLabels].includes(e.label)).forEach(e=>{
+   if(e.source&&!sourceAllowed(e.source))return;
+   const b=document.createElement('button');b.type='button';b.textContent=e.sym+' '+e.label;b.addEventListener('click',()=>{thumbSheet.close();visit(e)});list.append(b);
+  });
+  thumbOpener=button;thumbSheet.showModal();
+ }
+ thumbDefinitions.forEach(([label,symbol,target])=>{
+  const b=document.createElement('button');b.type='button';b.dataset.thumbTarget=target;
+  const icon=document.createElement('span');icon.textContent=symbol;icon.setAttribute('aria-hidden','true');const text=document.createElement('span');text.textContent=label;b.append(icon,text);
+  if(target==='tools'||target==='more')b.setAttribute('aria-haspopup','dialog');
+  b.addEventListener('click',()=>{if(target==='tools'||target==='more')openThumbSheet(target,b);else visit(entries.find(e=>e.label===target))});thumbNav.append(b);
+ });
+ byId('vs-thumb-close').addEventListener('click',()=>thumbSheet.close());
+ thumbSheet.addEventListener('close',()=>thumbOpener?.focus());
+ thumbSheet.addEventListener('click',event=>{if(event.target===thumbSheet){const r=thumbSheet.getBoundingClientRect();if(event.clientY<r.top)thumbSheet.close()}});
+ function updateThumbNav(){
+  const hash=location.hash;const active=entries.find(e=>e.hash===hash)?.label;
+  thumbNav.querySelectorAll('button').forEach(b=>{const t=b.dataset.thumbTarget;
+   const selected=t==='Overview'&&!hash||t===active||t==='tools'&&toolLabels.includes(active)||t==='more'&&!!hash&&!['Daily Tasks','Copy/Paste',...toolLabels].includes(active);
+   if(selected)b.setAttribute('aria-current','page');else b.removeAttribute('aria-current');
+   const e=entries.find(e=>e.label===t);b.hidden=!!(e?.source&&!sourceAllowed(e.source));
+  });
+ }
+ window.addEventListener('hashchange',()=>{if(thumbSheet.open)thumbSheet.close();updateThumbNav()});
+ window.matchMedia('(max-width:850px)').addEventListener('change',()=>{if(thumbSheet.open)thumbSheet.close()});
+ new MutationObserver(()=>{updateThumbNav();if(app.hidden&&thumbSheet.open)thumbSheet.close()}).observe(app,{attributes:true,attributeFilter:['hidden','data-auth-role']});
  let lastPM=false;
  const labels={
   '#cell-scanner':'Cell Barcode Scanner','':'Overview','#daily-tasks':'Daily Tasks','#bmpd-log-search':'BM/PD Log Search','#weekly-bmpd':'BM/PD Reports',
@@ -27815,6 +27855,7 @@ refreshAccess();
  byId('vs-sign-out').addEventListener('click',()=>{toggleSettings(false);byId('logout-button')?.click()});
  topbar.querySelectorAll('[data-vs-lang]').forEach(b=>b.addEventListener('click',()=>{const source=byId('language-'+b.dataset.vsLang);if(source&&!source.hidden)source.click();updateView()}));
  function updateView(){
+  updateThumbNav();
   if(app.hidden){clearHistorySelection();historicalStates=[];historyRequestId++;closePicker();return;}
   const role=app.getAttribute('data-auth-role')||'Technician';
   byId('vs-current-role').textContent=(role==='Admin'?'Supervisor':role)+' view';
