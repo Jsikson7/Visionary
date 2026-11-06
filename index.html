@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="description" content="A mobile-friendly collection of vision production guides, troubleshooting history, and copy-ready reporting tools.">
-  <meta name="visionary-app-version" content="4.28">
+  <meta name="visionary-app-version" content="4.30">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
@@ -7095,7 +7095,37 @@ html[data-theme="matcha"] #daily-tasks-view #daily-cloud-admin{margin-top:6px;pa
 #cell-scanner-view .cs-layout{max-width:1050px;margin:auto;display:grid;grid-template-columns:1.2fr 1fr;gap:20px}#cell-scanner-view .cs-card{background:var(--paper,#fff);border:1px solid var(--line,#dce6dc);border-radius:22px;padding:22px}#cell-scanner-view .cs-camera{position:relative;background:#172b23;border-radius:16px;overflow:hidden;aspect-ratio:4/3}#cs-video{width:100%;height:100%;object-fit:contain}#cell-scanner-view .cs-target{position:absolute;inset:22%;border:3px solid #8ecb73;border-radius:14px;pointer-events:none}#cell-scanner-view .cs-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}#cs-id{display:block;font:700 clamp(20px,4vw,30px) monospace;overflow-wrap:anywhere;padding:16px;background:#edf5e9;border-radius:12px}#cs-origin{background:#e0eed8;padding:16px;border-radius:14px;margin:16px 0}#cs-line{display:block;font-size:36px;color:#234e36}#cs-recent{list-style:none;padding:0}#cs-recent li{padding:12px 0;border-bottom:1px solid #dce6dc;display:flex;gap:12px;align-items:center;overflow-wrap:anywhere}#cs-recent li span{flex:1;min-width:0}#cs-recent small{display:block}#cs-status{min-height:2.5em}#cs-photo{max-width:100%;max-height:280px;margin-top:12px} @media(max-width:760px){#cell-scanner-view .cs-layout{grid-template-columns:1fr}#cell-scanner-view .cs-card{padding:16px}}
 </style><style id="cs-compact-layout">
 #cell-scanner-view{padding:0!important;margin:0!important}#cell-scanner-view>.hero{display:none!important}#cell-scanner-view .cs-layout{max-width:900px;display:grid;grid-template-columns:minmax(0,1.4fr) minmax(240px,1fr);gap:16px;padding:0;margin:0 auto}#cell-scanner-view .cs-card{padding:14px!important;border-radius:16px!important;min-height:0!important;margin:0!important;box-shadow:none}#cell-scanner-view .cs-capture-heading{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}#cell-scanner-view h2{font-size:18px!important;margin:0!important;padding:0!important;line-height:1.3}#cs-state{font-size:12px;color:#426c50;background:#e7efe3;padding:5px 9px;border-radius:20px}#cell-scanner-view .cs-camera{aspect-ratio:4/3;border-radius:10px}#cell-scanner-view .cs-target{inset:28%;border-width:2px;border-radius:6px}#cell-scanner-view .cs-actions{display:flex;gap:7px;margin:10px 0!important;flex-wrap:nowrap}#cell-scanner-view button.button{font-size:13px!important;line-height:1.2!important;padding:10px 8px!important;min-height:44px!important;border-radius:9px!important;width:auto!important;margin:0!important;letter-spacing:0!important}#cell-scanner-view .cs-actions>button{flex:1;min-width:0}#cell-scanner-view [hidden]{display:none!important}#cell-scanner-view .cs-result{position:relative;border-top:1px solid #d4dfd1;padding-top:12px;margin-top:12px}#cell-scanner-view #cs-heading{font-size:11px!important;letter-spacing:1px;color:#64756a}#cell-scanner-view #cs-id{font-size:22px;padding:7px 60px 7px 0;background:none;border-radius:0;line-height:1.3}#cell-scanner-view #cs-copy{position:absolute;right:0;top:17px;min-width:48px}#cell-scanner-view #cs-origin{display:flex;align-items:center;justify-content:space-between;padding:8px 12px;margin:10px 0 0;border-radius:8px}#cell-scanner-view #cs-origin small{font-size:11px;font-weight:700}#cell-scanner-view #cs-line{font-size:24px;line-height:1.2}#cell-scanner-view #cs-status{font-size:12px;line-height:1.5;min-height:0;margin:9px 0 0}#cell-scanner-view details{font-size:11px;margin-top:8px}#cell-scanner-view .cs-result>.cs-actions{display:none}#cell-scanner-view #cs-recent{margin:8px 0}#cell-scanner-view #cs-recent li{font-size:13px;padding:9px 0}#cell-scanner-view .cs-history>small{font-size:10px;color:#6e7b70}#cell-scanner-view #cs-clear{font-size:11px!important;min-height:32px!important;padding:5px 9px!important} @media(max-width:760px){#cell-scanner-view .cs-layout{grid-template-columns:1fr;gap:12px}#cell-scanner-view .cs-card{padding:12px!important}}
-</style></head>
+</style><script id="visionary-escalation-format">
+ function escalationCardData(entry,technician){
+  // Parse report labels, not numbered values: old BMPD reports use 1-1/2-2 etc.
+  const report=String(entry.comment||'');
+  const pattern=/(?:\b\d+(?:-\d+)?\.\s*)?(?:[가-힣]+\s*)*\(?\s*(Source of Cause|Occurrence Time|Action Completed|Start Time|Finish Time|Vision Type|Unit No\.?|Phenomenon|Process|PIC|Cause|Action)\s*\)?\s*:/gi;
+  const matches=Array.from(report.matchAll(pattern)),values={};
+  matches.forEach((m,i)=>{const key=m[1].toLowerCase().replace(/\.$/,'');values[key]=report.slice(m.index+m[0].length,matches[i+1]?.index??report.length).trim()});
+  const rows=[['Process',values.process||entry.process],['Unit No.',values['unit no']||entry.machine],['Vision Type',values['vision type']||entry.vision],['Source of Cause',values['source of cause']],['Start Time',values['occurrence time']||values['start time']],['Finish Time',values['action completed']||values['finish time']],['PIC',values.pic],['Phenomenon',values.phenomenon],['Cause',values.cause],['Action',values.action]];
+  const fields=[['Status',entry.complete&&(entry.completedBy||entry.completedByList?.length)?'Completed':'Not completed'],['Technician',technician||'Not selected'],...rows.slice(3).map(([label,value])=>[label,value||'Not entered'])];
+  // Free-form manual notes remain visible when they are not a BMPD report.
+  if(!matches.length&&report.trim())fields.push(['Notes',report.trim()]);
+  if(entry.requestedBy)fields.push(['Requested by',entry.requestedBy]);
+  const process=String(rows[0][1]||'').trim();
+  const unit=String(rows[1][1]||'').replace(/^[A-Za-z]+_#?/,'').trim();
+  const vision=String(rows[2][1]||'').replace(/^[A-Za-z]_/, '').replace(/_/g,' ').replace(/\s+Vision\s*$/i,'').trim();
+  return {title:[process,unit,vision].filter(Boolean).join(' ')||'Escalation',fields:fields};
+ }
+window.VisionaryEscalationCard=escalationCardData;
+window.VisionaryRenderEscalationRows=function(container,fields){
+ const grid=document.createElement('div');grid.className='vs-escalation-fields';
+ fields.forEach(([label,value])=>{if(!value)return;const row=document.createElement('div');row.className='vs-escalation-field';if(label==='Start Time'||label==='Finish Time')row.classList.add('vs-escalation-time');const name=document.createElement('strong');name.textContent=label+': ';const text=document.createElement('span');text.textContent=value;if(label==='Status')text.className=value==='Completed'?'vs-escalation-complete':'';row.append(name,text);grid.append(row)});container.append(grid);
+};
+
+</script>
+<style id="vs-escalation-card-format">
+.vs-escalation-fields{display:grid;grid-template-columns:1fr;font:14px/1.5 system-ui;color:#26362f;overflow-wrap:anywhere}
+.vs-escalation-field{padding:7px 0;border-bottom:1px solid #e2eae2;white-space:pre-wrap;min-width:0}
+.vs-escalation-field:last-child{border-bottom:0}.vs-escalation-complete{display:inline-block;padding:2px 8px;border-radius:8px;background:#e8f4e9;color:#42764d;font-weight:700}
+@media(min-width:851px){.vs-escalation-fields{grid-template-columns:1fr 1fr;font-size:13px}.vs-escalation-field{grid-column:1/-1}.vs-escalation-time{grid-column:auto}}
+</style>
+</head>
 <body>
   <svg class="theme-background-art matcha-theme-art matcha-art-leaves" viewBox="0 0 420 340" aria-hidden="true" focusable="false">
     <path class="matcha-art-line" d="M408 28C344 69 314 126 244 178C181 226 99 267 16 326"/>
@@ -17222,6 +17252,13 @@ function normalizeWeeklyRows(values) {
         var type = dynamicEntryTypeForContainer(container);
         collectDynamic(container).forEach(function (entry) {
           if (!dynamicEntryIsActive(entry)) return;
+          if(type==='escalation'){
+            var card=window.VisionaryEscalationCard(entry,completedByLabels(entry));
+            var fields=card.fields.map(function(row){return row[0]+': '+row[1];});
+            var start=fields.findIndex(function(row){return row.indexOf('Start Time:')===0;});
+            if(start>=0){fields[start]+='  |  '+fields[start+1];fields.splice(start+1,1);}
+            lines.push([card.title].concat(fields,[dynamicPointCreditText(type,entry)]).join('\n'));return;
+          }
           var details = [entry.process, entry.machine, entry.vision].filter(Boolean).join(", ");
           if (!details) details = "Details not entered";
           if (type === "escalation" && dynamicEntrySource(entry) !== "bmpd" && entry.requestedBy) details += " | Requested by: " + entry.requestedBy;
@@ -17936,6 +17973,13 @@ function normalizeWeeklyRows(values) {
             : (entry.complete
               ? "Completed By not selected · " + points + " pts pending"
               : "Not completed · " + points + " pts available");
+          if(type==='escalation'){
+            var data=window.VisionaryEscalationCard(entry,completedByLabels(entry));
+            var item=createReportDetailItem(data.title,status,credited,'','');
+            var emptyMeta=item.querySelector('.daily-report-detail-meta');if(emptyMeta)emptyMeta.remove();
+            window.VisionaryRenderEscalationRows(item,data.fields.filter(function(row){return row[0]!=='Status';}));
+            var credit=document.createElement('small');credit.textContent=dynamicPointCreditText(type,entry);item.appendChild(credit);return item;
+          }
           return createReportDetailItem(details, status, credited, meta, entry.comment);
         });
       }
@@ -18282,7 +18326,7 @@ function normalizeWeeklyRows(values) {
           var maxChars = 68;
           lines.forEach(function (line) {
             var cleanLine = line.replace(/^(✅|⚠️|🟥)\s*/, "");
-            var wrapped = wrapPlainTextLine(cleanLine, maxChars);
+            var wrapped = cleanLine.split(/\n/).reduce(function(all,part){return all.concat(wrapPlainTextLine(part,maxChars));},[]);
             var lineHeight = 17;
             var cardHeight = wrapped.length * lineHeight + 16;
             addRect(pad, cursorY, contentWidth, cardHeight, colors.cream, 8, colors.line);
@@ -18457,7 +18501,7 @@ function normalizeWeeklyRows(values) {
           var lineHeight = 17;
           var layouts = lines.map(function (line) {
             var cleanLine = line.replace(/^(✅|⚠️|🟥)\s*/, "");
-            var wrapped = wrapPlainTextLine(cleanLine, maxChars);
+            var wrapped = cleanLine.split(/\n/).reduce(function(all,part){return all.concat(wrapPlainTextLine(part,maxChars));},[]);
             return {
               wrapped: wrapped,
               height: wrapped.length * lineHeight + 16
@@ -18600,7 +18644,7 @@ function normalizeWeeklyRows(values) {
         var pmBottom = cardGrid(pad, activityY, contentWidth, "PM Entries", dynamicSummaryLines(pmEntries), 3);
         var escalationY = pmBottom > activityY ? pmBottom + 14 : activityY;
         var escalationEntryCount = activeDynamicReportEntries(escalationEntries).length;
-        var escalationColumns = escalationEntryCount >= 8 ? 4 : 3;
+        var escalationColumns = 2;
         var escalationBottom = cardGrid(
           pad,
           escalationY,
@@ -28084,6 +28128,7 @@ refreshAccess();
   number('vs-overview-source',origin+': '+state.shift+' · '+state.date+'. Tap the shift/date in the header to browse other saved shifts.');
  }
  // Read-only details use exactly the state and filters behind the Overview cards.
+ function escalationDetailFields(entry,technician){return window.VisionaryEscalationCard(entry,technician).fields}
  function overviewRecords(kind,state){
   if(!state)return [];
   const roster=Object.assign({},state.roster||{});
@@ -28091,8 +28136,8 @@ refreshAccess();
   const names=keys=>[...new Set(keys.filter(Boolean))].map(key=>roster[key]||key).join(' / ');
   if(kind!=='proof')return (Array.isArray(state[kind])?state[kind]:Object.values(state[kind]||{}))
    .filter(e=>e&&e.saved!==false&&(kind!=='pms'||countComplete([e])===1))
-   .map(e=>({title:[e.process,e.machine,e.vision].filter(Boolean).join(' · ')||'Details not entered',
-    fields:[['Status',e.complete&&(e.completedBy||e.completedByList?.length)?'Completed':'Not completed'],
+   .map(e=>({title:kind==='escalations'?window.VisionaryEscalationCard(e,'').title:[e.process,e.machine,e.vision].filter(Boolean).join(' · ')||'Details not entered',
+    fields:kind==='escalations'?escalationDetailFields(e,names(e.completedByList?.length?e.completedByList:[e.completedBy])):[['Status',e.complete&&(e.completedBy||e.completedByList?.length)?'Completed':'Not completed'],
      ['Technician',names(e.completedByList?.length?e.completedByList:[e.completedBy])||'Not selected'],
      ['Requested by',e.requestedBy],['Notes',e.comment]]}));
   const night=state.shift==='B2'||state.shift==='G2',records=[];
@@ -28121,8 +28166,8 @@ refreshAccess();
   const list=byId('vs-record-list');list.replaceChildren();
   function textNode(tag,text){const node=document.createElement(tag);node.textContent=text;return node}
   for(const record of records){
-   const section=document.createElement('section');section.append(textNode('h3',record.title));
-   record.fields.forEach(([label,value])=>{if(value)section.append(textNode('p',label+': '+value))});list.append(section);
+   const section=document.createElement('section');if(record.title)section.append(textNode('h3',record.title));
+   if(kind==='escalations')window.VisionaryRenderEscalationRows(section,record.fields);else record.fields.forEach(([label,value])=>{if(value)section.append(textNode('p',label+': '+value))});list.append(section);
   }
   if(!records.length)list.append(textNode('p',state?'No '+(kind==='pms'?'completed PMs':kind==='proof'?'completed error proofing checks':'escalations')+' recorded for this shift.':'Select a date and shift to see records.'));
   recordOpener=opener;recordScroll=document.body.style.overflow;recordDialog.showModal();document.body.style.overflow='hidden';byId('vs-record-close').focus();
