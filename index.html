@@ -11,7 +11,7 @@
     #logs-view .bm-grid[hidden] { display:none!important; }
     #app-shell[data-auth-role="BmpdLogger"] :is([data-pm-back],.cell-tracking-back,[data-bmpd-back]) { display:none!important; }
   </style>
-  <meta name="visionary-app-version" content="4.49">
+  <meta name="visionary-app-version" content="4.51">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
@@ -22211,12 +22211,13 @@ window.dispatchEvent(new Event('inventory-cloud-ready'));
           const data = item.data();
           return { state: stateFromCloud(data), created: shiftTimestamp(data.createdAt),
             modified: shiftTimestamp(data.updatedAt), id: item.id };
-        }).filter(entry => hasOverviewActivity(entry.state));
+        }).filter(entry => entry.state?.date && /^(B1|B2|G1|G2)$/.test(entry.state.shift));
         // Newest shift DATE wins; creation time breaks ties for concurrent shift crews.
         // Editing an old shift doesn't replace a newer shift on the Overview.
         candidates.sort((a,b) => b.state.date.localeCompare(a.state.date)
           || b.created - a.created || b.modified - a.modified || b.id.localeCompare(a.id));
-        const chosen = candidates[0] || null;
+        window.VisionaryBmpdShiftCandidates = candidates.map(entry => entry.state);
+        const chosen = candidates.find(entry => hasOverviewActivity(entry.state)) || null;
         // Once the saved record is confirmed, let live shared updates replace
         // optimistic local edits for the same shift.
         const pending = window.VisionaryOverviewPendingShift;
@@ -22278,6 +22279,7 @@ window.dispatchEvent(new Event('inventory-cloud-ready'));
       overviewHistoryUserId = null;
       overviewHistoryLoadedAt = 0;
       window.VisionaryLatestShiftData = null;
+      window.VisionaryBmpdShiftCandidates = [];
       window.VisionaryOverviewPendingShift = null;
       window.dispatchEvent(new Event('visionary-latest-shift'));
     }
@@ -25582,15 +25584,13 @@ for(const [original,labelText] of [[shiftDate,'Shift date'],[shiftSelect,'Shift'
  mirror.removeAttribute('id');mirror.removeAttribute('name');mirror.required=false;
  shiftMirrors.set(original,mirror);
  function sync(){mirror.value=original.value;}
- mirror.addEventListener('change',()=>{
-  manualLogShift=true;
-  setLogShift(shiftMirrors.get(shiftDate).value,shiftMirrors.get(shiftSelect).value);
- });
+ mirror.disabled=true;
+ mirror.style.cssText='background:#e9ebe8;color:#59645d;cursor:not-allowed;opacity:1';
  window.addEventListener('visionary-daily-local-change',sync);
  log.addEventListener('click',sync);
  label.append(labelText,mirror);logShiftFields.append(label);sync();
 }
-let manualLogShift=false,autoShiftWindow='';
+let autoShiftWindow='';
 const plantClock=new Intl.DateTimeFormat('en-US',{
  timeZone:'America/Detroit',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',hourCycle:'h23'
 });
@@ -25601,16 +25601,17 @@ function activeLogWindow(now){
  return {date,period:hour>=5&&hour<17?'1':'2'};
 }
 function selectActiveLogShift(){
- if(!loggerRole()){manualLogShift=false;autoShiftWindow='';return;}
- if(manualLogShift||btn.disabled||bmpdShift||controls.process.value||controls.phenomenon.value||controls.cause.value||controls.action.value)return;
+ if(!loggerRole()){autoShiftWindow='';return;}
+ if(btn.disabled||bmpdShift)return;
  const {date,period}=activeLogWindow(new Date());
  const key=date+'_'+period;
  const matches=state=>state?.date===date&&new RegExp('^[BG]'+period+'$').test(state.shift);
- const shared=window.VisionaryLatestShiftData?.state;
- if(key===autoShiftWindow&&shiftSelect.value)return;
+ const shared=(window.VisionaryBmpdShiftCandidates||[]).find(matches);
+ if(key===autoShiftWindow&&matches({date:shiftDate.value,shift:shiftSelect.value})&&
+    (controls.process.value||controls.phenomenon.value||controls.cause.value||controls.action.value))return;
  autoShiftWindow=key;
  const selected={date:shiftDate.value,shift:shiftSelect.value};
- setLogShift(date,matches(selected)?selected.shift:matches(shared)?shared.shift:'');
+ setLogShift(date,shared?.shift||(matches(selected)?selected.shift:''));
 }
 form.prepend(logShiftFields);
 const picNote=document.createElement('p');picNote.className='bm-status';picNote.id='bmpd-pic-note';controls.worker.setAttribute('aria-describedby',picNote.id);controls.worker.after(picNote);
@@ -25630,7 +25631,7 @@ const state=daily&&daily.getState?daily.getState():{};
 const shift=state.date&&state.shift?state.date+'_'+state.shift:'';
 if(logger){
  bmpdRosterShift=shift;
- picNote.textContent=shift?'Enter your name. This escalation earns 0 points.':'Confirm the Blue or Gold shift above before submitting.';
+ picNote.textContent=shift?'Enter your name. This escalation earns 0 points.':'Waiting for a matching shared shift. The crew must open its shift before you can submit.';
  return;
 }
 const oldKey=controls.worker.value,oldPerson=bmpdRoster.find(person=>person.key===oldKey);
@@ -25668,8 +25669,13 @@ document.body.append(confirmation);confirmation.querySelector('button').onclick=
 const backToTasks=document.createElement('button');backToTasks.type='button';backToTasks.className='button button-secondary';backToTasks.textContent='Back to Daily Tasks';backToTasks.style.cssText='display:block;width:100%;margin-top:14px';
 backToTasks.dataset.bmpdBack='';backToTasks.onclick=()=>{location.hash='daily-tasks';};form.append(backToTasks);
 form.addEventListener('submit',async event=>{
-event.preventDefault();if(btn.disabled||bmpdSent)return;
+event.preventDefault();if(btn.disabled)return;
+selectActiveLogShift();
 refreshBmpdPIC();
+if(loggerRole()&&!shiftSelect.value){
+ showBmpdStatus('No matching shift is available. Ask the crew to open its shift and check Shared shift synchronization.',true);
+ return;
+}
 const data={},missing=[];
 for(const [key,label] of definitions){data[key]=controls[key].value.trim();if(controls[key].required&&!data[key])missing.push([key,label]);}
 if(missing.length){showBmpdStatus('Complete these required fields: '+missing.map(item=>item[1].replace(/\s*:\s*\*?$/,'')).join(', '),true);controls[missing[0][0]].focus({preventScroll:true});return;}
