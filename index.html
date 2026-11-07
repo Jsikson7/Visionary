@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="description" content="A mobile-friendly collection of vision production guides, troubleshooting history, and copy-ready reporting tools.">
-  <meta name="visionary-app-version" content="4.35">
+  <meta name="visionary-app-version" content="4.36">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
@@ -16932,11 +16932,39 @@ function normalizeWeeklyRows(values) {
             dialog.append(heading, status, preview, select, close);
             document.body.appendChild(dialog);
             dialog.showModal();
-            copyText(text, preview, function (copied) {
+            function showCopyResult(copied) {
               status.textContent = copied
                 ? "Copied. You can also select the report below."
                 : "Automatic copy was blocked. Select the text, then use your device’s Copy command.";
-            });
+            }
+            // Keep the synchronous fallback inside the original tap gesture.
+            preview.focus();
+            preview.select();
+            try {
+              if (document.execCommand("copy")) {
+                showCopyResult(true);
+                return;
+              }
+            } catch (error) {
+              // Try the Clipboard API if the browser disables the copy command.
+            }
+            if (!navigator.clipboard?.writeText) {
+              showCopyResult(false);
+              return;
+            }
+            var copyTimeout = window.setTimeout(function () { showCopyResult(false); }, 2000);
+            try {
+              navigator.clipboard.writeText(text).then(function () {
+                window.clearTimeout(copyTimeout);
+                showCopyResult(true);
+              }, function () {
+                window.clearTimeout(copyTimeout);
+                showCopyResult(false);
+              });
+            } catch (error) {
+              window.clearTimeout(copyTimeout);
+              showCopyResult(false);
+            }
           });
           summaryActions.appendChild(copyButton);
         }
