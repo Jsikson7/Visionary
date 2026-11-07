@@ -4,7 +4,14 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="description" content="A mobile-friendly collection of vision production guides, troubleshooting history, and copy-ready reporting tools.">
-  <meta name="visionary-app-version" content="4.45">
+  <style>
+    #app-shell[data-auth-role="BmpdLogger"] :is(#vs-nav,#vs-scrim,.vs-mobile-menu,.vs-overview-picker) { display:none!important; }
+    body:has(#app-shell[data-auth-role="BmpdLogger"]) :is(#vs-thumb-nav,#vs-thumb-sheet) { display:none!important; }
+    #app-shell[data-auth-role="BmpdLogger"] { padding-left:0!important; }
+    #logs-view .bm-grid[hidden] { display:none!important; }
+    #app-shell[data-auth-role="BmpdLogger"] :is([data-pm-back],.cell-tracking-back,[data-bmpd-back]) { display:none!important; }
+  </style>
+  <meta name="visionary-app-version" content="4.47">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
@@ -6900,12 +6907,12 @@ html[data-theme="matcha"] #app-shell .app-view:not(#forms-menu-view) > header.he
 </style>
 <style id="visionary-dense-workspace-layout">
 /* Keep the four functional subtab buttons on ONE row on phones and desktop. */
-html body #app-shell #daily-tasks-view > .bmpd-nav{
- display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;
+html body #app-shell #logs-view > .bmpd-nav{
+ display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;
  grid-auto-flow:row!important;gap:6px!important;width:100%!important;max-width:100%!important;
  margin:7px 0 12px!important;padding:4px!important;overflow:visible!important;
 }
-html body #app-shell #daily-tasks-view > .bmpd-nav > button{
+html body #app-shell #logs-view > .bmpd-nav > button{
  box-sizing:border-box!important;grid-column:auto!important;grid-row:auto!important;
  width:100%!important;min-width:0!important;min-height:39px!important;
  padding:7px 3px!important;margin:0!important;font-size:clamp(10px,1.03vw,13px)!important;
@@ -6949,8 +6956,8 @@ html[data-theme="matcha"] #app-shell .local-dashboard-grid{gap:12px!important}
  html[data-theme="matcha"] #vs-overview .vs-overview-head{gap:8px!important}
  html[data-theme="matcha"] #app-shell .app-view:not(#forms-menu-view) > header.hero{padding:9px 0!important;margin-bottom:9px!important}
  html[data-theme="matcha"] #vs-overview .vs-box{padding:13px!important}
- html body #app-shell #daily-tasks-view > .bmpd-nav{gap:3px!important;margin:5px 0 9px!important;padding:3px!important}
- html body #app-shell #daily-tasks-view > .bmpd-nav > button{font-size:clamp(9.3px,2.45vw,11px)!important;min-height:37px!important;padding:6px 1px!important}
+ html body #app-shell #logs-view > .bmpd-nav{gap:3px!important;margin:5px 0 9px!important;padding:3px!important}
+ html body #app-shell #logs-view > .bmpd-nav > button{font-size:clamp(9.3px,2.45vw,11px)!important;min-height:37px!important;padding:6px 1px!important}
 }
 @media print{html[data-theme="matcha"] #app-shell .app-view:not(#forms-menu-view) > header.hero{display:none!important}}
 </style>
@@ -7097,16 +7104,17 @@ html[data-theme="matcha"] #daily-tasks-view #daily-cloud-admin{margin-top:6px;pa
 #cell-scanner-view{padding:0!important;margin:0!important}#cell-scanner-view>.hero{display:none!important}#cell-scanner-view .cs-layout{max-width:900px;display:grid;grid-template-columns:minmax(0,1.4fr) minmax(240px,1fr);gap:16px;padding:0;margin:0 auto}#cell-scanner-view .cs-card{padding:14px!important;border-radius:16px!important;min-height:0!important;margin:0!important;box-shadow:none}#cell-scanner-view .cs-capture-heading{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}#cell-scanner-view h2{font-size:18px!important;margin:0!important;padding:0!important;line-height:1.3}#cs-state{font-size:12px;color:#426c50;background:#e7efe3;padding:5px 9px;border-radius:20px}#cell-scanner-view .cs-camera{aspect-ratio:4/3;border-radius:10px}#cell-scanner-view .cs-target{inset:28%;border-width:2px;border-radius:6px}#cell-scanner-view .cs-actions{display:flex;gap:7px;margin:10px 0!important;flex-wrap:nowrap}#cell-scanner-view button.button{font-size:13px!important;line-height:1.2!important;padding:10px 8px!important;min-height:44px!important;border-radius:9px!important;width:auto!important;margin:0!important;letter-spacing:0!important}#cell-scanner-view .cs-actions>button{flex:1;min-width:0}#cell-scanner-view [hidden]{display:none!important}#cell-scanner-view .cs-result{position:relative;border-top:1px solid #d4dfd1;padding-top:12px;margin-top:12px}#cell-scanner-view #cs-heading{font-size:11px!important;letter-spacing:1px;color:#64756a}#cell-scanner-view #cs-id{font-size:22px;padding:7px 60px 7px 0;background:none;border-radius:0;line-height:1.3}#cell-scanner-view #cs-copy{position:absolute;right:0;top:17px;min-width:48px}#cell-scanner-view #cs-origin{display:flex;align-items:center;justify-content:space-between;padding:8px 12px;margin:10px 0 0;border-radius:8px}#cell-scanner-view #cs-origin small{font-size:11px;font-weight:700}#cell-scanner-view #cs-line{font-size:24px;line-height:1.2}#cell-scanner-view #cs-status{font-size:12px;line-height:1.5;min-height:0;margin:9px 0 0}#cell-scanner-view details{font-size:11px;margin-top:8px}#cell-scanner-view .cs-result>.cs-actions{display:none}#cell-scanner-view #cs-recent{margin:8px 0}#cell-scanner-view #cs-recent li{font-size:13px;padding:9px 0}#cell-scanner-view .cs-history>small{font-size:10px;color:#6e7b70}#cell-scanner-view #cs-clear{font-size:11px!important;min-height:32px!important;padding:5px 9px!important} @media(max-width:760px){#cell-scanner-view .cs-layout{grid-template-columns:1fr;gap:12px}#cell-scanner-view .cs-card{padding:12px!important}}
 </style><script id="visionary-escalation-format">
  function escalationCardData(entry,technician){
+  const external=entry.source==='bmpd-log-only';
   // Parse report labels, not numbered values: old BMPD reports use 1-1/2-2 etc.
   const report=String(entry.comment||'');
   const pattern=/(?:\b\d+(?:-\d+)?\.\s*)?(?:[가-힣]+\s*)*\(?\s*(Source of Cause|Occurrence Time|Action Completed|Start Time|Finish Time|Vision Type|Unit No\.?|Phenomenon|Process|PIC|Cause|Action)\s*\)?\s*:/gi;
   const matches=Array.from(report.matchAll(pattern)),values={};
   matches.forEach((m,i)=>{const key=m[1].toLowerCase().replace(/\.$/,'');values[key]=report.slice(m.index+m[0].length,matches[i+1]?.index??report.length).trim()});
   const rows=[['Process',values.process||entry.process],['Unit No.',values['unit no']||entry.machine],['Vision Type',values['vision type']||entry.vision],['Source of Cause',values['source of cause']],['Start Time',values['occurrence time']||values['start time']],['Finish Time',values['action completed']||values['finish time']],['PIC',values.pic],['Phenomenon',values.phenomenon],['Cause',values.cause],['Action',values.action]];
-  const fields=[['Status',entry.complete&&(entry.completedBy||entry.completedByList?.length)?'Completed':'Not completed'],['Technician',technician||'Not selected'],...rows.slice(3).map(([label,value])=>[label,value||'Not entered'])];
+  const fields=[['Status',entry.complete&&(external||entry.completedBy||entry.completedByList?.length)?'Completed':'Not completed'],['Technician',external?(entry.requestedBy||values.pic||'Not entered'):(technician||'Not selected')],...rows.slice(3).map(([label,value])=>[label,value||'Not entered'])];
   // Free-form manual notes remain visible when they are not a BMPD report.
   if(!matches.length&&report.trim())fields.push(['Notes',report.trim()]);
-  if(entry.requestedBy)fields.push(['Requested by',entry.requestedBy]);
+  if(entry.requestedBy&&!external)fields.push(['Requested by',entry.requestedBy]);
   const process=String(rows[0][1]||'').trim();
   const unit=String(rows[1][1]||'').replace(/^[A-Za-z]+_#?/,'').trim();
   const vision=String(rows[2][1]||'').replace(/^[A-Za-z]_/, '').replace(/_/g,' ').replace(/\s+Vision\s*$/i,'').trim();
@@ -7355,6 +7363,7 @@ html[lang="es-MX"] .spp-dialog-actions { flex-wrap: wrap; }
           <select id="login-username" autocomplete="username" required>
             <option value="Technician" selected>Technician</option>
             <option value="Engineer">Engineer</option>
+            <option value="BmpdLogger">BM/PD LOG</option>
             <option value="Admin">Supervisor</option>
           </select>
         </div>
@@ -7459,10 +7468,11 @@ html[lang="es-MX"] .spp-dialog-actions { flex-wrap: wrap; }
             <span class="form-tile-icon" aria-hidden="true">DT</span>
             <span class="form-tile-copy">
               <strong>MI2 Daily Tasks</strong>
-              <small>Track the MI2 shift checklist and open BM/PD, PM, and Cell Tracking logs.</small>
+              <small>Track the MI2 shift checklist.</small>
             </span>
             <span class="form-tile-arrow" aria-hidden="true">›</span>
           </button>
+          <button id="open-logs" class="button button-secondary" type="button" onclick="location.hash='logs'">Logs</button>
           <button id="open-cell-scanner" class="button button-secondary" type="button" onclick="location.hash='cell-scanner'">Cell Barcode Scanner</button>
 <button id="open-leaderboard" class="form-tile" type="button">
             <span class="form-tile-icon" aria-hidden="true">PR</span>
@@ -7793,6 +7803,9 @@ html[lang="es-MX"] .spp-dialog-actions { flex-wrap: wrap; }
   </form>
 </dialog>
 
+    <section id="logs-view" class="app-view" aria-labelledby="logs-title" hidden>
+      <h2 id="logs-title" hidden>Logs</h2>
+    </section>
     <section id="daily-tasks-view" class="app-view" aria-labelledby="daily-tasks-title" hidden>
       <header class="hero">
         <div>
@@ -11349,7 +11362,7 @@ Object.assign(sparePartsSpanishUi,{"Replace catalog from Excel":"Reemplazar cat�
         if (!authStorage) return currentAuthRole;
         try {
           var value = JSON.parse(authStorage.getItem(AUTH_KEY) || "null");
-          return value && ["Admin","Technician","Engineer"].includes(value.role) ? value.role : "Technician";
+          return value && ["Admin","Technician","Engineer","BmpdLogger"].includes(value.role) ? value.role : "Technician";
         } catch (error) {
           return "Technician";
         }
@@ -11387,6 +11400,9 @@ Object.assign(sparePartsSpanishUi,{"Replace catalog from Excel":"Reemplazar cat�
         }
       }
 
+      var logSyncPlaceholder = document.createComment("Shared shift sync location");
+      var logSyncPanel = document.getElementById("daily-cloud-panel");
+      logSyncPanel.before(logSyncPlaceholder);
       function setAuthenticatedView(isAuthenticated) {
         loginView.hidden = isAuthenticated;
         appShell.hidden = !isAuthenticated;
@@ -11403,8 +11419,11 @@ Object.assign(sparePartsSpanishUi,{"Replace catalog from Excel":"Reemplazar cat�
           openReportsButton.hidden = currentAuthRole !== "Admin";
           loginStatus.textContent = "";
           updateHomeQuote();
+          if (currentAuthRole === "BmpdLogger") document.getElementById("logs-view").prepend(logSyncPanel);
+          else logSyncPlaceholder.after(logSyncPanel);
           showRequestedView();
         } else {
+          logSyncPlaceholder.after(logSyncPanel);
           currentAuthRole = "Technician";
           appShell.dataset.authRole = currentAuthRole;
           openSparePartsPreviewButton.hidden = true;
@@ -13323,6 +13342,9 @@ function normalizeWeeklyRows(values) {
 
       function showRequestedView() {
         if (appShell.hidden) return;
+        if (currentAuthRole === "BmpdLogger" && location.hash !== "#logs") {
+          history.replaceState(null, "", location.pathname + location.search + "#logs");
+        }
         if (["#supervisor-tasks", "#local-admin", "#version-history", "#live-dashboard", "#bmpd-trends", "#reports", "#weekly-bmpd"].indexOf(window.location.hash) !== -1 && currentAuthRole !== "Admin") {
           history.replaceState(null, "", window.location.pathname + window.location.search);
         }
@@ -13334,6 +13356,7 @@ function normalizeWeeklyRows(values) {
         document.getElementById("supervisor-tasks-view").hidden = !showSupervisorTasks;
         var showGuidesMenu = window.location.hash === "#guides";
         var showCopyMenu = window.location.hash === "#copy-paste";
+        var showLogs = window.location.hash === "#logs" && authIsActive();
         var showDailyTasks = window.location.hash === "#daily-tasks";
         var showVisionaryTranslator = window.location.hash === "#visionary-translator" && authIsActive();
         var showSparePartsPreview = window.location.hash === "#spare-parts-preview" && (["Admin","Technician","Engineer"].includes(currentAuthRole)) && authIsActive();
@@ -13354,10 +13377,11 @@ function normalizeWeeklyRows(values) {
         var showTroubleshooting = window.location.hash === "#troubleshooting";
         var showWorkInstructions = window.location.hash === "#work-instructions";
         var showVersionHistory = window.location.hash === "#version-history";
-        formsMenuView.hidden = showCellScanner || showSuggestions || showSupervisorTasks || showWeeklyBmpd || showPkgIqForm || showBmpdTrends || showGuidesMenu || showCopyMenu || showDailyTasks || showVisionaryTranslator || showSparePartsPreview || showLiveDashboard || showLeaderboard || showReports || showLocalAdmin || showPkgForm || showLnsForm || showTop3Form || showCellRecognitionForm || showEscalationForm || showTroubleshooting || showWorkInstructions || showVersionHistory;
+        formsMenuView.hidden = showCellScanner || showSuggestions || showSupervisorTasks || showWeeklyBmpd || showPkgIqForm || showBmpdTrends || showGuidesMenu || showCopyMenu || showLogs || showDailyTasks || showVisionaryTranslator || showSparePartsPreview || showLiveDashboard || showLeaderboard || showReports || showLocalAdmin || showPkgForm || showLnsForm || showTop3Form || showCellRecognitionForm || showEscalationForm || showTroubleshooting || showWorkInstructions || showVersionHistory;
         guidesMenuView.hidden = !showGuidesMenu;
         copyMenuView.hidden = !showCopyMenu;
         dailyTasksView.hidden = !showDailyTasks;
+        document.getElementById("logs-view").hidden = !showLogs;
         visionaryTranslatorView.hidden = !showVisionaryTranslator;
         syncVisionaryTranslatorAccess(showVisionaryTranslator);
         sparePartsPreviewView.hidden = !showSparePartsPreview;
@@ -13382,6 +13406,7 @@ function normalizeWeeklyRows(values) {
         if (showSupervisorTasks) document.title = "Supervisor Tasks - Visionary Tool";
         else if (showGuidesMenu) document.title = localizedPageTitle("Guides - Visionary Tool");
         else if (showCopyMenu) document.title = localizedPageTitle("Copy/Paste - Visionary Tool");
+        else if (showLogs) document.title = localizedPageTitle("Logs - Visionary Tool");
         else if (showDailyTasks) document.title = localizedPageTitle("MI2 Daily Tasks - Visionary Tool");
         else if (showVisionaryTranslator) document.title = localizedPageTitle("Visionary Translator - Visionary Tool");
         else if (showSparePartsPreview) document.title = localizedPageTitle("Spare Parts - Visionary Tool");
@@ -14896,10 +14921,10 @@ function normalizeWeeklyRows(values) {
       });
       loginForm.addEventListener("submit", function (event) {
         event.preventDefault();
-        var selectedRole = ["Admin","Technician","Engineer"].includes(loginUsername.value) ? loginUsername.value : "Technician";
+        var selectedRole = ["Admin","Technician","Engineer","BmpdLogger"].includes(loginUsername.value) ? loginUsername.value : "Technician";
         var validCredential = selectedRole === "Admin"
           ? loginPassword.value === "1013"
-          : loginPassword.value === (selectedRole === "Engineer" ? "1204" : "2020");
+          : loginPassword.value === (selectedRole === "BmpdLogger" ? "2026" : selectedRole === "Engineer" ? "1204" : "2020");
         if (validCredential) {
           currentAuthRole = selectedRole;
           if(selectedRole === "Technician" || selectedRole === "Engineer"){
@@ -14916,7 +14941,7 @@ function normalizeWeeklyRows(values) {
           loginPassword.value = "";
           return;
         }
-        setUiElementText(loginStatus, selectedRole === "Admin" ? "Incorrect Supervisor PIN." : selectedRole === "Engineer" ? "Incorrect Engineer passcode." : "Incorrect Technician password.");
+        setUiElementText(loginStatus, selectedRole === "Admin" ? "Incorrect Supervisor PIN." : selectedRole === "Engineer" ? "Incorrect Engineer passcode." : selectedRole === "BmpdLogger" ? "Incorrect BM/PD LOG password." : "Incorrect Technician password.");
         loginPassword.select();
       });
       loginUsername.addEventListener("change", updateLoginCredentialField);
@@ -15954,7 +15979,7 @@ function normalizeWeeklyRows(values) {
           var container = dynamicEntryContainer(dynamicType);
           var entries = collectDynamic(container).filter(dynamicEntryIsActive);
           var completedEntries = entries.filter(function (entry) {
-            return entry.complete && completedByKeysFromData(entry).length > 0;
+            return entry.complete && (isLogOnlyEscalation(entry) || completedByKeysFromData(entry).length > 0);
           });
           var available = entries.reduce(function (sum, entry) {
             return sum + dynamicEntryPoints(dynamicType, dailyScoringRulesVersion, entry);
@@ -15964,7 +15989,7 @@ function normalizeWeeklyRows(values) {
           }, 0);
           return {
             complete: entries.length > 0 && completedEntries.length === entries.length,
-            missing: entries.some(function (entry) { return !entry.complete || !entry.completedBy; }),
+            missing: entries.some(function (entry) { return !entry.complete || (!isLogOnlyEscalation(entry) && !entry.completedBy); }),
             text: entries.length
               ? completedEntries.length + " / " + entries.length + " · " + earned + " / " + available + " pts"
               : "Optional · No entries"
@@ -16340,6 +16365,7 @@ function normalizeWeeklyRows(values) {
       }
 
       function completedByLabels(entryData) {
+        if (isLogOnlyEscalation(entryData)) return entryData.requestedBy || "";
         return completedByKeysFromData(entryData).map(contributorLabel).join(", ");
       }
 
@@ -16660,7 +16686,12 @@ function normalizeWeeklyRows(values) {
         return dailyScoringRulesVersion;
       }
 
+      function isLogOnlyEscalation(entry) {
+        return dynamicEntrySource(entry) === "bmpd-log-only";
+      }
+
       function dynamicEntryPoints(type, rulesVersion, entryData) {
+        if (type === "escalation" && isLogOnlyEscalation(entryData)) return 0;
         var version = dynamicEntryRulesVersion(entryData, rulesVersion);
         if (type === "super-escalation") return DAILY_SUPER_ESCALATION_POINTS;
         if (type === "pm") return DAILY_PM_POINTS;
@@ -16778,7 +16809,7 @@ function normalizeWeeklyRows(values) {
         var displayTitle = type === "escalation" ? window.VisionaryEscalationCard(data, "").title : title;
         summaryTitle.textContent = displayTitle;
         summaryTitle.title = displayTitle;
-        var requestedByMeta = (type === "escalation" && dynamicEntrySource(data) !== "bmpd" && data.requestedBy)
+        var requestedByMeta = (!isLogOnlyEscalation(data) && type === "escalation" && dynamicEntrySource(data) !== "bmpd" && data.requestedBy)
           ? "Requested by: " + data.requestedBy + " · "
           : "";
         entry.querySelector("[data-daily-summary-meta]").textContent = requestedByMeta + completedBy + " · " + dynamicPointCreditText(type, data);
@@ -17126,7 +17157,7 @@ function normalizeWeeklyRows(values) {
             entryStatus.textContent = "Choose a Process, Machine, and Vision before saving.";
             return;
           }
-          var isManualEscalation = type === "escalation" && dynamicEntrySource(current) !== "bmpd";
+          var isManualEscalation = type === "escalation" && dynamicEntrySource(current) === "manual";
           if (isManualEscalation && !current.requestedBy) {
             entryStatus.textContent = "Enter who requested this escalation before saving.";
             var requestedByControl = entry.querySelector('[data-daily-dynamic-field="requestedBy"]');
@@ -17137,7 +17168,7 @@ function normalizeWeeklyRows(values) {
             entryStatus.textContent = "Choose each technician only once.";
             return;
           }
-          if ((isManualEscalation || current.complete) && !current.completedBy) {
+          if (!isLogOnlyEscalation(current) && (isManualEscalation || current.complete) && !current.completedBy) {
             entryStatus.textContent = isManualEscalation
               ? "Choose who completed this escalation before saving."
               : "Choose who completed this entry before saving it as complete.";
@@ -17316,6 +17347,7 @@ function normalizeWeeklyRows(values) {
             var completedByKeys = completedByKeysFromData(entry);
             result.available += points;
             result.completionAvailable += points;
+            if (isLogOnlyEscalation(entry)) return;
             result.total += 1;
             if (entry.complete && completedByKeys.length) {
               result.earned += points;
@@ -17733,7 +17765,7 @@ function normalizeWeeklyRows(values) {
           var source = state[group] || [];
           var entries = Array.isArray(source) ? source : Object.values(source);
           return entries.filter(function (entry) { return entry && entry.saved !== false; }).every(function (entry) {
-            return entry.complete && completedByKeysFromData(entry).length > 0;
+            return entry.complete && (isLogOnlyEscalation(entry) || completedByKeysFromData(entry).length > 0);
           });
         });
       }
@@ -18177,7 +18209,7 @@ function normalizeWeeklyRows(values) {
           var points = dynamicEntryPoints(type, dailyScoringRulesVersion, entry);
           var details = [entry.process, entry.machine, entry.vision].filter(Boolean).join(" · ") || "Details not entered";
           var completedByKeys = completedByKeysFromData(entry);
-          var credited = entry.complete && completedByKeys.length > 0;
+          var credited = entry.complete && (isLogOnlyEscalation(entry) || completedByKeys.length > 0);
           var status = credited ? "Completed" : (entry.complete ? "Needs technician" : "Incomplete");
           var meta = credited
             ? "Completed by: " + completedByLabels(entry) + " · " + dynamicPointCreditText(type, entry)
@@ -20135,6 +20167,25 @@ function normalizeWeeklyRows(values) {
           var state = draftState();
           if (!state.date || !state.shift) throw new Error("Choose a Daily Tasks date and shift first.");
           if (expectedShift && expectedShift !== state.date + '_' + state.shift) throw new Error("This log belongs to a different shift. Return to that shift or start a new BM/PD log.");
+          var logOnly = document.getElementById("app-shell").dataset.authRole === "BmpdLogger";
+          if (logOnly) {
+            var pic = String(data.worker || "").trim();
+            if (!pic || pic.length > 100) throw new Error("Enter your name in PIC (100 characters or fewer).");
+            var record = { id: id, saved: true, scoringRulesVersion: DAILY_SCORING_RULES_VERSION,
+              source: "bmpd-log-only", complete: true, process: ["Lami", "STK"].includes(data.process) ? "LNS" : data.process,
+              machine: data.hogi, vision: data.visionType, requestedBy: pic, completedBy: "", completedByList: [], comment: report };
+            var prior = Array.from(escalationEntries.querySelectorAll("[data-daily-dynamic-id]")).find(function (entry) {
+              return entry.getAttribute("data-daily-dynamic-id") === id;
+            });
+            if (prior) {
+              if (!isLogOnlyEscalation(readDynamicEntry(prior))) throw new Error("Start a new BM/PD log.");
+              applyDynamicEntryData(prior, record);
+              setDynamicEntryMode(prior, true, false);
+            } else createDynamicEntry("escalation", record);
+            ensureDynamicEditor("escalation");
+            updateDailyShift();
+            return state.date + "_" + state.shift;
+          }
           var workerName = canonicalRosterName(data.worker);
           // Attribute a dropdown selection by roster key, not by ambiguous typed names.
           var matches = this.getPmRoster().filter(function (option) {
@@ -25389,16 +25440,20 @@ window.dispatchEvent(new Event('inventory-cloud-ready'));
 <script id="bmpd-log-controller">
 (()=>{
 "use strict";
-const view=document.getElementById('daily-tasks-view'), workspace=view.querySelector('.daily-task-workspace');
+const workspace=document.querySelector('#daily-tasks-view .daily-task-workspace');
 const nav=document.createElement('div');nav.className='bmpd-nav';nav.setAttribute('role','tablist');
 const tasks=document.createElement('button'),log=document.createElement('button');
 [tasks,log].forEach(b=>{b.type='button';b.className='button button-secondary';b.setAttribute('role','tab');});
 tasks.textContent='MI2 Daily Tasks';log.textContent='BM/PD Log';tasks.id='bmpd-task-tab';log.id='bmpd-log-tab';
-nav.append(tasks,log);workspace.before(nav);
+const logsView=document.getElementById('logs-view');
+tasks.hidden=true;
+logsView.append(tasks,nav);
+nav.setAttribute('aria-label','Logs');
+nav.append(log);
 const panel=document.createElement('section');panel.id='bmpd-log-panel';panel.hidden=true;panel.setAttribute('role','tabpanel');panel.setAttribute('aria-labelledby',log.id);
 workspace.id=workspace.id||'daily-task-workspace';tasks.setAttribute('aria-controls',workspace.id);log.setAttribute('aria-controls',panel.id);
-workspace.after(panel);
-function selectLog(on){workspace.hidden=on;panel.hidden=!on;tasks.setAttribute('aria-selected',String(!on));log.setAttribute('aria-selected',String(on));}
+logsView.append(panel);
+function selectLog(on){panel.hidden=!on;tasks.setAttribute('aria-selected',String(!on));log.setAttribute('aria-selected',String(on));}
 tasks.onclick=()=>selectLog(false);log.onclick=()=>selectLog(true);selectLog(false);
 const style=document.createElement('style');style.textContent=`
 .bmpd-nav{display:flex;gap:10px;flex-wrap:wrap;margin:16px 0}
@@ -25504,13 +25559,44 @@ function showBmpdStatus(message,isError=false){
 status.textContent=message;status.setAttribute('role',isError?'alert':'status');
 status.scrollIntoView({block:'nearest',behavior:'smooth'});
 }
+const appShell=document.getElementById('app-shell');
+const loggerRole=()=>appShell.dataset.authRole==='BmpdLogger';
+const rosterPic=controls.worker;
+const typedPic=document.createElement('input');
+typedPic.type='text';typedPic.name='worker';typedPic.maxLength=100;typedPic.autocomplete='name';typedPic.required=true;
+const logShiftFields=document.createElement('div');
+logShiftFields.className='bm-grid';
+for(const [id,labelText] of [['daily-shift-date','Shift date'],['daily-shift-shift','Shift']]){
+ const original=document.getElementById(id),label=document.createElement('label');
+ const mirror=original.cloneNode(true);
+ mirror.removeAttribute('id');mirror.removeAttribute('name');mirror.required=false;
+ function sync(){mirror.value=original.value;}
+ mirror.addEventListener('change',()=>{original.value=mirror.value;original.dispatchEvent(new Event('change',{bubbles:true}));});
+ window.addEventListener('visionary-daily-local-change',sync);
+ log.addEventListener('click',sync);
+ label.append(labelText,mirror);logShiftFields.append(label);sync();
+}
+form.prepend(logShiftFields);
 const picNote=document.createElement('p');picNote.className='bm-status';picNote.id='bmpd-pic-note';controls.worker.setAttribute('aria-describedby',picNote.id);controls.worker.after(picNote);
 let bmpdRosterShift='',bmpdRoster=[];
 function refreshBmpdPIC(){
+const logger=loggerRole();
+logShiftFields.hidden=!logger;
+const nextPic=logger?typedPic:rosterPic;
+if(controls.worker!==nextPic){
+ nextPic.id=controls.worker.id;
+ nextPic.setAttribute('aria-describedby',picNote.id);
+ controls.worker.replaceWith(nextPic);controls.worker=nextPic;
+}
 if(bmpdSent||btn.disabled)return;
 const daily=window.VisionaryDailyTasks;
 const state=daily&&daily.getState?daily.getState():{};
 const shift=state.date&&state.shift?state.date+'_'+state.shift:'';
+if(logger){
+ bmpdRosterShift=shift;
+ picNote.textContent=shift?'Enter your name. This escalation earns 0 points.':'Choose the shift date and shift above.';
+ return;
+}
 const oldKey=controls.worker.value,oldPerson=bmpdRoster.find(person=>person.key===oldKey);
 const roster=daily&&daily.getPmRoster?daily.getPmRoster():[];
 const keep=shift===bmpdRosterShift&&oldPerson&&roster.some(person=>person.key===oldKey&&person.label===oldPerson.label);
@@ -25521,6 +25607,7 @@ bmpdRosterShift=shift;bmpdRoster=roster;
 picNote.textContent=!shift?'Choose the date and shift in Daily Tasks first.':roster.length?'Select a technician from '+state.shift+' on '+state.date+'.':'Add technician names to this shift in Daily Tasks first.';
 }
 log.addEventListener('click',refreshBmpdPIC);
+new MutationObserver(refreshBmpdPIC).observe(appShell,{attributes:true,attributeFilter:['data-auth-role']});
 window.addEventListener('visionary-daily-ready',refreshBmpdPIC);
 window.addEventListener('visionary-daily-local-change',refreshBmpdPIC);
 ['daily-shift-date','daily-shift-shift'].forEach(id=>document.getElementById(id)?.addEventListener('change',refreshBmpdPIC));
@@ -25537,7 +25624,7 @@ const confirmation=document.createElement('dialog');confirmation.style.cssText='
 confirmation.innerHTML='<h2>BM/PD submission sent</h2><p>The escalation card was added to Daily Tasks. The request was sent to Google; check the sheet to confirm it was recorded.</p><button type="button" class="button button-primary">OK</button>';
 document.body.append(confirmation);confirmation.querySelector('button').onclick=()=>confirmation.close();
 const backToTasks=document.createElement('button');backToTasks.type='button';backToTasks.className='button button-secondary';backToTasks.textContent='Back to Daily Tasks';backToTasks.style.cssText='display:block;width:100%;margin-top:14px';
-backToTasks.onclick=()=>{selectLog(false);view.querySelector('.hero').scrollIntoView({block:'start',behavior:'smooth'});tasks.focus({preventScroll:true});};form.append(backToTasks);
+backToTasks.dataset.bmpdBack='';backToTasks.onclick=()=>{location.hash='daily-tasks';};form.append(backToTasks);
 form.addEventListener('submit',async event=>{
 event.preventDefault();if(btn.disabled||bmpdSent)return;
 refreshBmpdPIC();
@@ -25548,8 +25635,10 @@ try{
 const daily=window.VisionaryDailyTasks;
 if(!daily||typeof daily.saveBmpdEscalation!=='function')throw new Error('Daily Tasks has not finished loading. Keep your entries here and try again after the app loads.');
 const picKey=controls.worker.value,person=bmpdRoster.find(item=>item.key===picKey);
-if(!person)throw new Error('Select a technician from the current shift in PIC.');
-data.worker=person.label;
+if(!loggerRole()){
+ if(!person)throw new Error('Select a technician from the current shift in PIC.');
+ data.worker=person.label;
+}
 bmpdShift=daily.saveBmpdEscalation(bmpdId,data,report(data),bmpdShift,picKey);
 }catch(error){showBmpdStatus(error.message||'Could not save the escalation. Your entries are still here.',true);return;}
 btn.disabled=true;btn.textContent='처리 중... (Processing...)';
@@ -25613,11 +25702,11 @@ finally{clearTimeout(slowNotice);btn.disabled=bmpdSent;btn.textContent=bmpdSent?
 #daily-tasks-view .daily-cloud-copy span{font-size:.8rem;line-height:1.45}
 #daily-tasks-view .daily-cloud-copy small{font-size:.68rem;margin-top:4px;color:var(--muted)}
 #daily-tasks-view .daily-cloud-actions .button{min-height:44px;font-size:.8rem;padding:8px 14px}
-#daily-tasks-view > .bmpd-nav{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px;margin:12px 18px;padding:4px;background:var(--paper);border:1px solid var(--line);border-radius:12px}
-#daily-tasks-view > .bmpd-nav .button{min-width:0;min-height:44px;padding:8px;font-size:.86rem;border:1px solid transparent;background:transparent;box-shadow:none;border-radius:8px;color:var(--muted)}
-#daily-tasks-view > .bmpd-nav [aria-selected=true]{border-color:var(--control-line);background:var(--cream);color:var(--matcha-900);box-shadow:0 1px 3px var(--focus-ring)}
+#logs-view > .bmpd-nav{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px;margin:12px 18px;padding:4px;background:var(--paper);border:1px solid var(--line);border-radius:12px}
+#logs-view > .bmpd-nav .button{min-width:0;min-height:44px;padding:8px;font-size:.86rem;border:1px solid transparent;background:transparent;box-shadow:none;border-radius:8px;color:var(--muted)}
+#logs-view > .bmpd-nav [aria-selected=true]{border-color:var(--control-line);background:var(--cream);color:var(--matcha-900);box-shadow:0 1px 3px var(--focus-ring)}
 @media(min-width:760px){#daily-tasks-view > .hero{grid-template-columns:auto minmax(0,1fr) auto;grid-template-areas:"back title tools" "language language language";gap:14px 20px;padding:18px 24px}#daily-tasks-view #header-actions{width:auto}#daily-tasks-view #header-actions .theme-control{min-width:160px}#daily-tasks-view > .hero > .language-bar{justify-content:flex-end;padding-top:10px}}
-@media(max-width:359px){#daily-tasks-view > .hero{padding-left:12px;padding-right:12px;gap:14px 8px}#daily-tasks-view #header-actions{gap:6px}#daily-tasks-view #header-actions .theme-control{flex:1 1 auto}#daily-tasks-view #header-actions select{font-size:.75rem}#daily-tasks-view > .bmpd-nav{margin-left:12px;margin-right:12px}}
+@media(max-width:359px){#daily-tasks-view > .hero{padding-left:12px;padding-right:12px;gap:14px 8px}#daily-tasks-view #header-actions{gap:6px}#daily-tasks-view #header-actions .theme-control{flex:1 1 auto}#daily-tasks-view #header-actions select{font-size:.75rem}#logs-view > .bmpd-nav{margin-left:12px;margin-right:12px}}
 </style>
 
 <style id="dashboard-refinement">
@@ -25638,9 +25727,9 @@ finally{clearTimeout(slowNotice);btn.disabled=bmpdSent;btn.textContent=bmpdSent?
 .dashboard-settings .language-bar{display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between;margin:0 0 20px;padding:0;background:none;border:0}
 .dashboard-settings .language-option{min-height:44px}
 .dashboard-settings #logout-button{width:100%;margin:0}
-#daily-tasks-view > .bmpd-nav{display:flex;gap:20px;margin:0;padding:0 20px;border:0;border-bottom:1px solid var(--line);border-radius:0;background:var(--paper);overflow-x:auto}
-#daily-tasks-view > .bmpd-nav .button{flex:1 0 auto;min-height:52px;padding:12px 4px;border:0;border-bottom:3px solid transparent;border-radius:0;background:none;box-shadow:none;font-size:.88rem;color:var(--muted)}
-#daily-tasks-view > .bmpd-nav [aria-selected=true]{border-bottom-color:var(--matcha-600);color:var(--matcha-900);background:none;box-shadow:none}
+#logs-view > .bmpd-nav{display:flex;gap:20px;margin:0;padding:0 20px;border:0;border-bottom:1px solid var(--line);border-radius:0;background:var(--paper);overflow-x:auto}
+#logs-view > .bmpd-nav .button{flex:1 0 auto;min-height:52px;padding:12px 4px;border:0;border-bottom:3px solid transparent;border-radius:0;background:none;box-shadow:none;font-size:.88rem;color:var(--muted)}
+#logs-view > .bmpd-nav [aria-selected=true]{border-bottom-color:var(--matcha-600);color:var(--matcha-900);background:none;box-shadow:none}
 #daily-tasks-view :is(.daily-check-item,.daily-allocation-check,.daily-fixed-card){box-shadow:none;border-radius:10px}
 #daily-tasks-view .daily-fixed-card[data-compact=true]{background:var(--paper);border-color:var(--line);padding:8px;min-height:64px}
 #daily-tasks-view .daily-fixed-summary{grid-template-columns:minmax(0,1fr) 32px;gap:4px}
@@ -25857,7 +25946,7 @@ const BMPDCore = (() => {
 <script id="pm-log-controller">(()=>{
 'use strict';
 const rules=JSON.parse(document.getElementById('pm-selection-rules').textContent);let edited=false,busy=false,pending=null,lastTimestamp='';
-const defs=JSON.parse(document.getElementById('pm-reference-options').textContent),view=document.getElementById('daily-tasks-view'),nav=view.querySelector('.bmpd-nav'),workspace=view.querySelector('.daily-task-workspace'),bm=document.getElementById('bmpd-log-panel');
+const defs=JSON.parse(document.getElementById('pm-reference-options').textContent),nav=document.querySelector('#logs-view .bmpd-nav'),bm=document.getElementById('bmpd-log-panel');
 const tab=document.createElement('button');tab.id='pm-log-tab';tab.type='button';tab.className='button button-secondary';tab.textContent='PM Log';tab.setAttribute('role','tab');tab.setAttribute('aria-controls','pm-log-panel');tab.setAttribute('aria-selected','false');nav.append(tab);
 const panel=document.createElement('section');panel.id='pm-log-panel';panel.hidden=true;panel.setAttribute('role','tabpanel');panel.setAttribute('aria-labelledby',tab.id);bm.after(panel);
 panel.innerHTML='<div class="bm-header"><h2>PM Log</h2><p>Preventive maintenance records kept separate from BM/PD</p></div><form><div class="bm-fields"></div><p class="pm-timestamp-note">Timestamp is recorded automatically. The PM is saved with the shared Daily Tasks shift and never sent to the BM/PD log.</p><button type="submit" class="button button-primary bm-submit">Submit PM Log</button><p class="bm-status" role="status" aria-live="polite"></p><div class="pm-footer-actions"><button type="button" class="button button-secondary" data-pm-copy>Copy log</button><button type="button" class="button button-secondary" data-pm-new hidden>New PM Log</button><button type="button" class="button button-secondary" data-pm-back>Back to Daily Tasks</button></div><details data-pm-copy-fallback hidden><summary>Log text</summary><textarea readonly aria-label="PM log text"></textarea></details></form><details class="pm-history" data-pm-history><summary><span><strong>Separate PM History</strong><small>Search completed PM records without opening the BM/PD log.</small></span></summary><div class="pm-history-body"><div class="pm-history-filters"><label>From<input type="date" data-pm-history-start></label><label>To<input type="date" data-pm-history-end></label><label class="pm-history-search">Search PM history<input type="search" data-pm-history-search placeholder="PIC, machine, vision, cause, or comments"></label><button type="button" class="button button-secondary" data-pm-history-refresh>Refresh PM History</button></div><p class="pm-history-status" data-pm-history-status role="status" aria-live="polite">Open this section to load PM history.</p><div class="pm-history-list" data-pm-history-list></div></div></details>';
@@ -25908,7 +25997,7 @@ Object.keys(defs).forEach(key=>controls[key].addEventListener('change',()=>{if(k
 form.addEventListener('input',()=>{edited=true;});form.addEventListener('change',()=>{edited=true;});
 function reset(){form.reset();fill('building',defs.building);fill('process',defs.process);fill('cause',defs.cause);updateMachines();updateVisions();updateOther();otherInput.value='';setupTime();refreshPIC();controls.pmDate.value=defaultDate();setNow();edited=false;fields.querySelectorAll('fieldset').forEach(f=>f.disabled=false);submit.disabled=false;submit.textContent='Submit PM Log';newButton.hidden=true;status.textContent='';panel.querySelector('[data-pm-copy-fallback]').hidden=true;}
 const tasks=document.getElementById('bmpd-task-tab'),bmTab=document.getElementById('bmpd-log-tab');[tasks,bmTab].forEach(b=>b.addEventListener('click',()=>{panel.hidden=true;tab.setAttribute('aria-selected','false');}));
-tab.onclick=()=>{refreshPIC();if(!edited&&!lastTimestamp){controls.pmDate.value=defaultDate();setNow();}tasks.click();workspace.hidden=true;bm.hidden=true;panel.hidden=false;tasks.setAttribute('aria-selected','false');bmTab.setAttribute('aria-selected','false');tab.setAttribute('aria-selected','true');};panel.querySelector('[data-pm-back]').onclick=()=>tasks.click();
+tab.onclick=()=>{refreshPIC();if(!edited&&!lastTimestamp){controls.pmDate.value=defaultDate();setNow();}tasks.click();bm.hidden=true;panel.hidden=false;tasks.setAttribute('aria-selected','false');bmTab.setAttribute('aria-selected','false');tab.setAttribute('aria-selected','true');};panel.querySelector('[data-pm-back]').onclick=()=>{location.hash='daily-tasks';};
 const dialog=document.createElement('dialog');dialog.id='pm-save-confirmation';dialog.innerHTML='<h2>✓ PM Log Saved</h2><p><strong>Separate PM History: Added</strong></p><p>The PM was saved with this Daily Tasks shift and was not sent to the BM/PD log. Confirm the shared-sync status says Saved or Live before closing the app.</p><p data-pm-receipt style="white-space:pre-line"></p><button type="button" class="button button-primary">OK</button>';document.body.append(dialog);dialog.querySelector('button').onclick=()=>dialog.close();
 function record(){const data=Object.fromEntries(Object.entries(controls).map(([k,input])=>[k,input.value.trim()]));data.completed=data.pmDate+'T'+data.hour+':'+data.minute;data.picKey=data.pic;data.pic=controls.pic.selectedOptions[0]?.textContent.replace(/ \([^)]*\)$/,'')||'';data.causeOther=otherInput.value.trim();return data;}
 function valid(data){for(const key of Object.keys(defs)){if(key==='machine')continue;if(!defs[key].some(x=>x.value===data[key]))throw Error('Choose a valid '+labels[key]+'.');}if(!machineChoices(data.building,data.process).includes(data.machine)||!(rules.visions[data.process]||[]).includes(data.vision))throw Error('Choose a machine and vision that match the selected building and process.');if(data.cause==='Other'&&!data.causeOther)throw Error('Describe the other source of cause.');if(!data.picKey||!data.downtime||!data.pmDate||!/^([01]\d|2[0-3]):[0-5]\d$/.test(data.hour+':'+data.minute))throw Error('Enter PM Date, Completed Time, Downtime, and PIC.');return data;}
@@ -25938,15 +26027,13 @@ reset();
 'use strict';
 const FORM_URL='https://forms.cloud.microsoft/pages/responsepage.aspx?id=tcvvH_u5nU2k66aZgs3W_rMNraQF6j1LnuYSuhZtwgRUNjdJUlhCT0JKVTRGRDdMMzdUNkZGNktGSyQlQCN0PWcu&route=shorturl';
 const EMBED_URL=FORM_URL+'&embed=true';
-const view=document.getElementById('daily-tasks-view');
-const nav=view&&view.querySelector('.bmpd-nav');
-const workspace=view&&view.querySelector('.daily-task-workspace');
+const nav=document.querySelector('#logs-view .bmpd-nav');
 const bmpdPanel=document.getElementById('bmpd-log-panel');
 const pmPanel=document.getElementById('pm-log-panel');
 const taskTab=document.getElementById('bmpd-task-tab');
 const bmpdTab=document.getElementById('bmpd-log-tab');
 const pmTab=document.getElementById('pm-log-tab');
-if(!view||!nav||!workspace||!bmpdPanel||!taskTab||!bmpdTab)return;
+if(!nav||!bmpdPanel||!taskTab||!bmpdTab)return;
 
 const tab=document.createElement('button');
 tab.id='cell-tracking-log-tab';
@@ -25984,8 +26071,8 @@ panel.innerHTML=`
 const style=document.createElement('style');
 style.id='cell-tracking-form-style';
 style.textContent=`
-#daily-tasks-view > .bmpd-nav{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;grid-auto-flow:row;gap:4px!important;max-width:100%;overflow:visible;padding:4px!important}
-#daily-tasks-view > .bmpd-nav .button{box-sizing:border-box;width:100%;min-width:0;min-height:40px!important;margin:0;padding:7px 3px!important;font-size:clamp(10px,2.7vw,13px)!important;line-height:1.2;letter-spacing:0;white-space:nowrap;grid-column:auto;grid-row:auto}
+#logs-view > .bmpd-nav{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;grid-auto-flow:row;gap:4px!important;max-width:100%;overflow:visible;padding:4px!important}
+#logs-view > .bmpd-nav .button{box-sizing:border-box;width:100%;min-width:0;min-height:40px!important;margin:0;padding:7px 3px!important;font-size:clamp(10px,2.7vw,13px)!important;line-height:1.2;letter-spacing:0;white-space:nowrap;grid-column:auto;grid-row:auto}
 
 #cell-tracking-panel[hidden]{display:none!important}
 #cell-tracking-panel{width:100%;max-width:940px;min-width:0;margin:20px auto;padding:0 18px 28px;box-sizing:border-box}
@@ -26026,7 +26113,6 @@ function hideCellTracking(){
 [taskTab,bmpdTab,pmTab].filter(Boolean).forEach(button=>button.addEventListener('click',hideCellTracking));
 tab.addEventListener('click',()=>{
   taskTab.click();
-  workspace.hidden=true;
   bmpdPanel.hidden=true;
   if(pmPanel)pmPanel.hidden=true;
   panel.hidden=false;
@@ -26035,7 +26121,8 @@ tab.addEventListener('click',()=>{
   ensureLoaded();
   panel.scrollIntoView({block:'start'});
 });
-panel.querySelector('.cell-tracking-back').addEventListener('click',()=>taskTab.click());
+panel.querySelector('.cell-tracking-back').addEventListener('click',()=>{location.hash='daily-tasks';});
+bmpdTab.click();
 })();
 </script>
 <script id="shift-edit-lock-ui">
@@ -26220,7 +26307,7 @@ panel.querySelector('.cell-tracking-back').addEventListener('click',()=>taskTab.
   --daily-soft-shadow: 0 8px 24px color-mix(in srgb, var(--ink) 7%, transparent);
 }
 
-#daily-tasks-view > .bmpd-nav {
+#logs-view > .bmpd-nav {
   display: flex !important;
   width: 100%;
   gap: 4px !important;
@@ -26235,11 +26322,11 @@ panel.querySelector('.cell-tracking-back').addEventListener('click',()=>taskTab.
   background: color-mix(in srgb, var(--paper) 96%, transparent) !important;
 }
 
-#daily-tasks-view > .bmpd-nav::-webkit-scrollbar {
+#logs-view > .bmpd-nav::-webkit-scrollbar {
   display: none;
 }
 
-#daily-tasks-view > .bmpd-nav .button {
+#logs-view > .bmpd-nav .button {
   width: auto !important;
   min-width: max-content !important;
   min-height: 44px !important;
@@ -26256,7 +26343,7 @@ panel.querySelector('.cell-tracking-back').addEventListener('click',()=>taskTab.
   white-space: nowrap;
 }
 
-#daily-tasks-view > .bmpd-nav [aria-selected="true"] {
+#logs-view > .bmpd-nav [aria-selected="true"] {
   background: var(--cream) !important;
   color: var(--matcha-900) !important;
   box-shadow: inset 0 0 0 1px var(--control-line), 0 2px 6px var(--focus-ring) !important;
@@ -26745,7 +26832,7 @@ panel.querySelector('.cell-tracking-back').addEventListener('click',()=>taskTab.
 }
 
 @media (min-width: 720px) {
-  #daily-tasks-view > .bmpd-nav {
+  #logs-view > .bmpd-nav {
     justify-content: center;
     padding-right: 20px !important;
     padding-left: 20px !important;
@@ -28051,6 +28138,7 @@ refreshAccess();
   {label:'Overview',sym:'▦',hash:'',type:'primary'},
   {label:'Cell Barcode Scanner',sym:'▣',source:'open-cell-scanner',hash:'#cell-scanner',type:'extra'},
   {label:'Daily Tasks',sym:'☑',source:'open-daily-tasks',hash:'#daily-tasks',type:'primary'},
+  {label:'Logs',sym:'▧',source:'open-logs',hash:'#logs',type:'primary'},
   {label:'BM/PD Log Search',sym:'▤',source:'open-bmpd-log-search',hash:'#bmpd-log-search',type:'primary'},
   {label:'Power Rankings',sym:'♛',source:'open-leaderboard',hash:'#leaderboard',type:'primary'},
   {label:'Spare Parts',sym:'◫',source:'open-spare-parts-preview',hash:'#spare-parts-preview',type:'primary'},
@@ -28066,13 +28154,12 @@ refreshAccess();
  ];
 
  const thumbNav=byId('vs-thumb-nav'),thumbSheet=byId('vs-thumb-sheet');
- const thumbDefinitions=[['Home','⌂','Overview'],['Daily Tasks','☑','Daily Tasks'],['Copy/Paste','▤','Copy/Paste'],['Tools','⚒','tools'],['More','•••','more']];
- const toolLabels=['Cell Barcode Scanner','Visionary Translator'];
+ const thumbDefinitions=[['Home','⌂','Overview'],['Daily Tasks','☑','Daily Tasks'],['Copy/Paste','▤','Copy/Paste'],['Logs','▧','Logs'],['More','•••','more']];
  let thumbOpener=null;
- function openThumbSheet(kind,button){
-  byId('vs-thumb-title').textContent=kind==='tools'?'Tools':'More';
+ function openThumbSheet(button){
+  byId('vs-thumb-title').textContent='More';
   const list=byId('vs-thumb-items');list.replaceChildren();
-  entries.filter(e=>kind==='tools'?toolLabels.includes(e.label):!['Overview','Daily Tasks','Copy/Paste',...toolLabels].includes(e.label)).forEach(e=>{
+  entries.filter(e=>!['Overview','Daily Tasks','Copy/Paste','Logs'].includes(e.label)).forEach(e=>{
    if(e.source&&!sourceAllowed(e.source))return;
    const b=document.createElement('button');b.type='button';b.textContent=e.sym+' '+e.label;b.addEventListener('click',()=>{thumbSheet.close();visit(e)});list.append(b);
   });
@@ -28081,8 +28168,8 @@ refreshAccess();
  thumbDefinitions.forEach(([label,symbol,target])=>{
   const b=document.createElement('button');b.type='button';b.dataset.thumbTarget=target;
   const icon=document.createElement('span');icon.textContent=symbol;icon.setAttribute('aria-hidden','true');const text=document.createElement('span');text.textContent=label;b.append(icon,text);
-  if(target==='tools'||target==='more')b.setAttribute('aria-haspopup','dialog');
-  b.addEventListener('click',()=>{if(target==='tools'||target==='more')openThumbSheet(target,b);else visit(entries.find(e=>e.label===target))});thumbNav.append(b);
+  if(target==='more')b.setAttribute('aria-haspopup','dialog');
+  b.addEventListener('click',()=>{if(target==='more')openThumbSheet(b);else visit(entries.find(e=>e.label===target))});thumbNav.append(b);
  });
  byId('vs-thumb-close').addEventListener('click',()=>thumbSheet.close());
  thumbSheet.addEventListener('close',()=>thumbOpener?.focus());
@@ -28090,7 +28177,7 @@ refreshAccess();
  function updateThumbNav(){
   const hash=location.hash;const active=entries.find(e=>e.hash===hash)?.label;
   thumbNav.querySelectorAll('button').forEach(b=>{const t=b.dataset.thumbTarget;
-   const selected=t==='Overview'&&!hash||t===active||t==='tools'&&toolLabels.includes(active)||t==='more'&&!!hash&&!['Daily Tasks','Copy/Paste',...toolLabels].includes(active);
+   const selected=t==='Overview'&&!hash||t===active||t==='more'&&!!hash&&!['Daily Tasks','Copy/Paste','Logs'].includes(active);
    if(selected)b.setAttribute('aria-current','page');else b.removeAttribute('aria-current');
    const e=entries.find(e=>e.label===t);b.hidden=!!(e?.source&&!sourceAllowed(e.source));
   });
@@ -28100,7 +28187,7 @@ refreshAccess();
  new MutationObserver(()=>{updateThumbNav();if(app.hidden&&thumbSheet.open)thumbSheet.close()}).observe(app,{attributes:true,attributeFilter:['hidden','data-auth-role']});
  let lastPM=false;
  const labels={
-  '#cell-scanner':'Cell Barcode Scanner','':'Overview','#daily-tasks':'Daily Tasks','#bmpd-log-search':'BM/PD Log Search','#weekly-bmpd':'BM/PD Reports',
+  '#cell-scanner':'Cell Barcode Scanner','':'Overview','#daily-tasks':'Daily Tasks','#logs':'Logs','#bmpd-log-search':'BM/PD Log Search','#weekly-bmpd':'BM/PD Reports',
   '#reports':'Reports','#leaderboard':'Power Rankings','#spare-parts-preview':'Spare Parts',
   '#improvement-suggestions':'Improvement Suggestions','#visionary-translator':'Visionary Translator','#supervisor-tasks':'Supervisor Tasks','#copy-paste':'Copy/Paste',
   '#live-dashboard':'Live Dashboard','#bmpd-trends':'BM/PD Trends','#guides':'Guides','#local-admin':'Supervisor Settings',
@@ -28142,7 +28229,7 @@ refreshAccess();
   updateThumbNav();
   if(app.hidden){clearHistorySelection();historicalStates=[];historyRequestId++;closePicker();return;}
   const role=app.getAttribute('data-auth-role')||'Technician';
-  byId('vs-current-role').textContent=(role==='Admin'?'Supervisor':role)+' view';
+  byId('vs-current-role').textContent=(role==='Admin'?'Supervisor':role==='BmpdLogger'?'BM/PD LOG':role)+' view';
   const hash=location.hash||'';byId('vs-current-page').textContent=hash==='#daily-tasks'&&lastPM?'PM Log':(labels[hash]||'Visionary Tool');
   const state=window.VisionaryDailyTasks?.getState?.();
   const overviewState=!hash?pickOverviewState()?.state:null;
@@ -28226,7 +28313,7 @@ refreshAccess();
   for(const [key,kind] of [['pms','pm'],['escalations','escalation'],['superEscalations','super']]){
    const entries=Array.isArray(state[key])?state[key]:Object.values(state[key]||{});
    entries.forEach(item=>{
-     if(!item||item.saved===false)return;
+     if(!item||item.saved===false||item.source==='bmpd-log-only')return;
      const itemVersion=Number(item.scoringRulesVersion)||version;
      const points=kind==='pm'?25:kind==='super'?150:itemVersion>=3&&item.source!=='bmpd'?25:50;
      result.available+=points;result.completionAvailable+=points;result.total++;
@@ -28291,6 +28378,7 @@ refreshAccess();
       .map(name=>String(name||'').trim()).filter(Boolean))];
     if(!participants.length)return;
     const itemVersion=Number(item.scoringRulesVersion)||version;
+    if(item.source==='bmpd-log-only')return;
     const pts=kind==='escalations'&&itemVersion>=3&&item.source!=='bmpd'?25:pointsDefault;
     participants.forEach(key=>credit(key,pts/participants.length));
    });
