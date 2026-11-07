@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="description" content="A mobile-friendly collection of vision production guides, troubleshooting history, and copy-ready reporting tools.">
-  <meta name="visionary-app-version" content="4.40">
+  <meta name="visionary-app-version" content="4.42">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
@@ -8243,6 +8243,8 @@ html[lang="es-MX"] .spp-dialog-actions { flex-wrap: wrap; }
             <div class="daily-report-actions">
               <button id="daily-report-email" class="button button-primary" type="button">Email report</button>
               <button id="daily-report-print" class="button button-secondary" type="button">Download PDF</button>
+              <button id="daily-report-copy-image" class="button button-secondary" type="button" disabled>Copy report image</button>
+              <button id="daily-report-download-png" class="button button-secondary" type="button" disabled>Download PNG</button>
             </div>
             <p id="daily-generated-report-status" class="status" role="status" aria-live="polite"></p>
             <p class="daily-report-share-hint">Email report opens sharing with the desktop PDF attached. Choose Outlook or your email app and enter your work email address. If file sharing is unavailable, attach the downloaded PDF to the email draft. Both buttons use the same desktop layout, with additional pages for long reports.</p>
@@ -19953,8 +19955,8 @@ function normalizeWeeklyRows(values) {
       function renderShiftReport(result) {
         var report = buildOutlookReport(result);
         report.desktop = buildShiftReportSvgLayoutDesktop(result, true);
-        var svg = buildShiftReportSvgLayoutDesktop(result).svg;
-        return { report: report, svg: svg };
+        var layout = buildShiftReportSvgLayoutDesktop(result);
+        return { report: report, layout: layout };
       }
 
       function renderOverviewShiftSnapshot(snapshot) {
@@ -19994,6 +19996,47 @@ function normalizeWeeklyRows(values) {
         }
       }
 
+      var reportCopyImageButton = document.getElementById("daily-report-copy-image");
+      var reportDownloadPngButton = document.getElementById("daily-report-download-png");
+      var preparedFullReportImage = null;
+
+      function prepareFullReportImage(layout, filename) {
+        preparedFullReportImage = null;
+        reportCopyImageButton.disabled = true;
+        reportDownloadPngButton.disabled = true;
+        var buildId = reportPdfBuildId;
+        if (layout.height * 2 > 16384 || layout.width * layout.height * 4 > 32000000) {
+          reportDownloadPngButton.textContent = "Report too long for PNG";
+          return;
+        }
+        reportDownloadPngButton.textContent = "Preparing PNG…";
+        svgLayoutToPngFile(layout, filename).then(function (file) {
+          if (buildId !== reportPdfBuildId) return;
+          preparedFullReportImage = file;
+          reportDownloadPngButton.disabled = false;
+          reportDownloadPngButton.textContent = "Download PNG";
+          reportCopyImageButton.disabled = !navigator.clipboard?.write || typeof ClipboardItem !== "function";
+        }).catch(function () {
+          if (buildId !== reportPdfBuildId) return;
+          reportDownloadPngButton.textContent = "PNG unavailable";
+        });
+      }
+
+      reportDownloadPngButton.addEventListener("click", function () {
+        if (preparedFullReportImage) downloadReportImageFile(preparedFullReportImage);
+      });
+
+      reportCopyImageButton.addEventListener("click", async function () {
+        var image = preparedFullReportImage;
+        if (!image) return;
+        try {
+          await navigator.clipboard.write([new ClipboardItem({ "image/png": image })]);
+          if (image === preparedFullReportImage) setReportStatus(generatedReportStatus, "Full report copied. Paste it into your Outlook message.");
+        } catch (error) {
+          if (image === preparedFullReportImage) setReportStatus(generatedReportStatus, "Image copying was blocked. Use Download PNG, then insert the picture in Outlook.");
+        }
+      });
+
       function openShiftReport(event, overviewSnapshot) {
         reportReturnFocus = event && event.currentTarget ? event.currentTarget : generateButton;
         if (!overviewSnapshot && !validateShiftSetup()) return;
@@ -20001,7 +20044,6 @@ function normalizeWeeklyRows(values) {
         var rendered;
         if (overviewSnapshot) {
           rendered = renderOverviewShiftSnapshot(overviewSnapshot);
-          document.getElementById("app-shell").appendChild(reportModal);
         } else {
           result = updateDailyShift({ skipSave: true });
           rendered = renderShiftReport(result);
@@ -20009,7 +20051,10 @@ function normalizeWeeklyRows(values) {
         generatedReportStatus.textContent = "";
         preparedOutlookReport = rendered.report;
         prepareReadablePdf(preparedOutlookReport);
-        generatedReport.innerHTML = '<div class="daily-report-canvas">' + rendered.svg + '</div>';
+        prepareFullReportImage(rendered.layout, rendered.report.filename.replace(/\.pdf$/i, ".png"));
+        generatedReport.innerHTML = '<div class="daily-report-canvas">' + rendered.layout.svg + '</div>';
+        // Escape the workspace stacking context so navigation cannot cover the report.
+        document.body.appendChild(reportModal);
         reportModal.hidden = false;
         reportModal.scrollTop = 0;
         document.body.classList.add("daily-report-open");
@@ -20031,6 +20076,7 @@ function normalizeWeeklyRows(values) {
         document.body.classList.remove("daily-report-open");
         generatedReportStatus.textContent = "";
         reportPdfBuildId += 1;
+        preparedFullReportImage = null;
         preparedReportPdf = null;
         if (reportReturnFocus) reportReturnFocus.focus();
       }
