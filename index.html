@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="description" content="A mobile-friendly collection of vision production guides, troubleshooting history, and copy-ready reporting tools.">
-  <meta name="visionary-app-version" content="4.36">
+  <meta name="visionary-app-version" content="4.37">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
@@ -28371,7 +28371,25 @@ refreshAccess();
  }
  topbar.querySelectorAll('[data-vs-go]').forEach(b=>b.addEventListener('click',()=>{}));
  document.querySelectorAll('#vs-overview [data-vs-go]').forEach(b=>b.addEventListener('click',()=>{
-  visit(entries.find(e=>e.label===(b.dataset.vsGo==='reports'?'Reports':'Daily Tasks')));
+  const dailyTasks = entries.find(entry => entry.label === 'Daily Tasks');
+  if (b.dataset.vsGo !== 'reports') {
+   visit(dailyTasks);
+   return;
+  }
+  if (!sourceAllowed(dailyTasks.source)) return;
+  const openReport = () => {
+   if (location.hash !== dailyTasks.hash) return;
+   byId('bmpd-task-tab')?.click();
+   byId('daily-shift-generate-bottom')?.click();
+  };
+  // The Daily Tasks route renders on hashchange before its report can open.
+  if (location.hash !== dailyTasks.hash) {
+   window.addEventListener('hashchange', openReport, { once: true });
+   visit(dailyTasks);
+  } else {
+   visit(dailyTasks);
+   openReport();
+  }
  }));
  window.addEventListener('hashchange',()=>{closePicker();if(location.hash!=='#daily-tasks')lastPM=false;updateView();updateStatus();closeNav();toggleSettings(false)});
  window.addEventListener('visionary-daily-ready',()=>{updateView();updateStatus()});
