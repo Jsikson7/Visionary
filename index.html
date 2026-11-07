@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="description" content="A mobile-friendly collection of vision production guides, troubleshooting history, and copy-ready reporting tools.">
-  <meta name="visionary-app-version" content="4.44">
+  <meta name="visionary-app-version" content="4.45">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
@@ -8241,13 +8241,10 @@ html[lang="es-MX"] .spp-dialog-actions { flex-wrap: wrap; }
               <button id="daily-report-close" class="button button-secondary daily-report-close" type="button">Close</button>
             </div>
             <div class="daily-report-actions">
-              <button id="daily-report-email" class="button button-primary" type="button">Email report</button>
-              <button id="daily-report-print" class="button button-secondary" type="button">Download PDF</button>
               <button id="daily-report-copy-image" class="button button-secondary" type="button" disabled>Copy report image</button>
               <button id="daily-report-download-png" class="button button-secondary" type="button" disabled>Download PNG</button>
             </div>
             <p id="daily-generated-report-status" class="status" role="status" aria-live="polite"></p>
-            <p class="daily-report-share-hint">Email report opens sharing with the desktop PDF attached. Choose Outlook or your email app and enter your work email address. If file sharing is unavailable, attach the downloaded PDF to the email draft. Both buttons use the same desktop layout, with additional pages for long reports.</p>
           </div>
           <div id="daily-generated-report" class="preview daily-shift-preview daily-shift-preview-rich daily-generated-report" aria-label="Generated shift report"></div>
         </section>
@@ -15495,8 +15492,6 @@ function normalizeWeeklyRows(values) {
       var generatedReport = document.getElementById("daily-generated-report");
       var generatedReportStatus = document.getElementById("daily-generated-report-status");
       var reportCloseButton = document.getElementById("daily-report-close");
-      var reportPrintButton = document.getElementById("daily-report-print");
-      var reportEmailButton = document.getElementById("daily-report-email");
       var reportDownloadDesktopButton = document.getElementById("daily-report-download-desktop");
       var reportCopyButton = document.getElementById("daily-report-copy");
       var reportReturnFocus = generateButton;
@@ -17446,11 +17441,10 @@ function normalizeWeeklyRows(values) {
         });
       }
 
-      function dynamicSummaryLines(container) {
+      function dynamicSummaryLines(container, entries = activeDynamicReportEntries(container)) {
         var lines = [];
         var type = dynamicEntryTypeForContainer(container);
-        collectDynamic(container).forEach(function (entry) {
-          if (!dynamicEntryIsActive(entry)) return;
+        entries.forEach(function (entry) {
           if(type==='escalation'){
             var card=window.VisionaryEscalationCard(entry,completedByLabels(entry));
             var fields=card.fields.map(function(row){return row[0]+': '+row[1];});
@@ -17474,6 +17468,24 @@ function normalizeWeeklyRows(values) {
 
       function activeDynamicReportEntries(container) {
         return collectDynamic(container).filter(dynamicEntryIsActive);
+      }
+
+      function groupReportEscalations(entries) {
+        var groups = new Map([
+          ["LNS", []], ["PKG", []], ["EOL", []], ["Cell Tracking", []], ["Other", []]
+        ]);
+        entries.forEach(function (entry) {
+          var process = String(entry.process || "").trim().toUpperCase().replace(/[_-]/g, " ");
+          var label = "Other";
+          if (/^(LNS|LAMI|LAMINATION|STK|STACKING)\b/.test(process)) label = "LNS";
+          else if (/^(PKG|PACKAGING)\b/.test(process)) label = "PKG";
+          else if (/^(EOL|END OF LINE)\b/.test(process)) label = "EOL";
+          else if (/^(CELL\s+TRACKING|CT)\b/.test(process)) label = "Cell Tracking";
+          groups.get(label).push(entry);
+        });
+        return Array.from(groups, function ([label, entries]) {
+          return { label: label, entries: entries };
+        }).filter(function (group) { return group.entries.length > 0; });
       }
 
       function completedErrorProofingReportEntries() {
@@ -18842,17 +18854,20 @@ function normalizeWeeklyRows(values) {
         var activityY = bodyY + summaryPanelHeight + 24;
         var pmBottom = cardGrid(pad, activityY, contentWidth, "PM Entries", dynamicSummaryLines(pmEntries), 3);
         var escalationY = pmBottom > activityY ? pmBottom + 14 : activityY;
-        var escalationEntryCount = activeDynamicReportEntries(escalationEntries).length;
-        var escalationColumns = 2;
-        var escalationBottom = cardGrid(
-          pad,
-          escalationY,
-          contentWidth,
-          "Escalation Entries",
-          dynamicSummaryLines(escalationEntries),
-          escalationColumns
-        );
-        var activityBottom = Math.max(escalationBottom, escalationY);
+        var escalationGroups = groupReportEscalations(activeDynamicReportEntries(escalationEntries));
+        var escalationCount = escalationGroups.reduce(function (count, group) {
+          return count + group.entries.length;
+        }, 0);
+        var activityBottom = escalationY;
+        if (escalationCount) {
+          activityBottom = sectionHeading(pad, escalationY, contentWidth, "Escalation Entries · " + escalationCount);
+          escalationGroups.forEach(function (group) {
+            activityBottom = cardGrid(
+              pad, activityBottom + 10, contentWidth, group.label + " · " + group.entries.length,
+              dynamicSummaryLines(escalationEntries, group.entries), 2
+            );
+          });
+        }
 
         var superEscalationY = activityBottom + 14;
         var superEscalationBottom = cardGrid(
@@ -18967,7 +18982,6 @@ function normalizeWeeklyRows(values) {
       function setPreparedReportImageState(variant, file) {
         preparedReportImageFiles[variant] = file || null;
         if (variant === "desktop" && reportDownloadDesktopButton) {
-          reportEmailButton.disabled = !file;
           reportDownloadDesktopButton.disabled = !file;
         }
       }
@@ -19823,139 +19837,16 @@ function normalizeWeeklyRows(values) {
         }
       }
 
-      var preparedOutlookReport = null;
-      function buildOutlookReport(result) {
-        var esc = function (v) { return String(v == null ? '' : v).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); };
-        var raw = resolveReportThemeColors(), colors = {};
-        // Resolve CSS variables into literal colors for email clients.
-        Object.keys(raw).forEach(function (key) {
-          var probe = document.createElement('span'); probe.style.color = raw[key]; document.body.appendChild(probe);
-          colors[key] = getComputedStyle(probe).color; probe.remove();
-        });
-        var top = topContributorSummary(result), tier = top.points >= 1000 ? achievementTier(top.points) : null;
-        var summary = [['Missed Work',result.missed.length + ' items / ' + displayPoints(result.missedPoints) + ' pts']];
-        [["PM's - Total",pmEntries],['Escalations - Total',escalationEntries],['Super Escalations - Total',superEscalationEntries]].forEach(function (group) {
-          var total = dynamicReportTotal(group[1]); summary.push([group[0],total.count + ' entries / ' + displayPoints(total.points) + ' pts']);
-        });
-        var topRows = [[top.label,displayPoints(top.points) + ' pts · ' + top.percent + '%' + (tier ? ' · ' + tier.metal : '')]];
-        top.leaders.forEach(function (leader) { topRows.push([top.leaders.length > 1 ? leader.label : 'Completed work', "PM's: " + leader.breakdown.pm + ' · Error proofing: ' + leader.breakdown.errorProofing + ' · Escalations: ' + leader.breakdown.escalations + ' · Super: ' + leader.breakdown.superEscalations]); });
-        var model = {
-          colors:colors, period:shortDate(dateInput.value) + ' · ' + shiftSelect.value + ' Shift',
-          metrics:[['Completion',result.percent+'%'],['Points',displayPoints(result.earned)+' / '+displayPoints(result.available)],['Missed',displayPoints(result.missedPoints)+' pts']],
-          overview:[{title:'Top Contributor',rows:topRows},{title:'Work Contribution',rows:result.contributorOrder.map(function(person){var c=result.contributors[person.key];var medal=c.points>=1000?achievementTier(c.points).metal:'';return [person.label,displayPoints(c.points)+' pts · '+c.percent+'%'+(medal?' · '+medal:'')];})},{title:'Summary Totals',rows:summary}],
-          sections:[]
-        };
-        function section(title,entries){model.sections.push({title:title,entries:entries.length?entries:['None recorded.']});}
-        section('PM Entries',dynamicSummaryLines(pmEntries));
-        section('Escalation Entries',dynamicSummaryLines(escalationEntries));
-        section('Super Escalation Entries',dynamicSummaryLines(superEscalationEntries));
-        section('Completed NGM Error Proofing',completedErrorProofingSummaryLines());
-        var inventory=checklistLines('Inventory Day');if(inventory.length)section('Inventory Day',inventory);
-        if(result.missed.length)section('Missed Work',result.missed.map(function(item){return item.label+' · '+displayPoints(item.points)+' pts · '+item.reason;}));
-        if(handoffNoteInput.value.trim())section('Shift Handoff Note',[handoffNoteInput.value.trim()]);
-        var tableStyle='border-collapse:collapse;font-family:Arial,sans-serif;font-size:14px;line-height:1.45;';
-        function table(inner){return '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="width:100%;'+tableStyle+'">'+inner+'</table>';}
-        function td(inner,width,style){return '<td'+(width?' width="'+width+'"':'')+' valign="top" style="vertical-align:top;'+(style||'')+'">'+inner+'</td>';}
-        function card(inner){return table('<tr>'+td(inner,'','padding:12px;border:1px solid '+colors.line+';border-radius:9px;background-color:'+colors.cream+';color:'+colors.ink+';word-wrap:break-word;')+'</tr>');}
-        var header=td('<div style="font-size:11px;font-weight:bold;color:'+colors.heroCopy+'">VISIONARY TOOL</div><div style="font-size:23px;font-weight:bold;color:#fff">Shift Report</div><div style="font-size:12px;color:'+colors.heroCopy+'">'+esc(model.period)+'</div>','28%','padding:14px;');
-        model.metrics.forEach(function(m){header+=td(table('<tr>'+td('<div style="font-size:11px;text-transform:uppercase;color:'+colors.heroCopy+'">'+esc(m[0])+'</div><div style="font-size:18px;font-weight:bold;color:#fff">'+esc(m[1])+'</div>','','padding:12px 6px;text-align:center;border:1px solid '+colors.heroCopy+';border-radius:8px;background-color:'+colors.accent+';')+'</tr>'),'24%','padding:12px 4px;');});
-        var html=table('<tr>'+td(table('<tr>'+header+'</tr>'),'','background-color:'+colors.dark+';')+'</tr>');
-        var overview='';model.overview.forEach(function(c){var inner='<div style="font-weight:bold;font-size:15px;border-bottom:2px solid '+colors.accent+';padding-bottom:7px;margin-bottom:8px">'+esc(c.title)+'</div>';
-          c.rows.forEach(function(row){inner+='<div style="padding:6px 0;border-bottom:1px solid '+colors.line+'"><strong>'+esc(row[0])+'</strong><br>'+esc(row[1])+'</div>';});
-          overview+=td(card(inner),'33%','padding:12px 4px;');});html+=table('<tr>'+overview+'</tr>');
-        model.sections.forEach(function(sec){html+='<h2 style="font-family:Arial,sans-serif;font-size:16px;line-height:1.4;margin:14px 4px 7px;padding-bottom:5px;border-bottom:2px solid '+colors.accent+';color:'+colors.ink+'">'+esc(sec.title)+'</h2>';
-          for(var i=0;i<sec.entries.length;i+=2){var row='';for(var col=0;col<2;col++){row+=td(i+col<sec.entries.length?card(esc(sec.entries[i+col]).replace(/\n/g,'<br>')):'','50%','padding:4px;');}html+=table('<tr>'+row+'</tr>');}
-        });
-        html='<div style="width:100%;max-width:900px;margin:0 auto;background-color:'+colors.paper+';color:'+colors.ink+';font-family:Arial,sans-serif">'+html+'</div>';
-        return {html:html,model:model,text:buildShiftReport(result),subject:'MI2 Shift Report - '+shiftSelect.value+' - '+dateInput.value,filename:'Shift-Report-'+dateInput.value+'-'+shiftSelect.value+'.pdf'};
-      }
-      var preparedReportPdf = null;
-      var reportPdfBuildId = 0;
-      async function createReadableReportPdf(layout, filename) {
-        // Always use the original desktop renderer, independent of device width.
-        var width = 2880, height = 2040, pages = [];
-        var contents = layout.svg.slice(layout.svg.indexOf('>') + 1, layout.svg.lastIndexOf('</svg>'));
-        for (var page = 0; page < layout.height / layout.pageHeight; page++) {
-          var svg = '<svg xmlns="http://www.w3.org/2000/svg" width="2880" height="2040" viewBox="0 ' + (page * layout.pageHeight) + ' 1440 1020">' + contents + '</svg>';
-          var url = URL.createObjectURL(new Blob([svg], {type:'image/svg+xml;charset=utf-8'}));
-          try {
-            var img = await new Promise(function(resolve,reject) { var image = new Image(); image.onload = function(){resolve(image);}; image.onerror = function(){reject(new Error('Desktop report could not be rendered.'));}; image.src = url; });
-            var canvas = document.createElement('canvas'); canvas.width=width; canvas.height=height;
-            var ctx=canvas.getContext('2d'); if(!ctx)throw new Error('PDF drawing unavailable.');
-            ctx.fillStyle=layout.paper; ctx.fillRect(0,0,width,height); ctx.drawImage(img,0,0,width,height);
-            ctx.font='22px Arial'; ctx.fillStyle='#555'; ctx.fillText('Page '+(page+1)+' / '+(layout.height/layout.pageHeight),72,height-22);
-            var blob=await new Promise(function(resolve){canvas.toBlob(resolve,'image/jpeg',0.96);});
-            if(!blob)throw new Error('PDF page could not be created.');
-            pages.push(new Uint8Array(await blob.arrayBuffer()));
-          } finally { URL.revokeObjectURL(url); }
-        }
-        // Self-contained PDF writer: each page is a crisp, fixed-size rendered page.
-        var encode = function (value) { return new TextEncoder().encode(value); };
-        var chunks = [], offsets = [0], length = 0;
-        function push(bytes) { chunks.push(bytes); length += bytes.length; }
-        function object(id, parts) { offsets[id] = length; push(encode(id + ' 0 obj\n')); parts.forEach(push); push(encode('\nendobj\n')); }
-        push(encode('%PDF-1.4\n'));
-        object(1, [encode('<< /Type /Catalog /Pages 2 0 R >>')]);
-        var ids = pages.map(function (_, i) { return 3 + i * 3; });
-        object(2, [encode('<< /Type /Pages /Count ' + pages.length + ' /Kids [' + ids.map(function (id) { return id + ' 0 R'; }).join(' ') + '] >>')]);
-        pages.forEach(function (bytes, index) {
-          var id = ids[index];
-          object(id, [encode('<< /Type /Page /Parent 2 0 R /MediaBox [0 0 1190.55 843.31] /Resources << /XObject << /Image ' + (id + 1) + ' 0 R >> >> /Contents ' + (id + 2) + ' 0 R >>')]);
-          object(id + 1, [encode('<< /Type /XObject /Subtype /Image /Width 2880 /Height 2040 /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length ' + bytes.length + ' >>\nstream\n'), bytes, encode('\nendstream')]);
-          var commands = 'q 1190.55 0 0 843.31 0 0 cm /Image Do Q\n';
-          object(id + 2, [encode('<< /Length ' + encode(commands).length + ' >>\nstream\n' + commands + 'endstream')]);
-        });
-        var xref = length, count = 3 + pages.length * 3;
-        push(encode('xref\n0 ' + count + '\n0000000000 65535 f \n' + offsets.slice(1).map(function (offset) { return String(offset).padStart(10, '0') + ' 00000 n \n'; }).join('') + 'trailer\n<< /Size ' + count + ' /Root 1 0 R >>\nstartxref\n' + xref + '\n%%EOF'));
-        return new File(chunks, filename, { type: 'application/pdf' });
-      }
-      function downloadReadablePdf() {
-        if (!preparedReportPdf) return;
-        downloadReportImageFile(preparedReportPdf);
-        setReportStatus(generatedReportStatus, 'PDF downloaded. Open it to read or attach it to your work email.');
-      }
-      function prepareReadablePdf(report) {
-        var id = ++reportPdfBuildId;
-        preparedReportPdf = null; reportPrintButton.disabled = true; reportEmailButton.disabled = true;
-        setReportStatus(generatedReportStatus, 'Preparing readable PDF…');
-        createReadableReportPdf(report.desktop, report.filename).then(function (file) {
-          if (id !== reportPdfBuildId) return;
-          preparedReportPdf = file; reportPrintButton.disabled = false; reportEmailButton.disabled = false;
-          setReportStatus(generatedReportStatus, 'PDF ready. Email it to your work address or download it.');
-        }).catch(function (error) {
-          if (id === reportPdfBuildId) setReportStatus(generatedReportStatus, 'PDF could not be prepared: ' + error.message + '. Close and reopen the report to retry.');
-        });
-      }
-      function emailShiftReport() {
-        if (!preparedReportPdf || !preparedOutlookReport) return;
-        var report = preparedOutlookReport, pdf = preparedReportPdf;
-        function fallback() {
-          downloadReportImageFile(pdf);
-          setReportStatus(generatedReportStatus, 'This browser cannot attach files through sharing. The desktop PDF was downloaded. Attach it to the email draft that opens, then enter your work email address.');
-          window.location.href = 'mailto:?subject=' + encodeURIComponent(report.subject) + '&body=' + encodeURIComponent('Shift report: ' + report.subject + '\n\nPlease attach the downloaded ' + pdf.name + ' before sending.');
-        }
-        function failed(error) {
-          reportEmailButton.disabled = !preparedReportPdf;
-          setReportStatus(generatedReportStatus, error && error.name === 'AbortError' ? 'Sharing closed. Tap Email report to try again, or Download PDF.' : 'Sharing could not open. Open this app in Safari or Chrome and try again, or use Download PDF and attach it in your email app.');
-        }
-        try {
-          if (!navigator.share || !navigator.canShare || !navigator.canShare({files:[pdf]})) { fallback(); return; }
-          // The file is prepared before the tap: no await may precede navigator.share.
-          reportEmailButton.disabled = true;
-          var sharing = navigator.share({files:[pdf],title:report.subject,text:report.subject});
-          setReportStatus(generatedReportStatus, 'Choose Outlook or your email app, enter your work email address, and send the attached desktop PDF.');
-          Promise.resolve(sharing).then(function(){reportEmailButton.disabled = !preparedReportPdf;}, failed);
-        } catch(error) { failed(error); }
-      }
+      var reportImageBuildId = 0;
 
       var reportModalHome = reportModal.parentNode;
       var reportModalNext = reportModal.nextSibling;
 
       function renderShiftReport(result) {
-        var report = buildOutlookReport(result);
-        report.desktop = buildShiftReportSvgLayoutDesktop(result, true);
-        var layout = buildShiftReportSvgLayoutDesktop(result);
-        return { report: report, layout: layout };
+        return {
+          layout: buildShiftReportSvgLayoutDesktop(result),
+          filename: "Shift-Report-" + (dateInput.value || "report") + ".png"
+        };
       }
 
       function renderOverviewShiftSnapshot(snapshot) {
@@ -20006,17 +19897,17 @@ function normalizeWeeklyRows(values) {
         reportCopyImageButton.disabled = true;
         reportCopyImageButton.textContent = "Copy report image";
         reportDownloadPngButton.disabled = true;
-        var buildId = reportPdfBuildId;
+        var buildId = reportImageBuildId;
         var outlookScale = Math.min(2, 1750 / layout.width);
         if (navigator.clipboard?.write && typeof ClipboardItem === "function" &&
             layout.height * outlookScale <= 16384 &&
             layout.width * layout.height * outlookScale ** 2 <= 32000000) {
           svgLayoutToPngFile(layout, filename, outlookScale).then(function (file) {
-            if (buildId !== reportPdfBuildId) return;
+            if (buildId !== reportImageBuildId) return;
             preparedOutlookImage = file;
             reportCopyImageButton.disabled = false;
           }).catch(function () {
-            if (buildId === reportPdfBuildId) reportCopyImageButton.textContent = "Image copy unavailable";
+            if (buildId === reportImageBuildId) reportCopyImageButton.textContent = "Image copy unavailable";
           });
         }
 
@@ -20026,12 +19917,12 @@ function normalizeWeeklyRows(values) {
         }
         reportDownloadPngButton.textContent = "Preparing PNG…";
         svgLayoutToPngFile(layout, filename).then(function (file) {
-          if (buildId !== reportPdfBuildId) return;
+          if (buildId !== reportImageBuildId) return;
           preparedFullReportImage = file;
           reportDownloadPngButton.disabled = false;
           reportDownloadPngButton.textContent = "Download PNG";
         }).catch(function () {
-          if (buildId !== reportPdfBuildId) return;
+          if (buildId !== reportImageBuildId) return;
           reportDownloadPngButton.textContent = "PNG unavailable";
         });
       }
@@ -20063,9 +19954,8 @@ function normalizeWeeklyRows(values) {
           rendered = renderShiftReport(result);
         }
         generatedReportStatus.textContent = "";
-        preparedOutlookReport = rendered.report;
-        prepareReadablePdf(preparedOutlookReport);
-        prepareFullReportImage(rendered.layout, rendered.report.filename.replace(/\.pdf$/i, ".png"));
+        reportImageBuildId += 1;
+        prepareFullReportImage(rendered.layout, rendered.filename);
         generatedReport.innerHTML = '<div class="daily-report-canvas">' + rendered.layout.svg + '</div>';
         // Escape the workspace stacking context so navigation cannot cover the report.
         document.body.appendChild(reportModal);
@@ -20089,10 +19979,9 @@ function normalizeWeeklyRows(values) {
         if (reportModal.parentNode !== reportModalHome) reportModalHome.insertBefore(reportModal, reportModalNext);
         document.body.classList.remove("daily-report-open");
         generatedReportStatus.textContent = "";
-        reportPdfBuildId += 1;
+        reportImageBuildId += 1;
         preparedFullReportImage = null;
         preparedOutlookImage = null;
-        preparedReportPdf = null;
         if (reportReturnFocus) reportReturnFocus.focus();
       }
 
@@ -20163,8 +20052,6 @@ function normalizeWeeklyRows(values) {
       generateButton.addEventListener("click", openShiftReport);
       generateBottomButton.addEventListener("click", openShiftReport);
       reportCloseButton.addEventListener("click", closeShiftReport);
-      reportPrintButton.addEventListener("click", downloadReadablePdf);
-      reportEmailButton.addEventListener("click", emailShiftReport);
       reportModal.addEventListener("click", function (event) {
         if (event.target === reportModal) closeShiftReport();
       });
