@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="description" content="A mobile-friendly collection of vision production guides, troubleshooting history, and copy-ready reporting tools.">
-  <meta name="visionary-app-version" content="4.43">
+  <meta name="visionary-app-version" content="4.44">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
@@ -20007,7 +20007,7 @@ function normalizeWeeklyRows(values) {
         reportCopyImageButton.textContent = "Copy report image";
         reportDownloadPngButton.disabled = true;
         var buildId = reportPdfBuildId;
-        var outlookScale = Math.min(1, 1000 / layout.width);
+        var outlookScale = Math.min(2, 1750 / layout.width);
         if (navigator.clipboard?.write && typeof ClipboardItem === "function" &&
             layout.height * outlookScale <= 16384 &&
             layout.width * layout.height * outlookScale ** 2 <= 32000000) {
