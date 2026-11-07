@@ -11,7 +11,7 @@
     #logs-view .bm-grid[hidden] { display:none!important; }
     #app-shell[data-auth-role="BmpdLogger"] :is([data-pm-back],.cell-tracking-back,[data-bmpd-back]) { display:none!important; }
   </style>
-  <meta name="visionary-app-version" content="4.48">
+  <meta name="visionary-app-version" content="4.49">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
@@ -25566,15 +25566,51 @@ const typedPic=document.createElement('input');
 typedPic.type='text';typedPic.name='worker';typedPic.maxLength=100;typedPic.autocomplete='name';typedPic.required=true;
 const logShiftFields=document.createElement('div');
 logShiftFields.className='bm-grid';
-for(const [id,labelText] of [['daily-shift-date','Shift date'],['daily-shift-shift','Shift']]){
- const original=document.getElementById(id),label=document.createElement('label');
+const shiftDate=document.getElementById('daily-shift-date');
+const shiftSelect=document.getElementById('daily-shift-shift');
+const shiftMirrors=new Map();
+function setLogShift(date,shift){
+ if(shiftDate.value===date&&shiftSelect.value===shift)return;
+ shiftDate.value=date;
+ shiftSelect.value=shift;
+ shiftSelect.dispatchEvent(new Event('change',{bubbles:true}));
+ shiftMirrors.forEach((mirror,original)=>{mirror.value=original.value;});
+}
+for(const [original,labelText] of [[shiftDate,'Shift date'],[shiftSelect,'Shift']]){
+ const label=document.createElement('label');
  const mirror=original.cloneNode(true);
  mirror.removeAttribute('id');mirror.removeAttribute('name');mirror.required=false;
+ shiftMirrors.set(original,mirror);
  function sync(){mirror.value=original.value;}
- mirror.addEventListener('change',()=>{original.value=mirror.value;original.dispatchEvent(new Event('change',{bubbles:true}));});
+ mirror.addEventListener('change',()=>{
+  manualLogShift=true;
+  setLogShift(shiftMirrors.get(shiftDate).value,shiftMirrors.get(shiftSelect).value);
+ });
  window.addEventListener('visionary-daily-local-change',sync);
  log.addEventListener('click',sync);
  label.append(labelText,mirror);logShiftFields.append(label);sync();
+}
+let manualLogShift=false,autoShiftWindow='';
+const plantClock=new Intl.DateTimeFormat('en-US',{
+ timeZone:'America/Detroit',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',hourCycle:'h23'
+});
+function activeLogWindow(now){
+ const parts=Object.fromEntries(plantClock.formatToParts(now).map(part=>[part.type,part.value]));
+ const hour=Number(parts.hour);
+ const date=new Date(Date.UTC(+parts.year,+parts.month-1,+parts.day-(hour<5?1:0))).toISOString().slice(0,10);
+ return {date,period:hour>=5&&hour<17?'1':'2'};
+}
+function selectActiveLogShift(){
+ if(!loggerRole()){manualLogShift=false;autoShiftWindow='';return;}
+ if(manualLogShift||btn.disabled||bmpdShift||controls.process.value||controls.phenomenon.value||controls.cause.value||controls.action.value)return;
+ const {date,period}=activeLogWindow(new Date());
+ const key=date+'_'+period;
+ const matches=state=>state?.date===date&&new RegExp('^[BG]'+period+'$').test(state.shift);
+ const shared=window.VisionaryLatestShiftData?.state;
+ if(key===autoShiftWindow&&shiftSelect.value)return;
+ autoShiftWindow=key;
+ const selected={date:shiftDate.value,shift:shiftSelect.value};
+ setLogShift(date,matches(selected)?selected.shift:matches(shared)?shared.shift:'');
 }
 form.prepend(logShiftFields);
 const picNote=document.createElement('p');picNote.className='bm-status';picNote.id='bmpd-pic-note';controls.worker.setAttribute('aria-describedby',picNote.id);controls.worker.after(picNote);
@@ -25594,7 +25630,7 @@ const state=daily&&daily.getState?daily.getState():{};
 const shift=state.date&&state.shift?state.date+'_'+state.shift:'';
 if(logger){
  bmpdRosterShift=shift;
- picNote.textContent=shift?'Enter your name. This escalation earns 0 points.':'Choose the shift date and shift above.';
+ picNote.textContent=shift?'Enter your name. This escalation earns 0 points.':'Confirm the Blue or Gold shift above before submitting.';
  return;
 }
 const oldKey=controls.worker.value,oldPerson=bmpdRoster.find(person=>person.key===oldKey);
@@ -25607,7 +25643,9 @@ bmpdRosterShift=shift;bmpdRoster=roster;
 picNote.textContent=!shift?'Choose the date and shift in Daily Tasks first.':roster.length?'Select a technician from '+state.shift+' on '+state.date+'.':'Add technician names to this shift in Daily Tasks first.';
 }
 log.addEventListener('click',refreshBmpdPIC);
-new MutationObserver(refreshBmpdPIC).observe(appShell,{attributes:true,attributeFilter:['data-auth-role']});
+log.addEventListener('click',selectActiveLogShift);
+window.addEventListener('visionary-latest-shift',selectActiveLogShift);
+new MutationObserver(()=>{selectActiveLogShift();refreshBmpdPIC();}).observe(appShell,{attributes:true,attributeFilter:['data-auth-role']});
 window.addEventListener('visionary-daily-ready',refreshBmpdPIC);
 window.addEventListener('visionary-daily-local-change',refreshBmpdPIC);
 ['daily-shift-date','daily-shift-shift'].forEach(id=>document.getElementById(id)?.addEventListener('change',refreshBmpdPIC));
