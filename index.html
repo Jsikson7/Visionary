@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="description" content="A mobile-friendly collection of vision production guides, troubleshooting history, and copy-ready reporting tools.">
-  <meta name="visionary-app-version" content="4.42">
+  <meta name="visionary-app-version" content="4.43">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
@@ -18919,18 +18919,17 @@ function normalizeWeeklyRows(values) {
         return { svg: svg, width: width, height: totalHeight, pageHeight: pageHeight, paper: colors.paper };
       }
 
-      function svgLayoutToPngFile(layout, filename) {
+      function svgLayoutToPngFile(layout, filename, scale = 2) {
         return new Promise(function (resolve, reject) {
           try {
-            var scale = 2;
             var svgBlob = new Blob([layout.svg], { type: "image/svg+xml;charset=utf-8" });
             var url = URL.createObjectURL(svgBlob);
             var img = new Image();
             img.onload = function () {
               try {
                 var canvas = document.createElement("canvas");
-                canvas.width = layout.width * scale;
-                canvas.height = layout.height * scale;
+                canvas.width = Math.ceil(layout.width * scale);
+                canvas.height = Math.ceil(layout.height * scale);
                 var ctx = canvas.getContext("2d");
                 ctx.scale(scale, scale);
                 ctx.drawImage(img, 0, 0, layout.width, layout.height);
@@ -19999,12 +19998,28 @@ function normalizeWeeklyRows(values) {
       var reportCopyImageButton = document.getElementById("daily-report-copy-image");
       var reportDownloadPngButton = document.getElementById("daily-report-download-png");
       var preparedFullReportImage = null;
+      var preparedOutlookImage = null;
 
       function prepareFullReportImage(layout, filename) {
         preparedFullReportImage = null;
+        preparedOutlookImage = null;
         reportCopyImageButton.disabled = true;
+        reportCopyImageButton.textContent = "Copy report image";
         reportDownloadPngButton.disabled = true;
         var buildId = reportPdfBuildId;
+        var outlookScale = Math.min(1, 1000 / layout.width);
+        if (navigator.clipboard?.write && typeof ClipboardItem === "function" &&
+            layout.height * outlookScale <= 16384 &&
+            layout.width * layout.height * outlookScale ** 2 <= 32000000) {
+          svgLayoutToPngFile(layout, filename, outlookScale).then(function (file) {
+            if (buildId !== reportPdfBuildId) return;
+            preparedOutlookImage = file;
+            reportCopyImageButton.disabled = false;
+          }).catch(function () {
+            if (buildId === reportPdfBuildId) reportCopyImageButton.textContent = "Image copy unavailable";
+          });
+        }
+
         if (layout.height * 2 > 16384 || layout.width * layout.height * 4 > 32000000) {
           reportDownloadPngButton.textContent = "Report too long for PNG";
           return;
@@ -20015,7 +20030,6 @@ function normalizeWeeklyRows(values) {
           preparedFullReportImage = file;
           reportDownloadPngButton.disabled = false;
           reportDownloadPngButton.textContent = "Download PNG";
-          reportCopyImageButton.disabled = !navigator.clipboard?.write || typeof ClipboardItem !== "function";
         }).catch(function () {
           if (buildId !== reportPdfBuildId) return;
           reportDownloadPngButton.textContent = "PNG unavailable";
@@ -20027,13 +20041,13 @@ function normalizeWeeklyRows(values) {
       });
 
       reportCopyImageButton.addEventListener("click", async function () {
-        var image = preparedFullReportImage;
+        var image = preparedOutlookImage;
         if (!image) return;
         try {
           await navigator.clipboard.write([new ClipboardItem({ "image/png": image })]);
-          if (image === preparedFullReportImage) setReportStatus(generatedReportStatus, "Full report copied. Paste it into your Outlook message.");
+          if (image === preparedOutlookImage) setReportStatus(generatedReportStatus, "Full report copied. Paste it into your Outlook message.");
         } catch (error) {
-          if (image === preparedFullReportImage) setReportStatus(generatedReportStatus, "Image copying was blocked. Use Download PNG, then insert the picture in Outlook.");
+          if (image === preparedOutlookImage) setReportStatus(generatedReportStatus, "Image copying was blocked. Use Download PNG, then insert the picture in Outlook.");
         }
       });
 
@@ -20077,6 +20091,7 @@ function normalizeWeeklyRows(values) {
         generatedReportStatus.textContent = "";
         reportPdfBuildId += 1;
         preparedFullReportImage = null;
+        preparedOutlookImage = null;
         preparedReportPdf = null;
         if (reportReturnFocus) reportReturnFocus.focus();
       }
