@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="description" content="A mobile-friendly collection of vision production guides, troubleshooting history, and copy-ready reporting tools.">
-  <meta name="visionary-app-version" content="4.37">
+  <meta name="visionary-app-version" content="4.40">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
@@ -7176,6 +7176,28 @@ window.VisionaryRenderEscalationRows=function(container,fields){
   -webkit-user-select: text;
 }
 .daily-escalation-copy-dialog button + button { margin-left: .5rem; }
+</style>
+<style id="visionary-language-fit">
+#vs-workspace-bar { flex-wrap: wrap; height: auto; min-height: 68px; }
+#vs-workspace-bar > .vs-bar-actions { flex-shrink: 1; min-width: 0; max-width: 100%; flex-wrap: wrap; }
+#vs-header-language { flex-shrink: 1; min-width: 0; max-width: 100%; flex-wrap: wrap; }
+#vs-header-language button { flex: 0 0 auto; }
+#vs-header-language button[hidden] { display: none !important; }
+html[lang="es-MX"] #spare-parts-preview-view :is(.spp-sync-row, .spp-excel-actions) {
+  flex-wrap: wrap;
+  white-space: normal;
+}
+html[lang="es-MX"] #spare-parts-preview-view .spp-sync-row p {
+  white-space: normal;
+  overflow: visible;
+  overflow-wrap: anywhere;
+  flex-basis: 12rem;
+}
+html[lang="es-MX"] #spare-parts-preview-view :is(button, .spp-badge, th, label) {
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+html[lang="es-MX"] .spp-dialog-actions { flex-wrap: wrap; }
 </style>
 </head>
 <body>
@@ -19925,19 +19947,73 @@ function normalizeWeeklyRows(values) {
         } catch(error) { failed(error); }
       }
 
-      function openShiftReport(event) {
+      var reportModalHome = reportModal.parentNode;
+      var reportModalNext = reportModal.nextSibling;
+
+      function renderShiftReport(result) {
+        var report = buildOutlookReport(result);
+        report.desktop = buildShiftReportSvgLayoutDesktop(result, true);
+        var svg = buildShiftReportSvgLayoutDesktop(result).svg;
+        return { report: report, svg: svg };
+      }
+
+      function renderOverviewShiftSnapshot(snapshot) {
+        var original = draftState();
+        var originalHistory = historicalIQContext;
+        var originalNote = draftNote.textContent;
+        var groups = [pmEntries, escalationEntries, superEscalationEntries, otSupportList];
+        var originalNodes = groups.map(function (group) { return Array.from(group.childNodes); });
+        var controls = Array.from(form.querySelectorAll("input, select, textarea")).map(function (control) {
+          return { control: control, value: control.value, checked: control.checked };
+        });
+        var originalDynamicId = dailyDynamicNextId;
+        var originalOtId = dailyOtSupportNextId;
+        var reportState = Object.assign({}, snapshot);
+        ["pms", "escalations", "superEscalations"].forEach(function (key) {
+          if (reportState[key] && !Array.isArray(reportState[key])) {
+            reportState[key] = Object.values(reportState[key]).filter(Boolean).sort(function (a, b) {
+              return (Number(a.sortIndex) || 0) - (Number(b.sortIndex) || 0);
+            });
+          }
+        });
+        try {
+          restoreDraft(reportState);
+          return renderShiftReport(metrics());
+        } finally {
+          restoreDraft(original);
+          groups.forEach(function (group, index) { group.replaceChildren.apply(group, originalNodes[index]); });
+          controls.forEach(function (item) {
+            item.control.value = item.value;
+            if (typeof item.checked === "boolean") item.control.checked = item.checked;
+          });
+          historicalIQContext = originalHistory;
+          dailyDynamicNextId = originalDynamicId;
+          dailyOtSupportNextId = originalOtId;
+          updateDailyShift({ skipSave: true });
+          setDraftNote(originalNote);
+        }
+      }
+
+      function openShiftReport(event, overviewSnapshot) {
         reportReturnFocus = event && event.currentTarget ? event.currentTarget : generateButton;
-        if (!validateShiftSetup()) return;
-        var result = updateDailyShift({ skipSave: true });
+        if (!overviewSnapshot && !validateShiftSetup()) return;
+        var result;
+        var rendered;
+        if (overviewSnapshot) {
+          rendered = renderOverviewShiftSnapshot(overviewSnapshot);
+          document.getElementById("app-shell").appendChild(reportModal);
+        } else {
+          result = updateDailyShift({ skipSave: true });
+          rendered = renderShiftReport(result);
+        }
         generatedReportStatus.textContent = "";
-        preparedOutlookReport = buildOutlookReport(result);
-        preparedOutlookReport.desktop = buildShiftReportSvgLayoutDesktop(result, true);
+        preparedOutlookReport = rendered.report;
         prepareReadablePdf(preparedOutlookReport);
-        generatedReport.innerHTML = '<div style="overflow:auto"><div style="min-width:1100px">' + buildShiftReportSvgLayoutDesktop(result).svg.replace('<svg ', '<svg style="display:block;width:100%;height:auto" ') + '</div></div>';
+        generatedReport.innerHTML = '<div class="daily-report-canvas">' + rendered.svg + '</div>';
         reportModal.hidden = false;
         reportModal.scrollTop = 0;
         document.body.classList.add("daily-report-open");
-        var missingAttribution = result.missed.filter(function (item) {
+        var missingAttribution = (result ? result.missed : []).filter(function (item) {
           return item.reason === "Completed By not selected";
         }).length;
         setReportStatus(
@@ -19951,6 +20027,7 @@ function normalizeWeeklyRows(values) {
 
       function closeShiftReport() {
         reportModal.hidden = true;
+        if (reportModal.parentNode !== reportModalHome) reportModalHome.insertBefore(reportModal, reportModalNext);
         document.body.classList.remove("daily-report-open");
         generatedReportStatus.textContent = "";
         reportPdfBuildId += 1;
@@ -20133,6 +20210,9 @@ function normalizeWeeklyRows(values) {
         },
         setHonorHistory: setHonorHistory,
         getState: draftState,
+        openOverviewReport: function (snapshot, opener) {
+          openShiftReport({ currentTarget: opener }, snapshot);
+        },
         applyCloudState: applyCloudState,
         canonicalTechnicianName: canonicalRosterName,
         update: function () { return updateDailyShift({ skipSave: true }); },
@@ -26957,6 +27037,37 @@ panel.querySelector('.cell-tracking-back').addEventListener('click',()=>taskTab.
 <style id="themed-report-actions">
 #daily-generated-report {max-width:940px;margin:0 auto;padding:12px;background:var(--paper);max-height:none;overflow:visible;}
 #daily-generated-report table {white-space:normal;}
+.daily-report-canvas {
+  width: 100%;
+  overflow-x: auto;
+}
+.daily-report-canvas > svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  min-width: 1100px;
+}
+@media screen and (min-width: 900px) {
+  #daily-report-modal .daily-report-sheet {
+    box-sizing: border-box;
+    width: min(100%, 1480px);
+    max-width: 100%;
+  }
+  #daily-generated-report {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: none;
+    min-width: 0;
+  }
+  .daily-report-canvas > svg {
+    min-width: 0;
+  }
+}
+@media print {
+  .daily-report-canvas { overflow: visible; }
+  .daily-report-canvas > svg { min-width: 0; }
+}
+
 
 #daily-report-modal .daily-report-actions { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }
 </style>
@@ -28370,27 +28481,31 @@ refreshAccess();
   else{badge.textContent='● Workspace active';badge.style.background='#edf5eb';badge.style.color='#3d7550'}
  }
  topbar.querySelectorAll('[data-vs-go]').forEach(b=>b.addEventListener('click',()=>{}));
- document.querySelectorAll('#vs-overview [data-vs-go]').forEach(b=>b.addEventListener('click',()=>{
-  const dailyTasks = entries.find(entry => entry.label === 'Daily Tasks');
-  if (b.dataset.vsGo !== 'reports') {
-   visit(dailyTasks);
+ document.querySelectorAll('#vs-overview [data-vs-go="tasks"]').forEach(button => {
+  button.addEventListener('click', () => visit(entries.find(entry => entry.label === 'Daily Tasks')));
+ });
+ const overviewReportButton = document.querySelector('#vs-overview [data-vs-go="reports"]');
+ overviewReportButton?.addEventListener('click', event => {
+  event.preventDefault();
+  event.stopPropagation();
+  if (!sourceAllowed('open-daily-tasks')) return;
+  const selection = pickOverviewState();
+  if (!selection) {
+   window.alert('No shift report is available for the current Overview selection.');
    return;
   }
-  if (!sourceAllowed(dailyTasks.source)) return;
-  const openReport = () => {
-   if (location.hash !== dailyTasks.hash) return;
-   byId('bmpd-task-tab')?.click();
-   byId('daily-shift-generate-bottom')?.click();
-  };
-  // The Daily Tasks route renders on hashchange before its report can open.
-  if (location.hash !== dailyTasks.hash) {
-   window.addEventListener('hashchange', openReport, { once: true });
-   visit(dailyTasks);
-  } else {
-   visit(dailyTasks);
-   openReport();
+  const daily = window.VisionaryDailyTasks;
+  if (!daily?.openOverviewReport) {
+   window.alert('Shift reports are still loading. Please try again.');
+   return;
   }
- }));
+  try {
+   daily.openOverviewReport(selection.state, overviewReportButton);
+  } catch (error) {
+   console.error('Could not open the selected shift report:', error);
+   window.alert('The selected shift report could not be opened. Please try again.');
+  }
+ });
  window.addEventListener('hashchange',()=>{closePicker();if(location.hash!=='#daily-tasks')lastPM=false;updateView();updateStatus();closeNav();toggleSettings(false)});
  window.addEventListener('visionary-daily-ready',()=>{updateView();updateStatus()});
  window.addEventListener('visionary-daily-local-change',event=>{
