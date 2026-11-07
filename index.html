@@ -11,7 +11,7 @@
     #logs-view .bm-grid[hidden] { display:none!important; }
     #app-shell[data-auth-role="BmpdLogger"] :is([data-pm-back],.cell-tracking-back,[data-bmpd-back]) { display:none!important; }
   </style>
-  <meta name="visionary-app-version" content="4.51">
+  <meta name="visionary-app-version" content="4.52">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
@@ -18691,12 +18691,13 @@ function normalizeWeeklyRows(values) {
         return { svg: svg, width: width, height: totalHeight };
       }
 
-      function buildShiftReportSvgLayoutDesktop(result, paged) {
+      function buildShiftReportSvgLayoutDesktop(result, paged, forOutlook) {
         var colors = resolveReportThemeColors();
         var width = 1440;
         var pad = 36;
         var contentWidth = width - pad * 2;
         var parts = [];
+        var detailSize = forOutlook ? 22 : 12;
         var pageHeight = 1020, pageHeader = '', lastPage = 0;
         function fitRow(y, height) {
           if (!paged || y + height <= (lastPage + 1) * pageHeight - 36) return y;
@@ -18723,14 +18724,14 @@ function normalizeWeeklyRows(values) {
           );
         }
         function sectionHeading(x, y, w, text) {
-          addText(x, y + 14, text, { size: 14.5, weight: 800, fill: colors.ink });
+          addText(x, y + (forOutlook ? 18 : 14), text, { size: forOutlook ? 20 : 14.5, weight: 800, fill: colors.ink });
           addLine(x, y + 22, x + w, y + 22, colors.accent, 2);
           return y + 34;
         }
         function row(x, y, w, label, value, danger) {
           addLine(x, y + 22, x + w, y + 22, colors.line, 1);
-          addText(x, y + 16, label, { size: 12.5, weight: 500 });
-          addText(x + w, y + 16, value, { size: 12.5, weight: 800, fill: danger ? "#b23b3b" : colors.ink, anchor: "end" });
+          addText(x, y + 16, label, { size: forOutlook ? 16 : 12.5, weight: 500 });
+          addText(x + w, y + 16, value, { size: forOutlook ? 16 : 12.5, weight: 800, fill: danger ? "#b23b3b" : colors.ink, anchor: "end" });
           return y + 26;
         }
         function cardGrid(x, y, w, title, lines, columns) {
@@ -18738,10 +18739,11 @@ function normalizeWeeklyRows(values) {
           if (isEmpty) return y;
 
           y = sectionHeading(x, y, w, title);
+          if (forOutlook) columns = Math.min(columns, 2);
           var gridGap = 8;
           var cardWidth = (w - gridGap * (columns - 1)) / columns;
-          var maxChars = Math.max(20, Math.floor((cardWidth - 20) / 6.4));
-          var lineHeight = 17;
+          var maxChars = Math.max(20, Math.floor((cardWidth - 20) / (forOutlook ? 14 : 6.4)));
+          var lineHeight = forOutlook ? 29 : 17;
           var layouts = lines.map(function (line) {
             var cleanLine = line.replace(/^(✅|⚠️|🟥)\s*/, "");
             var wrapped = cleanLine.split(/\n/).reduce(function(all,part){return all.concat(wrapPlainTextLine(part,maxChars));},[]);
@@ -18782,7 +18784,7 @@ function normalizeWeeklyRows(values) {
               var cardX = x + columnIndex * (cardWidth + gridGap);
               addRect(cardX, y, cardWidth, rowHeight, colors.cream, 8, colors.line);
               layout.wrapped.forEach(function (wrappedLine, lineIndex) {
-                addText(cardX + 10, y + 20 + lineIndex * lineHeight, wrappedLine, { size: 12, weight: 500 });
+                addText(cardX + 10, y + (forOutlook ? 28 : 20) + lineIndex * lineHeight, wrappedLine, { size: detailSize, weight: 500 });
               });
             });
             y += rowHeight + gridGap;
@@ -18795,7 +18797,7 @@ function normalizeWeeklyRows(values) {
         addRect(0, 0, width, headerHeight, colors.dark);
         addText(pad, 27, "VISIONARY TOOL", { size: 11, weight: 800, fill: colors.heroAccent });
         addText(pad, 55, "Shift Report", { size: 23, weight: 800, fill: "#ffffff" });
-        addText(pad, 80, shortDate(dateInput.value) + " · " + (shiftSelect.value || "Not selected") + " Shift", { size: 12.5, weight: 600, fill: colors.heroCopy });
+        addText(pad, 80, shortDate(dateInput.value) + " · " + (shiftSelect.value || "Not selected") + " Shift", { size: forOutlook ? 16 : 12.5, weight: 600, fill: colors.heroCopy });
 
         var metricsX = 378;
         var metricGap = 12;
@@ -18832,10 +18834,10 @@ function normalizeWeeklyRows(values) {
 
         addRect(contributorX, bodyY, summaryPanelWidth, summaryPanelHeight, colors.cream, 12, topContributor.points >= 1000 ? "#aa822b" : colors.success);
         if (topContributor.points >= 1000) parts.push(reportClubBadgeSvg(contributorX + summaryPanelWidth - 106, bodyY + 12, topContributor.points));
-        addText(contributorX + 18, bodyY + 29, "Top Contributor", { size: 14.5, weight: 800, fill: colors.ink });
+        addText(contributorX + 18, bodyY + 29, "Top Contributor", { size: forOutlook ? 20 : 14.5, weight: 800, fill: colors.ink });
         addLine(contributorX + 18, bodyY + 37, contributorX + summaryPanelWidth - 18, bodyY + 37, colors.accent, 2);
         addText(contributorX + 18, bodyY + 66, topContributor.label, { size: 18, weight: 800, fill: colors.ink });
-        addText(contributorX + 18, bodyY + 88, displayPoints(topContributor.points) + " pts · " + topContributor.percent + "%", { size: 12.5, weight: 700, fill: colors.accent });
+        addText(contributorX + 18, bodyY + 88, displayPoints(topContributor.points) + " pts · " + topContributor.percent + "%", { size: forOutlook ? 16 : 12.5, weight: 700, fill: colors.accent });
         addLine(contributorX + 18, bodyY + 102, contributorX + summaryPanelWidth - 18, bodyY + 102, colors.line, 1);
         var leaderY = bodyY + 113;
         var statAreaWidth = summaryPanelWidth - 36;
@@ -18865,8 +18867,8 @@ function normalizeWeeklyRows(values) {
           var contributor = result.contributors[option.key];
           if (contributor.points >= 1000) {
             addRect(workX + 12, workY - 2, summaryPanelWidth - 24, 50, "#fff8e2", 7, "#aa822b");
-            addText(workX + 18, workY + 16, option.label, { size: 12.5, weight: 700, fill: "#293b29" });
-            addText(workX + summaryPanelWidth - 18, workY + 16, displayPoints(contributor.points) + " pts · " + contributor.percent + "%", { size: 12.5, weight: 800, fill: "#293b29", anchor: "end" });
+            addText(workX + 18, workY + 16, option.label, { size: forOutlook ? 16 : 12.5, weight: 700, fill: "#293b29" });
+            addText(workX + summaryPanelWidth - 18, workY + 16, displayPoints(contributor.points) + " pts · " + contributor.percent + "%", { size: forOutlook ? 16 : 12.5, weight: 800, fill: "#293b29", anchor: "end" });
             parts.push(reportClubBadgeSvg(workX + 18, workY + 23, contributor.points));
             workY += 54;
           } else workY = row(workX + 18, workY, summaryPanelWidth - 36, option.label, displayPoints(contributor.points) + " pts · " + contributor.percent + "%");
@@ -18929,7 +18931,7 @@ function normalizeWeeklyRows(values) {
         var handoffY = extrasY + 16;
         var handoffBottom = handoffY;
         var handoffNote = handoffNoteInput.value.trim();
-        if (handoffNote && paged) {
+        if (handoffNote && (paged || forOutlook)) {
           handoffBottom = cardGrid(pad, handoffY, contentWidth, 'SHIFT HANDOFF NOTE', [handoffNote], 1);
         } else if (handoffNote) {
           var handoffMaxChars = Math.max(40, Math.floor((contentWidth - 52) / 7.8));
@@ -19877,6 +19879,7 @@ function normalizeWeeklyRows(values) {
       function renderShiftReport(result) {
         return {
           layout: buildShiftReportSvgLayoutDesktop(result),
+          outlookLayout: buildShiftReportSvgLayoutDesktop(result, false, true),
           filename: "Shift-Report-" + (dateInput.value || "report") + ".png"
         };
       }
@@ -19923,18 +19926,17 @@ function normalizeWeeklyRows(values) {
       var preparedFullReportImage = null;
       var preparedOutlookImage = null;
 
-      function prepareFullReportImage(layout, filename) {
+      function prepareFullReportImage(layout, outlookLayout, filename) {
         preparedFullReportImage = null;
         preparedOutlookImage = null;
         reportCopyImageButton.disabled = true;
         reportCopyImageButton.textContent = "Copy report image";
         reportDownloadPngButton.disabled = true;
         var buildId = reportImageBuildId;
-        var outlookScale = Math.min(2, 1750 / layout.width);
-        if (navigator.clipboard?.write && typeof ClipboardItem === "function" &&
-            layout.height * outlookScale <= 16384 &&
-            layout.width * layout.height * outlookScale ** 2 <= 32000000) {
-          svgLayoutToPngFile(layout, filename, outlookScale).then(function (file) {
+        var outlookScale = Math.min(1750 / outlookLayout.width, 16000 / outlookLayout.height,
+          Math.sqrt(31000000 / (outlookLayout.width * outlookLayout.height)));
+        if (navigator.clipboard?.write && typeof ClipboardItem === "function") {
+          svgLayoutToPngFile(outlookLayout, filename, outlookScale).then(function (file) {
             if (buildId !== reportImageBuildId) return;
             preparedOutlookImage = file;
             reportCopyImageButton.disabled = false;
@@ -19987,7 +19989,7 @@ function normalizeWeeklyRows(values) {
         }
         generatedReportStatus.textContent = "";
         reportImageBuildId += 1;
-        prepareFullReportImage(rendered.layout, rendered.filename);
+        prepareFullReportImage(rendered.layout, rendered.outlookLayout, rendered.filename);
         generatedReport.innerHTML = '<div class="daily-report-canvas">' + rendered.layout.svg + '</div>';
         // Escape the workspace stacking context so navigation cannot cover the report.
         document.body.appendChild(reportModal);
