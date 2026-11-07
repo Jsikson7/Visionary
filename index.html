@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="description" content="A mobile-friendly collection of vision production guides, troubleshooting history, and copy-ready reporting tools.">
-  <meta name="visionary-app-version" content="4.31">
+  <meta name="visionary-app-version" content="4.32">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
@@ -7124,6 +7124,33 @@ window.VisionaryRenderEscalationRows=function(container,fields){
 .vs-escalation-field{padding:7px 0;border-bottom:1px solid #e2eae2;white-space:pre-wrap;min-width:0}
 .vs-escalation-field:last-child{border-bottom:0}.vs-escalation-complete{display:inline-block;padding:2px 8px;border-radius:8px;background:#e8f4e9;color:#42764d;font-weight:700}
 @media(min-width:851px){.vs-escalation-fields{grid-template-columns:1fr 1fr;font-size:13px}.vs-escalation-field{grid-column:1/-1}.vs-escalation-time{grid-column:auto}}
+</style>
+<style>
+.daily-escalation-summary > .daily-dynamic-summary-title {
+  grid-column: 1 / -1;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  font-size: .85rem;
+}
+.daily-escalation-summary .daily-dynamic-summary-comment { display: none; }
+.daily-escalation-summary .daily-dynamic-summary-actions { gap: 6px; }
+.daily-escalation-more { position: relative; }
+.daily-escalation-more > summary { list-style: none; cursor: pointer; }
+.daily-escalation-more > summary::-webkit-details-marker { display: none; }
+.daily-escalation-menu {
+  position: absolute;
+  z-index: 3;
+  right: 0;
+  top: calc(100% + 4px);
+  display: grid;
+  gap: 4px;
+  min-width: 92px;
+  padding: 5px;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  box-shadow: 0 4px 12px #243b2826;
+}
 </style>
 </head>
 <body>
@@ -16704,8 +16731,9 @@ function normalizeWeeklyRows(values) {
         var title = [data.process, data.machine, data.vision].filter(Boolean).join(" · ") || "Entry details not completed";
         var completedBy = data.complete ? (completedByLabels(data) || "Technician needed") : "Not completed";
         var summaryTitle = entry.querySelector("[data-daily-summary-title]");
-        summaryTitle.textContent = title;
-        summaryTitle.title = title;
+        var displayTitle = type === "escalation" ? window.VisionaryEscalationCard(data, "").title : title;
+        summaryTitle.textContent = displayTitle;
+        summaryTitle.title = displayTitle;
         var requestedByMeta = (type === "escalation" && dynamicEntrySource(data) !== "bmpd" && data.requestedBy)
           ? "Requested by: " + data.requestedBy + " · "
           : "";
@@ -16804,7 +16832,12 @@ function normalizeWeeklyRows(values) {
         var summaryComment = document.createElement("p");
         summaryComment.className = "daily-dynamic-summary-comment";
         summaryComment.setAttribute("data-daily-summary-comment", "true");
-        summaryCopy.appendChild(summaryTitle);
+        if (type === "escalation") {
+          summary.classList.add("daily-escalation-summary");
+          summary.appendChild(summaryTitle);
+        } else {
+          summaryCopy.appendChild(summaryTitle);
+        }
         summaryCopy.appendChild(summaryMeta);
         summaryCopy.appendChild(summaryComment);
         var summaryStatus = document.createElement("span");
@@ -16848,8 +16881,30 @@ function normalizeWeeklyRows(values) {
           });
           summaryActions.appendChild(copyButton);
         }
-        summaryActions.appendChild(editButton);
-        summaryActions.appendChild(deleteButton);
+        if (type === "escalation") {
+          var more = document.createElement("details");
+          more.className = "daily-escalation-more";
+          var toggle = document.createElement("summary");
+          toggle.className = "button button-secondary";
+          toggle.setAttribute("aria-label", "More escalation actions");
+          toggle.textContent = "⋯";
+          var menu = document.createElement("div");
+          menu.className = "daily-escalation-menu";
+          menu.append(editButton, deleteButton);
+          more.append(toggle, menu);
+          summaryActions.appendChild(more);
+          editButton.addEventListener("click", function () { more.open = false; });
+          deleteButton.addEventListener("click", function () { more.open = false; });
+          more.addEventListener("keydown", function (event) {
+            if (event.key === "Escape" && more.open) {
+              more.open = false;
+              toggle.focus();
+            }
+          });
+        } else {
+          summaryActions.appendChild(editButton);
+          summaryActions.appendChild(deleteButton);
+        }
         summary.appendChild(summaryActions);
         entry.appendChild(summary);
 
