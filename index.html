@@ -11,7 +11,7 @@
     #logs-view .bm-grid[hidden] { display:none!important; }
     #app-shell[data-auth-role="BmpdLogger"] :is([data-pm-back],.cell-tracking-back,[data-bmpd-back]) { display:none!important; }
   </style>
-  <meta name="visionary-app-version" content="4.53">
+  <meta name="visionary-app-version" content="4.52">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
@@ -7207,17 +7207,6 @@ html[lang="es-MX"] #spare-parts-preview-view :is(button, .spp-badge, th, label) 
 }
 html[lang="es-MX"] .spp-dialog-actions { flex-wrap: wrap; }
 </style>
-<style>
-#daily-focus-progress{width:100%;accent-color:#48755a;grid-column:1/-1}
-#daily-focus-sync{margin-inline-start:8px;font-weight:700}
-.daily-focus-card{border:1px solid var(--line,#d6dfd3);border-radius:14px;padding:14px;margin:12px 0;background:var(--paper,#fff)}
-.daily-focus-card h3{margin:0 0 8px}.daily-focus-card p{margin:8px 0;font-weight:700}
-.daily-focus-row{display:block;width:100%;min-height:44px;text-align:start;padding:8px 10px;margin:4px 0;border:1px solid #ccd8cc;border-radius:8px;background:var(--paper,#fff);color:inherit;cursor:pointer}
-.daily-focus-row[data-overdue]{background:#f8e4df;color:#812d24;border-color:#deb4ac}
-#daily-focus-review{margin-bottom:12px}
-#daily-focus-dialog{width:min(92vw,640px);max-height:78vh;overflow:auto;border:1px solid #ccd8cc;border-radius:14px;background:var(--paper,#fff);color:var(--ink,#20342a)}
-#daily-focus-dialog::backdrop{background:#14291d80}
-</style>
 </head>
 <body>
   <svg class="theme-background-art matcha-theme-art matcha-art-leaves" viewBox="0 0 420 340" aria-hidden="true" focusable="false">
@@ -7856,18 +7845,6 @@ html[lang="es-MX"] .spp-dialog-actions { flex-wrap: wrap; }
           </div>
 
           <form id="daily-shift-form" class="daily-shift-form" autocomplete="off">
-            <section id="daily-task-quick-summary" class="daily-task-quick-summary" aria-label="Current shift progress">
-              <div><span>Shift completion</span><strong id="daily-task-quick-percent">0%</strong></div>
-              <span id="daily-task-quick-count">0 / 0 tasks</span>
-              <span id="daily-task-quick-points">0 / 0 pts</span>
-              <div><span id="daily-focus-shift"></span><span id="daily-focus-sync"></span></div>
-              <button type="button" class="button button-secondary" id="daily-focus-setup">Shift setup</button>
-              <progress id="daily-focus-progress" max="100" aria-label="Shift completion"></progress>
-            </section>
-            <section id="daily-focus-agenda" class="daily-focus-card" aria-labelledby="daily-focus-title">
-              <h3 id="daily-focus-title">Due Next</h3>
-              <div id="daily-focus-due"></div>
-            </section>
             <details id="daily-shift-setup-card" class="daily-setup-card" open>
               <summary class="daily-section-summary-row">
                 <span class="daily-step-number" aria-hidden="true">1</span>
@@ -7982,14 +7959,11 @@ html[lang="es-MX"] .spp-dialog-actions { flex-wrap: wrap; }
               <span class="daily-work-count">Task sections</span>
             </div>
 
-
-            <button type="button" class="button button-secondary" id="daily-focus-review">Review Shift</button>
-            <dialog id="daily-focus-dialog" aria-labelledby="daily-focus-review-title">
-              <h3 id="daily-focus-review-title">Review Shift</h3>
-              <p id="daily-focus-review-sync"></p>
-              <div id="daily-focus-review-items"></div>
-              <button type="button" class="button button-secondary" id="daily-focus-close">Close</button>
-            </dialog>
+            <section id="daily-task-quick-summary" class="daily-task-quick-summary" aria-label="Current shift progress">
+              <div><span>Shift completion</span><strong id="daily-task-quick-percent">0%</strong></div>
+              <span id="daily-task-quick-count">0 / 0 tasks</span>
+              <span id="daily-task-quick-points">0 / 0 pts</span>
+            </section>
 
             <div class="daily-task-toolbar">
               <div class="daily-task-toolbar-heading">
@@ -7997,7 +7971,6 @@ html[lang="es-MX"] .spp-dialog-actions { flex-wrap: wrap; }
                 <span>Filter and organize the checklist.</span>
               </div>
               <div class="daily-checklist-controls" aria-label="Numbered task display controls">
-                <button type="button" class="button button-secondary" id="daily-focus-all">All Tasks</button>
                 <label class="daily-my-tasks-filter-label" for="daily-my-tasks-filter">My tasks
                   <select id="daily-my-tasks-filter">
                     <option value="all">All tasks</option>
@@ -8006,7 +7979,7 @@ html[lang="es-MX"] .spp-dialog-actions { flex-wrap: wrap; }
                     <option value="3">Allocation 3</option>
                   </select>
                 </label>
-                <label class="daily-incomplete-toggle"><input id="daily-incomplete-only" type="checkbox"> <span>Incomplete only</span></label>
+                <label class="daily-incomplete-toggle"><input id="daily-incomplete-only" type="checkbox"> Incomplete only</label>
                 <button id="daily-expand-all" class="button button-secondary" type="button">Expand all</button>
                 <button id="daily-collapse-all" class="button button-secondary" type="button">Collapse all</button>
                 <button id="daily-quick-reference-toggle" class="button button-secondary" type="button">Quick reference</button>
@@ -19483,116 +19456,6 @@ function normalizeWeeklyRows(values) {
         });
       }
 
-      var focusDue = document.getElementById("daily-focus-due");
-      var focusCloud = document.getElementById("daily-cloud-panel");
-      var focusDialog = document.getElementById("daily-focus-dialog");
-      var focusClock = new Intl.DateTimeFormat("en-CA", {
-        timeZone: "America/Detroit", year: "numeric", month: "2-digit", day: "2-digit",
-        hour: "2-digit", minute: "2-digit", hourCycle: "h23"
-      });
-
-      function showAllDailyTasks() {
-        myTasksFilterSelect.value = "all";
-        incompleteOnlyInput.checked = false;
-        myTasksFilterSelect.dispatchEvent(new Event("change", { bubbles: true }));
-        incompleteOnlyInput.dispatchEvent(new Event("change", { bubbles: true }));
-      }
-
-      function openDailyFocusTask(checkbox) {
-        if (focusDialog.open) focusDialog.close();
-        showAllDailyTasks();
-        var section = checkbox.closest(".daily-checklist-group");
-        if (section) setDailySectionExpanded(section, true);
-        var row = checkbox.closest(".daily-attributed-task, .daily-check-item, .daily-allocation-check") || checkbox;
-        row.scrollIntoView({ block: "center" });
-        (checkbox.disabled ? section?.querySelector(".daily-checklist-toggle") : checkbox)?.focus({ preventScroll: true });
-      }
-
-      function dailyFocusRow(container, text, checkbox, overdue) {
-        var row = document.createElement(checkbox ? "button" : "p");
-        if (checkbox) {
-          row.type = "button";
-          row.className = "daily-focus-row";
-          row.onclick = function () { openDailyFocusTask(checkbox); };
-        }
-        if (overdue) row.dataset.overdue = "true";
-        row.textContent = text;
-        container.appendChild(row);
-      }
-
-      function renderDailyFocusAgenda() {
-        if (focusDue.contains(document.activeElement)) return;
-        focusDue.replaceChildren();
-        var parts = Object.fromEntries(focusClock.formatToParts(new Date()).map(function (part) {
-          return [part.type, part.value];
-        }));
-        var now = Date.UTC(+parts.year, +parts.month - 1, +parts.day, +parts.hour, +parts.minute);
-        var date = Date.parse(dateInput.value + "T00:00:00Z");
-        var tasks = dateInput.value && shiftSelect.value ? activeFixedCheckboxes().filter(function (checkbox) {
-          return checklist.contains(checkbox) && !historicalIQExcluded(checkbox) && !fixedTaskIsEarned(checkbox);
-        }).map(function (checkbox) {
-          var label = checkbox.getAttribute("data-label") || "";
-          var time = label.match(/\b(\d{1,2}):(\d{2})\b/);
-          if (!time) return null;
-          var hour = Number(time[1]);
-          var minutes = Number(time[2]);
-          var due = date + ((hour + (isNightShift() && hour < 5 ? 24 : 0)) * 60 + minutes) * 60000;
-          var allocation = checkbox.getAttribute("data-allocation");
-          var key = taskTechnician(checkbox.getAttribute("data-daily-fixed")) || (allocation ? "Allocation " + allocation : "");
-          return { checkbox: checkbox, label: label + (key ? " · " + contributorLabel(key) : ""), due: due };
-        }).filter(Boolean).sort(function (a, b) { return a.due - b.due; }) : [];
-        var overdue = tasks.filter(function (task) { return task.due < now; });
-        var upcoming = tasks.filter(function (task) { return task.due >= now; });
-        if (overdue.length) {
-          dailyFocusRow(focusDue, "Overdue · " + overdue.length);
-          overdue.slice(0, 3).forEach(function (task) {
-            dailyFocusRow(focusDue, task.label + " · " + Math.floor((now - task.due) / 60000) + " min late", task.checkbox, true);
-          });
-        }
-        if (upcoming.length) {
-          dailyFocusRow(focusDue, "Coming up");
-          upcoming.slice(0, 3).forEach(function (task) { dailyFocusRow(focusDue, task.label, task.checkbox); });
-        }
-        if (!tasks.length) dailyFocusRow(focusDue, shiftSelect.value ? "No scheduled tasks remaining." : "Choose a shift in Shift Setup.");
-      }
-
-      function renderDailyFocusSync() {
-        var state = focusCloud.dataset.cloudState;
-        document.getElementById("daily-focus-sync").textContent =
-          ({ live: "Synced", saved: "Synced", saving: "Syncing", pending: "Sync pending", error: "Sync issue" })[state] || "Not synced";
-        document.getElementById("daily-focus-review-sync").textContent = document.getElementById("daily-cloud-status").textContent;
-      }
-
-      document.getElementById("daily-focus-all").onclick = showAllDailyTasks;
-      document.getElementById("daily-focus-setup").onclick = function () {
-        var setup = document.getElementById("daily-shift-setup-card");
-        setup.open = true;
-        setup.querySelector("summary").focus({ preventScroll: true });
-        setup.scrollIntoView({ block: "start" });
-      };
-      document.getElementById("daily-focus-close").onclick = function () { focusDialog.close(); };
-      document.getElementById("daily-focus-review").onclick = function () {
-        var items = document.getElementById("daily-focus-review-items");
-        items.replaceChildren();
-        var remaining = activeFixedCheckboxes().filter(function (checkbox) {
-          return checklist.contains(checkbox) && !historicalIQExcluded(checkbox) && !fixedTaskIsEarned(checkbox);
-        });
-        dailyFocusRow(items, remaining.length + " checklist tasks to review");
-        remaining.forEach(function (checkbox) {
-          dailyFocusRow(items, fixedTaskReportLabel(checkbox) + (checkbox.checked ? " · Technician credit missing" : " · Incomplete"), checkbox);
-        });
-        metrics().missed.filter(function (item) {
-          return !remaining.some(function (checkbox) { return fixedTaskReportLabel(checkbox) === item.label; });
-        }).forEach(function (item) { dailyFocusRow(items, item.label + " · " + item.reason); });
-        renderDailyFocusSync();
-        focusDialog.showModal();
-      };
-      new MutationObserver(renderDailyFocusSync).observe(focusCloud, { attributes: true, attributeFilter: ["data-cloud-state"], childList: true, subtree: true, characterData: true });
-      window.setInterval(function () {
-        if (!document.hidden && !document.getElementById("daily-tasks-view").hidden) renderDailyFocusAgenda();
-      }, 30000);
-      renderDailyFocusSync();
-
       function updateDailyShift(options) {
         var inventorySection = document.getElementById("daily-inventory-day");
         if (inventorySection) inventorySection.hidden = dateInput.value !== "2026-10-01" || shiftSelect.value !== "G1";
@@ -19645,13 +19508,6 @@ function normalizeWeeklyRows(values) {
         quickPoints.textContent = displayPoints(result.earned) + " / " + displayPoints(result.available) + " pts";
         quickCount.textContent = result.completed + " / " + result.total + " tasks";
         updateDailyAccordionSummaries();
-        document.getElementById("daily-focus-shift").textContent = [shiftSelect.value, dateInput.value].filter(Boolean).join(" · ");
-        document.getElementById("daily-focus-progress").value = result.percent;
-        document.getElementById("daily-focus-all").textContent = "All Tasks · " + result.total;
-        var incompleteLabel = incompleteOnlyInput.parentElement;
-        var incompleteCount = incompleteLabel.querySelector("span");
-        if (incompleteCount) incompleteCount.textContent = "Incomplete · " + (result.total - result.completed);
-        renderDailyFocusAgenda();
         previewText = buildShiftReport(result);
         renderDailyShiftPreview(result);
         renderHonorBadges();
