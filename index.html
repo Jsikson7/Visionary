@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="description" content="A mobile-friendly collection of vision production guides, troubleshooting history, and copy-ready reporting tools.">
-  <meta name="visionary-app-version" content="4.30">
+  <meta name="visionary-app-version" content="4.31">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
@@ -16824,6 +16824,30 @@ function normalizeWeeklyRows(values) {
         deleteButton.type = "button";
         deleteButton.className = "button button-secondary daily-dynamic-delete";
         deleteButton.textContent = "Delete";
+        if (type === "escalation") {
+          var copyButton = document.createElement("button");
+          copyButton.type = "button";
+          copyButton.className = "button button-secondary";
+          copyButton.setAttribute("data-copy-saved-escalation", "");
+          copyButton.setAttribute("aria-live", "polite");
+          copyButton.textContent = "Copy";
+          var copyFeedbackTimer;
+          copyButton.addEventListener("click", function () {
+            var savedEntry = readDynamicEntry(entry);
+            if (!savedEntry.saved) return;
+            // BM/PD saves the original Save & Copy Report text in the comment.
+            var text = savedEntry.comment || [savedEntry.process, savedEntry.machine, savedEntry.vision].filter(Boolean).join(" · ");
+            if (!text) return;
+            copyText(text, null, function (copied) {
+              copyButton.textContent = copied ? "Copied" : "Retry copy";
+              window.clearTimeout(copyFeedbackTimer);
+              copyFeedbackTimer = window.setTimeout(function () {
+                copyButton.textContent = "Copy";
+              }, 2000);
+            });
+          });
+          summaryActions.appendChild(copyButton);
+        }
         summaryActions.appendChild(editButton);
         summaryActions.appendChild(deleteButton);
         summary.appendChild(summaryActions);
@@ -25835,7 +25859,7 @@ panel.querySelector('.cell-tracking-back').addEventListener('click',()=>taskTab.
   const policy=window.VisionaryShiftEditPolicy,form=document.getElementById('daily-shift-form');
   const notice=document.createElement('p');notice.id='shift-edit-lock-notice';notice.setAttribute('role','status');notice.className='daily-shift-setup-alert';form.before(notice);
   const preserved=new Map();
-  const allowed='#daily-shift-date,#daily-shift-shift,#daily-shift-generate-bottom,#daily-shift-generate,input[type="search"],input[type="checkbox"][id*="incomplete"],button[id*="expand"],button[id*="collapse"]';
+  const allowed='button[data-copy-saved-escalation],#daily-shift-date,#daily-shift-shift,#daily-shift-generate-bottom,#daily-shift-generate,input[type="search"],input[type="checkbox"][id*="incomplete"],button[id*="expand"],button[id*="collapse"]';
   function editableControl(el){return el.matches('input,select,textarea,button')&&!el.matches(allowed)&&!el.closest('.daily-task-scoreboard')&&!el.matches('[aria-expanded]');}
   function refresh(){
     const locked=policy.locked(),end=policy.deadline(policy.current());
