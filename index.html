@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="description" content="A mobile-friendly collection of vision production guides, troubleshooting history, and copy-ready reporting tools.">
-  <meta name="visionary-app-version" content="4.34">
+  <meta name="visionary-app-version" content="4.35">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
@@ -7154,6 +7154,28 @@ window.VisionaryRenderEscalationRows=function(container,fields){
   border-radius: 9px;
   box-shadow: 0 4px 12px #243b2826;
 }
+</style>
+<style>
+.daily-escalation-copy-dialog {
+  width: min(92vw, 36rem);
+  max-height: 85dvh;
+  padding: 1rem;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--paper, white);
+  color: var(--ink, #24342a);
+}
+.daily-escalation-copy-dialog::backdrop { background: #182c2359; }
+.daily-escalation-copy-dialog textarea {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  margin: .75rem 0;
+  font: inherit;
+  user-select: text;
+  -webkit-user-select: text;
+}
+.daily-escalation-copy-dialog button + button { margin-left: .5rem; }
 </style>
 </head>
 <body>
@@ -16867,19 +16889,53 @@ function normalizeWeeklyRows(values) {
           copyButton.setAttribute("data-copy-saved-escalation", "");
           copyButton.setAttribute("aria-live", "polite");
           copyButton.textContent = "Copy";
-          var copyFeedbackTimer;
           copyButton.addEventListener("click", function () {
             var savedEntry = readDynamicEntry(entry);
             if (!savedEntry.saved) return;
             // BM/PD saves the original Save & Copy Report text in the comment.
             var text = savedEntry.comment || [savedEntry.process, savedEntry.machine, savedEntry.vision].filter(Boolean).join(" · ");
-            if (!text) return;
-            copyText(text, null, function (copied) {
-              copyButton.textContent = copied ? "Copied" : "Retry copy";
-              window.clearTimeout(copyFeedbackTimer);
-              copyFeedbackTimer = window.setTimeout(function () {
-                copyButton.textContent = "Copy";
-              }, 2000);
+            if (!text) {
+              copyButton.textContent = "No report text";
+              return;
+            }
+            var dialog = document.createElement("dialog");
+            dialog.className = "daily-escalation-copy-dialog";
+            dialog.setAttribute("aria-label", "Saved escalation report");
+            var heading = document.createElement("h3");
+            heading.textContent = "Saved escalation report";
+            var status = document.createElement("p");
+            status.setAttribute("role", "status");
+            status.textContent = "Copying report…";
+            var preview = document.createElement("textarea");
+            preview.readOnly = true;
+            preview.rows = 10;
+            preview.value = text;
+            preview.setAttribute("aria-label", "Original report text");
+            var select = document.createElement("button");
+            select.type = "button";
+            select.className = "button button-secondary";
+            select.textContent = "Select text";
+            select.addEventListener("click", function () {
+              preview.focus();
+              preview.select();
+              preview.setSelectionRange(0, preview.value.length);
+            });
+            var close = document.createElement("button");
+            close.type = "button";
+            close.className = "button button-secondary";
+            close.textContent = "Close";
+            close.addEventListener("click", function () { dialog.close(); });
+            dialog.addEventListener("close", function () {
+              dialog.remove();
+              if (copyButton.isConnected) copyButton.focus();
+            });
+            dialog.append(heading, status, preview, select, close);
+            document.body.appendChild(dialog);
+            dialog.showModal();
+            copyText(text, preview, function (copied) {
+              status.textContent = copied
+                ? "Copied. You can also select the report below."
+                : "Automatic copy was blocked. Select the text, then use your device’s Copy command.";
             });
           });
           summaryActions.appendChild(copyButton);
