@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="description" content="A mobile-friendly collection of vision production guides, troubleshooting history, and copy-ready reporting tools.">
-  <meta name="visionary-app-version" content="4.33">
+  <meta name="visionary-app-version" content="4.34">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
@@ -7136,6 +7136,9 @@ window.VisionaryRenderEscalationRows=function(container,fields){
 .daily-escalation-summary .daily-dynamic-summary-actions { gap: 6px; }
 .daily-escalation-more { position: relative; }
 .daily-escalation-more > summary { list-style: none; cursor: pointer; }
+.daily-escalation-summary .daily-dynamic-summary-actions .button { min-height: 36px; }
+.daily-escalation-summary :is(button,summary):focus-visible { outline: 2px solid #426e55; outline-offset: 2px; }
+#vs-record-list .vs-record-order { color: #52665a; margin: 0 0 10px; font-size: .8rem; }
 .daily-escalation-more > summary::-webkit-details-marker { display: none; }
 .daily-escalation-menu {
   position: absolute;
@@ -16895,6 +16898,15 @@ function normalizeWeeklyRows(values) {
           summaryActions.appendChild(more);
           editButton.addEventListener("click", function () { more.open = false; });
           deleteButton.addEventListener("click", function () { more.open = false; });
+          more.addEventListener("toggle", function () {
+            if (!more.open) return;
+            container.querySelectorAll(".daily-escalation-more[open]").forEach(function (other) {
+              if (other !== more) other.open = false;
+            });
+          });
+          more.addEventListener("focusout", function (event) {
+            if (event.relatedTarget && !more.contains(event.relatedTarget)) more.open = false;
+          });
           more.addEventListener("keydown", function (event) {
             if (event.key === "Escape" && more.open) {
               more.open = false;
@@ -19308,6 +19320,11 @@ function normalizeWeeklyRows(values) {
           entry.setAttribute("data-completed", entryData.complete ? "true" : "false");
           entry.setAttribute("data-attribution-missing", entryData.saved && entryData.complete && !entryData.completedBy ? "true" : "false");
           updateDynamicEntrySummary(entry);
+        });
+        // Saved entries are appended in logging order and restored by their saved sort index.
+        escalationEntries.querySelectorAll('.daily-dynamic-entry[data-saved="true"]').forEach(function (entry, index) {
+          var heading = entry.querySelector("[data-daily-summary-title]");
+          heading.textContent = (index + 1) + ". " + heading.title;
         });
         var result = metrics();
         overallScoreOutputs.earned.textContent = displayPoints(result.earned);
@@ -27814,9 +27831,8 @@ refreshAccess();
 <dialog id="vs-record-details" aria-labelledby="vs-record-title" aria-describedby="vs-record-context"><header><div><h2 id="vs-record-title"></h2><p id="vs-record-context"></p></div><button id="vs-record-close" type="button" aria-label="Close shift records">×</button></header><div id="vs-record-list"></div></dialog>
 <style id="vs-thumb-style">
 #vs-thumb-nav{display:none}
-.vs-thumb-version{grid-column:1/-1;text-align:center;color:#52665a;font:600 11px/16px system-ui;margin-top:3px}
 #vs-thumb-nav button[hidden]{display:none!important}#vs-thumb-sheet{box-sizing:border-box;border:1px solid #dce6dc;border-radius:22px 22px 0 0;background:#fff;color:#26362f;width:100%;max-width:100%;max-height:70dvh;margin:auto 0 0;padding:20px 20px calc(24px + env(safe-area-inset-bottom));font-family:system-ui}#vs-thumb-sheet::backdrop{background:#142b3366}#vs-thumb-sheet h2{margin:0;font-size:21px}#vs-thumb-sheet header{display:flex;justify-content:space-between;align-items:center;margin-bottom:15px}#vs-thumb-sheet button{background:#f1f6ef;color:#264b3b;border:1px solid #dce6dc;border-radius:12px;padding:14px;font:inherit;text-align:left;cursor:pointer}#vs-thumb-items{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
-@media(max-width:850px){body:has(#app-shell:not([hidden])) #vs-thumb-nav{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));position:fixed;bottom:0;left:0;right:0;z-index:1000;background:#fff;border-top:1px solid #dce6dc;padding:7px 4px calc(7px + env(safe-area-inset-bottom));box-shadow:0 -4px 20px #244c3c0a}#vs-thumb-nav button{display:flex;flex-direction:column;gap:4px;align-items:center;justify-content:center;border:0;border-radius:12px;background:transparent;color:#738278;font:600 10px/1.2 system-ui;padding:8px 1px;min-height:52px;cursor:pointer}#vs-thumb-nav button span:first-child{font-size:22px;line-height:24px}#vs-thumb-nav button[aria-current="page"]{background:#edf5eb;color:#244c3c}#app-shell{padding-bottom:calc(114px + env(safe-area-inset-bottom))!important}#vs-workspace-bar .vs-mobile-menu{display:none!important}}
+@media(max-width:850px){body:has(#app-shell:not([hidden])) #vs-thumb-nav{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));position:fixed;bottom:0;left:0;right:0;z-index:1000;background:#fff;border-top:1px solid #dce6dc;padding:7px 4px calc(7px + env(safe-area-inset-bottom));box-shadow:0 -4px 20px #244c3c0a}#vs-thumb-nav button{display:flex;flex-direction:column;gap:4px;align-items:center;justify-content:center;border:0;border-radius:12px;background:transparent;color:#738278;font:600 10px/1.2 system-ui;padding:8px 1px;min-height:52px;cursor:pointer}#vs-thumb-nav button span:first-child{font-size:22px;line-height:24px}#vs-thumb-nav button[aria-current="page"]{background:#edf5eb;color:#244c3c}#app-shell{padding-bottom:calc(95px + env(safe-area-inset-bottom))!important}#vs-workspace-bar .vs-mobile-menu{display:none!important}}
 @media print{#vs-thumb-nav,#vs-thumb-sheet{display:none!important}}
 </style>
 <nav id="vs-thumb-nav" aria-label="Mobile navigation"></nav><dialog id="vs-thumb-sheet" aria-labelledby="vs-thumb-title"><header><h2 id="vs-thumb-title"></h2><button type="button" id="vs-thumb-close" aria-label="Close menu">×</button></header><div id="vs-thumb-items"></div></dialog>
@@ -27925,13 +27941,6 @@ refreshAccess();
   if(target==='tools'||target==='more')b.setAttribute('aria-haspopup','dialog');
   b.addEventListener('click',()=>{if(target==='tools'||target==='more')openThumbSheet(target,b);else visit(entries.find(e=>e.label===target))});thumbNav.append(b);
  });
- const version = document.querySelector('meta[name="visionary-app-version"]')?.content;
- if (version) {
-  const label = document.createElement('small');
-  label.className = 'vs-thumb-version';
-  label.textContent = 'Visionary v' + version;
-  thumbNav.append(label);
- }
  byId('vs-thumb-close').addEventListener('click',()=>thumbSheet.close());
  thumbSheet.addEventListener('close',()=>thumbOpener?.focus());
  thumbSheet.addEventListener('click',event=>{if(event.target===thumbSheet){const r=thumbSheet.getBoundingClientRect();if(event.clientY<r.top)thumbSheet.close()}});
@@ -28222,9 +28231,9 @@ refreshAccess();
   const roster=Object.assign({},state.roster||{});
   (state.otSupport||[]).forEach(p=>{if(p?.id)roster['OT:'+p.id]=p.name});
   const names=keys=>[...new Set(keys.filter(Boolean))].map(key=>roster[key]||key).join(' / ');
-  if(kind!=='proof')return (Array.isArray(state[kind])?state[kind]:Object.values(state[kind]||{}))
+  if(kind!=='proof')return (Array.isArray(state[kind])?state[kind]:Object.values(state[kind]||{}).sort((a,b)=>(Number(a?.sortIndex)||0)-(Number(b?.sortIndex)||0)))
    .filter(e=>e&&e.saved!==false&&(kind!=='pms'||countComplete([e])===1))
-   .map(e=>({title:kind==='escalations'?window.VisionaryEscalationCard(e,'').title:[e.process,e.machine,e.vision].filter(Boolean).join(' · ')||'Details not entered',
+   .map((e,index)=>({title:kind==='escalations'?(index+1)+'. '+window.VisionaryEscalationCard(e,'').title:[e.process,e.machine,e.vision].filter(Boolean).join(' · ')||'Details not entered',
     fields:kind==='escalations'?escalationDetailFields(e,names(e.completedByList?.length?e.completedByList:[e.completedBy])):[['Status',e.complete&&(e.completedBy||e.completedByList?.length)?'Completed':'Not completed'],
      ['Technician',names(e.completedByList?.length?e.completedByList:[e.completedBy])||'Not selected'],
      ['Requested by',e.requestedBy],['Notes',e.comment]]}));
@@ -28252,6 +28261,7 @@ refreshAccess();
   byId('vs-record-title').textContent=title+' ('+records.length+')';
   byId('vs-record-context').textContent=state?state.shift+' · '+state.date:'No shift selected';
   const list=byId('vs-record-list');list.replaceChildren();
+  if(kind==='escalations'&&records.length){const order=document.createElement('p');order.className='vs-record-order';order.textContent='Oldest logged first';list.append(order);}
   function textNode(tag,text){const node=document.createElement(tag);node.textContent=text;return node}
   for(const record of records){
    const section=document.createElement('section');if(record.title)section.append(textNode('h3',record.title));
